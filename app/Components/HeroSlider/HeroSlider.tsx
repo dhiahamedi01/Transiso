@@ -11,27 +11,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-const slides = [
-
-  {
-    id: 2,
-    title: 'موانئ العالم',
-    description: 'نقدم خدمات الشحن من اسطنبول وتركيا توفر ال ترانسيسكو لوجستيك عبر الموانئ التركية خدمة شحن الحاويات البحرية إلى معظم دول العالم',
-    image: '/img/Slide/slide2.jpg',
-  },
-  {
-    id: 3,
-    title: 'ترانسيسكو لوجستيك',
-    description: 'نقدم خدمات الشحن من اسطنبول وتركيا توفر ال ترانسيسكو لوجستيك عبر الموانئ التركية خدمة شحن الحاويات البحرية إلى معظم دول العالم',
-    image: '/img/Slide/slide3.jpg',
-  },
-    {
-    id: 4,
-    title: 'عبر المطارات التركية',
-    description: 'نأتي إليك أينما كنت مع خدمات النقل الجوي العالمية من تركيا إلى العالم توفر ال ترانسيسكو لوجستيك الإمدادات اللازمة لأعمالكم عبر الشحن الجوي',
-    image: '/img/Slide/airt.jpg',
-  }
-];
+import { slides } from './slidesData';  // <-- Import ici
 
 const HeroSlider: React.FC = () => {
   return (
@@ -64,7 +44,7 @@ const HeroSlider: React.FC = () => {
         style={{ height: '100%' }}
         modules={[Navigation, Pagination, Autoplay]}
       >
-        {slides.map(({ id, title, description, image }) => (
+        {slides.map(({ id, title, description, image, icon }) => (
           <SwiperSlide key={id}>
             <Box
               sx={{
@@ -80,7 +60,6 @@ const HeroSlider: React.FC = () => {
                 px: 2,
               }}
             >
-              {/* Overlay (masque) */}
               <Box
                 sx={{
                   position: 'absolute',
@@ -88,12 +67,11 @@ const HeroSlider: React.FC = () => {
                   left: 0,
                   width: '100%',
                   height: '100%',
-                  backgroundColor: 'rgba(13, 53, 72, 0.6)', // Masque semi-transparent
+                  backgroundColor: 'rgba(13, 53, 72, 0.6)',
                   zIndex: 1,
                 }}
               />
 
-              {/* Contenu du slide */}
               <Box
                 sx={{
                   position: 'relative',
@@ -104,9 +82,9 @@ const HeroSlider: React.FC = () => {
                 }}
               >
                 <div className={styles.contenu_slider}>
-                    <Image className={styles.icon_slider} src='/img/icon/ocean-freight.svg' alt="" width={100} height={100}/>
-                    <h1  className={styles.title} style={{ fontSize: '3rem', marginBottom: 10 }}>{title}</h1>
-                    <p className={styles.sous_title}  style={{ fontSize: '1.2rem', maxWidth: 600 }}>{description}</p>
+                  <Image className={styles.icon_slider} src={icon} alt="icon" width={100} height={100} />
+                  <h1 className={styles.title} style={{ fontSize: '3rem', marginBottom: 10 }}>{title}</h1>
+                  <p className={styles.sous_title} style={{ fontSize: '1.2rem', maxWidth: 600 }}>{description}</p>
                 </div>
               </Box>
             </Box>
