@@ -1,9 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import styles from './Nav.module.css';
-import {
-  AppBar, Toolbar, Button, Box, Typography, IconButton, Divider, Drawer, List, ListItem, ListItemText, useMediaQuery, Link as MuiLink
-} from '@mui/material';
+import { AppBar, Toolbar, Button,Box,Typography,IconButton,Divider,Drawer,List,ListItem,useMediaQuery,Link as MuiLink,} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import PhoneIcon from '@mui/icons-material/Phone';
@@ -17,21 +15,23 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import Image from 'next/image';
 import LanguageSelector from '../LanguageSelector/LanguageSelector';
+import NextLink from 'next/link';
 
 const TopBar = () => {
   const isMobile = useMediaQuery('(max-width:900px)');
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const navItems = [
-    'الرئيسية',
-    'عن الشركة',
-    'خدماتنا في ترانسيسكو',
-    'لوجيستيات',
-    'التسوق في تركيا'
+    { label: 'الرئيسية', href: '/' },
+    { label: 'عن الشركة', href: '/About' },
+    { label: 'خدماتنا في ترانسيسكو', href: '#' },
+    { label: 'لوجيستيات', href: '#' },
+    { label: 'التسوق في تركيا', href: '#' },
   ];
 
   return (
     <>
+      {/* Top Bar */}
       <div className={styles.topBar}>
         <div className={styles.left}>
           <div className={styles.infoItem}>
@@ -59,7 +59,13 @@ const TopBar = () => {
         {!isMobile && (
           <div className={styles.right}>
             <LanguageSelector />
-            <MuiLink href="#" className={styles.Arabe} underline="none" color="inherit">
+            <MuiLink
+              component={NextLink}
+              href="#"
+              underline="none"
+              className={`${styles.Arabe} ${styles.link2}`}
+              color="inherit"
+            >
               الاستفسار اون لاين
             </MuiLink>
             <Typography className={styles.Arabe}>تابعنا على:</Typography>
@@ -73,6 +79,7 @@ const TopBar = () => {
         )}
       </div>
 
+      {/* Navbar */}
       <AppBar position="static" color="transparent" elevation={0} className={styles.navbar}>
         <Toolbar className={styles.toolbar}>
           {isMobile && (
@@ -88,9 +95,15 @@ const TopBar = () => {
           {!isMobile && (
             <>
               <Box className={styles.navLinks}>
-                {navItems.map((text, index) => (
-                  <MuiLink key={index} href="#" underline="none" className={styles.link}>
-                    {text}
+                {navItems.map((item, index) => (
+                  <MuiLink
+                    key={index}
+                    component={NextLink}
+                    href={item.href}
+                    underline="none"
+                    className={styles.link}
+                  >
+                    {item.label}
                   </MuiLink>
                 ))}
               </Box>
@@ -119,10 +132,15 @@ const TopBar = () => {
       <Drawer anchor="right" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
         <Box sx={{ width: 250, padding: 2 }}>
           <List>
-            {navItems.map((text, index) => (
+            {navItems.map((item, index) => (
               <ListItem key={index}>
-                <MuiLink href="#" underline="none" className={styles.Arabe}>
-                  {text}
+                <MuiLink
+                  component={NextLink}
+                  href={item.href}
+                  underline="none"
+                  className={`${styles.Arabe} ${styles.link}`}
+                >
+                  {item.label}
                 </MuiLink>
               </ListItem>
             ))}
@@ -133,7 +151,13 @@ const TopBar = () => {
               الإثنين – الأحد: 9:00 صباحًا – 8:00 مساءً
             </Typography>
             <LanguageSelector />
-            <MuiLink href="#" className={styles.Arabe} underline="none" color="inherit">
+            <MuiLink
+              component={NextLink}
+              href="#"
+              underline="none"
+              className={`${styles.Arabe} ${styles.link}`}
+              color="inherit"
+            >
               الاستفسار اون لاين
             </MuiLink>
             <Typography className={styles.Arabe} sx={{ mt: 1 }}>تابعنا على:</Typography>
