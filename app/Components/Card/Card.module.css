@@ -1,0 +1,142 @@
+@font-face {
+    font-family: 'Noto Kufi Arabic';
+    src: url('/Font/NotoKufiArabic-VariableFont_wght.ttf') format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  .redLineWrapper {
+    position: relative;
+    max-width: 250px;
+    margin: 15px auto 25px auto;
+    height: 3px;
+    background-color: #d60000;
+    border-radius: 2px;
+  }
+  
+  .animatedArrow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff; /* même couleur que le fond de ta section */
+    color: #d60000;
+    font-size: 34px;
+    padding: 0 6px; /* un petit padding pour masquer la ligne derrière */
+    animation: slideLeftRight 2s ease-in-out infinite;
+    border-radius: 3px;
+    pointer-events: none;
+  }
+  
+  @keyframes slideLeftRight {
+    0%, 100% {
+      transform: translate(calc(-50% - 0px), -50%);
+    }
+    50% {
+      transform: translate(calc(-50% + 8px), -50%);
+    }
+  }
+  
+  
+  .sectionHeader {
+    text-align: center;
+    margin-bottom: 17px;
+    direction: rtl;
+  }
+  
+  .sectionSubheading {
+    font-size: 19px;
+    color: #d60000;
+    font-weight: 600;
+    margin-top: 50px;
+    font-family: "Noto Kufi Arabic", sans-serif;
+  }
+  
+  .sectionHeading {
+    font-size: 30px;
+    color: #0C3645;
+    font-weight: 700;
+    font-family: "Noto Kufi Arabic", sans-serif;
+  }
+  .sectionDescription {
+    font-size: 16px;
+    color: #444;
+    margin-top: 10px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+    font-family: "Noto Kufi Arabic", sans-serif;
+  }
+  
+  
+.infoSection {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 50px 20px;
+    gap: 30px;
+  }
+  
+  .card {
+    background-color: #fff;
+    border-radius: 10px;
+    text-align: center;
+    padding: 30px 25px;
+    max-width: 370px;       /* plus large */
+    flex: 1 1 380px;        /* base flexible cohérente */
+    border: 2px dotted #d60000;
+    transition: transform 0.3s ease;
+    direction: rtl;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .darkBg {
+    background-color: #0C3645;
+    color: #fff;
+    border: 3px solid #0C3645; 
+  }
+  
+  .icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    font-size: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+  }
+  
+  .redBg {
+    background-color: #d60000;
+    color: #fff;
+  }
+  
+  .redBorder {
+    border: 2px solid #d60000;
+    color: #d60000;
+  }
+  
+  .heading {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+    font-optical-sizing: auto;
+    font-style: normal;
+  }
+  
+  .text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: inherit;
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+    font-optical-sizing: auto;
+    font-style: normal;
+    margin-top: 20px;
+  }
+  

@@ -1,0 +1,327 @@
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  src: url('/Font/NotoKufiArabic-VariableFont_wght.ttf') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+.services-section{
+    height: 90vh;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+margin-top: 0px;
+  }
+  .Service-logistic{
+    background-image: url('/img/content-bg-3.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 43vh;
+    width: 150vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow: visible;
+  }
+  .part1{
+    width: 100%;
+    height: 100%;
+    padding-top: 30px;
+    padding-inline: 30px;
+    display: flex;
+    flex-direction: column;
+  }
+  .part2{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: visible;
+    padding-left: 90px;
+  }
+  .part2 img{
+    height: 52vh;
+    width: auto;
+    position: absolute; 
+    top: -9vh;  
+    right: 12vh;
+    z-index: 1;
+    display: flex;
+  }
+  .service-title{
+    color: hsl(0, 0%, 100%) !important;
+    --shadow-1: 2px 0 50px hsla(0, 0%, 0%, 0.2);
+    font-size: 34px !important;
+    font-weight: 700;
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+    font-optical-sizing: auto;
+    font-style: normal;
+    text-align: center;
+    margin-top: 15px !important;
+  }
+  .etape-titre2,.etape-titre{
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    text-align: left;
+    color: hsl(0, 0%, 9%) !important;
+    --shadow-1: 2px 0 50px hsla(0, 0%, 0%, 0.2);
+    font-size: 18px !important;
+  }
+  .etape-titre2{
+    color: #fff !important;
+  }
+  
+  .etape-desc,.etape-desc2{
+    font-size: 13px;
+    color: #908DA8;
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+    font-optical-sizing: auto;
+    font-style: normal;
+    text-align: left;
+    margin-top: 7px;
+  }
+  .etape-desc2{
+    color: #DDDDDD !important;
+  }
+  
+  
+  .footer-servcie{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+  }
+  .service-btn{
+    width: 180px;
+    border-radius: 0px;
+    font-weight: 500;
+    background-color: #DF1119;
+    color: #fff !important;
+    text-decoration: none !important;
+    height: 35px;
+    padding: 0 20px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-size: 14px;
+    text-align: center;
+    margin-inline: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  }
+  .Service-etape{
+    height: 22vh;
+    width: 150vh;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  }
+  .etape1,.etape2,.etape3{
+    width: 100%;
+    height: 100%;
+  }
+  .etape1{
+    background-color: #F8F5F1;
+    display: flex;
+    text-align: center !important;
+    padding-left: 10px;
+  }
+  
+  .icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+  .etape-text{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    padding-top: 40px;
+    padding-inline: 20px;
+  }
+  .icon img{
+    height: auto;
+    width: 70px;
+  }
+  .etape2 {
+    background-color: #DF1119;
+    background-image: url('/img/element.png');
+    background-position: right center; 
+    background-repeat: no-repeat;
+    background-size: auto 80%; 
+    display: flex;
+    text-align: center !important;
+    padding-left: 10px;
+  }
+  
+  .etape3{
+    background-color: #04223E;
+    display: flex;
+    text-align: center !important;
+    padding-left: 10px;
+  }
+  .title{
+    flex-wrap: wrap; 
+    width: 100%;
+    margin-top: 10px;
+    gap: 20px; 
+    display: block;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 16vh;
+  }
+  .section-title {
+    color: hsl(202, 64%, 26%) !important;
+    --shadow-1: 2px 0 50px hsla(0, 0%, 0%, 0.2);
+    font-size: 28px !important;
+    font-weight: 600;
+      font-family: "Noto Kufi Arabic", sans-serif !important;
+    font-optical-sizing: auto;
+    font-style: normal;
+    text-align: center;
+    margin-top: 15px !important;
+  }
+  .section-subtitle{
+    color: #DF1119 !important;
+      font-family: "Noto Kufi Arabic", sans-serif !important;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px !important;
+    text-align: center !important;
+  }
+  .Card-liste {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; 
+  
+    width: 100%;
+    gap: 20px; 
+    padding: 20px;
+  
+  }
+  
+  .services-section .service-box {
+    width: 32%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s , box-shadow 0.3s !important;
+    text-decoration: none;
+    font-family: "Rubik", sans-serif;
+    padding: 15px;
+  }
+  .services-section .service-box:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: 0.3s !important;
+  }
+  .services-section .description-content {
+    padding: 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+    position: relative;
+    color: #908DA8;
+  }
+  
+  .services-section .card-title {
+    font-size: 1.1rem;
+    margin: 10px;
+    text-align: center;
+    color: hsl(202, 64%, 26%) !important;
+      font-family: "Noto Kufi Arabic", sans-serif !important;
+    font-optical-sizing: auto;
+    font-style: normal;
+  }
+  
+  .services-section .service-box .img-bg {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    background-size: contain;
+  }
+  
+  
+  @media (max-width: 1024px) {
+    .service_tout {
+      display: none !important;
+    }
+  .services-section{
+    height: 0px;
+  }
+    .Card-liste {
+      gap: 10px; 
+    }
+  
+    .services-section {
+      padding: 20px; 
+      height: 50vh;
+    }
+  
+    .section-title {
+      font-size: 22px; 
+    }
+    .services-section .service-box .img-bg {
+      width: 100%;
+      height: 110px;
+      object-fit: cover;
+      background-size: contain;
+    }
+  }
+  
+  
+  @media (max-width: 768px) {
+     .Card-liste {
+      justify-content: center;
+      gap: 10px
+    }
+  
+    .services-section .service-box {
+      width: 100%; 
+    }
+    .services-section .section-title{
+      font-size: 24px !important;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .services-section .section-title {
+      font-size: 24px; 
+    }
+  
+    .Card-liste {
+      padding: 10px;
+    }
+  
+    .services-section .service-box {
+      padding: 10px;
+    }
+  
+    .services-section .card-title {
+      font-size: 1rem;
+    }
+  }
+  

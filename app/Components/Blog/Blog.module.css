@@ -1,0 +1,114 @@
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  src: url('/Font/NotoKufiArabic-VariableFont_wght.ttf') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+.paper{
+    min-height: 70vh;
+    height: auto;
+    background-color: #f0f2f5;
+    padding-top: 30px;
+}
+.card {
+    max-width: 400px;
+    width: 100%;
+    border-radius: 3px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    background-color: white;
+    font-family: Inter, sans-serif;
+    position: relative;
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+    font-optical-sizing: auto;
+    font-style: normal;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .card:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  
+  .imageContainer {
+    width: 100%;
+    height: 14rem;
+    overflow: hidden;
+  }
+  
+  .imageMedia {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Date precisely centered on the line between image and content */
+  .dateOverlay {
+    position: absolute;
+    padding: 0 !important;
+    top: 13rem; 
+    left: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #04223E; /* red-500 */
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+  }
+  
+  .dateNumber {
+    padding: 0.5rem 0.75rem;
+    width: 30%;
+    background-color: #E71E24;
+  }
+  
+  .dateMonth {
+    background-color: #04223E; /* blue-900 */
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    height: 100% !important;
+    
+  }
+  .arabe{
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+    font-optical-sizing: auto;
+    font-style: normal;
+  }
+  .section_title2 {
+    color: #0A2C47 !important;
+    font-size: 32px;
+    font-weight: 800;
+    text-align: center;
+    font-family: 'Cairo','Noto Kufi Arabic', sans-serif !important;
+    font-optical-sizing: auto;
+    font-weight: 'weight';
+    font-style: normal;
+    position: absolute;
+  }
+  .titre{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 80px;
+    top: 0px;
+    position: relative;
+  }
+  .sous_titre{
+    color: #ED1C24 !important;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center !important;
+    font-family: 'Cairo','Noto Kufi Arabic', sans-serif !important;
+    font-optical-sizing: auto;
+    font-weight: 'weight';
+    font-style: normal;
+    bottom: -15px;
+    position: absolute;
+  }

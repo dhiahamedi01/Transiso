@@ -1,0 +1,229 @@
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  src: url('/Font/NotoKufiArabic-VariableFont_wght.ttf') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+.topBar {
+    background: linear-gradient(to left, #0a2c47 2%, #E41E26 200%);
+    color: white;
+    display: flex;
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+    font-optical-sizing: auto;
+    font-style: normal;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 32px;
+    font-size: 14px;
+    direction: rtl;
+  }
+  
+  .left,
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+    font-optical-sizing: auto;
+    font-style: normal;
+  }
+  .contact{
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+    font-optical-sizing: auto;
+    font-style: normal;
+  }
+  .Liste_icon{
+    display: flex;
+    align-items: center;
+    grid-area: 5px;
+  }
+  .infoItem {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+    font-optical-sizing: auto;
+    font-style: normal;
+  }
+  .Arabe{
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-size: 13px !important;
+  }
+  .separator {
+    color: #ccc;
+  }
+  
+  .icon {
+    color: white !important;
+    padding: 4px;
+  }
+  
+/* Navbar */
+.navbar {
+    direction: rtl;
+    padding: 8px 24px;
+    height: 11vh;
+    background-color: white;
+  }
+  
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 20px;
+  }
+  
+  .logoBox {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navLinks {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 38px;
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+    font-optical-sizing: auto;
+    font-style: normal;
+    margin-right: 30px;
+  }
+  .number{
+    display: flex;
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+    font-optical-sizing: auto;
+    font-style: normal;
+  }
+  .link {
+    color: #0a0a23 !important;
+    font-weight: 400;
+    text-decoration: none;
+  }
+  
+  .activeLink {
+    color: #0a0a23 !important;
+    font-weight: 500;
+  }
+  
+  .rightSection {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .searchIcon {
+    color: #333;
+  }
+  
+  .phoneBox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .phoneIconCircle {
+    background-color: #EDF6FA;
+    border-radius: 50%;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); 
+  }
+  
+  
+  .phoneIcon {
+    color: #001b4e;
+    font-size: 18px;
+  }
+  
+  .phoneLabel {
+    font-size: 8px !important;
+    color: #888;
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+    font-optical-sizing: auto;
+    font-style: normal;
+  }
+  
+  .phoneNumber {
+    font-weight: bold;
+    color: #0a0a23;
+  }
+  
+  .trackButton {
+    background-color: #DE1E27 !important;
+    border-radius: 6px;
+    padding: 8px 24px;
+    font-weight: bold;
+    color: white;
+    text-transform: none;
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+    font-optical-sizing: auto;
+    font-style: normal;
+  }
+  
+  .trackButton:hover {
+    background-color: #b31921 !important;
+  }
+  @media screen and (max-width: 900px) {
+    .navLinks {
+      display: none;
+    }
+  
+    .rightSection {
+      display: none;
+    }
+  }
+  .hamburger {
+    display: none;
+  }
+  
+  @media screen and (max-width: 900px) {
+    .hamburger {
+      display: block !important;
+    }
+  
+    .navLinks {
+      display: none !important;
+    }
+  
+    .rightSection {
+      display: none !important;
+    }
+  
+    .logoBox {
+      margin-right: auto;
+    }
+  }
+  @media screen and (max-width: 900px) {
+    .topBar {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+      padding: 8px 16px;
+    }
+  
+    .left {
+      flex-wrap: nowrap;
+      flex-direction: row;
+      gap: 8px;
+    }
+  
+    .right {
+      display: none;
+    }
+  
+    .navLinks {
+      display: none;
+    }
+  
+    .rightSection {
+      display: none;
+    }
+  }
+  
+  
