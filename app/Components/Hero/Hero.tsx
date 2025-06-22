@@ -18,7 +18,7 @@ function Hero() {
         </div>
 
         <div className={Style['hero-content']} data-aos="fade-up">
-          <h1>مرحباً بكم في ترانسيسيو لوجستيك</h1>
+          <h1>مرحباً بكم في ترانسيسو لوجستيك</h1>
           <div className={Style.breadcrumb}>
             <a href="#">الرئيسية</a>
             <a href="#">عن الشركة</a>

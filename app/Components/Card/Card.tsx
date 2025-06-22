@@ -20,9 +20,9 @@ function Card() {
     <>
       <div className={styles.sectionHeader} >
         <h4 className={styles.sectionSubheading}>لماذا نحن؟</h4>
-        <h2 className={styles.sectionHeading}>مزايا العمل مع ترانسيسكو</h2>
+        <h2 className={styles.sectionHeading}>مزايا العمل مع ترانسيسو</h2>
         <p className={styles.sectionDescription}>
-          نقدم في ترانسيسكو خدمات نقل ذكية وموثوقة، مدعومة بفريق خبير وتقنيات حديثة، لنضمن رضاكم الكامل.
+          نقدم في ترانسيسو خدمات نقل ذكية وموثوقة، مدعومة بفريق خبير وتقنيات حديثة، لنضمن رضاكم الكامل.
         </p>
 
         
@@ -36,7 +36,7 @@ function Card() {
           </div>
           <h3 className={styles.heading}>فريقنا المتميز</h3>
           <p className={styles.text}>
-            فريق ترانسيسكو يتكون من خبراء متخصصين يسعون دائمًا لتقديم أفضل الخدمات وتحقيق رضا العملاء.
+            فريق ترانسيسو يتكون من خبراء متخصصين يسعون دائمًا لتقديم أفضل الخدمات وتحقيق رضا العملاء.
           </p>
         </div>
 
