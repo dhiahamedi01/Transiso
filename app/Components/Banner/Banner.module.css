@@ -251,14 +251,11 @@
   }
 
   .imageWrapper {
-    width: 100%;
-    height: 200px;
-    margin-right: 0;
-    box-shadow: none;
+   display: none !important;
   }
 
   .shapeImage {
-    border-radius: 0;
+    display:  none !important;
   }
 
   .textWrapper {

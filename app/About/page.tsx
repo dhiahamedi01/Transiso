@@ -5,6 +5,7 @@ import ScrollToTopButton from '../Components/ScrollToTopButton'
 import WhatsappButtons from '../Components/WhatsappButtons'
 import Banner from '../Components/Banner/Banner'
 import Banner2 from '../Components/Banner/Banner2'
+import Localisation from '../Components/Localisation/Localisation'
 function index() {
   return (
     <div>
@@ -12,6 +13,7 @@ function index() {
       <Card/>
       <Banner/>
       <Banner2/>
+      <Localisation/>
       <ScrollToTopButton />
       <WhatsappButtons/>
     </div>
