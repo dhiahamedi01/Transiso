@@ -18,7 +18,7 @@
     gap: 20px;
     direction: ltr; /* Garde la direction normale */
   }
-  
+
   .banner::before {
     content: '';
     position: absolute;
@@ -88,4 +88,225 @@
   .button:hover {
     background-color: #f5f5f5;
   }
+
+  .banner2 {
+    max-width: 1200px;
+    margin: 40px auto;
+    display: flex;
+    justify-content: flex-start; 
+    align-items: flex-start;
+    font-family: "Noto Kufi Arabic", sans-serif;
+  }
   
+  .partieImage {
+    width: 500px; 
+    display: flex;
+    justify-content: center; 
+    padding: 0;
+    position: relative;
+
+  }
+  .Image{
+    position: absolute;
+    left: 2px;
+  }
+  .partieTexte {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    color: #222;
+    direction: rtl;
+    padding-top: 95px;
+    padding-left: 45px;  
+  }
+  
+  .partieTexte h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: #0C3645;
+  }
+  
+  .partieTexte h2 {
+    font-size: 1.8rem;
+    margin-top: 1.5rem;
+    color: #b22222;
+  }
+  
+  .description {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #444;
+  }
+  
+  .points {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .points li {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #2b2b2b;
+  }
+  
+  .icon {
+    color: #b22222;
+    margin-left: 10px;
+    font-size: 1.8rem;
+  }
+  
+
+
+  /* Mobile (petits écrans) */
+@media (max-width: 600px) {
+  .banner2 {
+    flex-direction: column;
+    max-width: 100%;
+    margin: 20px 10px;
+  }
+
+  .partieImage {
+    width: 100%;
+    position: relative;
+    padding: 0;
+    margin-bottom: 20px;
+  }
+
+  .Image {
+    position: static;
+    width: 100% !important;
+    height: auto !important;
+    left: 0;
+  }
+
+  .partieTexte {
+    width: 100%;
+    padding-top: 20px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .partieTexte h1 {
+    font-size: 1.2rem;
+  }
+
+  .description, .points li {
+    font-size: 0.7rem;
+  }
+  .icon {
+    font-size: 1.4rem;
+  }
+}
+
+/* Tablette (écrans moyens) */
+@media (min-width: 601px) and (max-width: 900px) {
+  .banner2 {
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 90%;
+    margin: 30px auto;
+  }
+
+  .partieImage {
+    width: 50%;
+    position: relative;
+  }
+
+  .Image {
+    position: static;
+    width: 100% !important;
+    height: auto !important;
+    left: 0;
+  }
+
+  .partieTexte {
+    width: 50%;
+    padding-top: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .partieTexte h1 {
+    font-size: 1.8rem;
+  }
+
+  .description, .points li {
+    font-size: 0.9rem;
+  }
+}
+/* Mobile - petits écrans */
+@media (max-width: 600px) {
+  .banner {
+    flex-direction: column;
+    height: auto;
+    max-width: 100%;
+    padding: 20px 10px;
+    gap: 15px;
+    direction: rtl; /* Pour l’arabe, on remet rtl sur mobile */
+  }
+
+  .imageWrapper {
+    width: 100%;
+    height: 200px;
+    margin-right: 0;
+    box-shadow: none;
+  }
+
+  .shapeImage {
+    border-radius: 0;
+  }
+
+  .textWrapper {
+    align-items: center;
+    text-align: center;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    max-width: 100%;
+  }
+
+  .button {
+    margin-left: 0;
+    align-self: center;
+  }
+}
+
+/* Tablette - écrans moyens */
+@media (min-width: 601px) and (max-width: 900px) {
+  .banner {
+    flex-direction: row;
+    height: 35vh;
+    max-width: 95%;
+    gap: 15px;
+  }
+
+  .imageWrapper {
+    width: 300px;
+    height: 35vh;
+    margin-right: 30px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+    max-width: 350px;
+  }
+
+  .button {
+    margin-left: 20%;
+  }
+}
+
