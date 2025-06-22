@@ -8,8 +8,8 @@ const Localisation = () => {
   return (
     <Box
       sx={{
-        maxWidth: '1120px',
-        margin: '130px auto 40px',
+        maxWidth: '1220px',
+        margin: '45px auto 40px',
         paddingInline: '20px',
       }}
     >
@@ -54,8 +54,7 @@ const Localisation = () => {
           overflow: 'hidden',
           boxShadow: 3,
           marginTop: '70px',
-          border: '4px solid #e53935', // Cadre rouge vif
-          borderRadius: '12px',        // Coins arrondis
+          border: '2px solid #d3d3d3;', // Cadre rouge vif
         }}
       >
         <iframe

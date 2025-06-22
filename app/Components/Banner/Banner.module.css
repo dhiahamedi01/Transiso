@@ -96,6 +96,7 @@
     justify-content: flex-start; 
     align-items: flex-start;
     font-family: "Noto Kufi Arabic", sans-serif;
+    position: relative;
   }
   
   .partieImage {
@@ -257,7 +258,9 @@
   .shapeImage {
     display:  none !important;
   }
-
+  .decorIcone {
+    display: none !important;
+  }
   .textWrapper {
     align-items: center;
     text-align: center;
@@ -307,3 +310,9 @@
   }
 }
 
+
+.decorIcone {
+  margin-top: -50px;
+  display: flex;
+  justify-content: flex-end;
+}
