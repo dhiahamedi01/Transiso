@@ -31,9 +31,8 @@ export default function ProductList() {
               ? 'center'
               : 'flex-start',
           rowGap: 5,
-          // Plus d’espace entre colonnes sur mobile
           columnGap: {
-            xs: 3,
+            xs: 2,
             sm: 3,
             md: 2,
           },
@@ -46,18 +45,16 @@ export default function ProductList() {
               boxSizing: 'border-box',
               flexGrow: 0,
               flexShrink: 0,
-              // Responsive flex-basis avec maxWidth sur mobile pour éviter écrasement
               flexBasis: {
-                xs: `calc(50% - 5px)`, // 2 cartes par ligne avec gap 12px
-                sm: `calc(50% - 12px)`,
-                md: `calc(25% - 16px)`, // 4 cartes par ligne desktop
+                xs: '100%',          // 1 carte par ligne en mobile
+                sm: `calc(50% - 12px)`, // 2 cartes par ligne sur tablette
+                md: `calc(25% - 16px)`, // 4 cartes par ligne sur desktop
               },
               maxWidth: {
-                xs: 'calc(50% - 12px)',
-                sm: 'calc(50% - 12px)',
+                xs: '100%',
+                sm: `calc(50% - 12px)`,
                 md: 'none',
               },
-
               p: 1,
             }}
           >
