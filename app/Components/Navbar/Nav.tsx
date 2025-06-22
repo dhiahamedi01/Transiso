@@ -36,12 +36,12 @@ const TopBar = () => {
         <div className={styles.left}>
           <div className={styles.infoItem}>
             <LocationOnIcon fontSize="small" sx={{ color: '#DE1E27' }} />
-            <Typography sx={{ fontWeight: 300 }}>Istanbul, Turkey</Typography>
+            <Typography sx={{ fontWeight: 300 }} className={styles.icon_topbar}>Istanbul, Turkey</Typography>
           </div>
           <span className={styles.separator}>|</span>
           <div className={styles.infoItem}>
             <EmailIcon fontSize="small" sx={{ color: '#DE1E27' }} />
-            <Typography sx={{ fontWeight: 300 }}>info@transisologistic.com</Typography>
+            <Typography sx={{ fontWeight: 300 }} className={styles.icon_topbar}>info@transisologistic.com</Typography>
           </div>
           {!isMobile && (
             <>

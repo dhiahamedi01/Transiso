@@ -6,12 +6,12 @@ import { ArrowBackIosNew, ArrowForwardIos } from '@mui/icons-material';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import Image from 'next/image';
-import styles from './HeroSlider.module.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-import { slides } from './slidesData';  // <-- Import ici
+import { slides } from './slidesData';
+import styles from './HeroSlider.module.css';
 
 const HeroSlider: React.FC = () => {
   return (
@@ -19,7 +19,7 @@ const HeroSlider: React.FC = () => {
       sx={{
         position: 'relative',
         width: '100%',
-        height: { xs: '500px', md: '80vh' },
+        height: { xs: '500px', sm: '600px', md: '80vh' },
         overflow: 'hidden',
         '.swiper-pagination-bullet': {
           backgroundColor: '#DE1E27',
@@ -49,7 +49,7 @@ const HeroSlider: React.FC = () => {
             <Box
               sx={{
                 position: 'relative',
-                height: { xs: '500px', md: '80vh' },
+                height: '100%',
                 width: '100%',
                 backgroundImage: `url(${image})`,
                 backgroundSize: 'cover',
@@ -57,7 +57,7 @@ const HeroSlider: React.FC = () => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                px: 2,
+                px: { xs: 2, sm: 4 },
               }}
             >
               <Box
@@ -78,13 +78,21 @@ const HeroSlider: React.FC = () => {
                   zIndex: 2,
                   color: 'white',
                   textAlign: 'center',
-                  textShadow: '0 0 10px rgba(0,0,0,0.7)',
+                  maxWidth: '90%',
+                  mx: 'auto',
                 }}
               >
                 <div className={styles.contenu_slider}>
-                  <Image className={styles.icon_slider} src={icon} alt="icon" width={100} height={100} />
-                  <h1 className={styles.title} style={{ fontSize: '3rem', marginBottom: 10 }}>{title}</h1>
-                  <p className={styles.sous_title} style={{ fontSize: '1.2rem', maxWidth: 600 }}>{description}</p>
+                  <Image
+                    className={styles.icon_slider}
+                    src={icon}
+                    alt="icon"
+                    width={100}
+                    height={100}
+                    style={{ objectFit: 'contain', maxWidth: '100%' }}
+                  />
+                  <h1 className={styles.title}>{title}</h1>
+                  <p className={styles.sous_title}>{description}</p>
                 </div>
               </Box>
             </Box>
@@ -92,12 +100,11 @@ const HeroSlider: React.FC = () => {
         ))}
       </Swiper>
 
-      {/* Boutons navigation personnalisés */}
       <IconButton
         className="custom-prev"
         sx={{
           position: 'absolute',
-          top: '40%',
+          top: { xs: '50%', md: '40%' },
           left: 20,
           transform: 'translateY(-50%)',
           border: '2px solid white',
@@ -107,8 +114,8 @@ const HeroSlider: React.FC = () => {
             backgroundColor: 'rgba(255,255,255,0.3)',
           },
           borderRadius: '50%',
-          width: 50,
-          height: 50,
+          width: { xs: 40, md: 50 },
+          height: { xs: 40, md: 50 },
           zIndex: 10,
         }}
         aria-label="Précédent"
@@ -120,7 +127,7 @@ const HeroSlider: React.FC = () => {
         className="custom-next"
         sx={{
           position: 'absolute',
-          top: '40%',
+          top: { xs: '50%', md: '40%' },
           right: 20,
           transform: 'translateY(-50%)',
           border: '2px solid white',
@@ -130,8 +137,8 @@ const HeroSlider: React.FC = () => {
             backgroundColor: 'rgba(255,255,255,0.3)',
           },
           borderRadius: '50%',
-          width: 50,
-          height: 50,
+          width: { xs: 40, md: 50 },
+          height: { xs: 40, md: 50 },
           zIndex: 10,
         }}
         aria-label="Suivant"

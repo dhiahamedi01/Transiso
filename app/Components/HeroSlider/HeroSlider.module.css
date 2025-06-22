@@ -1,45 +1,84 @@
 @font-face {
-    font-family: 'Noto Kufi Arabic';
-    src: url('/Font/NotoKufiArabic-VariableFont_wght.ttf') format('woff2');
-    font-weight: 100 900;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Noto Kufi Arabic';
+  src: url('/Font/NotoKufiArabic-VariableFont_wght.ttf') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 20px !important;
+  font-family: 'Noto Kufi Arabic', sans-serif !important;
+  font-style: normal;
+}
+
+.sous_title {
+  font-size: 1.2rem;
+  line-height: 40px;
+  max-width: 600px;
+  margin-top: 0 !important;
+  font-family: 'Noto Kufi Arabic', sans-serif !important;
+  font-style: normal;
+}
+
+
+.sous_title {
+  font-size: 1.2rem;
+  line-height: 40px;
+  max-width: 600px;
+}
+
+.icon_slider {
+  margin-top: 30px;
+  width: 100px;
+  height: auto;
+}
+
+.contenu_slider {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 40vh;
+  padding: 1rem;
+  text-align: center;
+}
+
+/* TABLETTE */
+@media (max-width: 1024px) {
+  .title {
+    font-size: 2.2rem !important;
+    margin-bottom: 25px;
   }
-.title,.sous_title{
-    font-family: "Noto Kufi Arabic", sans-serif !important;
-    font-optical-sizing: auto;
-    font-style: normal;
-    margin-bottom: 30px;
+
+  .sous_title {
+    font-size: 1.1rem !important;
+    line-height: 1.6;
+    max-width: 90%;
+  }
+
+  .icon_slider {
+    width: 90px !important;
+    margin-top: 20px;
+  }
 }
-.sous_title{
-    line-height: 40px;
-}
-.icon_slider{
-    margin-top: 30px;
-}
-.contenu_slider{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 40vh;
-}
+
 @media (max-width: 600px) {
-    .title {
-      font-size: 1.8rem !important; /* Override inline 3rem */
-      margin-bottom: 20px;
-    }
-  
-    .sous_title {
-      font-size: 1rem !important; /* Override inline 1.2rem */
-      line-height: 1.5;
-      max-width: 90%;
-    }
-  
-    .icon_slider {
-      width: 80px !important; /* Reduce icon size */
-      height: auto !important;
-      margin-top: 15px;
-    }
+  .title {
+    font-size: 1.8rem !important;
+    margin-bottom: 20px;
   }
-  
+
+  .sous_title {
+    font-size: 1rem !important;
+    line-height: 1.5;
+    max-width: 90%;
+  }
+
+  .icon_slider {
+    width: 80px !important;
+    margin-top: 15px;
+  }
+}

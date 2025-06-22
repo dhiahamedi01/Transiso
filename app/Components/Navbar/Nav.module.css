@@ -169,6 +169,42 @@
   .trackButton:hover {
     background-color: #b31921 !important;
   }
+  @media screen and (max-width: 1440px) {
+    .logoBox img {
+      width: 120px; 
+      height: auto;
+    }
+  
+    .navLinks {
+      gap: 25px; 
+    }
+  
+    .trackButton {
+      padding: 6px 16px; 
+      font-size: 12px;
+    }
+  
+    .phoneLabel {
+      font-size: 7px !important;
+    }
+  
+    .phoneNumber {
+      font-size: 12px;
+    }
+  
+    .link {
+      font-size: 13px;
+    }
+  
+    .navbar {
+      height: auto; /* Autorise auto-ajustement */
+    }
+  
+    .toolbar {
+      padding-inline: 12px;
+    }
+  }
+  
   @media screen and (max-width: 900px) {
     .navLinks {
       display: none;
@@ -197,6 +233,15 @@
   
     .logoBox {
       margin-right: auto;
+    }
+    .icon_topbar{
+      font-size: 13px !important;
+    }
+    .left{
+      display: flex;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100%;
     }
   }
   @media screen and (max-width: 900px) {
