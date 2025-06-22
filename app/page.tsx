@@ -8,7 +8,7 @@ import Blog from './Components/Blog/Blog'
 import HeroSection from './Components/Section/HeroSection'
 import ScrollToTopButton from './Components/ScrollToTopButton'
 import WhatsappButtons from './Components/WhatsappButtons'
-import TrendingCarousel from './Components/TrendingCarousel/TrendingCarousel'
+import TrendingCarousel from './Components/Produit/TrendingCarousel/TrendingCarousel'
 
 const page = () => {
   return (
