@@ -59,7 +59,7 @@
   }
   
   .testimonial-box {
-    width: 32%;
+    width: 31%;
     height: 220px;
     display: flex;
     flex-direction: column;
@@ -149,9 +149,10 @@
     font-size: 1em;
     color: #ddd;
     width: 100%;
-    bottom: 15px; 
-    right: 305px; 
-    position: absolute;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
   }
   
   .rating i {
@@ -188,7 +189,20 @@
     justify-content: center;
     width: 100%;
   }
+  @media (max-width: 1440px) {
+    .Card-liste {
+      flex-wrap: nowrap; 
+      overflow-x: visible; 
+    }
+    .testimonial-box {
+      width: 33.33%; 
+    }
+  }
   @media (max-width: 1024px) {
+    .Card-liste {
+      flex-wrap: wrap; 
+      overflow-x: visible; 
+    }
     .testimonial-box {
       width: 100%; 
       height: auto; 

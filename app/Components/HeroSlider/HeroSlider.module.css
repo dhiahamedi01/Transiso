@@ -82,3 +82,9 @@
     margin-top: 15px;
   }
 }
+@media (max-width: 600px) {
+  .custom-prev,
+  .custom-next {
+    display: none !important;
+  }
+}

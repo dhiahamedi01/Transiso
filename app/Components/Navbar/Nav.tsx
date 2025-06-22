@@ -24,7 +24,7 @@ const TopBar = () => {
   const navItems = [
     { label: 'الرئيسية', href: '/' },
     { label: 'عن الشركة', href: '/About' },
-    { label: 'خدماتنا في ترانسيسكو', href: '#' },
+    { label: 'خدماتنا في ترانسيسيو', href: '#' },
     { label: 'لوجيستيات', href: '#' },
     { label: 'التسوق في تركيا', href: '#' },
   ];

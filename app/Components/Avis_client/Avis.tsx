@@ -108,9 +108,6 @@ const Avis = () => {
     <section className={styles.testimonials}>
       <div
         className={styles.title}
-        data-aos="fade-up"
-        data-aos-duration="800"
-        data-aos-delay="200"
       >
         <div className={styles['bar-about']}>
           <div className={styles['sous-titre-testimonials']}>
@@ -127,9 +124,7 @@ const Avis = () => {
         </h2>
       </div>
 
-      <div className={styles['slider-container']}         data-aos="fade-up"
-        data-aos-duration="900"
-        data-aos-delay="200">
+      <div className={styles['slider-container']} >
       <button
   onClick={handleNext}
   className={styles['slider-button']}

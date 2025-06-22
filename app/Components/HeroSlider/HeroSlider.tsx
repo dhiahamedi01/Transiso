@@ -99,52 +99,54 @@ const HeroSlider: React.FC = () => {
           </SwiperSlide>
         ))}
       </Swiper>
+<IconButton
+  className="custom-prev"
+  sx={{
+    display: { xs: 'none', md: 'flex' },
+    position: 'absolute',
+    top: { xs: '50%', md: '40%' },
+    left: 20,
+    transform: 'translateY(-50%)',
+    border: '2px solid white',
+    color: '#fff',
+    backgroundColor: 'rgba(255,255,255,0.1)',
+    '&:hover': {
+      backgroundColor: 'rgba(255,255,255,0.3)',
+    },
+    borderRadius: '50%',
+    width: { xs: 40, md: 50 },
+    height: { xs: 40, md: 50 },
+    zIndex: 10,
+  }}
+  aria-label="Précédent"
+>
+  <ArrowBackIosNew />
+</IconButton>
 
-      <IconButton
-        className="custom-prev"
-        sx={{
-          position: 'absolute',
-          top: { xs: '50%', md: '40%' },
-          left: 20,
-          transform: 'translateY(-50%)',
-          border: '2px solid white',
-          color: '#fff',
-          backgroundColor: 'rgba(255,255,255,0.1)',
-          '&:hover': {
-            backgroundColor: 'rgba(255,255,255,0.3)',
-          },
-          borderRadius: '50%',
-          width: { xs: 40, md: 50 },
-          height: { xs: 40, md: 50 },
-          zIndex: 10,
-        }}
-        aria-label="Précédent"
-      >
-        <ArrowBackIosNew />
-      </IconButton>
+<IconButton
+  className="custom-next"
+  sx={{
+    display: { xs: 'none', md: 'flex' },
+    position: 'absolute',
+    top: { xs: '50%', md: '40%' },
+    right: 20,
+    transform: 'translateY(-50%)',
+    border: '2px solid white',
+    color: '#fff',
+    backgroundColor: 'rgba(255,255,255,0.1)',
+    '&:hover': {
+      backgroundColor: 'rgba(255,255,255,0.3)',
+    },
+    borderRadius: '50%',
+    width: { xs: 40, md: 50 },
+    height: { xs: 40, md: 50 },
+    zIndex: 10,
+  }}
+  aria-label="Suivant"
+>
+  <ArrowForwardIos />
+</IconButton>
 
-      <IconButton
-        className="custom-next"
-        sx={{
-          position: 'absolute',
-          top: { xs: '50%', md: '40%' },
-          right: 20,
-          transform: 'translateY(-50%)',
-          border: '2px solid white',
-          color: '#fff',
-          backgroundColor: 'rgba(255,255,255,0.1)',
-          '&:hover': {
-            backgroundColor: 'rgba(255,255,255,0.3)',
-          },
-          borderRadius: '50%',
-          width: { xs: 40, md: 50 },
-          height: { xs: 40, md: 50 },
-          zIndex: 10,
-        }}
-        aria-label="Suivant"
-      >
-        <ArrowForwardIos />
-      </IconButton>
     </Box>
   );
 };
