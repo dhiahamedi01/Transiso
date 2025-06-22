@@ -11,6 +11,7 @@ const Localisation = () => {
         maxWidth: '1220px',
         margin: '45px auto 40px',
         paddingInline: '20px',
+        paddingTop:'30px'
       }}
     >
       {/* Icône de localisation rouge */}
@@ -53,7 +54,7 @@ const Localisation = () => {
           height: { xs: 320, sm: 420, md: 520 },
           overflow: 'hidden',
           boxShadow: 3,
-          marginTop: '70px',
+          marginTop: '40px',
           border: '2px solid #d3d3d3;', // Cadre rouge vif
         }}
       >

@@ -1,9 +1,36 @@
+'use client'
+
 import React from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import Style from './Hero.module.css'
+import { usePathname } from 'next/navigation'
 
 function Hero() {
+  const pathname = usePathname()
+
+  const getContent = () => {
+    switch (pathname) {
+      case '/About':
+        return {
+          title: 'مرحباً بكم في ترانسيسو لوجستيك',
+          breadcrumbs: ['الرئيسية', 'عن الشركة'],
+        }
+      case '/Liste_produit':
+        return {
+          title: 'قائمة منتجاتنا',
+          breadcrumbs: ['الرئيسية', 'المنتجات'],
+        }
+      default:
+        return {
+          title: 'لم يتم إنشائه بعد',
+          breadcrumbs: ['الرئيسية'],
+        }
+    }
+  }
+
+  const { title, breadcrumbs } = getContent()
+
   return (
     <>
       <Head>
@@ -12,16 +39,25 @@ function Hero() {
 
       <div className={Style.hero}>
         <div className={Style.imageWrapper}>
-          <Image src="/img/Hero/inner-page1.webp" alt="Hero background"
-            fill style={{ objectFit: 'cover' }} placeholder="blur"
-            blurDataURL="/img/Hero/inner-page1-blur.webp"  priority />
+          <Image
+            src="/img/Hero/inner-page1.webp"
+            alt="Hero background"
+            fill
+            style={{ objectFit: 'cover' }}
+            placeholder="blur"
+            blurDataURL="/img/Hero/inner-page1-blur.webp"
+            priority
+          />
         </div>
 
         <div className={Style['hero-content']} data-aos="fade-up">
-          <h1>مرحباً بكم في ترانسيسو لوجستيك</h1>
+          <h1>{title}</h1>
           <div className={Style.breadcrumb}>
-            <a href="#">الرئيسية</a>
-            <a href="#">عن الشركة</a>
+            {breadcrumbs.map((item, index) => (
+              <a key={index} href="#">
+                {item}
+              </a>
+            ))}
           </div>
         </div>
       </div>
