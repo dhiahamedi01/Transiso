@@ -28,7 +28,7 @@ const HeroSection = () => {
         <div className={styles.buttonContainer}>
           <Button
             variant="contained"
-            endIcon={<ArrowBackIcon />} // Arrow icon at the end (left side for RTL)
+            endIcon={<ArrowBackIcon />} 
             className={styles.btn}
           >
             استكشف الآن
@@ -49,7 +49,7 @@ const HeroSection = () => {
         <div className={styles.buttonContainer}>
           <Button
             variant="contained"
-            endIcon={<ArrowBackIcon />} // Arrow icon at the end (left side for RTL)
+            endIcon={<ArrowBackIcon />} 
             className={styles.btn}
           >
             استكشف الآن

@@ -45,7 +45,7 @@ function Hero() {
             fill
             style={{ objectFit: 'cover' }}
             placeholder="blur"
-            blurDataURL="/img/Hero/inner-page1-blur.webp"
+            blurDataURL="/img/Hero/inner-page1.webp"
             priority
           />
         </div>

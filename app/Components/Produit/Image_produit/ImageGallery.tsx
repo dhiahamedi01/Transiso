@@ -22,7 +22,7 @@ const ImageGallery = () => {
           src={selectedImage}
           alt="Main"
           width={550}
-          height={630}
+          height={660}
           className={Styles.image}
         />
       </Paper>
