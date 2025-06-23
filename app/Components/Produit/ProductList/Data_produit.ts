@@ -10,18 +10,20 @@ export type Product = {
   };
   
   export const products: Product[] = [
-    { id: 1, title: "فولاذ مجلفن", price: 1200, image: "/img/Product/produit1.webp", tag: "متوفر", rating: 4.8, description: "فولاذ عالي الجودة للمشاريع الصناعية." },
-    { id: 2, title: "أخشاب معالجة", price: 900, image: "/img/Product/produit1.webp", rating: 4.5, description: "خشب متين ومقاوم للرطوبة للأثاث والبناء." },
-    { id: 3, title: "زيت نباتي خام", price: 600, oldPrice: 650, image: "/img/Product/produit1.webp", tag: "خصم 8%", rating: 4.3, description: "زيت نباتي عالي النقاء للاستخدام الغذائي." },
-    { id: 4, title: "آلات تعبئة وتغليف", price: 3500, image: "/img/Product/produit1.webp", rating: 4.7, description: "معدات حديثة لتغليف المنتجات بكفاءة." },
-    { id: 5, title: "حاويات بلاستيكية", price: 450, oldPrice: 500, image: "/img/Product/produit1.webp", tag: "خصم 10%", rating: 4.6, description: "حاويات متعددة الاستخدامات لتخزين المنتجات." },
-  
-    { id: 6, title: "مكائن خياطة", price: 2300, image: "/img/Product/produit1.webp", rating: 4.4, description: "مكائن خياطة صناعية وعادية لجميع الأقمشة." },
-    { id: 7, title: "ألواح خشبية", price: 1100, image: "/img/Product/produit1.webp", tag: "متوفر", rating: 4.2, description: "ألواح خشبية صلبة ومقاومة للرطوبة." },
-    { id: 8, title: "دهانات خارجية", price: 750, oldPrice: 800, image: "/img/Product/produit1.webp", rating: 4.5, description: "دهانات عالية الجودة ضد العوامل الجوية." },
-    { id: 9, title: "مبردات هواء", price: 1200, image: "/img/Product/produit1.webp", rating: 4.1, description: "مبردات هواء فعالة للطاقة ومناسبة للمكاتب." },
-    { id: 10, title: "إطارات سيارات", price: 1600, image: "/img/Product/produit1.webp", tag: "متوفر", rating: 4.3, description: "إطارات متينة وعالية الأداء لجميع السيارات." },
-  
+      
+    { id: 1, title: "مكائن خياطة", price: 2300, image: "/img/Product/produit3.png", rating: 4.4, description: "مكائن خياطة صناعية وعادية لجميع الأقمشة." },
+    { id: 2, title: "ألواح خشبية", price: 1100, image: "/img/Product/silvio.webp", tag: "متوفر", rating: 4.2, description: "ألواح خشبية صلبة ومقاومة للرطوبة." },
+    { id: 3, title: "دهانات خارجية", price: 750, oldPrice: 800, image: "/img/Product/produit2.png", rating: 4.5, description: "دهانات عالية الجودة ضد العوامل الجوية." },
+    { id: 4, title: "حاويات بلاستيكية", price: 450, oldPrice: 500, image: "/img/Product/produit4.png", tag: "خصم 10%", rating: 4.6, description: "حاويات متعددة الاستخدامات لتخزين المنتجات." },
+    { id: 5, title: "مبردات هواء", price: 1200, image: "/img/Product/produit1.webp", rating: 4.1, description: "مبردات هواء فعالة للطاقة ومناسبة للمكاتب." },
+
+    
+    { id: 6, title: "إطارات سيارات", price: 1600, image: "/img/Product/produit1.webp", tag: "متوفر", rating: 4.3, description: "إطارات متينة وعالية الأداء لجميع السيارات." },
+    { id: 7, title: "فولاذ مجلفن", price: 1200, image: "/img/Product/produit1.webp", tag: "متوفر", rating: 4.8, description: "فولاذ عالي الجودة للمشاريع الصناعية." },
+    { id: 8, title: "أخشاب معالجة", price: 900, image: "/img/Product/produit1.webp", rating: 4.5, description: "خشب متين ومقاوم للرطوبة للأثاث والبناء." },
+    { id: 9, title: "زيت نباتي خام", price: 600, oldPrice: 650, image: "/img/Product/produit1.webp", tag: "خصم 8%", rating: 4.3, description: "زيت نباتي عالي النقاء للاستخدام الغذائي." },
+    { id: 10, title: "آلات تعبئة وتغليف", price: 3500, image: "/img/Product/produit1.webp", rating: 4.7, description: "معدات حديثة لتغليف المنتجات بكفاءة." },
+
     { id: 11, title: "مكابس هيدروليكية", price: 4800, image: "/img/Product/produit1.webp", rating: 4.6, description: "مكابس هيدروليكية قوية للصناعات الثقيلة." },
     { id: 12, title: "أنابيب بلاستيكية", price: 700, image: "/img/Product/produit1.webp", oldPrice: 750, rating: 4.4, description: "أنابيب بلاستيكية عالية الجودة للصرف الصحي." },
     { id: 13, title: "أجهزة كهربائية", price: 1300, image: "/img/Product/produit1.webp", rating: 4.2, description: "أجهزة كهربائية منزلية فعالة وموفرة." },

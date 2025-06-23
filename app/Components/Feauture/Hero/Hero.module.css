@@ -104,3 +104,8 @@
     padding: 4px 10px;
   }
 }
+@media (max-width: 600px) {
+  .hero {
+    height: 250px; /* hauteur réduite sur mobile */
+  }
+}

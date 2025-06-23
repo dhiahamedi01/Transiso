@@ -1,25 +1,35 @@
 'use client';
 
-import React from 'react';
-import { Typography, Box, Card } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Typography, Box, Card, Skeleton } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 const Localisation = () => {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 1000); 
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <Box
       sx={{
         maxWidth: '1220px',
         margin: '45px auto 40px',
         paddingInline: '20px',
-        paddingTop:'30px'
+        paddingTop: '30px',
       }}
     >
-      {/* Icône de localisation rouge */}
+      {/* Icône localisation */}
       <Box sx={{ textAlign: 'center', mb: 1 }}>
         <LocationOnIcon sx={{ fontSize: 40, color: 'red' }} />
       </Box>
 
-      {/* Titre principal */}
+      {/* Titre */}
       <Typography
         variant="h4"
         sx={{
@@ -47,25 +57,37 @@ const Localisation = () => {
         يمكنك زيارتنا في مكتبنا بإسطنبول في أي وقت
       </Typography>
 
-      {/* Carte Google avec cadre rouge */}
+      {/* Map Card */}
       <Card
         sx={{
           width: '100%',
-          height: { xs: 320, sm: 420, md: 520 },
+          height: { xs: 380, sm: 480, md: 580 }, // Hauteur augmentée
           overflow: 'hidden',
           boxShadow: 3,
           marginTop: '40px',
-          border: '2px solid #d3d3d3;', // Cadre rouge vif
+          border: '2px solid #d3d3d3',
+          position: 'relative',
         }}
       >
+        {!isLoaded && (
+          <Skeleton
+            variant="rectangular"
+            width="100%"
+            height="100%"
+            animation="wave"
+            sx={{ position: 'absolute', top: 0, left: 0, zIndex: 1 }}
+          />
+        )}
+
         <iframe
           title="Localisation Istanbul"
           width="100%"
           height="100%"
           frameBorder="0"
-          style={{ border: 0 }}
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12042.674695195986!2d28.9783596!3d41.0082376!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab9c09c6f9e57%3A0x5e527e57e5e13b2b!2sIstanbul!5e0!3m2!1sfr!2str!4v1687712345678"
+          style={{ border: 0, visibility: isLoaded ? 'visible' : 'hidden' }}
           allowFullScreen
+          loading="lazy"
+          src="https://www.google.com/maps?q=41.059431,28.652300&z=16&output=embed"
         ></iframe>
       </Card>
     </Box>

@@ -44,6 +44,7 @@ export default function ProductCard({ product }: { product: Product }) {
             borderRadius: '6px',
             zoom: '0.9',
             px: 1,
+            direction:'rtl',
             py: 0.5,
             fontSize: '0.75rem',
           }}
