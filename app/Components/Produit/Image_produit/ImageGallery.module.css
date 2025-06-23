@@ -1,0 +1,48 @@
+.galleryContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px;
+    width: 100%;
+    zoom: 0.85;
+  }
+  
+  .mainImage {
+    padding: 8px;
+    margin-bottom: 16px;
+  }
+  
+  .thumbnailContainer {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .thumbnail {
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .thumbnail:hover {
+    transform: scale(1.05);
+  }
+  
+  .selected {
+    border-color: #E66418;
+  }
+
+
+  @media (max-width: 768px) {
+
+    .thumbnailContainer {
+       display: none;
+    }
+    .galleryContainer{
+      padding-inline: 50px !important;
+    }
+    .image{
+      zoom: 0.75 !important;
+    }
+}

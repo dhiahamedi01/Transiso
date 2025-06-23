@@ -7,66 +7,8 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { useEffect } from 'react';
 import { ChevronLeft, ChevronRight, ViewList } from '@mui/icons-material';
-import ProductCard from './ProductCard'; // Import de ton nouveau composant
-
-type Product = {
-  id: number;
-  title: string;
-  price: number;
-  oldPrice?: number;
-  image: string;
-  tag?: string;
-  rating: number;
-  description: string;
-};
-
-const products: Product[] = [
-  {
-    id: 1,
-    title: "فولاذ مجلفن",
-    price: 1200,
-    image: "/img/Product/produit1.webp",
-    tag: "متوفر",
-    rating: 4.8,
-    description: "فولاذ عالي الجودة للمشاريع الصناعية."
-  },
-  {
-    id: 2,
-    title: "أخشاب معالجة",
-    price: 900,
-    image: "/img/Product/produit1.webp",
-    rating: 4.5,
-    description: "خشب متين ومقاوم للرطوبة للأثاث والبناء."
-  },
-  {
-    id: 3,
-    title: "زيت نباتي خام",
-    price: 600,
-    oldPrice: 650,
-    image: "/img/Product/produit1.webp",
-    tag: "خصم 8%",
-    rating: 4.3,
-    description: "زيت نباتي  عالي النقاء للاستخدام الغذائي"
-  },
-  {
-    id: 4,
-    title: "آلات تعبئة وتغليف",
-    price: 3500,
-    image: "/img/Product/produit1.webp",
-    rating: 4.7,
-    description: "معدات حديثة لتغليف المنتجات بكفاءة."
-  },
-  {
-    id: 5,
-    title: "حاويات بلاستيكية",
-    price: 450,
-    oldPrice: 500,
-    image: "/img/Product/produit1.webp",
-    tag: "خصم 10%",
-    rating: 4.6,
-    description: "حاويات متعددة الاستخدامات لتخزين المنتجات."
-  }
-];
+import ProductCard from './ProductCard';
+import { products as allProducts } from '../ProductList/Data_produit'; // ✅ Import correct
 
 export default function TrendingCarousel() {
   useEffect(() => {
@@ -80,6 +22,8 @@ export default function TrendingCarousel() {
       document.body.style.fontFamily = "'Noto Kufi Arabic', sans-serif";
     });
   }, []);
+
+  const topProducts = allProducts.slice(0, 10); // ✅ Prendre les 10 premiers
 
   return (
     <Box sx={{ px: 4, py: 6 }}>
@@ -108,7 +52,7 @@ export default function TrendingCarousel() {
           }}
         >
           <ViewList />
-          <Typography component="span" sx={{ userSelect: 'none',fontFamily: 'Noto Kufi Arabic, sans-serif'}}>
+          <Typography component="span" sx={{ userSelect: 'none', fontFamily: 'Noto Kufi Arabic, sans-serif' }}>
             عرض الكل
           </Typography>
         </Box>
@@ -118,20 +62,16 @@ export default function TrendingCarousel() {
           fontWeight="bold"
           color="#0D3546"
           sx={{
-            fontSize: { xs: '1.4rem', sm: '2rem',fontFamily: 'Noto Kufi Arabic, sans-serif'},
-            mb: { xs: 1, sm: 0 }
+            fontSize: { xs: '1.4rem', sm: '2rem' },
+            mb: { xs: 1, sm: 0 },
+            fontFamily: 'Noto Kufi Arabic, sans-serif'
           }}
         >
           قائمة منتجاتنا
         </Typography>
       </Box>
 
-      <Box
-        sx={{
-          position: 'relative',
-          '&:hover .nav-button': { opacity: 1 },
-        }}
-      >
+      <Box sx={{ position: 'relative', '&:hover .nav-button': { opacity: 1 } }}>
         <IconButton
           className="nav-button"
           sx={{
@@ -185,7 +125,7 @@ export default function TrendingCarousel() {
               1280: { slidesPerView: 4 }
             }}
           >
-            {products.map((product) => (
+            {topProducts.map((product) => (
               <SwiperSlide key={product.id}>
                 <Box sx={{ mx: 1, height: '100%' }}>
                   <ProductCard product={product} />
