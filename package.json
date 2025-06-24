@@ -23,6 +23,8 @@
     "swiper": "^11.2.8"
   },
   "devDependencies": {
+    "@tailwindcss/line-clamp": "^0.4.4",
+    "@tailwindcss/postcss": "^4.1.10",
     "@types/aos": "^3.0.7",
     "@types/node": "^20",
     "@types/react": "^19",

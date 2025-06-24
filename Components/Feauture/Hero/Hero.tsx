@@ -21,6 +21,12 @@ function Hero() {
           title: 'قائمة منتجاتنا',
           breadcrumbs: ['الرئيسية', 'المنتجات'],
         }
+      case '/Services':
+        return {
+          title: 'خدماتنا في ترانسيسو',
+          breadcrumbs: ['الرئيسية', 'خدماتنا  '],
+        }
+        
       default:
         return {
           title: 'لم يتم إنشائه بعد',

@@ -23,7 +23,7 @@ export type Product = {
     { id: 8, title: "أخشاب معالجة", price: 900, image: "/img/Product/produit1.webp", rating: 4.5, description: "خشب متين ومقاوم للرطوبة للأثاث والبناء." },
     { id: 9, title: "زيت نباتي خام", price: 600, oldPrice: 650, image: "/img/Product/produit1.webp", tag: "خصم 8%", rating: 4.3, description: "زيت نباتي عالي النقاء للاستخدام الغذائي." },
     { id: 10, title: "آلات تعبئة وتغليف", price: 3500, image: "/img/Product/produit1.webp", rating: 4.7, description: "معدات حديثة لتغليف المنتجات بكفاءة." },
-
+/*
     { id: 11, title: "مكابس هيدروليكية", price: 4800, image: "/img/Product/produit1.webp", rating: 4.6, description: "مكابس هيدروليكية قوية للصناعات الثقيلة." },
     { id: 12, title: "أنابيب بلاستيكية", price: 700, image: "/img/Product/produit1.webp", oldPrice: 750, rating: 4.4, description: "أنابيب بلاستيكية عالية الجودة للصرف الصحي." },
     { id: 13, title: "أجهزة كهربائية", price: 1300, image: "/img/Product/produit1.webp", rating: 4.2, description: "أجهزة كهربائية منزلية فعالة وموفرة." },
@@ -47,6 +47,7 @@ export type Product = {
     { id: 28, title: "أجهزة مراقبة", price: 3200, image: "/img/Product/produit1.webp", oldPrice: 3400, rating: 4.3, description: "أجهزة مراقبة حديثة للمنازل والشركات." },
     { id: 29, title: "مضخات مياه", price: 2800, image: "/img/Product/produit1.webp", rating: 4.6, description: "مضخات مياه فعالة وعالية الجودة." },
     { id: 30, title: "أقمشة صناعية", price: 1100, image: "/img/Product/produit1.webp", rating: 4.2, description: "أقمشة صناعية متينة للاستخدامات المختلفة." },
-  ];
+  
+  */  ];
   
   

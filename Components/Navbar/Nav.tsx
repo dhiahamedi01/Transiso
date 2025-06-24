@@ -17,14 +17,15 @@ import Image from 'next/image';
 import LanguageSelector from '../LanguageSelector/LanguageSelector';
 import NextLink from 'next/link';
 
-const TopBar = () => {
+const Nav = () => {
+
   const isMobile = useMediaQuery('(max-width:900px)');
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const navItems = [
     { label: 'الرئيسية', href: '/' },
     { label: 'عن الشركة', href: '/About' },
-    { label: 'خدماتنا في ترانسيسو', href: '#' },
+    { label: 'خدماتنا في ترانسيسو', href: '/Services' },
     { label: 'لوجيستيات', href: '#' },
     { label: 'التسوق في تركيا', href: 'Liste_produit' },
   ];
@@ -174,4 +175,4 @@ const TopBar = () => {
   );
 };
 
-export default TopBar;
+export default Nav;

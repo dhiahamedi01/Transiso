@@ -4,7 +4,7 @@ import Groups2Icon from '@mui/icons-material/Groups2';
 import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import Image from 'next/image';
-import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';  // icône double flèche
+import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';  
 
 function RedLineWithAnimatedArrow() {
   return (

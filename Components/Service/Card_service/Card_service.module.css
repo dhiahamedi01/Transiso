@@ -1,0 +1,260 @@
+@font-face {
+    font-family: 'Noto Kufi Arabic';
+    src: url('/Font/NotoKufiArabic-VariableFont_wght.ttf') format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  .redLineWrapper {
+    position: relative;
+    max-width: 250px;
+    margin: 15px auto 25px auto;
+    height: 3px;
+    background-color: #d60000;
+    border-radius: 2px;
+  }
+  
+  .animatedArrow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff; /* même couleur que le fond de ta section */
+    color: #d60000;
+    font-size: 34px;
+    padding: 0 6px; /* un petit padding pour masquer la ligne derrière */
+    animation: slideLeftRight 2s ease-in-out infinite;
+    border-radius: 3px;
+    pointer-events: none;
+  }
+  
+  @keyframes slideLeftRight {
+    0%, 100% {
+      transform: translate(calc(-50% - 0px), -50%);
+    }
+    50% {
+      transform: translate(calc(-50% + 8px), -50%);
+    }
+  }
+  
+  
+  .sectionHeader {
+    text-align: center;
+    margin-bottom: 17px;
+    direction: rtl;
+  }
+  
+  .sectionSubheading {
+    font-size: 19px;
+    color: #d60000;
+    font-weight: 600;
+    margin-top: 50px;
+    font-family: "Noto Kufi Arabic", sans-serif;
+  }
+  
+  .sectionHeading {
+    font-size: 30px;
+    color: #0C3645;
+    font-weight: 700;
+    font-family: "Noto Kufi Arabic", sans-serif;
+  }
+  .sectionDescription {
+    font-size: 16px;
+    color: #444;
+    margin-top: 10px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+    font-family: "Noto Kufi Arabic", sans-serif;
+    margin-bottom: 20px;
+  }
+  @font-face {
+    font-family: 'Noto Kufi Arabic';
+    src: url('/Font/NotoKufiArabic-VariableFont_wght.ttf') format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  .Liste_card{
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 25px;
+      margin-top: 50px;
+      padding-inline: 150px;
+      flex-wrap: wrap;
+  }
+  .card,.card1,.card2,.card3{
+    flex: 0 0 calc(25% - 22.5px); 
+      width: 100%;
+      height: 40vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center; 
+      align-items: center;       
+      padding: 20px;   
+      display: flex;
+  
+   
+  }
+  .contenue{
+      bottom: 0vh;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+  
+  }
+  .icon{
+      position: relative; 
+      z-index: 2;
+  }
+  .span{
+      font-family: "Noto Kufi Arabic", sans-serif !important;
+      font-optical-sizing: auto;
+      font-style: normal;
+      color: #fff;
+      position: relative; 
+      z-index: 2;
+      font-size: 23px;
+      font-weight: 700;
+      margin-top: 10px;
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
+  }
+  .card{
+      background-image: url('/img/card/service-details-01.jpg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    
+  }
+  .card::before ,.card1::before,.card2::before,.card3::before   {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #0C2B46;
+      opacity: 0.3; 
+      z-index: 1;
+  }
+  .card1{
+      background-image: url('/img/card/service-details-02.jpg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+  }
+  .card2{
+      background-image: url('/img/card/service-details-03.jpg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+  }
+  .card3{
+      background-image: url('/img/card/service-details-04.jpg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+  }
+  .card, .card1, .card2, .card3 {
+      position: relative;
+      width: 100%;
+      height: 50vh;
+      overflow: hidden;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    
+      cursor: pointer;
+    
+      transition: transform 0.3s ease;
+    }
+    
+    /* Masque bleu foncé par défaut */
+    .card::before, .card1::before, .card2::before, .card3::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: #0C2B46;
+      opacity: 0.3;
+      z-index: 1;
+      transition: opacity 0.3s ease;
+    }
+    
+    /* Masque rouge sur la moitié basse avec dégradé vers le haut */
+    .card::after, .card1::after, .card2::after, .card3::after {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 50%; /* moitié basse */
+      background: linear-gradient(to top, rgba(255, 0, 0, 0.6), transparent);
+      opacity: 0;
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+      z-index: 5;
+      transition: opacity 0.3s ease;
+    }
+    
+    /* Contenu et description au-dessus */
+    .contenue, .description {
+      position: relative;
+      z-index: 10;
+      color: white;
+      text-align: center;
+      font-family: "Noto Kufi Arabic", sans-serif;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    
+    /* Par défaut, description invisible et décalée vers le bas */
+    .description {
+      opacity: 0;
+      transform: translateY(20px);
+      font-size: 16px;
+      margin-top: 80px;
+    }
+    
+    /* Au hover sur la carte */
+    .card:hover, .card1:hover, .card2:hover, .card3:hover {
+      transform: scale(1.03);
+    }
+    
+    /* Affiche le masque rouge dégradé */
+    .card:hover::after, .card1:hover::after, .card2:hover::after, .card3:hover::after {
+      opacity: 1;
+    }
+    
+    /* Affiche la description */
+    .card:hover .description,
+    .card1:hover .description,
+    .card2:hover .description,
+    .card3:hover .description {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Remonte un peu le contenu (icon + texte) au hover */
+    .card:hover .contenue,
+    .card1:hover .contenue,
+    .card2:hover .contenue,
+    .card3:hover .contenue {
+      transform: translateY(-10%);
+    }
+  
+    @media (max-width: 768px) {
+      .card, .card1, .card2, .card3 {
+        flex: 0 0 100%; /* une carte par ligne */
+      }
+    
+      .Liste_card {
+        padding-inline: 20px;
+        gap: 20px;
+      }
+    }
