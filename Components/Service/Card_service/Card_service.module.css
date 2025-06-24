@@ -97,7 +97,7 @@
       align-items: center;       
       padding: 20px;   
       display: flex;
-  
+      text-decoration: none !important;
    
   }
   .contenue{
@@ -126,7 +126,7 @@
       text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
   }
   .card{
-      background-image: url('/img/card/service-details-01.jpg');
+      background-image: url('/img/service/product-1.jpg');
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
@@ -141,19 +141,19 @@
       z-index: 1;
   }
   .card1{
-      background-image: url('/img/card/service-details-02.jpg');
+      background-image: url('/img/service/product-1.jpg');
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
   }
   .card2{
-      background-image: url('/img/card/service-details-03.jpg');
+      background-image: url('/img/service/product-1.jpg');
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
   }
   .card3{
-      background-image: url('/img/card/service-details-04.jpg');
+      background-image: url('/img/service/product-1.jpg');
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;

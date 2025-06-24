@@ -21,7 +21,6 @@ function Card_service() {
         <p className={styles.sectionDescription}>
         توفر ترانسيسو خدمات شحن جوي وبحري موثوقة من تركيا، بدعم من فريق محترف وشبكة فروع عالمية، لضمان سرعة التنفيذ ودقة التسليم.
         </p>
-        <RedLineWithAnimatedArrow />
       </div>
     </>
   )
