@@ -4,8 +4,11 @@ import { products } from '@/Components/Produit/ProductList/Data_produit';
 
 const ITEMS_PER_PAGE = 12;
 
-// ✅ pas besoin de typer manuellement les props
-export default function Page({ searchParams }: { searchParams?: Record<string, string | string[] | undefined> }) {
+export default function Page({
+  searchParams,
+}: {
+  searchParams?: Record<string, string | string[] | undefined>;
+}) {
   const rawPage = Array.isArray(searchParams?.page)
     ? searchParams.page[0]
     : searchParams?.page;
