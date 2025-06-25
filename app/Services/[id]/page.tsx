@@ -22,7 +22,7 @@ function page() {
           <OtherServices/>
         </div>
         <div className={styles.partie1} >
-          <ContactInfoCard/>
+          
         </div>
         <div className={styles.partie2} >
           partie 2
