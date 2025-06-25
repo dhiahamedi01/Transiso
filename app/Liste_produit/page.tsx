@@ -1,34 +1,15 @@
-import Hero from '@/Components/Feauture/Hero/Hero';
-import ProductList from '@/Components/Produit/ProductList/ProductList';
-import { products } from '@/Components/Produit/ProductList/Data_produit';
+import React from 'react'
+import Hero from '@/Components/Feauture/Hero/Hero'
+import TrendingCarousel from '@/Components/Produit/TrendingCarousel/TrendingCarousel'
+import ProductList from '@/Components/Produit/ProductList/ProductList'
 
-const ITEMS_PER_PAGE = 12;
-
-export default function Page({
-  searchParams,
-}: {
-  searchParams?: Record<string, string | string[] | undefined>;
-}) {
-  const rawPage = Array.isArray(searchParams?.page)
-    ? searchParams.page[0]
-    : searchParams?.page;
-
-  const currentPage = parseInt(rawPage ?? '1', 10);
-  const totalPages = Math.ceil(products.length / ITEMS_PER_PAGE);
-
-  const paginatedProducts = products.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
-  );
-
+function page() {
   return (
     <>
-      <Hero />
-      <ProductList
-        products={paginatedProducts}
-        currentPage={currentPage}
-        totalPages={totalPages}
-      />
+    <Hero/>
+    <ProductList/>
     </>
-  );
+  )
 }
+
+export default page
