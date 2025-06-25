@@ -31,7 +31,7 @@ function page() {
       </div>
       <div className={styles.Paper_d} >
         <div className={styles.Image} >
-          <Image className={styles.icon} src="/img/Service/homme.avif"
+          <Image className={styles.imagec} src="/img/Service/homme.avif"
           alt="cargo" width={900}  height={500}/>
         </div>
         <h1 className={styles.sectionHeading} >
