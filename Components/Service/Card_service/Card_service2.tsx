@@ -14,14 +14,14 @@ function RedLineWithAnimatedArrow() {
 }
 
 const services = [
-  { title: "قطع غيار سيارات", slug: "2", image: "/img/service/img5.jpg" },
-  { title: "آلات زراعية", slug: "6", image: "/img/service/img8.avif" },
-  { title: "ملابس رجالية", slug: "7", image: "/img/service/img7.avif" },
-  { title: "ملابس نسائية", slug: "8", image: "/img/service/img6.jpg" },
-  { title: "شحن مفروشات واثاث من تركيا", slug: "1", image: "/img/service/img2.webp" },
-  { title: "مستلزمات طبية", slug: "5", image: "/img/service/img9.avif" },
-  { title: "منتجات تجميل وعناية", slug: "3", image: "/img/service/img4.jpg" },
-  { title: "مواد غذائية معلبة", slug: "4", image: "/img/service/img3.webp" }
+  { title: "قطع غيار سيارات", slug: "2", image: "/img/Service/img5.jpg" },
+  { title: "آلات زراعية", slug: "6", image: "/img/Service/img8.avif" },
+  { title: "ملابس رجالية", slug: "7", image: "/img/Service/img7.avif" },
+  { title: "ملابس نسائية", slug: "8", image: "/img/Service/img6.jpg" },
+  { title: "شحن مفروشات واثاث من تركيا", slug: "1", image: "/img/Service/img2.webp" },
+  { title: "مستلزمات طبية", slug: "5", image: "/img/Service/img9.avif" },
+  { title: "منتجات تجميل وعناية", slug: "3", image: "/img/Service/img4.jpg" },
+  { title: "مواد غذائية معلبة", slug: "4", image: "/img/Service/img3.webp" }
 
 ];
 
