@@ -32,7 +32,7 @@ function page() {
       <div className={styles.Paper_d} >
         <div className={styles.Image} >
           <Image className={styles.imagec} src="/img/Service/homme.avif"
-          alt="cargo" width={900}  height={500}/>
+          alt="cargo" width={900}  height={530}/>
         </div>
         <h1 className={styles.sectionHeading} >
         ملابس رجالية جاهزة

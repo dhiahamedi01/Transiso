@@ -9,10 +9,11 @@ import style from './OtherServices.module.css'
 type Service = { id: number; title: string; img: string };
 
 const services: Service[] = [
-  { id: 1, title: 'شحن بالشاحنة', img: '/img/Service/other_1-1.jpg' },
+  { id: 1, title: 'شحن بالطائرة',     img: '/img/Service/other4.jpg' },
   { id: 2, title: 'شحن بالقطار',  img: '/img/Service/other_2-1.jpg' },
   { id: 3, title: 'شحن بحري',     img: '/img/Service/other_3-1.jpg' },
-  { id: 4, title: 'شحن بالطائرة',     img: '/img/Service/other4.jpg' }
+  { id: 4, title: 'شحن بالشاحنة', img: '/img/Service/other_1-1.jpg' }
+
 ];
 
 /* --------------------------------------------------------- */
@@ -98,7 +99,8 @@ function ServiceCard({ id, title, img }: CardProps) {
           variant="subtitle1"
           fontWeight={700}
           color="#fff"
-          sx={{ fontSize: 18, fontFamily: 'Noto Kufi Arabic' }}
+          className={style.text}
+          sx={{ fontSize: 18, fontFamily: 'Noto Kufi Arabic'}}
         >
           {title}
         </Typography>
