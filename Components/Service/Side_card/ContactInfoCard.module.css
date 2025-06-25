@@ -1,0 +1,86 @@
+/* ContactInfoCard.module.css */
+/* Police arabe ------------------------------------------------------------- */
+@font-face {
+    font-family: "Noto Kufi Arabic";
+    src: url("/Font/NotoKufiArabic-VariableFont_wght.ttf") format("woff2");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  /* Carte -------------------------------------------------------------------- */
+  .contactCard {
+    padding: 1.5rem;
+    width: 100%;
+    height: 100%;
+    background-color: #FEF8F8 !important;
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+    direction: rtl;
+  }
+  .globale{
+    margin-top: 20px;
+  }
+  .Arabic{
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+    color: #797989 !important;
+  }
+  .Arabic2{
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+  }
+  /* Trait sous le titre ------------------------------------------------------ */
+  .titleUnderline {
+    width: 140px;
+    height: 4px;
+    background: #d32f2f;
+    border-radius: 2px;
+    transform: skewX(-20deg);
+    margin-top: 8px;
+  }
+  
+  /* Ligne (adresse, téléphone, email) --------------------------------------- */
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    padding: 24px 0;
+  }
+  
+  /* Icône en losange rouge --------------------------------------------------- */
+  .iconWrapper {
+    width: 38px;
+    height: 38px;
+    background: #d32f2f;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+  .iconWrapper svg {
+    transform: rotate(-45deg); /* remet l’icône droite */
+  }
+/* Séparateur pointillé amélioré */
+.divider {
+    width: 100%;
+    border: none;
+    border-top: 1.5px dotted rgba(211, 47, 47, 0.6); /* rouge plus doux avec transparence */
+    margin: 0;
+  }
+  
+  /* Alternative avec un effet "pointillé" via un background dégradé */
+  .divider-gradient {
+    width: 100%;
+    height: 1px;
+    margin: 0;
+    background-image: repeating-linear-gradient(
+      to right,
+      #d32f2f,
+      #d32f2f 5px,
+      transparent 5px,
+      transparent 10px
+    );
+    opacity: 0.6;
+  }
+  
+  

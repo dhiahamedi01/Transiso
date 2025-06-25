@@ -14,14 +14,15 @@ function RedLineWithAnimatedArrow() {
 }
 
 const services = [
-  { title: "ماكينات تعبئة وتغليف", slug: "1" },
-  { title: "قطع غيار سيارات", slug: "2" },
-  { title: "منتجات تجميل وعناية", slug: "3" },
-  { title: "مواد غذائية معلبة", slug: "4" },
-  { title: "مستلزمات طبية", slug: "5" },
-  { title: "آلات زراعية", slug: "6" },
-  { title: "ملابس رجالية", slug: "7" },
-  { title: "ملابس نسائية", slug: "8" }
+  { title: "قطع غيار سيارات", slug: "2", image: "/img/service/img5.jpg" },
+  { title: "آلات زراعية", slug: "6", image: "/img/service/img8.avif" },
+  { title: "ملابس رجالية", slug: "7", image: "/img/service/img7.avif" },
+  { title: "ملابس نسائية", slug: "8", image: "/img/service/img6.jpg" },
+  { title: "شحن مفروشات واثاث من تركيا", slug: "1", image: "/img/service/img2.webp" },
+  { title: "مستلزمات طبية", slug: "5", image: "/img/service/img9.avif" },
+  { title: "منتجات تجميل وعناية", slug: "3", image: "/img/service/img4.jpg" },
+  { title: "مواد غذائية معلبة", slug: "4", image: "/img/service/img3.webp" }
+
 ];
 
 export default function CardService() {
@@ -34,11 +35,17 @@ export default function CardService() {
       </div>
 
       <div className={styles.Liste_card}>
-        {services.map((service, index) => (
+        {services.map((service) => (
           <Link
             key={service.slug}
             href={`/Services/${service.slug}`}
             className={styles.card}
+            style={{
+              backgroundImage: `url(${service.image})`,
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover'
+            }}
           >
             <div className={styles.contenue}>
               <span className={styles.span}>{service.title}</span>
