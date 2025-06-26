@@ -26,7 +26,7 @@ export default function TrendingCarousel() {
   const topProducts = allProducts.slice(0, 10); // ✅ Prendre les 10 premiers
 
   return (
-    <Box sx={{ px: 4, py: 6 }}>
+    <Box sx={{ px: 4, py: 6 ,zoom:'0.9',paddingInline:'80px'}}>
       <Box
         sx={{
           mx: { xs: 2, sm: 4 },
