@@ -1,0 +1,58 @@
+:root {
+    --clr-accent:#DE1E27;
+    --font-ar: 'Noto Kufi Arabic', sans-serif;
+  }
+  
+  /* barre principale */
+  .navbar {
+    background: #fff !important;
+    box-shadow: 0 4px 8px rgb(0 0 0 / .1);
+    direction: rtl;
+  }
+  
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 11vh;
+    padding-inline: 20px;
+  }
+  
+  /* liens desktop */
+  .navLinks {
+    display: flex;
+    gap: 38px;
+    font: 400 15px/1 var(--font-ar);
+  }
+  
+  .link { color:#0a0a23; text-decoration:none; }
+  
+  /* bloc droite desktop */
+  .rightSection {
+    display:flex; align-items:center; gap:16px;
+  }
+  
+  .searchIcon { color:#333; }
+  
+  .phoneBox        { display:flex; align-items:center; gap:8px; }
+  .phoneIconCircle { background:#EDF6FA; border-radius:50%; padding:8px; display:flex; }
+  .phoneIcon       { color:#001b4e; font-size:18px; }
+  .phoneNumber     { font:700 14px/1 var(--font-ar); color:#0a0a23; }
+  
+  .trackButton {
+    background:var(--clr-accent)!important;
+    border-radius:6px; padding:8px 24px;
+    font:700 14px/1 var(--font-ar);
+    color:#fff; text-transform:none;
+  }
+  .trackButton:hover { background:#b31921!important; }
+  
+  /* hamburger mobile / cacher ce qui est desktop */
+  .hamburger   { display:none !important; }
+  
+  @media (max-width:900px) {
+    .navLinks, .rightSection { display:none; }
+    .hamburger               { display:block; }
+    .toolbar                 { padding-inline:12px; }
+  }
+  

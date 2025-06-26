@@ -1,49 +1,76 @@
 'use client';
-import React, { useState } from 'react';
+
+import React, { useState, useCallback, memo } from 'react';
+import dynamic from 'next/dynamic';
+
 import styles from './Nav.module.css';
-import { AppBar, Toolbar, Button,Box,Typography,IconButton,Divider,Drawer,List,ListItem,useMediaQuery,Link as MuiLink,} from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import PhoneIcon from '@mui/icons-material/Phone';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import EmailIcon from '@mui/icons-material/Email';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import Image from 'next/image';
+import {
+  AppBar,
+  Toolbar,
+  Button,
+  Box,
+  Typography,
+  IconButton,
+  Divider,
+  Drawer,
+  List,
+  ListItem,
+  useMediaQuery,
+  Link as MuiLink,
+} from '@mui/material';
+
+const MenuIcon       = dynamic(() => import('@mui/icons-material/Menu'),       { ssr: false });
+const SearchIcon     = dynamic(() => import('@mui/icons-material/Search'),     { ssr: false });
+const PhoneIcon      = dynamic(() => import('@mui/icons-material/Phone'),      { ssr: false });
+const TrendingUpIcon = dynamic(() => import('@mui/icons-material/TrendingUp'), { ssr: false });
+const LocationOnIcon = dynamic(() => import('@mui/icons-material/LocationOn'), { ssr: false });
+const EmailIcon      = dynamic(() => import('@mui/icons-material/Email'),      { ssr: false });
+const AccessTimeIcon = dynamic(() => import('@mui/icons-material/AccessTime'), { ssr: false });
+const FacebookIcon   = dynamic(() => import('@mui/icons-material/Facebook'),   { ssr: false });
+const TwitterIcon    = dynamic(() => import('@mui/icons-material/Twitter'),    { ssr: false });
+const WhatsAppIcon   = dynamic(() => import('@mui/icons-material/WhatsApp'),   { ssr: false });
+const InstagramIcon  = dynamic(() => import('@mui/icons-material/Instagram'),  { ssr: false });
+
+import Image     from 'next/image';
+import NextLink  from 'next/link';
 import LanguageSelector from '../LanguageSelector/LanguageSelector';
-import NextLink from 'next/link';
 
-const Nav = () => {
+const navItems = [
+  { label: 'الرئيسية',              href: '/' },
+  { label: 'عن الشركة',             href: '/About' },
+  { label: 'خدماتنا في ترانسيسو',  href: '/Services' },
+  { label: 'لوجيستيات',            href: '#' },
+  { label: 'التسوق في تركيا',      href: '/Liste_produit' },
+];
 
+function Nav() {
   const isMobile = useMediaQuery('(max-width:900px)');
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const navItems = [
-    { label: 'الرئيسية', href: '/' },
-    { label: 'عن الشركة', href: '/About' },
-    { label: 'خدماتنا في ترانسيسو', href: '/Services' },
-    { label: 'لوجيستيات', href: '#' },
-    { label: 'التسوق في تركيا', href: '/Liste_produit' },
-  ];
+  const openDrawer  = useCallback(() => setDrawerOpen(true),  []);
+  const closeDrawer = useCallback(() => setDrawerOpen(false), []);
 
   return (
     <>
-      {/* Top Bar */}
+      {/* ---------- Top Bar ---------- */}
       <div className={styles.topBar}>
         <div className={styles.left}>
           <div className={styles.infoItem}>
             <LocationOnIcon fontSize="small" sx={{ color: '#DE1E27' }} />
-            <Typography sx={{ fontWeight: 300 }} className={styles.icon_topbar}>Istanbul, Turkey</Typography>
+            <Typography sx={{ fontWeight: 300 }} className={styles.icon_topbar}>
+              Istanbul, Turkey
+            </Typography>
           </div>
+
           <span className={styles.separator}>|</span>
+
           <div className={styles.infoItem}>
             <EmailIcon fontSize="small" sx={{ color: '#DE1E27' }} />
-            <Typography sx={{ fontWeight: 300 }} className={styles.icon_topbar}>info@transisologistic.com</Typography>
+            <Typography sx={{ fontWeight: 300 }} className={styles.icon_topbar}>
+              info@transisologistic.com
+            </Typography>
           </div>
+
           {!isMobile && (
             <>
               <span className={styles.separator}>|</span>
@@ -59,7 +86,8 @@ const Nav = () => {
 
         {!isMobile && (
           <div className={styles.right}>
-            <LanguageSelector />
+            <LanguageSelector/>
+
             <MuiLink
               component={NextLink}
               href="#"
@@ -69,10 +97,12 @@ const Nav = () => {
             >
               الاستفسار اون لاين
             </MuiLink>
+
             <Typography className={styles.Arabe}>تابعنا على:</Typography>
+
             <div className={styles.Liste_icon}>
               <IconButton size="small" className={styles.icon}><FacebookIcon fontSize="small" /></IconButton>
-              <IconButton size="small" className={styles.icon}><TwitterIcon fontSize="small" /></IconButton>
+              <IconButton size="small" className={styles.icon}><TwitterIcon  fontSize="small" /></IconButton>
               <IconButton size="small" className={styles.icon}><WhatsAppIcon fontSize="small" /></IconButton>
               <IconButton size="small" className={styles.icon}><InstagramIcon fontSize="small" /></IconButton>
             </div>
@@ -80,31 +110,37 @@ const Nav = () => {
         )}
       </div>
 
-      {/* Navbar */}
+      {/* ---------- NavBar ---------- */}
       <AppBar position="static" color="transparent" elevation={0} className={styles.navbar}>
         <Toolbar className={styles.toolbar}>
           {isMobile && (
-            <IconButton edge="start" onClick={() => setDrawerOpen(true)} className={styles.hamburger}>
+            <IconButton edge="start" onClick={openDrawer} className={styles.hamburger}>
               <MenuIcon />
             </IconButton>
           )}
 
           <Box className={styles.logoBox}>
-            <Image src="/img/logo2.jpg" alt="Logo" width={190} height={60} />
+            <Image
+              src="/img/logo2.jpg"
+              alt="Logo"
+              width={190}
+              height={60}
+              priority
+            />
           </Box>
 
           {!isMobile && (
             <>
               <Box className={styles.navLinks}>
-                {navItems.map((item, index) => (
+                {navItems.map(({ label, href }) => (
                   <MuiLink
-                    key={index}
+                    key={href}
                     component={NextLink}
-                    href={item.href}
+                    href={href}
                     underline="none"
                     className={styles.link}
                   >
-                    {item.label}
+                    {label}
                   </MuiLink>
                 ))}
               </Box>
@@ -116,12 +152,12 @@ const Nav = () => {
                   <Box className={styles.phoneIconCircle}>
                     <PhoneIcon className={styles.phoneIcon} />
                   </Box>
-                  <Box className={styles.number}>
-                    <Typography className={styles.phoneNumber}>5377671027 (90+)</Typography>
-                  </Box>
+                  <Typography className={styles.phoneNumber}>
+                    (+90) 5377671027
+                  </Typography>
                 </Box>
                 <Button variant="contained" className={styles.trackButton}>
-                  تتبع الطلب&ensp;<TrendingUpIcon />
+                  تتبع الطلب&nbsp;<TrendingUpIcon />
                 </Button>
               </Box>
             </>
@@ -129,42 +165,57 @@ const Nav = () => {
         </Toolbar>
       </AppBar>
 
-      {/* Drawer mobile */}
-      <Drawer anchor="right" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
-        <Box sx={{ width: 250, padding: 2 }}>
+      {/* ---------- Drawer mobile ---------- */}
+      <Drawer
+        anchor="right"
+        open={drawerOpen}
+        onClose={closeDrawer}
+        disableScrollLock
+      >
+        <Box sx={{ width: 250, p: 2 }}>
           <List>
-            {navItems.map((item, index) => (
-              <ListItem key={index}>
+            {navItems.map(({ label, href }) => (
+              <ListItem key={href}>
                 <MuiLink
                   component={NextLink}
-                  href={item.href}
+                  href={href}
                   underline="none"
                   className={`${styles.Arabe} ${styles.link}`}
+                  onClick={closeDrawer}
                 >
-                  {item.label}
+                  {label}
                 </MuiLink>
               </ListItem>
             ))}
           </List>
-          <Divider />
+
+          <Divider sx={{ my: 1 }} />
+
           <Box sx={{ mt: 2 }}>
             <Typography className={styles.Arabe} sx={{ mb: 1 }}>
               الإثنين – الأحد: 9:00 صباحًا – 8:00 مساءً
             </Typography>
+
             <LanguageSelector />
+
             <MuiLink
               component={NextLink}
               href="#"
               underline="none"
               className={`${styles.Arabe} ${styles.link}`}
               color="inherit"
+              onClick={closeDrawer}
             >
               الاستفسار اون لاين
             </MuiLink>
-            <Typography className={styles.Arabe} sx={{ mt: 1 }}>تابعنا على:</Typography>
+
+            <Typography className={styles.Arabe} sx={{ mt: 1 }}>
+              تابعنا على:
+            </Typography>
+
             <Box sx={{ display: 'flex', gap: 1 }}>
               <IconButton size="small"><FacebookIcon fontSize="small" /></IconButton>
-              <IconButton size="small"><TwitterIcon fontSize="small" /></IconButton>
+              <IconButton size="small"><TwitterIcon  fontSize="small" /></IconButton>
               <IconButton size="small"><WhatsAppIcon fontSize="small" /></IconButton>
               <IconButton size="small"><InstagramIcon fontSize="small" /></IconButton>
             </Box>
@@ -173,6 +224,6 @@ const Nav = () => {
       </Drawer>
     </>
   );
-};
+}
 
-export default Nav;
+export default memo(Nav);

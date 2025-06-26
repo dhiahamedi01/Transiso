@@ -1,0 +1,40 @@
+:root {
+    --clr-primary: #0a2c47;
+    --clr-accent:  #E41E26;
+    --font-ar: 'Noto Kufi Arabic', sans-serif;
+  }
+  
+  /* ---------- barre haute ---------- */
+  .topBar {
+    background: linear-gradient(to left, var(--clr-primary) 2%, var(--clr-accent) 200%);
+    color: #fff;
+    font: 400 14px/1 var(--font-ar);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 32px;
+    direction: rtl;
+  }
+  
+  .left,
+  .right,
+  .infoItem,
+  .socials {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .separator      { color: #ccc; }
+  .separatorDesk  { color: #ccc; display: none; }
+  .loc            { color: var(--clr-accent); }
+  .inquiry        { color: #fff; text-decoration: none; }
+  .follow         { margin-inline-start: 4px; }
+  
+  /* mobile : on cache la partie droite et on évite la seconde barre verticale */
+  @media (max-width: 900px) {
+    .right          { display: none; }
+    .separatorDesk  { display: none; }
+    .topBar         { flex-direction: column; align-items: flex-start; gap: 4px; padding: 8px 16px; }
+  }
+  
