@@ -34,7 +34,7 @@ export default function Faq() {
 
   return (
     <div className={styles.faqContainer}>
-      <h2 className={styles.title}>لماذا تعتبر اللوجستيات مهمة؟</h2>
+    
       <div className={styles.faqList}>
         {faqData.map((item, index) => (
           <div key={index} className={styles.faqItem}>

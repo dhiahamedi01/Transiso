@@ -17,8 +17,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Nav/>    
           <AOSInit/>
+          <Nav/>    
           {children}    
         </ThemeProvider>
       </body>
