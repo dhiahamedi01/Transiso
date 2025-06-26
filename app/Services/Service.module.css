@@ -172,7 +172,7 @@
     justify-content: center;
     padding-left: 30px;
 }
-.sectionHeading {
+.sectionHeading{
     font-size: 24px;
     color: #0C3645;
     font-weight: 700;
@@ -180,7 +180,13 @@
     margin-top: 60px;
     margin-right: auto;
   }
-
+ .sectionHeading2{
+  font-size: 24px;
+  color: #0C3645;
+  font-weight: 700;
+  font-family: "Noto Kufi Arabic", sans-serif;
+  margin-right: auto;
+ }
   .description{
     font-size: 14px;
     color: #444;
