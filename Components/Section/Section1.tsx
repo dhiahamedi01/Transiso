@@ -9,7 +9,7 @@ import StarIcon from '@mui/icons-material/Star';
 const Section = () => {
   return (
     <div className={styles.about}>
-      <div className={styles.block12} data-aos="fade-up" data-aos-duration="800">
+      <div className={styles.block12} >
         <Image
           src="/img/about_img01.png"
           alt="about"
@@ -19,7 +19,7 @@ const Section = () => {
         />
       </div>
 
-      <div className={styles.block13} data-aos="fade-up" data-aos-duration="800">
+      <div className={styles.block13} >
         <div className={styles.text}>
           <div className={styles.titre}>
             <h4 className={styles.section_title2}>الخدمات الفرعية</h4>
@@ -31,7 +31,7 @@ const Section = () => {
           على مدى سنوات من العمل في قطاع الخدمات اللوجستية في الدول العربية ومختلف أنحاء العالم، حرصت شركة ترانسيسو على تقديم خدمات شحن جوي وبحري متكاملة في تركيا، مع الالتزام بتلبية احتياجات العملاء بكفاءة واحترافية. وتسعى الشركة باستمرار إلى تعزيز مكانتها كشريك لوجستي موثوق ومفضل في هذا البلد، من خلال تقديم حلول عالية الجودة وخدمة متميزة.          </p>
         </div>
         <br />
-        <div className={styles.liste2} data-aos="fade-up" data-aos-duration="800">
+        <div className={styles.liste2} >
           <div className={styles.partie1AR}>
             <ul>
               {[

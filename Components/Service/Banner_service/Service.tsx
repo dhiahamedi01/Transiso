@@ -9,9 +9,6 @@ const Service = () => {
     <section className={styles['services-section']}>
       <div
         className={styles.service_tout}
-        data-aos="fade-up"
-        data-aos-duration="500"
-        data-aos-delay="300"
       >
         <div className={styles['Service-logistic']}>
           <div className={styles.part1}>

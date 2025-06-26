@@ -14,8 +14,6 @@ function index() {
       <Banner/>
       <Banner2/>
       <Localisation/>
-      <ScrollToTopButton />
-      <WhatsappButtons/>
     </div>
   )
 }

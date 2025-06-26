@@ -5,9 +5,10 @@ import Image from 'next/image';
 import FAQ from '@/Components/FAQ/FAQ';
 import LocalShippingIcon from '@mui/icons-material/LocationOn';
 import SecurityIcon from '@mui/icons-material/SupportAgent';
-import OtherServices from '@/Components/Service/Side_card/OtherServices';
+
 import ContactInfoCard from '@/Components/Service/Side_card/ContactInfoCard';
 import { Typography} from "@mui/material";
+import OtherServices from '@/Components/Service/Side_card/OtherServices';
 
 function page() {
   return (

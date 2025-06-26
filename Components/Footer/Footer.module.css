@@ -1,0 +1,158 @@
+/* ───────── Police Noto Kufi Arabic (locale) ───────── */
+@font-face {
+    font-family: 'Noto Kufi Arabic';
+    src: url('/Font/NotoKufiArabic-VariableFont_wght.ttf') format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  /* ───────── Bloc principal du footer ───────── */
+  .footer {
+    font-family: 'Noto Kufi Arabic', sans-serif;
+    direction: rtl;
+    background-color: #142B45;   /* nouveau BG */
+    color: #bbbbbb;
+    position: relative;
+    overflow: hidden;
+    padding: 90px 0 40px;
+  }
+  
+  /* Image décorative : 100 % width × 100 % height */
+  .footer::before {
+    content: '';
+    position: absolute;
+    inset: 0;                                   /* occupe tout le footer */
+    background: url('/img/Background/page-banner.jpg')
+                no-repeat center bottom / cover; /* cover = full width */
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: 0;
+  }
+  
+  /* ───────── Conteneur & grille ───────── */
+  .container {
+    max-width: 1170px;
+    margin: auto;
+    padding: 0 24px;
+    position: relative;        /* au-dessus de l’image */
+    z-index: 1;
+  }
+  
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem 1rem;
+  }
+  
+  /* ───────── Branding ───────── */
+  .brand {
+    flex: 1 1 250px;
+    margin-left: 24px;         /* espace entre brand et colonnes adjacentes */
+  }
+  
+  .logo {
+    width: 220px;
+    height: auto;
+  }
+  
+  .description {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #d4d4d4;
+    margin-bottom: 24px;       /* éloigne la description des socialLinks */
+  }
+  
+  /* ───────── Réseaux sociaux ───────── */
+  .socialLinks {
+    margin-top: 24px;          /* plus d'espace sous description */
+  }
+  
+  .socialLinks a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.18);
+    color: #ffffff !important;
+    text-decoration: none !important;
+    margin-left: 8px;
+    transition: 0.4s;
+  }
+  
+  .socialLinks a:hover {
+    background: #ffffff;
+    color: #142B45 !important;
+  }
+  
+  /* ───────── Colonnes de liens ───────── */
+  .col {
+    flex: 1 1 160px;
+    min-width: 140px;
+  }
+  
+  .col h4 {
+    font-size: 18px;
+    color: #ffffff;
+    margin-bottom: 28px;
+    position: relative;
+  }
+  
+  .col h4::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -8px;
+    width: 48px;
+    height: 2px;
+    background: #E71D25;
+  }
+  
+  .footer ul {           /* liste locale */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .footer li:not(:last-child) {
+    margin-bottom: 10px;
+  }
+  
+  .footer a {            /* liens couleur demandée */
+    font-size: 16px;
+    color: #ffffff;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+  
+  .footer a:hover {
+    color: #E71D25;
+    padding-right: 6px;
+  }
+  
+  /* ───────── Sous-footer ───────── */
+  .subFooter {
+    background: #04223E;
+    color: #9d9d9d;
+    font-size: 14px;
+    text-align: center;
+    padding: 10px 12px;
+  }
+  
+  .subFooter a {
+    color: #9d9d9d;
+    margin: 0 8px;
+    text-decoration: none !important;
+  }
+  
+  .subFooter a:hover {
+    color: #E71D25;
+  }
+  
+  /* ───────── Responsive ───────── */
+  @media (max-width: 768px) {
+    .grid { flex-direction: column; }
+  }
+  

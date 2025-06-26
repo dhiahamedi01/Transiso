@@ -23,8 +23,7 @@ const page = () => {
     <Avis/>
     <Service/>
     <Blog/>
-    <ScrollToTopButton />
-    <WhatsappButtons/>
+
     </>
 
   )
