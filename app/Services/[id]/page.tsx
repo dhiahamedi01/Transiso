@@ -22,11 +22,41 @@ function page() {
           <OtherServices/>
         </div>
         <div className={styles.partie1} >
-          
+          <div className={styles.contenue} >
+              <div className={styles.image_demande} >
+              <Image className={styles.imagec} src="/img/Background/quote.svg"
+                alt="msg" width={50}  height={50}/>
+              </div>
+              <h2 className={styles.titre_demande} >
+              طلب المساعدة
+              </h2>
+              <div className={styles.Description_demande} >
+              لطلب المساعدة يرجى النقر على استفسر الآن وملء المعلومات المطلوبة
+              </div>
+              <div className={styles.button_demande}>
+                <button className={styles.btn_arabic}>
+                <Image 
+                    src="/img/Background/email.svg" 
+                    alt="icon" 
+                    className={styles.btn_icon} 
+                    width={20} 
+                    height={20} 
+                  />
+                  استفسر الآن
+                </button>
+              </div>
+          </div>
+          <div className={styles.bottom_image_container}>
+          <Image
+            src="/img/Background/user.png"
+            alt="footer decoration"
+            width={220}
+            height={250}
+            className={styles.bottom_image}
+          />
         </div>
-        <div className={styles.partie2} >
-          partie 2
         </div>
+
    
       </div>
       <div className={styles.Paper_d} >

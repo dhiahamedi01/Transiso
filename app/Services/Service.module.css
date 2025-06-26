@@ -31,24 +31,138 @@
     height: auto;
     direction: rtl;
 }
-.partie1,.partie2{
+/* On conserve vos règles existantes */
+.partie1,
+.partie2{
     margin-top: 40px;
-    width: 100%;
-    height: 50vh;
-    color: #fff;
-    font-size: 30px;
-    border-bottom: 2px solid #fff;
+    height: 80vh !important;
+    width: 100% !important;
+    background-color: #103548 !important;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #e4e4e4;
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.1);
+    background-image: url('/img/Background/back.png'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    flex-direction: column;
+    /* Ajouté pour que le pseudo-élément se positionne correctement */
+    position: relative;
+    overflow: hidden;        
+    z-index: 0;  /* évite que la partie déborde si besoin */
+}
+.bottom_image_container {
+  position: absolute;
+  bottom: -10px;  /* distance du bas */
+  left: 50%;     /* centre horizontal */
+  transform: translateX(-50%);
+  pointer-events: none; /* si tu veux que ça ne bloque pas les clics */
+  z-index: 5; /* au-dessus du fond mais en dessous des contenus si besoin */
+}
+/* Masque rouge dans le coin haut-droit */
+.partie1::before,
+.partie2::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;               /* ajustez la taille du masque */
+    height: 100%;
+    pointer-events: none;     /* le masque ne bloque pas les clics */
+    z-index: -1; 
+    /* 1. Variante dégradé circulaire */
+    background: radial-gradient(circle at top right,
+                 rgba(255, 0, 0, 0.85) 0%,
+                 rgba(255, 0, 0, 0.25) 50%,
+                 rgba(255, 0, 0, 0) 80%);
+
+    /* 2. Si vous préférez un triangle net (dé-commentez ces trois lignes, et commentez le dégradé ci-dessus) */
+    /* background: #e60023;
+       clip-path: polygon(100% 0, 0 0, 100% 100%);
+       opacity: 0.8; */
+    
+    border-top-right-radius: 10px;   /* épouse le rayon du conteneur */
+}
+.titre_demande {
+  color: #fff;
+  font-weight: 700;
+  font-family: "Noto Kufi Arabic", sans-serif;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
+  font-size: 30px;
+  margin-top: 5px;     /* réduit l'espace au-dessus */
+  margin-bottom: 5px;  /* réduit l'espace en-dessous */
+}
+
+.Description_demande {
+  color: #fff;
+  font-weight: 300;
+  font-family: "Noto Kufi Arabic", sans-serif;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
+  font-size: 14px;
+  text-align: center;
+  direction: rtl;
+  margin-top: 5px;     /* réduit l'espace au-dessus */
+  margin-bottom: 5px;  /* réduit l'espace en-dessous */
+}
+
+.image_demande {
+  margin-bottom: 5px;  /* espace réduit sous l'image */
+}
+.button_demande {
+  margin-top: 10px; /* espace au-dessus du bouton */
+  width: 100%; /* optionnel, pour que le bouton prenne toute la largeur du conteneur */
+  display: flex;
+  justify-content: center; /* centre le bouton horizontalement */
+}
+.btn_arabic {
+  display: inline-flex;       /* pour aligner l’icône et le texte sur la même ligne */
+  align-items: center;
+  background-color: #e60023;
+  color: #fff;
+  font-family: "Noto Kufi Arabic", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+
+  padding: 10px 45px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 3px 4px rgba(230, 0, 35, 0.5);
+  transition: background-color 0.3s ease;
+  gap: 8px; /* espace entre l’icône et le texte */
+}
+
+.btn_arabic:hover {
+  background-color: #b3001a;
+}
+
+.btn_icon {
+  display: block;
+  width: 20px;
+  height: 20px;
+  color: #fff !important;
+  filter: brightness(0) saturate(100%) invert(100%);
+}
+
+.contenue{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+
 }
 .partie3{
     width: 100% !important;
     height: auto !important;
-    background-color: #ffffff;
+    background-color: #F9F9F9 !important;
     padding: 20px;
     border-radius: 10px;
-    border: 1px solid #d6d6d6;
+    border: 1px solid #e4e4e4;
     box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.1);
 }
 .Image{
@@ -66,6 +180,7 @@
     margin-top: 60px;
     margin-right: auto;
   }
+
   .description{
     font-size: 14px;
     color: #444;
@@ -125,6 +240,7 @@
   }
   .imagec{
     border-radius: 8px;
+    z-index: 1000000;
   }
   .texts_card {
     display: flex;
