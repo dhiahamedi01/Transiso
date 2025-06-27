@@ -29,7 +29,7 @@ export default function TrendingCarousel() {
     <Box sx={{ px: 4, py: 6 ,zoom:'0.9',paddingInline:'80px'}}>
       <Box
         sx={{
-          mx: { xs: 2, sm: 4 },
+          mx: { xs: 2, sm: 5 },
           mb: 4,
           display: 'flex',
           alignItems: 'center',
@@ -77,7 +77,7 @@ export default function TrendingCarousel() {
           sx={{
             position: 'absolute',
             top: '50%',
-            left: -10,
+            left: -25,
             zIndex: 2,
             transform: 'translateY(-50%)',
             backgroundColor: 'white',
@@ -96,7 +96,7 @@ export default function TrendingCarousel() {
           sx={{
             position: 'absolute',
             top: '50%',
-            right: -10,
+            right: -25,
             zIndex: 2,
             transform: 'translateY(-50%)',
             backgroundColor: 'white',
@@ -110,7 +110,7 @@ export default function TrendingCarousel() {
           <ChevronRight />
         </IconButton>
 
-        <Box sx={{ overflow: 'visible', px: 2 }}>
+        <Box sx={{ overflow: 'visible', px: 4 }}>
           <Swiper
             modules={[Navigation]}
             navigation={{

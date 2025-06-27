@@ -29,6 +29,7 @@ export default function ProductCard({ product }: { product: Product }) {
             position: 'relative',
             overflow: 'hidden',
             borderBottom: '1px solid #e0e0e0',
+            zoom:'0.9',
             pb: 2,
             backgroundColor: '#fff',
           }}
@@ -45,7 +46,6 @@ export default function ProductCard({ product }: { product: Product }) {
                 color: 'white',
                 fontFamily: 'Noto Kufi Arabic, sans-serif',
                 borderRadius: '6px',
-                zoom: '0.9',
                 px: 1,
                 direction:'rtl',
                 py: 0.5,
@@ -54,7 +54,7 @@ export default function ProductCard({ product }: { product: Product }) {
             />
           )}
 
-          <CardMedia sx={{ height: 280, position: 'relative' }}>
+          <CardMedia sx={{ height: 300, position: 'relative' }}>
             <Image
               src={product.image}
               alt={product.title}

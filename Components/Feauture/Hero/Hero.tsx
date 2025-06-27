@@ -26,6 +26,11 @@ function Hero() {
           title: 'خدماتنا في ترانسيسو',
           breadcrumbs: ['الرئيسية', 'خدماتنا  '],
         }
+      case '/Contact':
+        return {
+          title: 'نحن هنا لخدمتك – تواصل معنا',
+          breadcrumbs: ['الرئيسية', 'إتصل بنا'],
+        }
         
       default:
         return {

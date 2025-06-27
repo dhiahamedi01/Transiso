@@ -39,8 +39,8 @@ const navItems = [
   { label: 'الرئيسية',              href: '/' },
   { label: 'عن الشركة',             href: '/About' },
   { label: 'خدماتنا في ترانسيسو',  href: '/Services' },
-  { label: 'لوجيستيات',            href: '#' },
   { label: 'التسوق في تركيا',      href: '/Liste_produit' },
+  { label: 'إتصل بنا ',            href: '/Contact' },
 ];
 
 function Nav() {
