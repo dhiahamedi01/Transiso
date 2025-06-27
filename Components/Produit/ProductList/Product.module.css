@@ -14,16 +14,19 @@
     height: auto;
     display: flex;
     justify-content: space-between;
-    padding-inline: 10%;
-    zoom: 0.9;
+    direction: rtl;
+    padding: 0  !important;
 }
-.globale2{
-    padding-inline: 15%; 
-    margin-top: 40px;
-}
-.partie,.partie1{
+
+.partie1{
     width: 100%;
     width: 100%;
+}
+.partie{
+  padding-right: 100px;
+
+  display: flex !important;
+  justify-content: right !important;
 }
 .partie1{
     padding-top: 50px;
@@ -34,6 +37,7 @@
     font-family: "Noto Kufi Arabic", sans-serif !important;
     font-optical-sizing: auto;
     font-style: normal;
+    padding-left: 14%;
 }
 .titre{
     font-family: "Noto Kufi Arabic", sans-serif !important;
@@ -68,7 +72,7 @@
     font-style: normal;
     font-weight: 700 !important;
     color: #141E46;
-    font-size: 22px;
+    font-size: 24px;
 }
 .price_avant{
   font-family: "Noto Kufi Arabic", sans-serif !important;
@@ -76,8 +80,8 @@
   font-optical-sizing: auto;
   font-style: normal;
   font-weight: 700 !important;
-  color: #FF2640;
-  font-size: 19px;
+  color: #E53935;
+  font-size: 21px;
   text-decoration: line-through;
   direction: rtl;
 }
@@ -92,7 +96,7 @@
   align-items: center !important;
   margin-top: 20px;
   justify-content: space-between;
-  padding-left: 50px;
+  padding-left: 5px;
 }
 .top_head{
   display: flex !important;
@@ -100,11 +104,12 @@
   justify-content: space-between;
   padding-inline: 150px;
   margin-bottom: 10px;
+  gap: 20px;
 }
 .solde{
   width: 100px;
   border-radius: 15px;
-  background-color: #ff2640;
+  background-color: #E53935;
   color: #fff;
   display: flex;
   align-items: center;
@@ -358,8 +363,9 @@
     color: #1f1e1e;
   }
   .Breadcrumbs{
-    padding-inline: 15%;
+    padding-inline: 10%;
     padding-top: 40px;
+    direction: rtl;
     display: flex;
   }
   .favorite{

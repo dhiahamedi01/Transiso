@@ -83,12 +83,12 @@ export default function Product() {
         </div>
         <span className={Style.text_head}>
             <div className={Style.solde}><AutoFixHighIcon sx={{fontSize:'16px'}}/>&ensp;خصم 20%   </div>
-              <span className={Style.price_avant}>€&ensp;800,00</span>
+              <span className={Style.price_avant}>$&ensp;500.00</span>
         </span>
 
             <span className={Style.text_head}>
-            <span className={Style.titre}>دهانات خارجية</span>
-              <span className={Style.price}>€&ensp;750,00</span>
+            <span className={Style.titre}>حاويات بلاستيكية</span>
+              <span className={Style.price}>$&ensp;450.00 </span>
             </span>
     <br></br>
 

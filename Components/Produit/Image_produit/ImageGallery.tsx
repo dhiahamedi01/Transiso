@@ -4,11 +4,10 @@ import { Box, Paper } from '@mui/material';
 import Styles from './ImageGallery.module.css';
 
 const images = [
-    '/img/Product/produit2.png',
-    '/img/Product/produit1.webp',
-    '/img/Product/produit3.png',
+    '/img/Product/Produit_detaille.png',
+    '/img/Product/Produit_detaille2.png',
+    '/img/Product/Produit_detaille3.png',
     '/img/Product/produit4.png',
-    '/img/Product/produit1.webp',
 ];
 
 const ImageGallery = () => {
@@ -22,7 +21,7 @@ const ImageGallery = () => {
           src={selectedImage}
           alt="Main"
           width={550}
-          height={660}
+          height={550}
           className={Styles.image}
         />
       </Paper>
@@ -38,7 +37,7 @@ const ImageGallery = () => {
             }`}
             onClick={() => setSelectedImage(img)}
           >
-            <Image src={img} alt={`thumb-${idx}`} width={100} height={110} />
+            <Image src={img} alt={`thumb-${idx}`} width={90} height={90} />
           </Paper>
         ))}
       </Box>
