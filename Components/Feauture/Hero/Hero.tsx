@@ -28,7 +28,7 @@ function Hero() {
         }
       case '/Contact':
         return {
-          title: 'نحن هنا لخدمتك – تواصل معنا',
+          title: 'نحن هنا لخدمتك',
           breadcrumbs: ['الرئيسية', 'إتصل بنا'],
         }
         

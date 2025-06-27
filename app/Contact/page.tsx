@@ -2,6 +2,7 @@
 
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { Email, LocationOn, Phone } from '@mui/icons-material';
+import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 import styles from './contact.module.css';
 import Hero from '@/Components/Feauture/Hero/Hero';
 
@@ -43,7 +44,7 @@ const Contact = () => {
 
             <Box className={styles.liste}>
               <Box className={styles.infoBox}>
-                <div className={styles.iconBox}><Phone sx={{ color: 'white',fontSize:'27px' }} /></div>
+                <div className={styles.iconBox}><PhoneEnabledIcon sx={{ color: 'white',fontSize:'27px' }} /></div>
                 <div >
                   <Typography className={styles.arabic} fontWeight="bold">هل لديك أي سؤال؟</Typography>
                   <Typography className={styles.number}>5377671027 (90+) </Typography>

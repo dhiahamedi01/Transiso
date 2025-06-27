@@ -47,7 +47,7 @@
     font-family: 'Noto Kufi Arabic' !important;
     font-size: 32px;
     margin-bottom: 16px;
-    color: #222;
+    color: #0C3548 !important;
   }
   
   .subtitle {
@@ -133,5 +133,35 @@
     display: flex;
     align-items: center;
     gap: 12px;
+  }
+  /* Responsive pour écrans ≤ 768px (tablettes et mobiles) */
+@media (max-width: 768px) {
+    .root {
+      padding: 20px; /* réduire les paddings pour mobiles */
+    }
+  
+    .container {
+      flex-direction: column;
+      margin-top: 40px;
+    }
+    .input {
+        width: 310px;
+    }
+    .formSection, .infoSection {
+      width: 100% !important;
+      margin-bottom: 30px;
+    }
+     
+    .formGrid {
+      grid-template-columns: 1fr !important; /* passer en 1 colonne */
+    }
+  
+    .formGrid > .textarea {
+      grid-column: auto !important; /* enlever le span */
+    }
+  
+    .sendButton {
+        width: 310px; /* bouton pleine largeur */
+    }
   }
   
