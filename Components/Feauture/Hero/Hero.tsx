@@ -31,7 +31,11 @@ function Hero() {
           title: 'نحن هنا لخدمتك',
           breadcrumbs: ['الرئيسية', 'إتصل بنا'],
         }
-        
+      case '/Demande':
+        return {
+          title: 'الاستفسار وطلب عروض الأسعار',
+          breadcrumbs: ['الرئيسية', 'استفسر الآن'],
+          }  
       default:
         return {
           title: 'لم يتم إنشائه بعد',

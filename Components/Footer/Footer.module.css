@@ -139,6 +139,7 @@
     font-size: 14px;
     text-align: center;
     padding: 10px 12px;
+    font-family: 'Noto Kufi Arabic', sans-serif !important;
   }
   
   .subFooter a {

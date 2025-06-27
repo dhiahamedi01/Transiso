@@ -1,0 +1,73 @@
+@font-face {
+    font-family: "Noto Kufi Arabic";
+    src: url("/Font/NotoKufiArabic-VariableFont_wght.ttf") format("woff2");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  .stepperContainer {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    padding: 24px 16px;
+    border-radius: 12px;
+    font-family: "Noto Kufi Arabic", sans-serif;
+    margin-top: 24px;
+    /* plus besoin de direction ici : géré par le theme */
+  }
+  
+  .stepIcon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid; /* couleur injectée inline */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+  }
+  
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+  }
+  
+  .nextButton {
+    background-color: #DE1E27 !important;
+    color: #fff !important;
+    font-weight: 700 !important;
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+    text-transform: none !important;
+    border-radius: 8px !important;
+    padding: 8px 20px !important;
+  }
+  
+  .nextButton:hover {
+    background-color: #a2171b !important;
+  }
+  
+  .backButton {
+    color: #DE1E27 !important;
+    border-color: #DE1E27 !important;
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+    text-transform: none !important;
+    border-radius: 8px !important;
+    padding: 8px 20px !important;
+  }
+  
+  .backButton:hover {
+    background-color: rgba(222, 30, 39, 0.08) !important;
+  }
+  /* StepperArabic.module.css */
+.disabledIcon {
+    filter: grayscale(1);
+    /* remplace la teinte → gris #BDBDBD */
+    mix-blend-mode: luminosity;     /* garde la luminosité */
+    opacity: 0.5;                   /* ou ajuste comme tu veux */
+  }
+  .checkboxBox:hover {
+    background-color: #f9f9f9;
+    transition: background-color 0.3s;
+  }
+  
