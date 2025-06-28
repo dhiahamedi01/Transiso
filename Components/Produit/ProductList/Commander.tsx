@@ -84,7 +84,6 @@ const ProductActions = () => {
               color: '#fff',
               backgroundColor: 'black',
               borderColor: 'black',
-              fontWeight: 400,
               borderRadius: '12px',
               '&:hover': {
                 backgroundColor: '#111',
