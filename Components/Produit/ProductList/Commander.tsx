@@ -28,16 +28,16 @@ const ProductActions = () => {
       }}
     >
       {/* Commander maintenant */}
-      <Link href="http://localhost:3000/Panier" legacyBehavior>
+      <Link href="/" legacyBehavior>
         <a style={{ textDecoration: 'none' }}>
           <Button
             variant="contained"
             size="large"
             startIcon={<FlashOnIcon />}
             sx={{
-              py: 1.8,
+              py: 1.3,
               px: 6,
-              width: '300px',
+              width: '270px',
               fontWeight: 'bold',
               fontSize: '1.1rem',
               display:'flex',
@@ -69,10 +69,11 @@ const ProductActions = () => {
             size="large"
             startIcon={<LocalMallIcon />}
             sx={{
-              py: 1.8,
+              py: 1.3,
               px: 6,
-              width: '300px',
+              width: '270px',
               fontSize: '1.05rem',
+              fontWeight: 'bold',
               fontFamily: 'Noto Kufi Arabic',
               textTransform: 'none',
               borderWidth: 2,
