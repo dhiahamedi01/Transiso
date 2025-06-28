@@ -11,8 +11,9 @@ export default function ProductDetail() {
   return (
     <>
       <Produit_detaille/>
+      <br /><br /><br />
       <TrendingCarousel/>
-      <br />
+      <br /><br /><br />
     </>
   );
 }

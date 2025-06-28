@@ -39,6 +39,12 @@
     font-style: normal;
     padding-left: 14%;
 }
+.arabica{
+  font-family: "Noto Kufi Arabic", sans-serif !important;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 14px !important;
+}
 .titre{
     font-family: "Noto Kufi Arabic", sans-serif !important;
     line-height: 1.3;
@@ -169,7 +175,8 @@
 .Rating{
   display: flex;
   width: 100%;
-  justify-content: center;
+  justify-content: center !important;
+  align-items: center !important;
 }
 .couleur{
     display: flex !important;
@@ -411,6 +418,4 @@
     font-weight: 600 !important;
     font-size: 48px !important;
   }
-  .sous_titre_hero{
-
-  }
+ 

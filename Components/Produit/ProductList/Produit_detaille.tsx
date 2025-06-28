@@ -20,7 +20,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import { CheckCircle, PaddingOutlined } from "@mui/icons-material";
 import { Box } from "@mui/material";
-
+import Commander from './Commander'
 
 
 export default function Product() {
@@ -41,19 +41,20 @@ export default function Product() {
 
 
   const breadcrumbs = [
-    <Link underline="hover" key="1" color="inherit" href="/">
-      Home
+    <Link className={Style.arabica} underline="hover" key="1" color="inherit" href="/">
+      الرئيسية
     </Link>,
     <Link
       underline="hover"
       key="2"
       color="inherit"
       href="/material-ui/getting-started/installation/"
+      className={Style.arabica}
     >
-      Exemple
+      قائمة منتجاتنا
     </Link>,
-    <Typography key="3" sx={{ color: 'text.primary' }}>
-      Exemple 23
+    <Typography className={Style.arabica} key="3" sx={{ color: 'text.primary' }}>
+      حاويات بلاستيكية
     </Typography>,
   ];
   return (
@@ -105,8 +106,32 @@ export default function Product() {
                 </div>
             </div>
 
-            <div className={Style.text4}>
             
+         
+            <div className={Style.text3}>
+              <p className={Style.stock}>
+                <CheckCircleIcon sx={{fontSize:'16px',color: '#47cf67'}}></CheckCircleIcon>&ensp;متوفر في المخزون - 12 منتجًا</p>
+              <div className={Style.Round2}>
+              <div className={Style.Round}></div>
+              </div>
+
+              <div className={Style.Rating}>
+                <Rating
+                  name="product-rating"
+                  value={5}
+                  readOnly
+                  icon={<GradeIcon fontSize="inherit" sx={{ color: '#FAAF00' }} />}
+                  emptyIcon={<GradeIcon fontSize="inherit" sx={{ opacity: 0.3 }} />}
+                  sx={{ fontSize: 18 }}
+                />
+                <p className={Style.p}>(175&nbsp;التقييمات)</p>
+              </div>
+            </div>
+            <div className={Style.text4}>
+              <div className={Style.bigou}>
+                <p className={Style.p1}>يحفظ الطعام طازجًا ونظيفًا </p>
+              </div>
+
               <div className={Style.Round2}>
                  <div className={Style.Round}></div>
               </div>
@@ -121,9 +146,9 @@ export default function Product() {
               </div>
               
             </div>
-
-
-     
+            <div className={Style.text}>
+               <Commander/>
+            </div>
        
           
         </div>
