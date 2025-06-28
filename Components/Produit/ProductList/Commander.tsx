@@ -38,7 +38,6 @@ const ProductActions = () => {
               py: 1.3,
               px: 6,
               width: '270px',
-              fontWeight: 'bold',
               fontSize: '1.1rem',
               display:'flex',
               gap:'6px',
@@ -47,7 +46,7 @@ const ProductActions = () => {
               textTransform: 'none',
               whiteSpace: 'nowrap',
               backgroundColor: '#E53935',
-              borderRadius: '12px',
+              borderRadius: '6px',
               '&:hover': {
                 backgroundColor: '#E53935',
               },
@@ -73,7 +72,6 @@ const ProductActions = () => {
               px: 6,
               width: '270px',
               fontSize: '1.05rem',
-              fontWeight: 'bold',
               fontFamily: 'Noto Kufi Arabic',
               textTransform: 'none',
               borderWidth: 2,
@@ -84,7 +82,7 @@ const ProductActions = () => {
               color: '#fff',
               backgroundColor: 'black',
               borderColor: 'black',
-              borderRadius: '12px',
+              borderRadius: '6px',
               '&:hover': {
                 backgroundColor: '#111',
                 borderColor: 'black',

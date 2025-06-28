@@ -74,14 +74,6 @@ export default function Product() {
 
         <div className={Style.partie1}>
 
-        <div className={Style.top_head}>
-           <div className={Style.favorite}>
-           <FavoriteBorderIcon sx={{fontSize:'16px'}}/>&ensp;المفضلة
-           </div>
-           <div className={Style.favorite}>
-           <CompareArrowsIcon sx={{fontSize:'16px'}}/>&ensp;مقارنة
-           </div>
-        </div>
         <span className={Style.text_head}>
             <div className={Style.solde}><AutoFixHighIcon sx={{fontSize:'16px'}}/>&ensp;خصم 20%   </div>
               <span className={Style.price_avant}>$&ensp;500.00</span>

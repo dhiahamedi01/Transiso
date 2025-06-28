@@ -7,7 +7,8 @@ import AOSInit from '@/Components/AOSInit';
 import ScrollToTopButton from '@/Components/ScrollToTopButton';
 import WhatsappButtons from '@/Components/WhatsappButtons';
 import Footer from '@/Components/Footer/Footer';
-
+import SearchModal from '@/Components/SearchModal/SearchModal';
+import  { useState } from 'react';
 const theme = createTheme({
   palette: {
     mode: 'light', 
@@ -15,6 +16,7 @@ const theme = createTheme({
 });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const [open, setOpen] = useState(false);
   return (
     <html lang="fr">
       <body>
@@ -22,6 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <CssBaseline />
           <AOSInit/>
           <Nav/>    
+          <SearchModal open={open} onClose={() => setOpen(false)} />
           <ScrollToTopButton/>
           <WhatsappButtons/>
           {children}    

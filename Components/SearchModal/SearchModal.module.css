@@ -1,0 +1,47 @@
+
+@font-face {
+    font-family: 'Noto Kufi Arabic';
+    src: url('/Font/NotoKufiArabic-VariableFont_wght.ttf') format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+.dialogTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Noto Kufi Arabic', sans-serif !important;
+    direction: rtl;
+    font-size: 18px;
+    padding: 16px 24px 0 24px;
+  }
+  
+  .closeButton {
+    color: #DE1E27;
+  }
+  
+  .searchInput {
+    margin-top: 24px !important;
+    font-family: 'Noto Kufi Arabic', sans-serif !important;
+    direction: rtl;
+  }
+
+  
+  .searchInput input {
+    font-family: 'Noto Kufi Arabic', sans-serif !important;
+    direction: rtl;
+    text-align: right;
+  }
+  .searchButton{
+    background-color: #DE1E27 !important;
+    width: 150px;
+    margin-top: 20px !important;
+    font-family: 'Noto Kufi Arabic', sans-serif !important;
+    height: 40px;
+  }
+  .Footer{
+    width: 100% !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center !important;
+  }

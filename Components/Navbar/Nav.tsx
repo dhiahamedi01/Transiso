@@ -2,6 +2,7 @@
 
 import React, { useState, useCallback, memo } from 'react';
 import dynamic from 'next/dynamic';
+import SearchModal from '../SearchModal/SearchModal';
 
 import styles from './Nav.module.css';
 import {
@@ -39,16 +40,19 @@ const navItems = [
   { label: 'الرئيسية',              href: '/' },
   { label: 'عن الشركة',             href: '/About' },
   { label: 'خدماتنا في ترانسيسو',  href: '/Services' },
-  { label: 'قائمة منتجاتنا',      href: '/Liste_produit' },
-  { label: 'إتصل بنا ',            href: '/Contact' },
+  { label: 'قائمة منتجاتنا',        href: '/Liste_produit' },
+  { label: 'إتصل بنا ',             href: '/Contact' },
 ];
 
 function Nav() {
   const isMobile = useMediaQuery('(max-width:900px)');
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   const openDrawer  = useCallback(() => setDrawerOpen(true),  []);
   const closeDrawer = useCallback(() => setDrawerOpen(false), []);
+  const openSearch  = () => setSearchOpen(true);
+  const closeSearch = () => setSearchOpen(false);
 
   return (
     <>
@@ -146,7 +150,9 @@ function Nav() {
               </Box>
 
               <Box className={styles.rightSection}>
-                <IconButton><SearchIcon className={styles.searchIcon} /></IconButton>
+                <IconButton onClick={openSearch}>
+                  <SearchIcon className={styles.searchIcon} />
+                </IconButton>
                 <Divider orientation="vertical" flexItem />
                 <Box className={styles.phoneBox}>
                   <Box className={styles.phoneIconCircle}>
@@ -222,6 +228,9 @@ function Nav() {
           </Box>
         </Box>
       </Drawer>
+
+      {/* Search Modal */}
+      <SearchModal open={searchOpen} onClose={closeSearch} />
     </>
   );
 }
