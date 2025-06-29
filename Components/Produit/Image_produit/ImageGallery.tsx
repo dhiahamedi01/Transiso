@@ -5,9 +5,10 @@ import Styles from './ImageGallery.module.css';
 
 const images = [
     '/img/Product/Produit_detaille.png',
-    '/img/Product/Produit_detaille2.png',
-    '/img/Product/Produit_detaille3.png',
-    '/img/Product/produit4.png',
+    '/img/Product/Produit_detaille22.png',
+    '/img/Product/Produit_detaille33.png',
+    '/img/Product/Produit_detaille44.png',
+    '/img/Product/Produit_detaille55.png',
 ];
 
 const ImageGallery = () => {

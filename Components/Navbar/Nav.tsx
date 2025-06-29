@@ -45,7 +45,10 @@ const navItems = [
 ];
 
 function Nav() {
-  const isMobile = useMediaQuery('(max-width:900px)');
+  const isMobile = useMediaQuery('(max-width:900px)', {
+    noSsr: true,
+    defaultMatches: false,
+  });
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
 

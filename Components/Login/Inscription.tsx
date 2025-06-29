@@ -99,11 +99,11 @@ export default function SignupPage() {
                   <TwitterIcon fontSize="small" /> تويتر
                 </button>
               </div>
-
+              {/*
               <p className={styles.bottomText}>
                 بالضغط على "إنشاء الحساب"، فإنك توافق على{" "}
                 <a href="#">الشروط والأحكام</a>.
-              </p>
+              </p>*/}
             </form>
           </div>
         </div>
