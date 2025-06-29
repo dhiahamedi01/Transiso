@@ -1,0 +1,201 @@
+@font-face {
+    font-family: 'Noto Kufi Arabic';
+    src: url('/Font/NotoKufiArabic-VariableFont_wght.ttf') format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  body {
+    font-family: 'Noto Kufi Arabic', sans-serif !important;
+  }
+  
+.Page{
+    padding-top: 50px;
+    padding-bottom: 150px;
+    background-color: #F0F2F5;
+}
+.container {
+    display: flex;
+    height: 90vh;
+    max-width: 1400px;
+    margin: auto;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    border-radius:10px;
+    overflow: hidden;
+    background: #fff;
+    zoom: 0.8;
+  }
+  
+  .left {
+    flex: 1;
+    padding: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .right {
+    flex: 1;
+    background-color: #f3f4f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .formBox {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+  
+  .subtitle {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+  }
+  
+  .link {
+    color: #1976d2;
+    text-decoration: none;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .label {
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  
+  .input {
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    transition: 0.3s ease;
+  }
+  
+  .input:focus {
+    outline: none;
+    border-color: #1976d2;
+  }
+  
+  .checkboxGroup {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .button {
+    padding: 0.9rem;
+    background-color: #0B3548;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: 'Noto Kufi Arabic', sans-serif !important;
+  }
+  
+  .button:hover {
+    background-color: #133f54;
+  }
+  
+  .divider {
+    text-align: center;
+    font-size: 0.9rem;
+    margin: 1rem 0;
+    position: relative;
+  }
+  
+  .divider::before,
+  .divider::after {
+    content: '';
+    height: 1px;
+    width: 23%;
+    background-color: #ccc;
+    position: absolute;
+    top: 50%;
+  }
+  
+  .divider::before {
+    left: 0;
+  }
+  
+  .divider::after {
+    right: 0;
+  }
+  
+  .socialGroup {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  
+  .socialButton {
+    flex: 1;
+    padding: 0.5rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 1px solid #ccc;
+    background-color: white;
+    cursor: pointer;
+    transition: 0.2s ease;
+  }
+  
+  .facebook {
+    background-color: #3b5998;
+    color: white;
+    border: none;
+    font-family: 'Noto Kufi Arabic', sans-serif !important;
+  }
+  
+  .google {
+    background-color: #db4437;
+    color: white;
+    border: none;
+    font-family: 'Noto Kufi Arabic', sans-serif !important;
+  }
+  
+  .twitter {
+    background-color: #1da1f2;
+    color: white;
+    border: none;
+    font-family: 'Noto Kufi Arabic', sans-serif !important;
+  }
+  
+
+  .bottomText {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.85rem;
+    text-decoration: none !important;
+    font-family: 'Noto Kufi Arabic', sans-serif !important;
+  }
+  .bottomText a{
+    text-decoration: none !important;
+    color: #1976d2;
+  }
