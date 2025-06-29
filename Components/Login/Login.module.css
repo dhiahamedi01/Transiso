@@ -199,3 +199,16 @@
     text-decoration: none !important;
     color: #1976d2;
   }
+  @media screen and (max-width: 900px) {
+    .right{
+        display: none !important;
+    }
+    .Page{
+        padding-top: 30px;
+        background-color: transparent !important;
+    }
+    .container {
+        box-shadow: 0 0px 0px rgba(0, 0, 0, 0);
+
+      }
+  }
