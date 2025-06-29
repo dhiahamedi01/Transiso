@@ -18,7 +18,7 @@ const theme = createTheme({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   return (
-    <html lang="fr">
+    <html>
       <body>
         <ThemeProvider theme={theme}>
           <CssBaseline />

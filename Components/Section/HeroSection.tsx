@@ -58,7 +58,7 @@ const HeroSection = () => {
       </div>
       <div className={styles.backgroundImage}>
       <Image
-        src="/img/hero2.jpg" 
+        src="/img/Slide/hero5.jpg" 
         alt="Air freight cargo"
         width={190} height={60} 
         className={styles.img}

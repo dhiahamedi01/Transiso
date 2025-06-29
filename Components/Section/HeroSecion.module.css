@@ -12,7 +12,7 @@
     justify-content: space-between;
     color: #fff; /* Default text color for the hero section */
     height: 55vh;
-    padding-inline: 150px;
+    padding-inline: 170px;
     font-family: 'Cairo','Noto Kufi Arabic', sans-serif !important;
   }
   .title{
@@ -37,7 +37,7 @@
     padding-top: 0px;
     margin-top: 80px;
     height: 55vh;
-    padding-inline: 150px;
+    padding-inline: 170px;
     font-family: 'Cairo','Noto Kufi Arabic', sans-serif !important;
   }
   
@@ -52,7 +52,7 @@
   
   .contentBox {
     width: 50%;
-    background-color: #1a364d;
+    background-color: #163249;
     color: #fff;
     padding: 40px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);

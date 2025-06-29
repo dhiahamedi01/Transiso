@@ -55,6 +55,7 @@
     overflow: hidden;        
     z-index: 0;  /* évite que la partie déborde si besoin */
 }
+
 .bottom_image_container {
   position: absolute;
   bottom: -10px;  /* distance du bas */
