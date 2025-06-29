@@ -6,14 +6,14 @@
     font-display: swap;
   }
   
-  body {
-    font-family: 'Noto Kufi Arabic', sans-serif !important;
-  }
+ 
   
 .Page{
     padding-top: 50px;
     padding-bottom: 150px;
     background-color: #F0F2F5;
+    font-family: 'Noto Kufi Arabic', sans-serif !important;
+
 }
 .container {
     display: flex;
