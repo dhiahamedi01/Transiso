@@ -1,6 +1,6 @@
-// app/(auth)/login/page.tsx
-"use client";
 
+"use client";
+import Link from "next/link";
 import React from "react";
 import styles from "./Login.module.css";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -15,7 +15,7 @@ export default function LoginPage() {
         <div className={styles.formBox}>
           <h1 className={styles.title}>تسجيل الدخول</h1>
           <p className={styles.subtitle}>
-            جديد على Transiso؟ <a href="#" className={styles.link}>إنشاء حساب</a>
+            جديد على Transiso؟ <Link href="/Inscription" className={styles.link}>إنشاء حساب</Link>
           </p>
 
           <form className={styles.form}>
