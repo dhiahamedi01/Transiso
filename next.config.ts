@@ -1,9 +1,22 @@
+
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  //output: 'export',
+  // Images – tu gardes ton réglage
   images: {
-    unoptimized: true,  // désactive l'optimisation Next.js
+    unoptimized: true,
   },
-  // autres options si tu en as
+
+  // ────────────────────────────────
+  // Internationalisation native Next.js
+  // ────────────────────────────────
+  i18n: {
+    // ⚠️  liste EXACTEMENT les dossiers que tu as créés dans /public/locales
+    locales: ['en', 'tr', 'ar'],
+    defaultLocale: 'en',
+
+    // (optionnel) empê­che la redirection auto selon l’Accept‑Language
+    // localeDetection: false,
+  },
 };
 
-export default nextConfig;
+module.exports = nextConfig;

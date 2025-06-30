@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useCallback, memo } from 'react';
+import React, { useState, useCallback, useEffect, memo } from 'react';
 import dynamic from 'next/dynamic';
 import SearchModal from '../SearchModal/SearchModal';
 
@@ -20,6 +20,8 @@ import {
   Link as MuiLink,
 } from '@mui/material';
 
+import { useTranslation } from 'react-i18next';
+
 const MenuIcon       = dynamic(() => import('@mui/icons-material/Menu'),       { ssr: false });
 const SearchIcon     = dynamic(() => import('@mui/icons-material/Search'),     { ssr: false });
 const PhoneIcon      = dynamic(() => import('@mui/icons-material/Phone'),      { ssr: false });
@@ -36,19 +38,21 @@ import Image     from 'next/image';
 import NextLink  from 'next/link';
 import LanguageSelector from '../LanguageSelector/LanguageSelector';
 
-const navItems = [
-  { label: 'الرئيسية',              href: '/' },
-  { label: 'عن الشركة',             href: '/About' },
-  { label: 'خدماتنا في ترانسيسو',  href: '/Services' },
-  { label: 'قائمة منتجاتنا',        href: '/Liste_produit' },
-  { label: 'إتصل بنا ',             href: '/Contact' },
-];
-
 function Nav() {
+  const { t, i18n } = useTranslation('common');
+
   const isMobile = useMediaQuery('(max-width:900px)', {
     noSsr: true,
     defaultMatches: false,
   });
+
+  // Gérer la direction globale selon la langue
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      document.body.dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
+    }
+  }, [i18n.language]);
+
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
 
@@ -57,10 +61,19 @@ function Nav() {
   const openSearch  = () => setSearchOpen(true);
   const closeSearch = () => setSearchOpen(false);
 
+  const navItems = [
+    { label: t('home'),     href: '/' },
+    { label: t('about'),    href: '/About' },
+    { label: t('services'), href: '/Services' },
+    { label: t('products'), href: '/Liste_produit' },
+    { label: t('contact'),  href: '/Contact' },
+  ];
+
   return (
     <>
       {/* ---------- Top Bar ---------- */}
-      <div className={styles.topBar}>
+      <div className={`${styles.topBar} ${!isMobile && i18n.language === 'ar' ? styles.rtl : ''}`}>
+
         <div className={styles.left}>
           <div className={styles.infoItem}>
             <LocationOnIcon fontSize="small" sx={{ color: '#DE1E27' }} />
@@ -84,7 +97,7 @@ function Nav() {
               <div className={styles.infoItem}>
                 <AccessTimeIcon fontSize="small" sx={{ color: '#DE1E27' }} />
                 <Typography className={styles.Arabe} sx={{ fontWeight: 300 }}>
-                  الإثنين – الأحد: 9:00 صباحًا – 8:00 مساءً
+                  {t('workingHours')}
                 </Typography>
               </div>
             </>
@@ -93,7 +106,7 @@ function Nav() {
 
         {!isMobile && (
           <div className={styles.right}>
-            <LanguageSelector/>
+            <LanguageSelector />
 
             <MuiLink
               component={NextLink}
@@ -102,10 +115,10 @@ function Nav() {
               className={`${styles.Arabe} ${styles.link2}`}
               color="inherit"
             >
-              الاستفسار اون لاين
+              {t('inquiryOnline')}
             </MuiLink>
 
-            <Typography className={styles.Arabe}>تابعنا على:</Typography>
+            <Typography className={styles.Arabe}>{t('followUs')}</Typography>
 
             <div className={styles.Liste_icon}>
               <IconButton size="small" className={styles.icon}><FacebookIcon fontSize="small" /></IconButton>
@@ -118,7 +131,12 @@ function Nav() {
       </div>
 
       {/* ---------- NavBar ---------- */}
-      <AppBar position="static" color="transparent" elevation={0} className={styles.navbar}>
+      <AppBar
+        position="static"
+        color="transparent"
+        elevation={0}
+        className={`${styles.navbar} ${i18n.language === 'ar' ? styles.rtl : ''}`}
+      >
         <Toolbar className={styles.toolbar}>
           {isMobile && (
             <IconButton edge="start" onClick={openDrawer} className={styles.hamburger}>
@@ -162,11 +180,11 @@ function Nav() {
                     <PhoneIcon className={styles.phoneIcon} />
                   </Box>
                   <Typography className={styles.phoneNumber}>
-                     5377671027 (90+)
+                     {t('phoneNumber')}
                   </Typography>
                 </Box>
                 <Button variant="contained" className={styles.trackButton}>
-                  تتبع الطلب&nbsp;<TrendingUpIcon />
+                  {t('trackOrder')}&nbsp;<TrendingUpIcon />
                 </Button>
               </Box>
             </>
@@ -181,6 +199,7 @@ function Nav() {
         onClose={closeDrawer}
         disableScrollLock
       >
+
         <Box sx={{ width: 250, p: 2 }}>
           <List>
             {navItems.map(({ label, href }) => (
@@ -202,7 +221,7 @@ function Nav() {
 
           <Box sx={{ mt: 2 }}>
             <Typography className={styles.Arabe} sx={{ mb: 1 }}>
-              الإثنين – الأحد: 9:00 صباحًا – 8:00 مساءً
+              {t('workingHours')}
             </Typography>
 
             <LanguageSelector />
@@ -215,11 +234,11 @@ function Nav() {
               color="inherit"
               onClick={closeDrawer}
             >
-              الاستفسار اون لاين
+              {t('inquiryOnline')}
             </MuiLink>
 
             <Typography className={styles.Arabe} sx={{ mt: 1 }}>
-              تابعنا على:
+              {t('followUs')}
             </Typography>
 
             <Box sx={{ display: 'flex', gap: 1 }}>

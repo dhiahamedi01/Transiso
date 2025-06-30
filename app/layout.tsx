@@ -1,35 +1,25 @@
-'use client';
+import './globals.css'; // ou autre fichier CSS global
+import { dir } from 'i18next';
+import { languages } from '@/Components/i18n/settings'; // si tu as un fichier de config
+import ClientLayout from '@/Components/ClientLayout';
 
-import React from 'react';
-import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
-import Nav from '@/Components/Navbar/Nav'; 
-import AOSInit from '@/Components/AOSInit';
-import ScrollToTopButton from '@/Components/ScrollToTopButton';
-import WhatsappButtons from '@/Components/WhatsappButtons';
-import Footer from '@/Components/Footer/Footer';
-import SearchModal from '@/Components/SearchModal/SearchModal';
-import  { useState } from 'react';
-const theme = createTheme({
-  palette: {
-    mode: 'light', 
-  },
-});
+export async function generateStaticParams() {
+  return languages.map((lng: (typeof languages)[number]) => ({ lang: lng }));
+}
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const [open, setOpen] = useState(false);
+export default function RootLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: { lang: string };
+}) {
   return (
-    <html>
+    <html lang={params.lang} >
       <body>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <AOSInit/>
-          <Nav/>    
-          <SearchModal open={open} onClose={() => setOpen(false)} />
-          <ScrollToTopButton/>
-          <WhatsappButtons/>
-          {children}    
-          <Footer/>
-        </ThemeProvider>
+        <ClientLayout>
+          {children}
+        </ClientLayout>
       </body>
     </html>
   );
