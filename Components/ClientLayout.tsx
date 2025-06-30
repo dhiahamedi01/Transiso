@@ -6,6 +6,8 @@ import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 import Nav from '@/Components/Navbar/Nav';
 import Footer from '@/Components/Footer/Footer';
 import React, { useEffect, useState } from 'react';
+import WhatsappButtons from './WhatsappButtons';
+import ScrollToTopButton from './ScrollToTopButton';
 
 const theme = createTheme({ palette: { mode: 'light' } });
 
@@ -22,6 +24,8 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Nav />
+        <WhatsappButtons/>
+        <ScrollToTopButton/>
         {children}
         <Footer />
       </ThemeProvider>

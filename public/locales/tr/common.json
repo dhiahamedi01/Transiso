@@ -8,7 +8,7 @@
     "inquiryOnline": "Online Sorgu",
     "followUs": "Bizi takip edin:",
     "workingHours": "Pzt - Paz: 9:00 - 20:00",
-    "phoneNumber": "5377671027 (90 +)",
+    "phoneNumber": "(+90) 5377671027",
     "istanbulTurkey": "İstanbul, Türkiye",
     "email": "info@transisologistic.com",
     "slide2Title": "Dünya Limanları",
@@ -28,7 +28,8 @@
           "item2": "Filo genişletme ve yenileme",
           "item3": "Gelişmiş teknoloji entegrasyonu"
         },
-        "buttonText": "Daha Fazla Keşfet"
+        "buttonText": "Daha Fazla Keşfet",
+        "titre_hero": "Transeso Lojistiğine Hoş Geldiniz"
     }
     
   }

@@ -5,15 +5,21 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Style from './Hero.module.css'
 import { usePathname } from 'next/navigation'
+import { useTranslation } from 'react-i18next';
 
 function Hero() {
   const pathname = usePathname()
+  const { t, i18n } = useTranslation('common');
+  const currentLang = i18n.language;
+
+
+  const isRTL = currentLang === 'ar';
 
   const getContent = () => {
     switch (pathname) {
       case '/About':
         return {
-          title: 'مرحباً بكم في ترانسيسو لوجستيك',
+          title: t('titre_hero'),
           breadcrumbs: ['الرئيسية', 'عن الشركة'],
         }
       case '/Liste_produit':
