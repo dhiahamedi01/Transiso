@@ -10,6 +10,26 @@
     "workingHours": "Pzt - Paz: 9:00 - 20:00",
     "phoneNumber": "5377671027 (90 +)",
     "istanbulTurkey": "İstanbul, Türkiye",
-    "email": "info@transisologistic.com"
+    "email": "info@transisologistic.com",
+    "slide2Title": "Dünya Limanları",
+    "slide2Desc": "İstanbul ve Türkiye limanlarından dünyanın çoğu ülkesine konteyner taşımacılığı hizmeti sunuyoruz.",
+    "slide3Title": "Transiso Lojistik",
+    "slide3Desc": "Türk limanları üzerinden dünya çapında güvenilir ve hızlı deniz taşımacılığı sunuyoruz.",
+    "slide4Title": "Türk Havalimanları Üzerinden",
+    "slide4Desc": "Türkiye'den dünyaya hava kargo çözümlerimizle lojistik ihtiyaçlarınızı karşılıyoruz.",
+      "banner2": {
+        "aboutTitle": "Şirket Hakkında",
+        "mainTitle": "Transiso Lojistik: Türkiye ve Dünyada Güvenilir Lojistik Ortağınız",
+        "description": "Arap ülkeleri ve dünyada lojistik sektöründe yıllarca çalışarak Transiso, Türkiye'de hava ve deniz nakliye hizmetleri sunmayı ve müşterileri için güvenilir lojistik destek sağlamayı hedeflemiştir. Eğitimli personelimiz ve dünya genelindeki şubelerimiz, müşteri hizmetleri, bilgi ve gelişimin ana kaynağıdır. Müşterilerimizin güveni, Transiso'yu küresel nakliye ihtiyaçlarını karşılamak için zamanla yarışan bir dünya şirketi haline getirmiştir.",
+        "trackingTitle": "Çevrimiçi Takip",
+        "trackingDesc": "Uzun zamandır bilinen bir gerçektir ki bir okuyucu.",
+        "list": {
+          "item1": "Zamanında teslimat oranının iyileştirilmesi",
+          "item2": "Filo genişletme ve yenileme",
+          "item3": "Gelişmiş teknoloji entegrasyonu"
+        },
+        "buttonText": "Daha Fazla Keşfet"
+    }
+    
   }
   

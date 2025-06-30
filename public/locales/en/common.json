@@ -10,6 +10,27 @@
     "workingHours": "Mon - Sun: 9:00 AM - 8:00 PM",
     "phoneNumber": "5377671027 (90 +)",
     "istanbulTurkey": "Istanbul, Turkey",
-    "email": "info@transisologistic.com"
+    "email": "info@transisologistic.com",
+    "slide2Title": "Worldwide ports",
+    "slide2Desc" : "From Istanbul, Transiso ships containers to most countries of the world.",
+    "slide3Title": "Transiso Logistic",
+    "slide3Desc" : "Fast and reliable freight services from every Turkish port.",
+    "slide4Title": "Via Turkish airports",
+    "slide4Desc" : "Air‑cargo solutions from Turkey to the world.",
+      "banner2": {
+        "aboutTitle": "About the Company",
+        "mainTitle": "Transiso Logistic: Your Trusted Logistics Partner in Turkey and Worldwide",
+        "description": "Through years of work in the logistics sector in Arab countries and worldwide, Transiso has sought to provide air and sea shipping services in Turkey, and to be the trusted logistics supporter for its customers in Turkey. Our trained staff and our branches worldwide are the main source of customer service, knowledge, and development. The trust granted by our customers has made Transiso a global company racing against time to maintain their trust and their global shipping needs.",
+        "trackingTitle": "Online Tracking",
+        "trackingDesc": "It is a long established fact that a reader.",
+        "list": {
+          "item1": "Improving on-time delivery rate",
+          "item2": "Fleet expansion and modernization",
+          "item3": "Advanced technology integration"
+        },
+        "buttonText": "Discover More"
+      }
+    
+    
   }
   

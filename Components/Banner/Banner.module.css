@@ -94,6 +94,7 @@
     justify-content: space-between;
     font-family: "Noto Kufi Arabic", sans-serif;
     position: relative;
+    direction: ltr !important;
   }
   
   .partieImage {
@@ -113,13 +114,28 @@
     padding-top: 95px;
     padding-left: 45px;  
   }
-  
+  .partieTexte2{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    color: #222;
+    direction: rtl;
+    padding-top: 115px;
+    padding-left: 95px; 
+  }
   .partieTexte h1 {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+    margin-top: 5px;
+    margin-bottom: 1rem;
+    width: 600px;
     color: #0C3645;
   }
-  
+  .partieTexte2 h1 {
+    font-size: 1.9rem;
+    margin-top: 5px;
+    margin-bottom: 1rem;
+    color: #0C3645;
+  }
   .partieTexte h2 {
     font-size: 1.8rem;
     margin-top: 1.5rem;
@@ -184,8 +200,14 @@
 .abou_titre{
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  max-width: 250px;
+  justify-content: right;
+  gap: 15px;
+}
+.abou_titre2{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 15px;
 }
 .icon_about{
   filter: brightness(0) saturate(100%) invert(29%) sepia(99%) 
@@ -196,13 +218,20 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   padding-left: 5rem;
   padding-top: 25px;
   background: transparent;
   border-radius: 12px;
 }
-
+.card_about2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 4rem;
+  padding-top: 25px;
+  background: transparent;
+  border-radius: 12px;
+}
 /* Colonne gauche */
 .left_about {
   max-width: 300px;
@@ -238,7 +267,7 @@
   font-size: 0.9075rem; /* ≈ 15 px */
   line-height: 1.45;
   color: #6b7280;
-  margin: 0.5rem 0 0;
+  margin: 0.2rem 0 0;
 }
 
 /* Liste */
@@ -410,4 +439,12 @@ gap: 7px;
     margin-top: 60px;
   }
 }
-  
+.rtl {
+  direction: rtl !important;
+  text-align: right;
+}
+
+.ltr {
+  direction: ltr !important;
+  text-align: left;
+}
