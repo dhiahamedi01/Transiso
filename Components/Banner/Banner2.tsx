@@ -24,7 +24,7 @@ function Banner2() {
   <div className={styles.left_about}>
     {/* Icône SVG principale déjà existante */}
     <Image
-      src="/img/icon/about-icon1.png"      /* remplace par ton nom de fichier */
+      src="/img/icon/rapide2.svg"    
       alt="Package icon"
       width={48}
       height={48}
