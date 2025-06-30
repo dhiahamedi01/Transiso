@@ -110,10 +110,11 @@ export default function SignupPage() {
 
         <div className={styles.right}>
           <img
-            src="/img/hero2.jpg"
+            src="/img/container.jpg"
             alt="صورة التسجيل"
             className={styles.image}
           />
+             <div className={styles.overlay}></div>
         </div>
       </div>
     </div>

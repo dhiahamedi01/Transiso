@@ -139,4 +139,10 @@
     font-style: normal;
     margin-top: 20px;
   }
-  
+  .icon_about{
+    filter: brightness(0) invert(1);
+  }
+  .icon_about2{
+    filter: brightness(0) saturate(100%) invert(29%) sepia(99%) 
+    saturate(5392%) hue-rotate(352deg) brightness(118%) contrast(142%);
+  }

@@ -67,6 +67,7 @@ const HeroSlider: React.FC = () => {
                   left: 0,
                   width: '100%',
                   height: '100%',
+                  opacity:'0.9',
                   backgroundColor: 'rgba(13, 53, 72, 0.6)',
                   zIndex: 1,
                 }}

@@ -10,9 +10,10 @@ function index() {
   return (
     <div>
       <Hero/>
-      <Card/>
-      <Banner/>
       <Banner2/>
+      <Banner/><br /><br />
+      <Card/>
+
       <Localisation/>
     </div>
   )

@@ -54,7 +54,8 @@ export default function LoginPage() {
       </div>
 
       <div className={styles.right}>
-        <img src="/img/hero2.jpg" alt="صورة تسجيل الدخول" className={styles.image} />
+        <img src="/img/container.jpg" alt="صورة تسجيل الدخول" className={styles.image} />
+        <div className={styles.overlay}></div>
       </div>
     </div>
     </div>

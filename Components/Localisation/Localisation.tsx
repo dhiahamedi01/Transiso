@@ -18,7 +18,7 @@ const Localisation = () => {
   return (
     <Box
       sx={{
-        maxWidth: '1220px',
+        maxWidth: '1520px',
         margin: '45px auto 40px',
         paddingInline: '20px',
         paddingTop: '30px',
@@ -87,7 +87,8 @@ const Localisation = () => {
           style={{ border: 0, visibility: isLoaded ? 'visible' : 'hidden' }}
           allowFullScreen
           loading="lazy"
-          src="https://www.google.com/maps?q=41.059431,28.652300&z=16&output=embed"
+          src="https://www.google.com/maps?q=41.059431,28.652300&z=13&output=embed"
+
         ></iframe>
       </Card>
     </Box>

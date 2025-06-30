@@ -32,7 +32,7 @@ function Card() {
       <section className={styles.infoSection}>
         <div className={styles.card} >
           <div className={`${styles.icon} ${styles.redBg}`}>
-            <Groups2Icon style={{ fontSize: 40 }} />
+          <Image src="/img/icon/groupe.png" alt="about"width={40}height={40}className={styles.icon_about}/>
           </div>
           <h3 className={styles.heading}>فريقنا المتميز</h3>
           <p className={styles.text}>
@@ -42,9 +42,9 @@ function Card() {
 
         <div className={`${styles.card} ${styles.darkBg}`} >
           <div className={`${styles.icon} ${styles.redBorder}`}>
-            <PrecisionManufacturingIcon style={{ fontSize: 40 }} />
+          <Image src="/img/icon/Rapide.svg" alt="about"width={40}height={40} className={styles.icon_about2}/>
           </div>
-          <h3 className={styles.heading}>التكنولوجيا والابتكار</h3>
+          <h3 className={styles.heading}>توصيل سريع وفعال</h3>
           <p className={styles.text}>
             نعتمد على أحدث تقنيات النقل واللوجستيك لتقديم حلول ذكية تضمن سرعة وأمان الشحنات.
           </p>
@@ -52,7 +52,7 @@ function Card() {
 
         <div className={styles.card} >
           <div className={`${styles.icon} ${styles.redBg}`}>
-            <SupportAgentIcon style={{ fontSize: 40 }} />
+          <Image src="/img/icon/client.svg" alt="about"width={40}height={40}className={styles.icon_about}/>
           </div>
           <h3 className={styles.heading}>خدمة العملاء المتميزة</h3>
           <p className={styles.text}>
