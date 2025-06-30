@@ -77,7 +77,7 @@
     color: #0C3645;
     border: none;
     font-weight: 700;
-    font-family: "Noto Kufi Arabic", sans-serif;
+    font-family: "Noto Kufi Arabic", sans-serif !important;
     cursor: pointer;
     transition: background-color 0.3s ease;
     align-self: flex-start;
@@ -381,6 +381,30 @@ gap: 7px;
   .Footer_about{
     display: flex;
     justify-content: right;
+  }
+  .imageWrapper{
+    display: none !important;
+  }
+  .textWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+  }
+  .title{
+    font-size: 1.3rem;
+  }
+  .footerWrapper{
+    display: flex;
+    justify-content: center !important;
+  }
+  .button{
+    margin: 0 !important;
+    outline: none !important;
+  }
+  .banner{
+    margin-top: 60px;
   }
 }
   

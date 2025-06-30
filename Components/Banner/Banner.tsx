@@ -19,7 +19,9 @@ function Banner() {
       <div className={styles.textWrapper}>
         <h2 className={styles.title}>نخلق الفرص لتحقيق الإمكانات</h2>
         <p className={styles.subtitle}>نحن نؤمن بأن كل خطوة تنقل عملك نحو مستقبل أفضل</p>
-        <button className={styles.button}>إكتشف المزيد</button>
+        <div className={styles.footerWrapper}>
+           <button className={styles.button}>إكتشف المزيد</button>
+        </div>
       </div>
 
     </div>
