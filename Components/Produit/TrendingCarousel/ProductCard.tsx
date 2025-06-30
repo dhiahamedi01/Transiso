@@ -1,6 +1,16 @@
 'use client';
 
-import { Card, CardMedia, CardContent, Typography, Chip, Rating, Box, IconButton, Fade } from '@mui/material';
+import {
+  Card,
+  CardMedia,
+  CardContent,
+  Typography,
+  Chip,
+  Rating,
+  Box,
+  IconButton,
+  Fade,
+} from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
@@ -25,13 +35,14 @@ export default function ProductCard({ product }: { product: Product }) {
 
   return (
     <Link href={`/Liste_produit/${product.id}`} passHref style={{ textDecoration: 'none' }}>
-      <Box sx={{ cursor: 'pointer' }}>
+      <Box sx={{ cursor: 'pointer', height: '100%' }}>
         <Card
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
           sx={{
             boxShadow: 3,
             height: '100%',
+            minHeight: 500, // Ajuste la hauteur minimale selon ton besoin
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -64,11 +75,16 @@ export default function ProductCard({ product }: { product: Product }) {
             />
           )}
 
-          {/* Image produit + overlay icônes */}
+          {/* Image produit */}
           <CardMedia sx={{ height: 300, position: 'relative' }}>
-            <Image src={product.image} alt={product.title} fill style={{ objectFit: 'cover', transition: '0.3s ease' }} />
-            
-            {/* Overlay sombre au survol */}
+            <Image
+              src={product.image}
+              alt={product.title}
+              fill
+              style={{ objectFit: 'cover', transition: '0.3s ease' }}
+            />
+
+            {/* Overlay sombre */}
             <Box
               sx={{
                 position: 'absolute',
@@ -82,7 +98,7 @@ export default function ProductCard({ product }: { product: Product }) {
               }}
             />
 
-            {/* Icônes flottantes */}
+            {/* Icônes au survol */}
             <Fade in={hovered}>
               <Box
                 sx={{
@@ -96,20 +112,28 @@ export default function ProductCard({ product }: { product: Product }) {
                 }}
               >
                 <IconButton sx={{ backgroundColor: '#fff', p: 1, '&:hover': { backgroundColor: '#eee' } }}>
-                  <FavoriteBorderIcon fontSize="small" sx={{color:'#3a3a3a'}} />
+                  <FavoriteBorderIcon fontSize="small" sx={{ color: '#3a3a3a' }} />
                 </IconButton>
                 <IconButton sx={{ backgroundColor: '#fff', p: 1, '&:hover': { backgroundColor: '#eee' } }}>
-                  <VisibilityOutlinedIcon fontSize="small" sx={{color:'#3a3a3a'}} />
+                  <VisibilityOutlinedIcon fontSize="small" sx={{ color: '#3a3a3a' }} />
                 </IconButton>
                 <IconButton sx={{ backgroundColor: '#fff', p: 1, '&:hover': { backgroundColor: '#eee' } }}>
-                  <BookmarkBorderOutlinedIcon fontSize="small" sx={{color:'#3a3a3a'}}/>
+                  <BookmarkBorderOutlinedIcon fontSize="small" sx={{ color: '#3a3a3a' }} />
                 </IconButton>
               </Box>
             </Fade>
           </CardMedia>
 
           {/* Contenu de la carte */}
-          <CardContent sx={{ textAlign: 'right', flexGrow: 1 }}>
+          <CardContent
+            sx={{
+              textAlign: 'right',
+              flexGrow: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+            }}
+          >
             {/* Catégorie */}
             {product.category && (
               <Typography
@@ -126,10 +150,16 @@ export default function ProductCard({ product }: { product: Product }) {
               </Typography>
             )}
 
-            <Typography fontWeight={700} fontSize={18} sx={{ fontFamily: 'Noto Kufi Arabic, sans-serif' }}>
+            {/* Titre */}
+            <Typography
+              fontWeight={700}
+              fontSize={18}
+              sx={{ fontFamily: 'Noto Kufi Arabic, sans-serif' }}
+            >
               {product.title}
             </Typography>
 
+            {/* Description avec hauteur fixe */}
             <Typography
               variant="body2"
               color="text.secondary"
@@ -142,13 +172,26 @@ export default function ProductCard({ product }: { product: Product }) {
                 textOverflow: 'ellipsis',
                 mt: 0.5,
                 mb: 1,
+                minHeight: '3.2em', // correspond à 2 lignes environ
               }}
             >
               {product.description}
             </Typography>
 
-            <Rating value={product.rating} precision={0.1} readOnly size="small" sx={{ direction: 'ltr', mb: 1 }} />
+            {/* Évaluation */}
+   
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 1 }}>
+              <Rating
+                value={product.rating}
+                precision={0.1}
+                readOnly
+                size="small"
+                sx={{ direction: 'ltr' }}
+              />
+            </Box>
 
+
+            {/* Prix */}
             <Typography variant="h6" sx={{ fontFamily: 'Noto Kufi Arabic, sans-serif' }}>
               ${product.price.toFixed(2)}{' '}
               {product.oldPrice && (
