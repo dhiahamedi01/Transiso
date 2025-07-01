@@ -86,7 +86,27 @@
             "3": "Beauty and Care Products",
             "4": "Canned Food Products"
           }
-        }
+        },
+       "section": {
+        "subheading": "Sub Services",
+        "subtitle": "Are you looking for specialized shipping services in Turkey?",
+        "description": "Over years of work in the logistics sector across Arab countries and worldwide, Transiso has been committed to providing comprehensive air and sea shipping services in Turkey, with dedication to efficiently and professionally meeting customer needs. The company continually strives to strengthen its position as a trusted and preferred logistics partner in the country by offering high-quality solutions and excellent service.",
+        "list": [
+          "High-quality service",
+          "24/7 technical support",
+          "Over 25 years of experience",
+          "Customer satisfaction guaranteed"
+        ],
+        "ratingText": "4.7 (1,567 customer reviews)",
+        "experienceYears": "25",
+        "experienceLabel": "Years of Experience",
+        "avatars": [
+          "avatar-1.jpg",
+          "avatar-2.jpg",
+          "avatar-3.jpg",
+          "avatar-7.jpg"
+        ]
+      }
       
     
   }

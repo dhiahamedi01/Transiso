@@ -84,7 +84,29 @@
           "3": "Güzellik ve Bakım Ürünleri",
           "4": "Konserve Gıda Ürünleri"
         }
-      }
+      },
+        "section": {
+          "subheading": "Alt Hizmetler",
+          "subtitle": "Türkiye'de özel nakliye hizmetleri mi arıyorsunuz?",
+          "description": "Arap ülkeleri ve dünya genelinde lojistik sektöründe yıllarca çalıştıktan sonra, Transiso Türkiye'de kapsamlı hava ve deniz taşımacılığı hizmetleri sunmaya kendini adamıştır. Müşteri ihtiyaçlarını etkin ve profesyonel bir şekilde karşılamaya bağlıdır. Şirket, yüksek kaliteli çözümler ve mükemmel hizmet sunarak, Türkiye'deki güvenilir ve tercih edilen lojistik ortağı olarak konumunu güçlendirmeyi sürekli hedeflemektedir.",
+          "list": [
+            "Yüksek kaliteli hizmet",
+            "7/24 teknik destek",
+            "25 yılı aşkın deneyim",
+            "Müşteri memnuniyeti garantisi"
+          ],
+          "ratingText": "4.7 (1,567 müşteri yorumu)",
+          "experienceYears": "25",
+          "experienceLabel": "Yıl Deneyim",
+          "avatars": [
+            "avatar-1.jpg",
+            "avatar-2.jpg",
+            "avatar-3.jpg",
+            "avatar-7.jpg"
+          ]
+        }
+      
+      
 
 
     

@@ -5,11 +5,18 @@ import Image from 'next/image';
 import styles from './Section.module.css';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import StarIcon from '@mui/icons-material/Star';
+import { useTranslation } from 'react-i18next';
 
-const Section = () => {
+const Section: React.FC = () => {
+
+  const { t, i18n } = useTranslation('common'); 
+  const listItems = t('section.list', { returnObjects: true }) as string[];
+  const avatars = t('section.avatars', { returnObjects: true }) as string[];
+  
+  const directionClass = i18n.dir() === 'rtl' ? 'dir-rtl' : 'dir-ltr';
   return (
-    <div className={styles.about}>
-      <div className={styles.block12} >
+    <div className={`${styles.about} ${directionClass}`}>
+      <div className={styles.block12}>
         <Image
           src="/img/about_img01.png"
           alt="about"
@@ -19,27 +26,19 @@ const Section = () => {
         />
       </div>
 
-      <div className={styles.block13} >
+      <div className={styles.block13}>
         <div className={styles.text}>
           <div className={styles.titre}>
-            <h4 className={styles.section_title2}>الخدمات الفرعية</h4>
-            <span className={styles.sous_titre}>
-              هل تبحث عن خدمات شحن متخصصة في تركيا؟
-            </span>
+            <h4 className={styles.section_title2}>{t('section.subheading')}</h4>
+            <span className={styles.sous_titre}>{t('section.subtitle')}</span>
           </div>
-          <p className={styles.desc}>
-          على مدى سنوات من العمل في قطاع الخدمات اللوجستية في الدول العربية ومختلف أنحاء العالم، حرصت شركة ترانسيسو على تقديم خدمات شحن جوي وبحري متكاملة في تركيا، مع الالتزام بتلبية احتياجات العملاء بكفاءة واحترافية. وتسعى الشركة باستمرار إلى تعزيز مكانتها كشريك لوجستي موثوق ومفضل في هذا البلد، من خلال تقديم حلول عالية الجودة وخدمة متميزة.          </p>
+          <p className={styles.desc}>{t('section.description')}</p>
         </div>
         <br />
-        <div className={styles.liste2} >
+        <div className={styles.liste2}>
           <div className={styles.partie1AR}>
             <ul>
-              {[
-                'خدمة عالية الجودة',
-                'دعم فني على مدار الساعة',
-                'خبرة تزيد عن 25 سنة',
-                'رضا العملاء مضمون',
-              ].map((item, index) => (
+              {listItems.map((item: string, index: number) => (
                 <li key={index}>
                   <CheckCircleIcon style={{ color: '#E71D26', fontSize: '21px' }} />
                   &ensp;{item}
@@ -47,10 +46,10 @@ const Section = () => {
               ))}
             </ul>
           </div>
-          <div className={styles.partie2}>
+          <div className={`${styles.partie2} ${styles.RTL_direction}`}>
             <div className={styles['text-rating']}>
               <div className={styles['liste-user']}>
-                {['avatar-1.jpg', 'avatar-2.jpg', 'avatar-3.jpg', 'avatar-7.jpg'].map((img, index) => (
+                {avatars.map((img: string, index: number) => (
                   <div className={styles.user} key={index}>
                     <Image
                       src={`/img/Avatar/${img}`}
@@ -70,14 +69,14 @@ const Section = () => {
                   />
                 ))}
               </div>
-              <span className={styles.text_mini}>4.7 (1,567 مراجعة من العملاء)</span>
+              <span className={styles.text_mini}>{t('section.ratingText')}</span>
             </div>
             <div className={styles.experience}>
               <div className={styles.nbr}>
-                <span>25</span>
+                <span>{t('section.experienceYears')}</span>
               </div>
               <div className={styles.anne}>
-                <span>سنة خبرة</span>
+                <span>{t('section.experienceLabel')}</span>
               </div>
             </div>
           </div>
