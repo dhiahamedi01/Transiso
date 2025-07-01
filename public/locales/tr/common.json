@@ -55,6 +55,35 @@
             "text": "Müşteriyi işimizin merkezine koyuyor, tüm sorularınıza hızlı yanıt ve sürekli destek sağlıyoruz."
           }
         }
+      },
+      "titre_map": "İstanbul'daki konumumuz",
+      "sous_titre_map": "Dilediğiniz zaman İstanbul ofisimizi ziyaret edebilirsiniz",
+      "card_service": {
+        "subheading": "Gönderileriniz için küresel deneyim",
+        "heading": "Transiso’dan dünya çapında nakliye çözümleri",
+        "description": "Transiso, Türkiye’den güvenilir hava ve deniz nakliye hizmetleri sunar, profesyonel bir ekip ve dünya çapında şube ağı ile hızlı uygulama ve hassas teslimat sağlar."
+      },
+      "card2": {
+        "partial_shipping": "Parsiyel Taşımacılık",
+        "air_shipping": "Hava Kargosu",
+        "sea_shipping": "Deniz Taşımacılığı",
+        "land_shipping": "Kara Taşımacılığı",
+        "description": "Fareyle üzerine gelindiğinde görünen kısa bir açıklama"
+      },
+      "sub_services": {
+        "subheading": "Türkiye içinde profesyonel ve özel nakliye hizmetleri sunuyoruz",
+        "heading": "Mevcut Alt Hizmetler",
+        "description": "Fareyle üzerine gelindiğinde gösterilen kısa açıklama",
+        "services": {
+          "2": "Oto Yedek Parçaları",
+          "6": "Tarım Makineleri",
+          "7": "Erkek Giyim",
+          "8": "Kadın Giyim",
+          "1": "Türkiye'den Mobilya ve Ev Nakliyesi",
+          "5": "Tıbbi Malzemeler",
+          "3": "Güzellik ve Bakım Ürünleri",
+          "4": "Konserve Gıda Ürünleri"
+        }
       }
 
 

@@ -1,29 +1,29 @@
+'use client'; 
 import React from 'react'
 import styles from './Card_service.module.css'
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';  
-
+import { useTranslation } from 'react-i18next';
 
 function RedLineWithAnimatedArrow() {
-    return (
-      <div className={styles.redLineWrapper}>
-      <DoubleArrowIcon  sx={{fontSize:'30px'}} className={styles.animatedArrow} />
+  return (
+    <div className={styles.redLineWrapper}>
+      <DoubleArrowIcon sx={{fontSize:'30px'}} className={styles.animatedArrow} />
     </div>
-    
-    )
-  }
+  )
+}
 
 function Card_service() {
+  const { t } = useTranslation('common');
+
   return (
     <>
-       <div className={styles.sectionHeader} >
-        <h4 className={styles.sectionSubheading}>خبرة عالمية في خدمـة شحناتك</h4>
-        <h2 className={styles.sectionHeading}>حلول الشحن العالمية من ترانسيسو</h2>
-        <p className={styles.sectionDescription}>
-        توفر ترانسيسو خدمات شحن جوي وبحري موثوقة من تركيا، بدعم من فريق محترف وشبكة فروع عالمية، لضمان سرعة التنفيذ ودقة التسليم.
-        </p>
+      <div className={styles.sectionHeader}>
+        <h4 className={styles.sectionSubheading}>{t('card_service.subheading')}</h4>
+        <h2 className={styles.sectionHeading}>{t('card_service.heading')}</h2>
+        <p className={styles.sectionDescription}>{t('card_service.description')}</p>
       </div>
     </>
   )
 }
 
-export default Card_service
+export default Card_service;

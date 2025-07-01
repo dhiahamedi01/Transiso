@@ -57,6 +57,35 @@
               "text": "We put the customer at the center of our work, providing continuous support and fast responses to all inquiries."
             }
           }
+        },
+        "titre_map": "Our location in Istanbul",
+        "sous_titre_map": "You can visit us at our Istanbul office at any time",
+        "card_service": {
+          "subheading": "Global expertise at the service of your shipments",
+          "heading": "Worldwide shipping solutions from Transiso",
+          "description": "Transiso provides reliable air and sea shipping services from Turkey, supported by a professional team and a global branch network, ensuring fast execution and accurate delivery."
+        },
+        "card2": {
+          "partial_shipping": "Partial Shipping",
+          "air_shipping": "Air Freight",
+          "sea_shipping": "Sea Freight",
+          "land_shipping": "Land Freight",
+          "description": "This is a short description that appears on hover"
+        },
+        "sub_services": {
+          "subheading": "We provide professional and customized shipping services within Turkey",
+          "heading": "Available Sub Services",
+          "description": "This is a short description shown on hover",
+          "services": {
+            "2": "Car Spare Parts",
+            "6": "Agricultural Machinery",
+            "7": "Men's Clothing",
+            "8": "Women's Clothing",
+            "1": "Furniture and Home Shipping from Turkey",
+            "5": "Medical Supplies",
+            "3": "Beauty and Care Products",
+            "4": "Canned Food Products"
+          }
         }
       
     

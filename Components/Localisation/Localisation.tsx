@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Box, Card, Skeleton } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { useTranslation } from 'react-i18next';
 
 const Localisation = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -15,6 +16,11 @@ const Localisation = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  const { t, i18n } = useTranslation('common'); 
+  const currentLang = i18n.language;
+
+
+  const isRTL = currentLang === 'ar';
   return (
     <Box
       sx={{
@@ -40,7 +46,7 @@ const Localisation = () => {
           textAlign: 'center',
         }}
       >
-        موقعنا في اسطنبول
+        {t('titre_map')}
       </Typography>
 
       {/* Sous-titre */}
@@ -54,8 +60,8 @@ const Localisation = () => {
           mt: 2,
         }}
       >
-        يمكنك زيارتنا في مكتبنا بإسطنبول في أي وقت
-      </Typography>
+        {t('sous_titre_map')}
+        </Typography>
 
       {/* Map Card */}
       <Card
