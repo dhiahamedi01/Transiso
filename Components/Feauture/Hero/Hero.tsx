@@ -22,8 +22,8 @@ function Hero() {
         };
       case '/Liste_produit':
         return {
-          title: t('products'),
-          breadcrumbs: [t('home'), t('products')],
+          title: t('products2'),
+          breadcrumbs: [t('home'), t('products2')],
         };
       case '/Services':
         return {

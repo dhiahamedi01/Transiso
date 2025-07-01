@@ -1,16 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import {
-  Box,
-  Button,
-  useTheme
-} from '@mui/material';
+import { Box, Button } from '@mui/material';
 import FlashOnIcon from '@mui/icons-material/FlashOn';
 import LocalMallIcon from '@mui/icons-material/LocalMall';
+import { useTranslation } from 'react-i18next';
 
 const ProductActions = () => {
-  const theme = useTheme();
-  const [quantity, setQuantity] = useState(1);
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -27,7 +23,6 @@ const ProductActions = () => {
         },
       }}
     >
-      {/* Commander maintenant */}
       <Link href="/" legacyBehavior>
         <a style={{ textDecoration: 'none' }}>
           <Button
@@ -39,9 +34,9 @@ const ProductActions = () => {
               px: 6,
               width: '270px',
               fontSize: '1.1rem',
-              display:'flex',
-              gap:'6px',
-              direction:'ltr',
+              display: 'flex',
+              gap: '6px',
+              direction: 'ltr',
               fontFamily: 'Noto Kufi Arabic',
               textTransform: 'none',
               whiteSpace: 'nowrap',
@@ -55,13 +50,12 @@ const ProductActions = () => {
               },
             }}
           >
-            اطلب الآن
+            {t('orderNow')}
           </Button>
         </a>
       </Link>
 
-      {/* Ajouter au panier */}
-      <Link href="http://localhost:3000/Panier" legacyBehavior>
+      <Link href="/Panier" legacyBehavior>
         <a style={{ textDecoration: 'none' }}>
           <Button
             variant="outlined"
@@ -75,9 +69,9 @@ const ProductActions = () => {
               fontFamily: 'Noto Kufi Arabic',
               textTransform: 'none',
               borderWidth: 2,
-              display:'flex',
-              gap:'10px',
-              direction:'ltr',
+              display: 'flex',
+              gap: '10px',
+              direction: 'ltr',
               whiteSpace: 'nowrap',
               color: '#fff',
               backgroundColor: 'black',
@@ -92,7 +86,7 @@ const ProductActions = () => {
               },
             }}
           >
-            أضف إلى السلة
+            {t('addToCart')}
           </Button>
         </a>
       </Link>

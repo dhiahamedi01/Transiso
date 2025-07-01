@@ -2,7 +2,7 @@
     "home": "Home",
     "about": "About Us",
     "services": "Our Services",
-    "products": "Product List",
+    "products2": "Product List",
     "contact": "Contact Us",
     "trackOrder": "Track Order",
     "inquiryOnline": "Online Inquiry",
@@ -144,7 +144,100 @@
         "google": "Google",
         "twitter": "Twitter",
         "imageAlt": "Signup Image"
-      }
+      },
+
+      "productList": {
+        "title": "Browse Products",
+        "searchPlaceholder": "Search for a product...",
+        "noResults": "Unfortunately, no products match your search.",
+        "categories": [
+          "All",
+          "Sewing Machines",
+          "Wooden Panels",
+          "Exterior Paint",
+          "Plastic Containers",
+          "Air Coolers",
+          "Car Tyres",
+          "Galvanised Steel",
+          "Treated Wood",
+          "Crude Vegetable Oil",
+          "Packaging Machines"
+        ]
+      },
+
+      "products": {
+        "1": {
+          "title": "Speedy Bandoulière Bag",
+          "description": "Made from the iconic Monogram canvas",
+          "category": "Industrial Equipment"
+        },
+        "2": {
+          "title": "Car Tires",
+          "description": "Durable, high‑performance tires for all cars.",
+          "category": "Car Tires & Spare Parts",
+          "tag": "Available"
+        },
+        "3": {
+          "title": "Exterior Paints",
+          "description": "High‑quality paints resistant to weather conditions.",
+          "category": "Paints & Finishing Materials"
+        },
+        "4": {
+          "title": "Plastic Containers",
+          "description": "Versatile containers for product storage.",
+          "category": "Containers & Storage",
+          "tag": "10% Off"
+        },
+        "5": {
+          "title": "Air Coolers",
+          "description": "Energy‑efficient air coolers suitable for offices.",
+          "category": "Cooling & Air‑Conditioning Devices"
+        },
+        "6": {
+          "title": "Wooden Panels",
+          "description": "Solid, moisture‑resistant wooden panels.",
+          "category": "Building Materials",
+          "tag": "Available"
+        },
+        "7": {
+          "title": "Galvanised Steel",
+          "description": "High‑quality galvanised steel for industrial projects.",
+          "category": "Building Materials",
+          "tag": "Available"
+        },
+        "8": {
+          "title": "Treated Wood",
+          "description": "Durable, moisture‑resistant wood for furniture and construction.",
+          "category": "Building Materials"
+        },
+        "9": {
+          "title": "Crude Vegetable Oil",
+          "description": "High‑purity vegetable oil for food use.",
+          "category": "Food Products",
+          "tag": "8% Off"
+        },
+        "10": {
+          "title": "Filling & Packaging Machines",
+          "description": "Modern equipment for efficient product packaging.",
+          "category": "Packaging & Filling Machines"
+        }
+      },
+      "breadcrumbs": {
+      "home": "Home",
+      "productList": "Product List",
+      "category": "Plastic Containers"
+        },
+        "discount": "20% Discount",
+        "oldPrice": "$ 500.00",
+        "productTitle": "Plastic Containers",
+        "price": "$ 450.00",
+        "shortDescriptionTitle": "Short Description",
+        "shortDescriptionText": "As a physiotherapist, I was very impressed with the soft IGLU cubes. The perfect balance between hardness and softness provides an ideal platform for physical activities. The anti-slip bases ensure a safe environment for children during exercises, and the bright colors add a visually stimulating element to the sessions.",
+        "stockAvailable": "Available in stock - 12 products",
+        "ratingCount": "(175 ratings)",
+        "freshness": "Keeps food fresh and clean",
+        "orderNow": "Order Now",
+        "addToCart": "Add to Cart"
       
       
       

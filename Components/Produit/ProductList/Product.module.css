@@ -14,17 +14,32 @@
     height: auto;
     display: flex;
     justify-content: space-between;
-    direction: rtl !important;
     padding: 0  !important;
 }
-
+.rtl{
+  direction: rtl !important;
+}
+.ltr{
+  direction: ltr !important;
+}
 .partie1{
     width: 100%;
     width: 100%;
 }
+.partie2{
+  width: 100%;
+  height: 100%;
+  padding-right: 150px;
+  padding-top: 50px;
+}
+.partie3{
+  padding-left: 100px;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: left !important;
+}
 .partie{
   padding-right: 100px;
-
   display: flex !important;
   justify-content: right !important;
 }
@@ -113,7 +128,9 @@
   gap: 20px;
 }
 .solde{
-  width: 100px;
+  min-width: 110px;
+  padding-inline: 10px;
+  width: auto;
   border-radius: 15px;
   background-color: #E53935;
   color: #fff;
@@ -177,6 +194,7 @@
   width: 100%;
   justify-content: center !important;
   align-items: center !important;
+  white-space: nowrap;
 }
 .couleur{
     display: flex !important;
@@ -372,8 +390,10 @@
   .Breadcrumbs{
     padding-inline: 10%;
     padding-top: 40px;
-    direction: rtl;
     display: flex;
+  }
+  .Top_page2{
+    width: 100% !important;
   }
   .favorite{
     background-color: #f4f4f4;

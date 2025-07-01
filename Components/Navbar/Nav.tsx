@@ -65,7 +65,7 @@ function Nav() {
     { label: t('home'),     href: '/' },
     { label: t('about'),    href: '/About' },
     { label: t('services'), href: '/Services' },
-    { label: t('products'), href: '/Liste_produit' },
+    { label: t('products2'), href: '/Liste_produit' },
     { label: t('contact'),  href: '/Contact' },
   ];
 

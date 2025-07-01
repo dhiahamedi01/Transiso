@@ -8,25 +8,55 @@ import 'swiper/css/navigation';
 import { useEffect } from 'react';
 import { ChevronLeft, ChevronRight, ViewList } from '@mui/icons-material';
 import ProductCard from './ProductCard';
-import { products as allProducts } from '../ProductList/Data_produit'; // ✅ Import correct
+import { products as allProducts, ProductRow } from '../ProductList/Data_produit';
+import { useTranslation } from 'react-i18next';
+
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  oldPrice?: number;
+  image: string;
+  tag?: string;
+  rating: number;
+  description: string;
+  category?: string;
+}
 
 export default function TrendingCarousel() {
+  const { t } = useTranslation();
+
   useEffect(() => {
-    const font = new FontFace('Noto Kufi Arabic', 'url("/Font/NotoKufiArabic-VariableFont_wght.ttf")', {
-      style: 'normal',
-      weight: '100 900',
-      display: 'swap',
-    });
+    const font = new FontFace(
+      'Noto Kufi Arabic',
+      'url("/Font/NotoKufiArabic-VariableFont_wght.ttf")',
+      {
+        style: 'normal',
+        weight: '100 900',
+        display: 'swap',
+      }
+    );
     font.load().then((loadedFont) => {
       document.fonts.add(loadedFont);
       document.body.style.fontFamily = "'Noto Kufi Arabic', sans-serif";
     });
   }, []);
 
-  const topProducts = allProducts.slice(0, 10); // ✅ Prendre les 10 premiers
+  // Transformation de ProductRow en Product avec traduction dynamique
+  const topProducts: Product[] = allProducts.slice(0, 10).map((item: ProductRow) => ({
+    id: item.id,
+    title: t(item.titleKey),
+    price: item.price,
+    oldPrice: item.oldPrice,
+    image: item.image,
+    tag: item.tagKey ? t(item.tagKey) : undefined,
+    rating: item.rating,
+    description: t(item.descKey),
+    category: t(item.catKey),
+  }));
 
   return (
-    <Box sx={{ px: 4, py: 6 ,zoom:'0.9',paddingInline:'80px'}}>
+    <Box sx={{ px: 4, py: 6, zoom: '0.9', paddingInline: '80px' }}>
       <Box
         sx={{
           mx: { xs: 2, sm: 5 },
@@ -37,8 +67,8 @@ export default function TrendingCarousel() {
           flexDirection: { xs: 'column-reverse', sm: 'row' },
           textAlign: { xs: 'center', sm: 'right' },
           gap: 2,
-          direction:'ltr',
-          fontFamily: 'Noto Kufi Arabic, sans-serif'
+          direction: 'ltr',
+          fontFamily: 'Noto Kufi Arabic, sans-serif',
         }}
       >
         <Box
@@ -49,12 +79,12 @@ export default function TrendingCarousel() {
             cursor: 'pointer',
             color: '#000',
             fontWeight: 'bold',
-            fontSize: { xs: '1rem', sm: '1.2rem' }
+            fontSize: { xs: '1rem', sm: '1.2rem' },
           }}
         >
           <ViewList />
           <Typography component="span" sx={{ userSelect: 'none', fontFamily: 'Noto Kufi Arabic, sans-serif' }}>
-            عرض الكل
+            {t('productList.categories.0')} {/* ici c'est "الكل" depuis ta traduction */}
           </Typography>
         </Box>
 
@@ -65,10 +95,10 @@ export default function TrendingCarousel() {
           sx={{
             fontSize: { xs: '1.4rem', sm: '2rem' },
             mb: { xs: 1, sm: 0 },
-            fontFamily: 'Noto Kufi Arabic, sans-serif'
+            fontFamily: 'Noto Kufi Arabic, sans-serif',
           }}
         >
-          قائمة منتجاتنا
+          {t('productList.title')} {/* titre traduit dynamique */}
         </Typography>
       </Box>
 
@@ -85,7 +115,7 @@ export default function TrendingCarousel() {
             border: '1px solid #ccc',
             opacity: 0,
             transition: '0.3s',
-            '&:hover': { backgroundColor: '#f1f1f1' }
+            '&:hover': { backgroundColor: '#f1f1f1' },
           }}
           id="prevBtn"
         >
@@ -104,7 +134,7 @@ export default function TrendingCarousel() {
             border: '1px solid #ccc',
             opacity: 0,
             transition: '0.3s',
-            '&:hover': { backgroundColor: '#f1f1f1' }
+            '&:hover': { backgroundColor: '#f1f1f1' },
           }}
           id="nextBtn"
         >
@@ -116,14 +146,14 @@ export default function TrendingCarousel() {
             modules={[Navigation]}
             navigation={{
               nextEl: '#nextBtn',
-              prevEl: '#prevBtn'
+              prevEl: '#prevBtn',
             }}
             spaceBetween={20}
             breakpoints={{
               640: { slidesPerView: 1 },
               768: { slidesPerView: 2 },
               1024: { slidesPerView: 3 },
-              1280: { slidesPerView: 4 }
+              1280: { slidesPerView: 4 },
             }}
           >
             {topProducts.map((product) => (

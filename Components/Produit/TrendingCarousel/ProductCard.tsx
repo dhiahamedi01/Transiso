@@ -17,6 +17,7 @@ import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlin
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 type Product = {
   id: number;
@@ -31,10 +32,13 @@ type Product = {
 };
 
 export default function ProductCard({ product }: { product: Product }) {
+  const { i18n } = useTranslation();
+  const isRTL = i18n.dir() === 'rtl';
+
   const [hovered, setHovered] = useState(false);
 
   return (
-    <Link href={`/Liste_produit/${product.id}`} passHref style={{ textDecoration: 'none' }}>
+    <Link href={`/Liste_produit/${product.id}`} style={{ textDecoration: 'none' }}>
       <Box sx={{ cursor: 'pointer', height: '100%' }}>
         <Card
           onMouseEnter={() => setHovered(true)}
@@ -42,41 +46,43 @@ export default function ProductCard({ product }: { product: Product }) {
           sx={{
             boxShadow: 3,
             height: '100%',
-            minHeight: 500, // Ajuste la hauteur minimale selon ton besoin
+            minHeight: 500,
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
             position: 'relative',
             overflow: 'hidden',
             borderBottom: '1px solid #e0e0e0',
-            zoom: '0.9',
-            direction:'ltr',
+            zoom: 0.9,
+            direction: isRTL ? 'rtl' : 'ltr',
             pb: 2,
             backgroundColor: '#fff',
           }}
         >
-          {/* Étiquette promotionnelle */}
           {product.tag && (
             <Chip
               label={product.tag}
               sx={{
                 position: 'absolute',
                 top: 10,
-                right: 10,
+                right: isRTL ? undefined : 10,
+                left: isRTL ? 10 : undefined,
                 zIndex: 2,
-                backgroundColor: product.tag.includes('خصم') ? '#e53935' : '#168591',
-                color: 'white',
+                backgroundColor:
+                  product.tag.includes('%') || product.tag.includes('خصم')
+                    ? '#e53935'
+                    : '#168591',
+                color: '#fff',
                 fontFamily: 'Noto Kufi Arabic, sans-serif',
                 borderRadius: '6px',
                 px: 1,
                 py: 0.5,
                 fontSize: '0.75rem',
-                direction: 'rtl',
+                direction: isRTL ? 'rtl' : 'ltr',
               }}
             />
           )}
 
-          {/* Image produit */}
           <CardMedia sx={{ height: 300, position: 'relative' }}>
             <Image
               src={product.image}
@@ -84,22 +90,16 @@ export default function ProductCard({ product }: { product: Product }) {
               fill
               style={{ objectFit: 'cover', transition: '0.3s ease' }}
             />
-
-            {/* Overlay sombre */}
             <Box
               sx={{
                 position: 'absolute',
-                bottom: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
+                inset: 0,
                 background: hovered ? 'rgba(0,0,0,0.1)' : 'transparent',
                 transition: '0.3s ease',
                 zIndex: 1,
               }}
             />
 
-            {/* Icônes au survol */}
             <Fade in={hovered}>
               <Box
                 sx={{
@@ -112,30 +112,33 @@ export default function ProductCard({ product }: { product: Product }) {
                   zIndex: 2,
                 }}
               >
-                <IconButton sx={{ backgroundColor: '#fff', p: 1, '&:hover': { backgroundColor: '#eee' } }}>
-                  <FavoriteBorderIcon fontSize="small" sx={{ color: '#3a3a3a' }} />
-                </IconButton>
-                <IconButton sx={{ backgroundColor: '#fff', p: 1, '&:hover': { backgroundColor: '#eee' } }}>
-                  <VisibilityOutlinedIcon fontSize="small" sx={{ color: '#3a3a3a' }} />
-                </IconButton>
-                <IconButton sx={{ backgroundColor: '#fff', p: 1, '&:hover': { backgroundColor: '#eee' } }}>
-                  <BookmarkBorderOutlinedIcon fontSize="small" sx={{ color: '#3a3a3a' }} />
-                </IconButton>
+                {[FavoriteBorderIcon, VisibilityOutlinedIcon, BookmarkBorderOutlinedIcon].map(
+                  (Icon, i) => (
+                    <IconButton
+                      key={i}
+                      sx={{
+                        backgroundColor: '#fff',
+                        p: 1,
+                        '&:hover': { backgroundColor: '#eee' },
+                      }}
+                    >
+                      <Icon fontSize="small" sx={{ color: '#3a3a3a' }} />
+                    </IconButton>
+                  )
+                )}
               </Box>
             </Fade>
           </CardMedia>
 
-          {/* Contenu de la carte */}
           <CardContent
             sx={{
-              textAlign: 'right',
+              textAlign: isRTL ? 'right' : 'left',
               flexGrow: 1,
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',
             }}
           >
-            {/* Catégorie */}
             {product.category && (
               <Typography
                 variant="caption"
@@ -151,7 +154,6 @@ export default function ProductCard({ product }: { product: Product }) {
               </Typography>
             )}
 
-            {/* Titre */}
             <Typography
               fontWeight={700}
               fontSize={18}
@@ -160,7 +162,6 @@ export default function ProductCard({ product }: { product: Product }) {
               {product.title}
             </Typography>
 
-            {/* Description avec hauteur fixe */}
             <Typography
               variant="body2"
               color="text.secondary"
@@ -173,32 +174,34 @@ export default function ProductCard({ product }: { product: Product }) {
                 textOverflow: 'ellipsis',
                 mt: 0.5,
                 mb: 1,
-                minHeight: '3.2em', // correspond à 2 lignes environ
+                minHeight: '3.2em',
               }}
             >
               {product.description}
             </Typography>
 
-            {/* Évaluation */}
-   
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 1 }}>
-              <Rating
-                value={product.rating}
-                precision={0.1}
-                readOnly
-                size="small"
-                sx={{ direction: 'ltr' }}
-              />
-            </Box>
+            <Box sx={{ direction: 'rtl', mb: 1 }}>
+                <Rating
+                  value={product.rating}
+                  precision={0.1}
+                  readOnly
+                  size="small"
+                  sx={{ direction: 'ltr' }}
+                />
+              </Box>
 
 
-            {/* Prix */}
             <Typography variant="h6" sx={{ fontFamily: 'Noto Kufi Arabic, sans-serif' }}>
               ${product.price.toFixed(2)}{' '}
               {product.oldPrice && (
                 <Typography
                   component="span"
-                  sx={{ textDecoration: 'line-through', ml: 1, color: 'gray' }}
+                  sx={{
+                    textDecoration: 'line-through',
+                    ml: isRTL ? 0 : 1,
+                    mr: isRTL ? 1 : 0,
+                    color: 'gray',
+                  }}
                 >
                   ${product.oldPrice.toFixed(2)}
                 </Typography>

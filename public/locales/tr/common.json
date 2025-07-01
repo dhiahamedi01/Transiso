@@ -2,7 +2,7 @@
     "home": "Ana Sayfa",
     "about": "Şirket Hakkında",
     "services": "Hizmetlerimiz",
-    "products": "Ürün Listesi",
+    "products2": "Ürün Listesi",
     "contact": "İletişim",
     "trackOrder": "Sipariş Takibi",
     "inquiryOnline": "Online Sorgu",
@@ -141,7 +141,100 @@
           "google": "Google",
           "twitter": "Twitter",
           "imageAlt": "Kayıt Resmi"
-        }
+        },
+
+        "productList": {
+          "title": "Ürünleri Görüntüle",
+          "searchPlaceholder": "Bir ürün ara...",
+          "noResults": "Maalesef, aramanızla eşleşen ürün bulunamadı.",
+          "categories": [
+            "Hepsi",
+            "Dikiş Makineleri",
+            "Ahşap Paneller",
+            "Dış Cephe Boyaları",
+            "Plastik Konteynerler",
+            "Hava Soğutucuları",
+            "Araba Lastikleri",
+            "Galvanizli Çelik",
+            "İşlenmiş Ahşap",
+            "Ham Bitkisel Yağ",
+            "Paketleme Makineleri"
+          ]
+        },
+
+        "products": {
+          "1": {
+            "title": "Speedy Bandoulière Çanta",
+            "description": "Ünlü Monogram kanvasından üretilmiştir",
+            "category": "Endüstriyel Ekipman"
+          },
+          "2": {
+            "title": "Araba Lastikleri",
+            "description": "Tüm arabalar için dayanıklı, yüksek performanslı lastikler.",
+            "category": "Araba Lastikleri ve Yedek Parçaları",
+            "tag": "Stokta"
+          },
+          "3": {
+            "title": "Dış Cephe Boyaları",
+            "description": "Hava koşullarına dayanıklı yüksek kaliteli boyalar.",
+            "category": "Boya ve Son Kat Malzemeleri"
+          },
+          "4": {
+            "title": "Plastik Konteynerler",
+            "description": "Ürün depolamaya yönelik çok amaçlı konteynerler.",
+            "category": "Konteyner ve Depolama",
+            "tag": "%10 İndirim"
+          },
+          "5": {
+            "title": "Hava Soğutucuları",
+            "description": "Ofisler için uygun, enerji verimli hava soğutucular.",
+            "category": "Soğutma ve Klima Cihazları"
+          },
+          "6": {
+            "title": "Ahşap Paneller",
+            "description": "Sağlam, neme dayanıklı ahşap paneller.",
+            "category": "Yapı Malzemeleri",
+            "tag": "Stokta"
+          },
+          "7": {
+            "title": "Galvanizli Çelik",
+            "description": "Endüstriyel projeler için yüksek kaliteli galvanizli çelik.",
+            "category": "Yapı Malzemeleri",
+            "tag": "Stokta"
+          },
+          "8": {
+            "title": "İşlenmiş Ahşap",
+            "description": "Mobilya ve inşaat için dayanıklı, neme dayanıklı ahşap.",
+            "category": "Yapı Malzemeleri"
+          },
+          "9": {
+            "title": "Ham Bitkisel Yağ",
+            "description": "Gıda kullanımına uygun yüksek saflıkta bitkisel yağ.",
+            "category": "Gıda Ürünleri",
+            "tag": "%8 İndirim"
+          },
+          "10": {
+            "title": "Dolum ve Paketleme Makineleri",
+            "description": "Ürünleri verimli şekilde paketlemek için modern ekipman.",
+            "category": "Ambalaj ve Dolum Makineleri"
+          }
+        },
+        "breadcrumbs": {
+          "home": "Ana Sayfa",
+          "productList": "Ürün Listesi",
+          "category": "Plastik Kaplar"
+        },
+        "discount": "%20 İndirim",
+        "oldPrice": "$ 500.00",
+        "productTitle": "Plastik Kaplar",
+        "price": "$ 450.00",
+        "shortDescriptionTitle": "Kısa Açıklama",
+        "shortDescriptionText": "Fizyoterapist olarak, yumuşak IGLU küplerinden çok etkilendim. Sertlik ve yumuşaklık arasındaki mükemmel denge, fiziksel aktiviteler için ideal bir platform sağlar. Kaymayı önleyen tabanlar, egzersiz sırasında çocuklar için güvenli bir ortam sağlar ve parlak renkler oturumlara görsel olarak uyarıcı bir unsur katar.",
+        "stockAvailable": "Stokta mevcut - 12 ürün",
+        "ratingCount": "(175 değerlendirme)",
+        "freshness": "Yiyecekleri taze ve temiz tutar",
+        "orderNow": "Şimdi Sipariş Ver",
+        "addToCart": "Sepete Ekle"
         
         
       

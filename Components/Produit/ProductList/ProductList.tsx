@@ -1,70 +1,76 @@
 'use client';
 
 import {
-  Box,
-  Pagination,
-  InputBase,
-  Select,
-  MenuItem,
-  Paper,
-  useMediaQuery,
-  useTheme,
-  Typography
+  Box, Pagination, InputBase, Select, MenuItem, Paper,
+  useMediaQuery, useTheme, Typography
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import FilterListIcon from '@mui/icons-material/FilterList';
-import { useState, useMemo } from 'react';
-import ProductCard from '../TrendingCarousel/ProductCard';
+import { useState, useMemo, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { products } from './Data_produit';
+import ProductCard from '../TrendingCarousel/ProductCard';
 
 const ITEMS_PER_PAGE = 12;
 const ITEMS_PER_ROW_DESKTOP = 4;
 
-const categories = [
-  'الكل',
-  'مكائن خياطة',
-  'ألواح خشبية',
-  'دهانات خارجية',
-  'حاويات بلاستيكية',
-  'مبردات هواء',
-  'إطارات سيارات',
-  'فولاذ مجلفن',
-  'أخشاب معالجة',
-  'زيت نباتي خام',
-  'آلات تعبئة وتغليف'
-];
-
 export default function ProductList() {
-  const [page, setPage] = useState(1);
-  const [search, setSearch] = useState('');
-  const [category, setCategory] = useState('الكل');
+  /* ---------- i18n ---------- */
+  const { t, i18n } = useTranslation(['common']);      // "common" contient productList + products
+  const categories = t('productList.categories', { returnObjects: true }) as string[];
+
+  const direction = i18n.dir();  // 'ltr' ou 'rtl'
+
+  /* ---------- responsive & state ---------- */
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
-    setPage(value);
-  };
+  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState('');
+  const [cat, setCat] = useState(categories[0]);
+  useEffect(() => {
+    setCat(categories[0]);
+  }, [categories]);
 
-  // Optimisation avec useMemo
-  const filteredProducts = useMemo(() => {
-    return products.filter(product => {
-      const matchTitle = product.title.includes(search);
-      const matchCategory = category === 'الكل' || product.title.includes(category);
-      return matchTitle && matchCategory;
+  /* ---------- tableau traduit ---------- */
+  const localisedProducts = useMemo(() => {
+    return products.map(p => ({
+      ...p,
+      title: t(p.titleKey),
+      description: t(p.descKey),
+      category: t(p.catKey),
+      tag: p.tagKey ? t(p.tagKey) : undefined
+    }));
+  }, [i18n.language]);
+
+  /* ---------- recherche + filtre ---------- */
+  const filtered = useMemo(() => {
+    const term = search.toLowerCase();
+    return localisedProducts.filter(prod => {
+      const matchTitle = prod.title.toLowerCase().includes(term);
+      const matchCat = cat === categories[0] || prod.category === cat;
+      return matchTitle && matchCat;
     });
-  }, [search, category]);
+  }, [search, cat, localisedProducts, categories]);
 
-  const paginatedProducts = useMemo(() => {
-    return filteredProducts.slice(
-      (page - 1) * ITEMS_PER_PAGE,
-      page * ITEMS_PER_PAGE
-    );
-  }, [filteredProducts, page]);
+  const paginated = useMemo(
+    () => filtered.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE),
+    [filtered, page]
+  );
 
+  /* ---------- rendu ---------- */
   return (
-    <Box sx={{ px: { xs: 3, sm: 6, md: 10 }, py: 6, mt: 3 }}>
-
-      {/* Header - recherche + filtre */}
+    <Box
+      sx={{
+        px: { xs: 3, sm: 6, md: 10 },
+        py: 6,
+        mt: 3,
+        direction: direction,
+        fontFamily: direction === 'rtl' ? 'Noto Kufi Arabic, sans-serif' : 'Arial, sans-serif'
+      }}
+    >
+      {/* --------- En‑tête --------- */}
       <Box
         sx={{
           display: 'flex',
@@ -73,54 +79,58 @@ export default function ProductList() {
           justifyContent: 'space-between',
           gap: 2,
           mb: 4,
-          direction:'ltr',
-          px: { xs: 1, md: 0 },
+          direction: direction,
+          px: { xs: 1, md: 0 }
         }}
       >
         <Typography
           sx={{
-            fontFamily: 'Noto Kufi Arabic, sans-serif',
+            fontFamily: direction === 'rtl' ? 'Noto Kufi Arabic, sans-serif' : 'Arial, sans-serif',
             fontWeight: 600,
             fontSize: 20,
             color: '#0C3547',
+            textAlign: direction === 'rtl' ? 'right' : 'left',
           }}
         >
-          استعرض المنتجات
+          {t('productList.title')}
         </Typography>
 
         <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', alignItems: 'center' }}>
+          {/* barre recherche */}
           <Paper
             component="form"
             sx={{
               display: 'flex',
               alignItems: 'center',
-              borderRadius: '4px',
-              backgroundColor: '#fff',
-              border:'1px solid #e0e0e0',
-              boxShadow: '0px 2px 4px rgba(0,0,0,0.1)',
               px: 2,
               height: 42,
               width: { xs: '100%', sm: 250 },
-              direction:'ltr',
+              borderRadius: '4px',
+              bg: '#fff',
+              border: '1px solid #e0e0e0',
+              boxShadow: '0px 2px 4px rgba(0,0,0,0.1)',
+              direction: direction,
             }}
           >
             <SearchIcon sx={{ color: '#153B4C', mr: 1 }} />
             <InputBase
-              placeholder="ابحث عن منتج..."
+              placeholder={t('productList.searchPlaceholder')}
               value={search}
-              onChange={(e) => {
+              onChange={e => {
                 setSearch(e.target.value);
-                setPage(1); // reset page au changement de recherche
+                setPage(1);
               }}
               fullWidth
               sx={{
                 color: '#333',
-                fontFamily: 'Noto Kufi Arabic, sans-serif',
-                '::placeholder': { color: '#999' }
+                fontFamily: direction === 'rtl' ? 'Noto Kufi Arabic, sans-serif' : 'Arial, sans-serif',
+                '::placeholder': { color: '#999' },
+                textAlign: direction === 'rtl' ? 'right' : 'left',
               }}
             />
           </Paper>
 
+          {/* filtre catégorie */}
           <Box
             sx={{
               display: 'flex',
@@ -131,36 +141,38 @@ export default function ProductList() {
               backgroundColor: '#0C3547',
               borderRadius: '4px',
               height: 42,
+              direction: direction,
             }}
           >
             <FilterListIcon sx={{ color: '#fff' }} />
             <Select
-              value={category}
-              onChange={(e) => {
-                setCategory(e.target.value);
-                setPage(1); // reset page au changement de catégorie
+              value={cat}
+              onChange={e => {
+                setCat(e.target.value as string);
+                setPage(1);
               }}
               size="small"
               variant="standard"
               disableUnderline
               sx={{
-                fontFamily: 'Noto Kufi Arabic, sans-serif',
+                fontFamily: direction === 'rtl' ? 'Noto Kufi Arabic, sans-serif' : 'Arial, sans-serif',
                 color: 'white',
-                '& .MuiSelect-icon': {
-                  color: 'white',
-                },
+                '& .MuiSelect-icon': { color: 'white' },
+                textAlign: direction === 'rtl' ? 'right' : 'left',
               }}
             >
-              {categories.map((cat, index) => (
-                <MenuItem key={index} value={cat}>{cat}</MenuItem>
+              {categories.map((c, i) => (
+                <MenuItem key={i} value={c}>
+                  {c}
+                </MenuItem>
               ))}
             </Select>
           </Box>
         </Box>
       </Box>
 
-      {/* Si pas de résultat, afficher image + message */}
-      {filteredProducts.length === 0 ? (
+      {/* --------- Contenu --------- */}
+      {filtered.length === 0 ? (
         <Box
           sx={{
             mt: 10,
@@ -170,23 +182,20 @@ export default function ProductList() {
             justifyContent: 'center',
             gap: 3,
             px: 3,
-            height:'50vh',
-            marginBottom:'80px'
+            height: '50vh',
+            mb: '80px',
+            direction: direction,
           }}
         >
           <Box
             component="img"
-            src="/img/icon/no_data.png" // Change ce lien par ta propre image
-            alt="No data"
-            sx={{
-              width: isMobile ? '80%' : '300px',
-              maxWidth: '100%',
-              opacity: 0.7,
-            }}
+            src="/img/icon/no_data.png"
+            alt="no data"
+            sx={{ width: isMobile ? '80%' : '300px', opacity: 0.7 }}
           />
           <Typography
             sx={{
-              fontFamily: 'Noto Kufi Arabic, sans-serif',
+              fontFamily: direction === 'rtl' ? 'Noto Kufi Arabic, sans-serif' : 'Arial, sans-serif',
               fontSize: 18,
               color: '#0C3547',
               fontWeight: 500,
@@ -194,59 +203,41 @@ export default function ProductList() {
               maxWidth: 400,
             }}
           >
-            للأسف، لم يتم العثور على منتجات تطابق بحثك.
+            {t('productList.noResults')}
           </Typography>
         </Box>
       ) : (
         <>
-          {/* Liste des produits */}
           <Box
             sx={{
               display: 'flex',
               flexWrap: 'wrap',
-              justifyContent:
-                paginatedProducts.length < ITEMS_PER_ROW_DESKTOP
-                  ? 'center'
-                  : 'flex-start',
+              justifyContent: paginated.length < ITEMS_PER_ROW_DESKTOP ? 'center' : 'flex-start',
               rowGap: 5,
-              columnGap: {
-                xs: 2,
-                sm: 3,
-                md: 2,
-              },
+              columnGap: { xs: 2, sm: 3, md: 2 },
+              direction: direction,
             }}
           >
-            {paginatedProducts.map((product) => (
+            {paginated.map(prod => (
               <Box
-                key={product.id}
+                key={prod.id}
                 sx={{
-                  boxSizing: 'border-box',
-                  flexGrow: 0,
-                  flexShrink: 0,
-                  flexBasis: {
-                    xs: '100%',
-                    sm: `calc(50% - 12px)`,
-                    md: `calc(25% - 16px)`,
-                  },
-                  maxWidth: {
-                    xs: '100%',
-                    sm: `calc(50% - 12px)` ,
-                    md: 'none',
-                  },
                   p: 1,
+                  boxSizing: 'border-box',
+                  flexBasis: { xs: '100%', sm: 'calc(50% - 12px)', md: 'calc(25% - 16px)' },
+                  maxWidth: { xs: '100%', sm: 'calc(50% - 12px)' },
                 }}
               >
-                <ProductCard product={product} />
+                <ProductCard product={prod} />
               </Box>
             ))}
           </Box>
 
-          {/* Pagination */}
-          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4, direction: direction }}>
             <Pagination
-              count={Math.ceil(filteredProducts.length / ITEMS_PER_PAGE)}
+              count={Math.ceil(filtered.length / ITEMS_PER_PAGE)}
               page={page}
-              onChange={handleChange}
+              onChange={(_, v) => setPage(v)}
               color="primary"
               shape="rounded"
               siblingCount={1}
