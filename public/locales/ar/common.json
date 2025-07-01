@@ -105,6 +105,43 @@
             "avatar-3.jpg",
             "avatar-7.jpg"
           ]
+        },
+        "login": {
+          "title": "تسجيل الدخول",
+          "new": "جديد على Transiso؟",
+          "createAccount": "إنشاء حساب",
+          "emailLabel": "البريد الإلكتروني أو اسم المستخدم",
+          "emailPlaceholder": "owner@githubit.com",
+          "passwordLabel": "كلمة المرور",
+          "passwordPlaceholder": "********",
+          "remember": "تذكرني",
+          "loginButton": "تسجيل الدخول",
+          "orLoginWith": "أو تسجيل الدخول باستخدام",
+          "facebook": "فيسبوك",
+          "google": "جوجل",
+          "twitter": "تويتر",
+          "forgot": "هل نسيت",
+          "username": "اسم المستخدم",
+          "password": "كلمة المرور",
+          "or": "أو",
+          "imageAlt": "صورة تسجيل الدخول"
+        },
+        "signup": {
+          "title": "إنشاء حساب",
+          "hasAccount": "لديك حساب بالفعل ؟",
+          "loginLink": "تسجيل الدخول",
+          "fullName": "الاسم الكامل",
+          "email": "البريد الإلكتروني",
+          "phone": "رقم الجوال",
+          "company": "اسم الشركة (اختياري)",
+          "password": "كلمة المرور",
+          "address": "العنوان",
+          "button": "إنشاء الحساب",
+          "orWith": "أو التسجيل باستخدام",
+          "facebook": "فيسبوك",
+          "google": "جوجل",
+          "twitter": "تويتر",
+          "imageAlt": "صورة التسجيل"
         }
   
   

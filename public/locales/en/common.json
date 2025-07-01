@@ -106,7 +106,47 @@
           "avatar-3.jpg",
           "avatar-7.jpg"
         ]
+      },
+    
+        "login": {
+          "title": "Login",
+          "new": "New to Transiso?",
+          "createAccount": "Create Account",
+          "emailLabel": "Email or Username",
+          "emailPlaceholder": "owner@githubit.com",
+          "passwordLabel": "Password",
+          "passwordPlaceholder": "********",
+          "remember": "Remember me",
+          "loginButton": "Login",
+          "orLoginWith": "Or login with",
+          "facebook": "Facebook",
+          "google": "Google",
+          "twitter": "Twitter",
+          "forgot": "Forgot your",
+          "username": "username",
+          "password": "password",
+          "or": "or",
+          "imageAlt": "Login image"
+        },
+        "signup": {
+        "title": "Create Account",
+        "hasAccount": "Already have an account?",
+        "loginLink": "Login",
+        "fullName": "Full Name",
+        "email": "Email Address",
+        "phone": "Phone Number",
+        "company": "Company Name (Optional)",
+        "password": "Password",
+        "address": "Address",
+        "button": "Sign Up",
+        "orWith": "Or sign up with",
+        "facebook": "Facebook",
+        "google": "Google",
+        "twitter": "Twitter",
+        "imageAlt": "Signup Image"
       }
+      
+      
       
     
   }

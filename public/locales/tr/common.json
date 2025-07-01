@@ -104,7 +104,46 @@
             "avatar-3.jpg",
             "avatar-7.jpg"
           ]
+        },
+          "login": {
+            "title": "Giriş Yap",
+            "new": "Transiso'ya yeni misiniz?",
+            "createAccount": "Hesap Oluştur",
+            "emailLabel": "E-posta veya Kullanıcı Adı",
+            "emailPlaceholder": "owner@githubit.com",
+            "passwordLabel": "Şifre",
+            "passwordPlaceholder": "********",
+            "remember": "Beni hatırla",
+            "loginButton": "Giriş Yap",
+            "orLoginWith": "Veya ile giriş yap",
+            "facebook": "Facebook",
+            "google": "Google",
+            "twitter": "Twitter",
+            "forgot": "Unuttunuz mu",
+            "username": "kullanıcı adı",
+            "password": "şifre",
+            "or": "veya",
+            "imageAlt": "Giriş görseli"
+          },
+          "signup": {
+          "title": "Hesap Oluştur",
+          "hasAccount": "Zaten bir hesabınız var mı?",
+          "loginLink": "Giriş Yap",
+          "fullName": "Tam Adı",
+          "email": "E-posta Adresi",
+          "phone": "Telefon Numarası",
+          "company": "Şirket Adı (İsteğe Bağlı)",
+          "password": "Şifre",
+          "address": "Adres",
+          "button": "Kayıt Ol",
+          "orWith": "Veya ile kayıt olun",
+          "facebook": "Facebook",
+          "google": "Google",
+          "twitter": "Twitter",
+          "imageAlt": "Kayıt Resmi"
         }
+        
+        
       
       
 

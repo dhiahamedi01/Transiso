@@ -10,6 +10,10 @@
   padding-top:  30px;
   padding-bottom: 150px;
   background-color: #F0F2F5;
+  background-image: url('/img/container2.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   font-family: 'Noto Kufi Arabic', sans-serif !important;
 }
 
@@ -17,17 +21,22 @@
   display: flex;
   min-height: 97vh;
   height: auto;
-  max-width: 1700px;
+  max-width: 1200px;
   margin: auto;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  background: #fff;
+   overflow: hidden; 
+   background-color: rgba(236, 236, 236, 0.9); /* Fond clair semi-transparent */
+   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4); /* Ombre plus foncée et diffuse */
+   backdrop-filter: blur(40px); /* Flou très fort */
+   -webkit-backdrop-filter: blur(40px); /* Safari */
+   border: 1px solid rgba(255, 255, 255, 0.2); /* Bordure translucide */
   zoom: 0.7;
 }
 
 .left {
   flex: 1;
-  padding: 2rem !important;
+  padding: 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -125,7 +134,7 @@ padding-inline: 70px;
 .input {
   width: 100%;
   padding: 0.75rem 1rem;
-  padding-left: 2.8rem; /* space for icon */
+  padding-left: 2.8rem; /* espace pour l’icône */
   border-radius: 10px;
   border: 1px solid #ccc;
   font-size: 1rem;
@@ -279,3 +288,6 @@ padding-inline: 70px;
     padding-inline: 0px;
   }
 }
+
+
+
