@@ -26,7 +26,7 @@ const Section: React.FC = () => {
         />
       </div>
 
-      <div className={styles.block13}>
+      <div className={`${styles.block13} ${directionClass}`}>
         <div className={styles.text}>
           <div className={styles.titre}>
             <h4 className={styles.section_title2}>{t('section.subheading')}</h4>

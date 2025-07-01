@@ -9,7 +9,7 @@ import styles from './LanguageSelector.module.css';
 const languages = [
   { code: 'en', label: 'EN', flag: '/img/flags/eng.jpg' },
   { code: 'tr', label: 'TR', flag: '/img/flags/tr.jpg' },
-  { code: 'ar', label: 'AR', flag: '/img/flags/ar.jpg' },
+  { code: 'ar', label: 'AR', flag: '/img/flags/AR.jpg' },
 ];
 
 const LanguageSelector = () => {

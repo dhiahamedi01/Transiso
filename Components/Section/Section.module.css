@@ -399,14 +399,14 @@
   /*********************** fin about ***************************/  
   /* Direction LTR par défaut */
 .dir-ltr {
-  direction: ltr;
-  text-align: left;
+  direction: ltr !important;
+  text-align: left !important;
 }
 
 /* Direction RTL */
 .dir-rtl {
-  direction: rtl;
-  text-align: right;
+  direction: rtl !important;
+  text-align: right !important;
 }
 
 /* Exemple : gérer les bordures pour RTL */
@@ -417,17 +417,17 @@
 
 .dir-rtl .partie1 {
   border-left: 1px solid #a7a7a7;
-  border-right: none;
+  border-right: none !important;
 }
 
 .dir-ltr .partie1AR {
   border-left: 1px solid #a7a7a7;
-  border-right: none;
+  border-right: none !important;
 }
 
 .dir-rtl .partie1AR {
   border-right: 1px solid #a7a7a7;
-  border-left: none;
+  border-left: none !important;
 }
 
 /* Ajuster margin/padding selon direction */
