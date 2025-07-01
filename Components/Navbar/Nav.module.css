@@ -225,7 +225,10 @@
     .hamburger {
       display: block !important;
     }
-  
+    .navbar{
+      direction: ltr !important;
+      text-align: right;
+    }
     .navLinks {
       display: none !important;
     }
@@ -254,7 +257,9 @@
       gap: 4px;
       padding: 8px 16px;
     }
-  
+    .navbar{
+      direction: rtl !important;
+    }
     .left {
       flex-wrap: nowrap;
       flex-direction: row;
@@ -272,6 +277,7 @@
     .rightSection {
       display: none;
     }
+
   }
   
   .Link{
@@ -280,7 +286,7 @@
   }
  
   .rtl {
-    direction: rtl !important;
+    direction: rtl ;
     text-align: right;
   }
   
