@@ -37,6 +37,7 @@ export default function TrendingCarousel() {
           flexDirection: { xs: 'column-reverse', sm: 'row' },
           textAlign: { xs: 'center', sm: 'right' },
           gap: 2,
+          direction:'ltr',
           fontFamily: 'Noto Kufi Arabic, sans-serif'
         }}
       >

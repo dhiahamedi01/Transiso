@@ -50,6 +50,7 @@ export default function ProductCard({ product }: { product: Product }) {
             overflow: 'hidden',
             borderBottom: '1px solid #e0e0e0',
             zoom: '0.9',
+            direction:'ltr',
             pb: 2,
             backgroundColor: '#fff',
           }}

@@ -14,7 +14,7 @@
     height: auto;
     display: flex;
     justify-content: space-between;
-    direction: rtl;
+    direction: rtl !important;
     padding: 0  !important;
 }
 
