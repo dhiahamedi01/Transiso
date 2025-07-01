@@ -6,7 +6,7 @@ import DoneIcon from '@mui/icons-material/Done';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { useTranslation } from 'react-i18next';
-
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 const Banner2 = () => {
   const { t, i18n } = useTranslation('common'); 
   const currentLang = i18n.language;
@@ -72,7 +72,20 @@ const Banner2 = () => {
         </div>
 
         <div className={styles.Footer_about}>
-          <button>{t('banner2.buttonText')}<KeyboardBackspaceIcon /></button>
+        <button>
+          {currentLang === 'ar' ? (
+            <>
+              {t('banner2.buttonText')}
+              <KeyboardBackspaceIcon style={{ marginRight: '8px' }} />
+            </>
+          ) : (
+            <>
+              {t('banner2.buttonText')}
+              <ArrowRightAltIcon style={{ marginLeft: '5px' }} />
+            </>
+          )}
+        </button>
+
         </div>
       </div>
 

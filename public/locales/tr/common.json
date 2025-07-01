@@ -28,9 +28,37 @@
           "item2": "Filo genişletme ve yenileme",
           "item3": "Gelişmiş teknoloji entegrasyonu"
         },
-        "buttonText": "Daha Fazla Keşfet",
-        "titre_hero": "Transeso Lojistiğine Hoş Geldiniz"
-    }
+        "buttonText": "Daha Fazla Keşfet"
+       
+    },
+     "titre_hero": "Transeso Lojistiğine Hoş Geldiniz",
+      "banner": {
+        "title": "Potansiyeli Gerçekleştirmek İçin Fırsatlar Yaratıyoruz",
+        "subtitle": "Her adımın işinizi daha iyi bir geleceğe taşıdığına inanıyoruz",
+        "buttonText": "Daha Fazlasını Keşfet"
+      },
+      "card": {
+        "subtitle": "Neden Biz?",
+        "title": "Transiso ile Çalışmanın Avantajları",
+        "description": "Transiso olarak, uzman bir ekip ve ileri teknolojiyle desteklenen akıllı ve güvenilir taşımacılık hizmetleri sunuyor, tam memnuniyetinizi garanti ediyoruz.",
+        "items": {
+          "team": {
+            "title": "Uzman Ekibimiz",
+            "text": "Transiso ekibi, her zaman en iyi hizmeti sunmaya ve müşteri memnuniyetini sağlamaya çalışan uzmanlardan oluşur."
+          },
+          "delivery": {
+            "title": "Hızlı ve Etkili Teslimat",
+            "text": "Gönderilerinizin güvenliğini ve hızını sağlamak için en son lojistik teknolojilerini kullanıyoruz."
+          },
+          "support": {
+            "title": "Üstün Müşteri Hizmeti",
+            "text": "Müşteriyi işimizin merkezine koyuyor, tüm sorularınıza hızlı yanıt ve sürekli destek sağlıyoruz."
+          }
+        }
+      }
+
+
+    
     
   }
   

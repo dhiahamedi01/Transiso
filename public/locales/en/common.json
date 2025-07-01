@@ -12,11 +12,14 @@
     "istanbulTurkey": "Istanbul, Turkey",
     "email": "info@transisologistic.com",
     "slide2Title": "Worldwide ports",
-    "slide2Desc" : "From Istanbul, Transiso ships containers to most countries of the world.",
+    "slide2Desc": "From Istanbul, Transiso ships containers efficiently to major ports across Europe, Asia, and the Americas.",
+
     "slide3Title": "Transiso Logistic",
-    "slide3Desc" : "Fast and reliable freight services from every Turkish port.",
+    "slide3Desc": "Fast and secure freight services from all major Turkish ports, ensuring smooth international deliveries.",
+
     "slide4Title": "Via Turkish airports",
-    "slide4Desc" : "Air‑cargo solutions from Turkey to the world.",
+    "slide4Desc": "Reliable air cargo solutions through Turkey’s airports, connecting your goods to global destinations.",
+
       "banner2": {
         "aboutTitle": "About the Company",
         "mainTitle": "Transiso Logistic: Your Trusted Logistics Partner in Turkey and Worldwide",
@@ -30,7 +33,32 @@
         },
         "buttonText": "Discover More"
       },
-      "titre_hero": "Welcome to Transeso Logistics"
+      "titre_hero": "Welcome to Transeso Logistics",
+        "banner": {
+          "title": "Creating Growth Opportunities",
+          "subtitle": "We believe every step moves your business toward a better future",
+          "buttonText": "Discover More"
+        },
+        "card": {
+          "subtitle": "Why Choose Us?",
+          "title": "The Benefits of Working with Transisso",
+          "description": "At Transisso, we provide smart and reliable transportation services, backed by an expert team and advanced technology to ensure your complete satisfaction.",
+          "items": {
+            "team": {
+              "title": "Our Outstanding Team",
+              "text": "The Transisso team consists of specialized experts always striving to deliver top-quality service and customer satisfaction."
+            },
+            "delivery": {
+              "title": "Fast and Efficient Delivery",
+              "text": "We rely on cutting-edge logistics technologies to deliver smart solutions that ensure speed and shipment safety."
+            },
+            "support": {
+              "title": "Exceptional Customer Service",
+              "text": "We put the customer at the center of our work, providing continuous support and fast responses to all inquiries."
+            }
+          }
+        }
+      
     
   }
   

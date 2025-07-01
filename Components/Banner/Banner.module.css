@@ -49,26 +49,29 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 10px;
   }
   
   .title {
     margin: 0;
-    font-size: 28px;
+    font-size: 25px;
     font-weight: 800;
     color: white;
     line-height: 1.2;
     letter-spacing: 0.02em;
+    text-align: center;
+    margin-right: 40px;
+    margin-top: 40px;
   }
   
   .subtitle {
     margin: 8px 0 20px 0;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 400;
     color: #ffd6d6; /* une teinte douce de rouge clair pour bien contraster */
-    line-height: 1.4;
+    line-height: 1.5;
     max-width: 400px;
     font-family: "Noto Kufi Arabic", sans-serif;
+    text-align: center;
   }
   
   .button {
@@ -81,7 +84,7 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
     align-self: flex-start;
-    margin-top: 5px;
+    margin-bottom: 40px;
   }
   
   .button:hover {
@@ -103,8 +106,8 @@
     justify-content: center; 
     padding: 0;
     position: relative;
-
   }
+  
   .partieTexte {
     width: 100%;
     display: flex;
@@ -266,9 +269,7 @@
 /* Sous‑titre */
 .subtitle_about {
   font-size: 0.9075rem; /* ≈ 15 px */
-  line-height: 1.45;
   color: #6b7280;
-  margin: 0.2rem 0 0;
 }
 
 /* Liste */
@@ -325,6 +326,7 @@ gap: 7px;
       border-radius: 12px;
       zoom: 0.8;
     }
+    
     .partieTexte {
       padding-top: 130px;
     }
@@ -368,6 +370,9 @@ gap: 7px;
   .card_about{
     flex-direction: column;
   }
+  .card_about2 {
+    flex-direction: column;
+  }
   .partieImage {
     width: 100%;
     max-width: 100%;
@@ -390,7 +395,12 @@ gap: 7px;
     order: 1; 
     padding-top: 0;
   }
-  
+  .partieTexte2 {
+    width: 100%;
+    padding-left: 0;
+    order: 1; 
+    padding-top: 0;
+  }
   .item_about {
     font-size: 0.85rem;
     white-space: nowrap;
@@ -442,10 +452,10 @@ gap: 7px;
 }
 .rtl {
   direction: rtl !important;
-  text-align: right;
+  text-align: right !important;
 }
 
 .ltr {
   direction: ltr !important;
-  text-align: left;
+  text-align: left !important;
 }

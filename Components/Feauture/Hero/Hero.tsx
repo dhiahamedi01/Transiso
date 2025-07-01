@@ -8,49 +8,47 @@ import { usePathname } from 'next/navigation'
 import { useTranslation } from 'react-i18next';
 
 function Hero() {
-  const pathname = usePathname()
+  const pathname = usePathname();
   const { t, i18n } = useTranslation('common');
   const currentLang = i18n.language;
-
-
   const isRTL = currentLang === 'ar';
 
   const getContent = () => {
     switch (pathname) {
       case '/About':
         return {
-          title: t('titre_hero'),
-          breadcrumbs: ['الرئيسية', 'عن الشركة'],
-        }
+          title: [t('titre_hero')],
+          breadcrumbs: [t('home'), t('about')],
+        };
       case '/Liste_produit':
         return {
-          title: 'قائمة منتجاتنا',
-          breadcrumbs: ['الرئيسية', 'المنتجات'],
-        }
+          title: t('products'),
+          breadcrumbs: [t('home'), t('products')],
+        };
       case '/Services':
         return {
-          title: 'خدماتنا في ترانسيسو',
-          breadcrumbs: ['الرئيسية', 'خدماتنا  '],
-        }
+          title: t('services'),
+          breadcrumbs: [t('home'), t('services')],
+        };
       case '/Contact':
         return {
-          title: 'نحن هنا لخدمتك',
-          breadcrumbs: ['الرئيسية', 'إتصل بنا'],
-        }
+          title: t('contact'),
+          breadcrumbs: [t('home'), t('contact')],
+        };
       case '/Demande':
         return {
-          title: 'الاستفسار وطلب عروض الأسعار',
-          breadcrumbs: ['الرئيسية', 'استفسر الآن'],
-          }  
+          title: t('inquiryOnline'),
+          breadcrumbs: [t('home'), t('inquiryOnline')],
+        };
       default:
         return {
-          title: 'لم يتم إنشائه بعد',
-          breadcrumbs: ['الرئيسية'],
-        }
+          title: t('notCreatedYet'),
+          breadcrumbs: [t('home')],
+        };
     }
-  }
+  };
 
-  const { title, breadcrumbs } = getContent()
+  const { title, breadcrumbs } = getContent();
 
   return (
     <>
@@ -83,7 +81,7 @@ function Hero() {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default Hero
+export default Hero;
