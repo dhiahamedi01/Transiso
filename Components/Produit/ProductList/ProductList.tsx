@@ -73,6 +73,7 @@ export default function ProductList() {
           justifyContent: 'space-between',
           gap: 2,
           mb: 4,
+          direction:'ltr',
           px: { xs: 1, md: 0 },
         }}
       >
@@ -100,6 +101,7 @@ export default function ProductList() {
               px: 2,
               height: 42,
               width: { xs: '100%', sm: 250 },
+              direction:'ltr',
             }}
           >
             <SearchIcon sx={{ color: '#153B4C', mr: 1 }} />
