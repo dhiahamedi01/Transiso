@@ -26,11 +26,11 @@
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
    overflow: hidden; 
-   background-color: rgba(236, 236, 236, 0.9); /* Fond clair semi-transparent */
+   background-color: rgba(248, 248, 248, 0.9); /* Fond clair semi-transparent */
    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4); /* Ombre plus foncée et diffuse */
    backdrop-filter: blur(40px); /* Flou très fort */
    -webkit-backdrop-filter: blur(40px); /* Safari */
-   border: 1px solid rgba(255, 255, 255, 0.2); /* Bordure translucide */
+   border: 1px solid rgba(255, 255, 255, 0.4); /* Bordure translucide */
   zoom: 0.7;
 }
 
