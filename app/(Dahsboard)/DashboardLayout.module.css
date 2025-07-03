@@ -10,8 +10,8 @@
   
   .sidebar {
     width: 250px;
-    background-color: #ffffff;
-    color: white;
+    scrollbar-width: thin;        /* auto | thin | none */
+    scrollbar-color: #888 #222;  
   }
   
   .content {

@@ -8,6 +8,8 @@
     overflow-y: auto;
     font-family: "Poppins", sans-serif !important;
     font-style: normal;
+    scrollbar-width: thin;        /* auto | thin | none */
+    scrollbar-color: #888 #222;  
   }
   
   .logo {
