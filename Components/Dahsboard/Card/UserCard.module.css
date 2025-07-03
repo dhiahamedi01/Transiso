@@ -17,13 +17,13 @@
     overflow: hidden;
     font-family: 'Segoe UI', sans-serif;
     zoom: 0.9;
-    height: 46vh;
+    height: 47vh !important;
   }
   .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #D4DBF9;
+    background-color: #7266EE;
     padding:24px 20px;
     position: relative;
     min-height: 90px; /* donne un aspect rectangulaire */
@@ -37,7 +37,7 @@
   .welcome {
     font-weight: 700 !important;
     font-size: 18px !important;
-    color: #556EE6;
+    color: #ffffff;
     margin-bottom: 5px !important;
     text-align: center;
   }
@@ -46,13 +46,13 @@
     font-size: 14px !important;
     font-weight: 400 !important;
     margin-bottom: 15px !important;
-    color: #556EE6;
+    color: #ffffff;
     text-align: center;
   }
   
   .illustration {
     object-fit: contain;
-    width: 130px;
+    width: 100px;
     height: auto;
     bottom: 0;
   }

@@ -6,7 +6,7 @@ import ReactApexChart from "react-apexcharts";
 import type { ApexOptions } from "apexcharts";
 
 const Chart: React.FC = () => {
-  const [selectedRange, setSelectedRange] = useState<"Week" | "Month" | "Year">("Week");
+  const [selectedRange, setSelectedRange] = useState<"Week" | "Month" | "Year">("Year");
 
   const options: ApexOptions = {
     chart: {

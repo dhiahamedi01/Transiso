@@ -25,14 +25,14 @@ const data: DataItem[] = [
   },
   {
     label: 'Revenue',
-    number: 15,
+    number: 352.342,
     trend: 'up',
     iconClass: 'cartTwo',
     icon: <AttachMoneyIcon fontSize="large" />,
   },
   {
     label: 'Average Price',
-    number: 11,
+    number: 112.220,
     trend: 'down',
     iconClass: 'cartFour',
     icon: <TrendingUpIcon  fontSize="large" />,

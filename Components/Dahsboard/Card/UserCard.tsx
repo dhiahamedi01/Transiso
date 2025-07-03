@@ -13,10 +13,10 @@ export default function UserCard() {
           <Typography className={styles.subtitle}>Transiso Dashboard</Typography>
         </Box>
         <Image
-          src="/img/profile-img.png"
+          src="/img/card-website.png"
           alt="Illustration"
-          width={220}
-          height={200}
+          width={150}
+          height={130}
           className={styles.illustration}
         />
       </Box>
