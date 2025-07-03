@@ -11,13 +11,7 @@
     scrollbar-width: thin;        /* auto | thin | none */
     scrollbar-color: #888 #222;  
   }
-  .sidebar::-webkit-scrollbar {
-    width: 6px;
-  }
-  .sidebar::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.15);
-    border-radius: 3px;
-  }
+  
   .logo {
     font-size: 1.375rem;
     font-weight: 700;
@@ -107,12 +101,12 @@
     color: #ffffff;
   }
   
-  /* Scrollbar styling for WebKit */
-  :global(.sidebar::-webkit-scrollbar) {
-    width: 6px;
-  }
-  :global(.sidebar::-webkit-scrollbar-thumb) {
-    background-color: rgba(255, 255, 255, 0.15);
-    border-radius: 3px;
-  }
-  
+/* Scrollbar styling for WebKit – version SANS :global */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
