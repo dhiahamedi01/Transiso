@@ -1,0 +1,74 @@
+.searchContainer {
+    position: relative;
+    border-radius: 30px;
+    background-color: #f0f2f5;
+    margin-left: 16px;
+    width: 280px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    transition: box-shadow 0.3s ease, background-color 0.3s ease;
+    box-shadow: 0 0 0 transparent;
+  }
+  
+  .searchContainer:focus-within {
+    background-color: #fff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+  }
+  
+  .searchIcon {
+    color: #4b506d;
+  }
+  
+  .inputBase {
+    margin-left: 12px;
+    flex: 1;
+    height: 44px;
+    font-size: 16px;
+    color: #2a3042;
+  }
+  
+  .inputBase::placeholder {
+    color: #4b506d;
+    font-weight: 400;  }
+  
+  .badgeRoot {
+    background-color: #ff3d57 !important;
+    color: #fff !important;
+    font-weight: 600;
+    font-size: 11px;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 9px;
+    box-shadow: 0 2px 6px rgba(255, 61, 87, 0.5);
+    border: 2px solid #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 1px !important;    /* remonte légèrement */
+    right: 2px !important; 
+  }
+  
+  .avatarName {
+    color: #4b506d;
+    font-weight: 600;
+    margin-left: 8px;
+    user-select: none;
+  }
+  
+  .megaMenuText {
+    font-weight: 600;
+    user-select: none;
+    color: #3b4252;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+  
+  .megaMenuText:hover {
+    color: #007bff;
+  }
+  
+  .toolbarRoot {
+    min-height: 70px;
+  }
+  

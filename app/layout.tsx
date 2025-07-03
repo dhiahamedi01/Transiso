@@ -1,10 +1,11 @@
-import './globals.css'; // ou autre fichier CSS global
-import { dir } from 'i18next';
-import { languages } from '@/Components/i18n/settings'; // si tu as un fichier de config
-import ClientLayout from '@/Components/ClientLayout';
+// app/[lang]/layout.tsx
+import './globals.css';
+
+import { languages } from '@/Components/i18n/settings';
+import Providers from '@/Components/Providers';
 
 export async function generateStaticParams() {
-  return languages.map((lng: (typeof languages)[number]) => ({ lang: lng }));
+  return languages.map((lng) => ({ lang: lng }));
 }
 
 export default function RootLayout({
@@ -15,11 +16,9 @@ export default function RootLayout({
   params: { lang: string };
 }) {
   return (
-    <html lang={params.lang} >
+    <html lang={params.lang}>
       <body>
-        <ClientLayout>
-          {children}
-        </ClientLayout>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

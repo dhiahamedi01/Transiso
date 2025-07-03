@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;500;600;700&display=swap');
+
+.overview-boxes {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: nowrap; 
+    font-family: "Roboto Condensed", sans-serif !important;
+    width: 100%;
+  }
+  
+  .overview-boxes .box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% / 3 - 15px); /* largeur pour 3 cards */
+    background: #fff;
+    padding: 15px 14px;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  }
+  
+  .boxTopic {
+    font-size: 20px;
+    font-weight: 400;
+  }
+  
+  .number {
+    display: inline-block;
+    font-size: 32px;
+    margin-top: -6px;
+    font-weight: 400;
+  }
+  
+  .indicator {
+    display: flex;
+    margin-top: 10px;
+    align-items: center;
+  }
+  
+  .indicatorIcon {
+    height: 20px;
+    width: 20px;
+    background: #8FDACB;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 17px;
+    margin-right: 5px;
+  }
+  
+  .indicatorIconDown {
+    background: #e87d88;
+  }
+  
+  .text {
+    font-size: 12px;
+  }
+  
+  .rightSide {
+    width: 80%;
+  }
+  
+  .cart {
+    display: flex;
+    font-size: 32px;
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    margin: -15px 0 0 6px;
+    background: #556EE6;
+    color: #ffffff;
+  }
+  
+  .cartTwo {
+    color: #fff;
+    background: #556EE6;
+    display: flex;
+    font-size: 32px;
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    margin: -15px 0 0 6px;
+  }
+  
+  .cartThree {
+    color: #ffc233;
+    background: #ffe8b3;
+    display: flex;
+    font-size: 32px;
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    margin: -15px 0 0 6px;
+  }
+  
+  .cartFour {
+    color: #fff;
+    background: #556EE6;
+    display: flex;
+    font-size: 32px;
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    margin: -15px 0 0 6px;
+  }
+  
