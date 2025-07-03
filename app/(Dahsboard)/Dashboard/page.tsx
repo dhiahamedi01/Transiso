@@ -1,3 +1,5 @@
+'use client';
+
 import UserCard from '@/Components/Dahsboard/Card/UserCard'
 import React from 'react'
 import styles from '../DashboardLayout.module.css';
