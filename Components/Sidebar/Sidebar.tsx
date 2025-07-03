@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from "react";
+import { usePathname } from "next/navigation"; // pour récupérer la route actuelle
 import type { ElementType } from "react";
 import Link from "next/link";
 import styles from "./Sidebar.module.css";
@@ -19,10 +20,7 @@ import {
   StorefrontOutlined,
   KeyboardArrowDownRounded,
 } from "@mui/icons-material";
-
-// Pour Tracking, il n'y a pas d'icône TrackingOutlined dans MUI par défaut,
-// on peut remplacer par quelque chose de proche comme TrackChangesOutlined ou autre.
-
+import GTranslateIcon from '@mui/icons-material/GTranslate';
 import { TrackChangesOutlined } from "@mui/icons-material";
 
 interface SubItem {
@@ -50,25 +48,26 @@ const MENU_SECTIONS: MenuSection[] = [
         title: "Dashboards",
         href: "/Dashboard",
         Icon: HomeRounded,
-        children: [
-          { title: "Statistics", href: "/Dashboard" },
-          { title: "Analytics", href: "/Dashboard" },
-          { title: "Sales", href: "/Dashboard" },
-        ],
       },
     ],
   },
   {
     label: "APPS",
     items: [
-      { title: "Gestion employe", href: "/gestion-employe", Icon: GroupOutlined },
+      { title: "Gestion employe", href: "/Employe", Icon: GroupOutlined },
       { title: "Calendar", href: "/calendar", Icon: CalendarMonthOutlined },
       { title: "Tracking", href: "/tracking", Icon: TrackChangesOutlined },
-      { title: "E commerce", href: "/Dashboard", Icon: StorefrontOutlined ,children: [
-        { title: "Orders", href: "/Dashboard" },
-        { title: "Analytics", href: "/Dashboard" },
-        { title: "Sales", href: "/Dashboard" },
-      ],},
+      { title: "Translate", href: "/Translate", Icon: GTranslateIcon },
+      {
+        title: "E commerce",
+        href: "/commerce",
+        Icon: StorefrontOutlined,
+        children: [
+          { title: "Orders", href: "/Orders" },
+          { title: "Analytics", href: "/Analytics" },
+          { title: "Sales", href: "/Sales" },
+        ],
+      },
       { title: "Blog", href: "/blog", Icon: ArticleOutlined },
       { title: "Subscription", href: "/subscription", Icon: CurrencyBitcoinOutlined },
       { title: "Email", href: "/email", Icon: EmailOutlined },
@@ -78,16 +77,28 @@ const MENU_SECTIONS: MenuSection[] = [
       { title: "Manage site", href: "/manage-site", Icon: StorefrontOutlined },
       { title: "Contact", href: "/contact", Icon: GroupOutlined },
       { title: "File Manager", href: "/file-manager", Icon: InsertDriveFileOutlined },
-
     ],
   },
 ];
 
 export default function Sidebar() {
+  const pathname = usePathname();
   const [openKeys, setOpenKeys] = useState<Record<string, boolean>>({});
 
   const toggle = (key: string) => {
     setOpenKeys((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
+
+  // Fonction pour savoir si un item est actif (correspond à la route)
+  const isActive = (href: string) => pathname === href;
+
+  // Pour un parent avec children, on peut activer si un enfant est actif
+  const isParentActive = (item: MenuItem) => {
+    if (isActive(item.href)) return true;
+    if (item.children) {
+      return item.children.some((child) => isActive(child.href));
+    }
+    return false;
   };
 
   return (
@@ -101,11 +112,12 @@ export default function Sidebar() {
           <ul className={styles.menuList}>
             {section.items.map((item) => {
               const hasChildren = item.children && item.children.length > 0;
+              const active = isParentActive(item);
 
               return (
                 <li key={item.title}>
                   <div
-                    className={`${styles.menuItem} ${openKeys[item.title] ? styles.open : ""}`}
+                    className={`${styles.menuItem} ${active ? styles.active : ""} ${openKeys[item.title] ? styles.open : ""}`}
                     onClick={() => hasChildren && toggle(item.title)}
                   >
                     {item.Icon && <item.Icon className={styles.icon} fontSize="small" />}
@@ -114,21 +126,24 @@ export default function Sidebar() {
                     </Link>
                     {hasChildren && (
                       <KeyboardArrowDownRounded
-                        className={`${styles.arrow} ${openKeys[item.title] ? styles.rotate : ""}`}
+                        className={`${styles.arrow} ${(openKeys[item.title] || active) ? styles.rotate : ""}`}
                         fontSize="small"
                       />
                     )}
                   </div>
 
-                  {hasChildren && openKeys[item.title] && (
+                  {hasChildren && (openKeys[item.title] || active) && (
                     <ul className={styles.submenuList}>
-                      {item.children!.map((child) => (
-                        <li key={child.title} className={styles.submenuItem}>
-                          <Link href={child.href} className={styles.link}>
-                            {child.title}
-                          </Link>
-                        </li>
-                      ))}
+                      {item.children!.map((child) => {
+                        const childActive = isActive(child.href);
+                        return (
+                          <li key={child.title} className={`${styles.submenuItem} ${childActive ? styles.activeSub : ""}`}>
+                            <Link href={child.href} className={styles.link}>
+                              {child.title}
+                            </Link>
+                          </li>
+                        );
+                      })}
                     </ul>
                   )}
                 </li>

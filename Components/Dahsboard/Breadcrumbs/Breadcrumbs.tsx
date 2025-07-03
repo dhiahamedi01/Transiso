@@ -10,7 +10,8 @@ function Page() {
           justifyContent: 'space-between',
           alignItems: 'center',
           direction: 'rtl',
-          fontFamily: "'Roboto Condensed', sans-serif", // <-- ici on applique Roboto Condensed
+          fontFamily: "'Poppins', sans-serif",
+          paddingInline:'10px',
         }}
       >
         {/* Fil d’Ariane à gauche */}
@@ -19,14 +20,14 @@ function Page() {
             underline="hover"
             color="inherit"
             href="#"
-            sx={{ cursor: 'pointer', fontFamily: "'Roboto Condensed', sans-serif" }}
+            sx={{ cursor: 'pointer', fontFamily: "'Poppins', sans-serif" }}
           >
             Dashboards
           </Link>
           <Typography
             color="text.primary"
             fontWeight="500"
-            sx={{ fontFamily: "'Roboto Condensed', sans-serif" }}
+            sx={{ fontFamily: "'Poppins', sans-serif" }}
           >
             Dashboard
           </Typography>
@@ -36,7 +37,7 @@ function Page() {
         <Typography
           variant="h5"
           fontWeight="600"
-          sx={{ color: '#495057', fontSize: '19px', fontFamily: "'Roboto Condensed', sans-serif" }}
+          sx={{ color: '#495057', fontSize: '19px', fontFamily: "'Poppins', sans-serif" }}
         >
           Dashboard
         </Typography>

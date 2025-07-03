@@ -8,8 +8,22 @@
     overflow-y: auto;
     font-family: "Poppins", sans-serif !important;
     font-style: normal;
+    overflow-y: hidden;
     scrollbar-width: thin;        /* auto | thin | none */
     scrollbar-color: #888 #222;  
+    position: fixed;
+    max-width:250px;
+  }
+  .sidebar:hover{
+    overflow: auto;
+  }
+  .menuItem.active {
+    background: rgba(255, 255, 255, 0.08);
+  }
+  
+  .submenuItem.activeSub .link {
+    color: #fff;
+    font-weight: 600;
   }
   
   .logo {

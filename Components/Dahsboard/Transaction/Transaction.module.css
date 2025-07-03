@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+.card {
+  width: 100%;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  font-family: 'Poppins', sans-serif;
+  margin: 20px 0 10px;
+  padding: 16px;
+  overflow-x: auto;
+}
+
+/* title */
+.header {
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 16px;
+  color: #343A40;
+}
+
+/* table */
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.75rem;
+}
+
+/* head */
+.tableHeader {
+  text-align: left;
+  padding: 10px 14px;
+  background: #EFF2F7;
+  font-weight: 600;
+  color: #333;
+}
+
+.tableHeader:first-child {
+  border-top-left-radius: 8px;
+}
+.tableHeader:last-child {
+  border-top-right-radius: 8px;
+}
+
+/* body */
+.tableData {
+  padding: 10px 14px;
+  background: #fff;
+  border-bottom: 1px solid #ececec;
+  color: #444;
+}
+.tableRow:hover {
+  background: #f5f8fc;
+}
+
+/* ------- status chip --------- */
+.statusChip {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.2px;
+}
+
+.statusPaid {
+  background: #DAF4EB;
+  color: #34C38F;
+}
+.statusPending {
+  background: #FCF1DF;
+  color: #F1B44C;
+}
+.statusFailed {
+  background: #FDE4E4;
+  color: #F56A6A;
+}
+.statusRefunded {
+  background: #e0f7fa;
+  color: #0288d1;
+}
+
+/* button */
+.viewButton {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #3f51b5;
+  border: none;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-size: 0.72rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.viewButton:hover {
+  background: #303f9f;
+}

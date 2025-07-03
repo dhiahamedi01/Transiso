@@ -6,6 +6,7 @@ import DashboardOverview from '@/Components/Dahsboard/Overview_box/Overview';
 import Breadcrumbs2 from '@/Components/Dahsboard/Breadcrumbs/Breadcrumbs';
 import styles from '../DashboardLayout.module.css';
 import dynamic from 'next/dynamic';
+import Transaction from '@/Components/Dahsboard/Transaction/Transaction';
 
 // Chart dépend probablement de window
 const Chart = dynamic(() => import('@/Components/Dahsboard/Chart/Chart'), { ssr: false });
@@ -26,6 +27,7 @@ export default function DashboardPage() {
           <Chart />
         </div>
       </div>
+      <Transaction/>
     </>
   );
 }
