@@ -1,0 +1,285 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+.card {
+  width: 100%;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  font-family: 'Poppins', sans-serif;
+  margin: 20px 0 10px;
+  padding: 16px;
+  overflow-x: auto;
+}
+
+/* header with search + button */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+/* search input */
+.searchInput {
+  width: 250px;
+  padding: 8px 12px;
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  transition: border-color 0.3s ease;
+}
+
+.searchInput:focus {
+  border-color: #3f51b5;
+  outline: none;
+}
+
+/* new employee button */
+.newEmpButton {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  font-weight: 500 !important;
+  font-size: 0.7rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.newEmpButton:hover {
+  background-color: #303f9f;
+}
+
+/* table */
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+/* tableHeader couleur comme ancien */
+.tableHeader {
+    text-align: left;
+    padding: 10px 14px;
+    background: #EFF2F7;
+    font-weight: 600;
+    color: #333; /* ancien couleur */
+  }
+  
+
+.tableHeader:first-child {
+  border-top-left-radius: 8px;
+}
+.tableHeader:last-child {
+  border-top-right-radius: 8px;
+}
+
+/* body */
+.tableData {
+  padding: 10px 14px;
+  background: #fff;
+  border-bottom: 1px solid #ececec;
+  color: #444;
+  vertical-align: middle;
+}
+.tableRow:hover {
+  background: #f5f8fc;
+}
+
+/* employee image */
+.empImage {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* select role */
+.roleSelect {
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.roleSelect:focus {
+  border-color: #3f51b5;
+  outline: none;
+}
+
+  /* boutons actions style modifié */
+  .actionButton {
+    background-color: #EFF2F7; /* fond clair */
+    border: none;
+    color: #3f51b5; /* texte bleu */
+    margin-right: 6px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* hover pour boutons */
+  .actionButton:hover {
+    background-color: #d6e0fb; /* un peu plus foncé que #EFF2F7 */
+  }
+  
+  /* icônes plus petites et plus légères */
+  .actionButton svg {
+    font-size: 16px !important; /* un peu plus petit */
+    color: rgba(63, 81, 181, 0.7); /* bleu clair transparent */
+  }
+  
+  /* icône du bouton new employee un peu plus petit */
+  .newEmpButton svg {
+    font-size: 18px !important;
+  }
+  
+
+/* no data message */
+.noData {
+  text-align: center;
+  padding: 20px;
+  color: #777;
+}
+/* Pagination */
+.pagination {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .pageButton {
+    background-color: #EFF2F7;
+    border: none;
+    color: #3f51b5;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.25s ease;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .pageButton:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+  
+  .pageButton:hover:not(:disabled) {
+    background-color: #d6e0fb;
+  }
+  
+  .activePage {
+    background-color: #3f51b5;
+    color: white;
+  }
+  
+  /* Employee image */
+  .employeeImage {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  /* Select role */
+  .selectRole {
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 0.85rem;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  /* Header search and new employee */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .leftHeader {
+    flex: 1;
+  }
+  
+  .rightHeader {
+    flex-shrink: 0;
+  }
+  
+  .searchInput {
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 0.9rem;
+    width: 200px;
+  }
+  
+  .actionButton {
+    background-color: #EFF2F7;
+    border: none;
+    color: #3f51b5;
+    margin-right: 6px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .actionButton:hover {
+    background-color: #d6e0fb;
+  }
+  
+  .actionButton svg {
+    font-size: 16px !important;
+    color: rgba(63, 81, 181, 0.7);
+  }
+  
+  .newEmpButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  
+  .plusIcon {
+    font-size: 14px;
+    font-weight: 500;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    line-height: 18px;
+    text-align: center;
+    color: #ffffff;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
