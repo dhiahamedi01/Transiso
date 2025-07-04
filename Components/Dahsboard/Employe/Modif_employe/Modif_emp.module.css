@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+/* ——— Conteneur principal ——— */
+.card {
+  width: 80%;
+  margin-left: 10%;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  font-family: 'Poppins', sans-serif;
+  padding: 16px;
+  overflow-x: auto;
+}
+
+/* ——— En‑tête ——— */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+/* ——— Ligne des trois champs ——— */
+.inlineInputs {
+  display: flex;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* ——— Chaque champ + son icône ——— */
+.inputWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.inputWrapper label {
+  margin-bottom: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.inputWrapper input {
+  border: 1px solid #e5e7eb;        /* gris clair */
+  border-radius: 6px;
+  padding: 10px 12px 10px 36px;      /* espace pour l’icône */
+  font-size: 14px;
+  transition: border-color 0.2s;
+  background-color: #F8F9FA;
+  width: 300px;
+}
+
+.inputWrapper input:focus {
+  outline: none;
+  border-color: #6366f1;             /* indigo */
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+/* ——— Icône placée à gauche ——— */
+.icon {
+  position: absolute;
+  left: 12px;
+  top: 74%;
+  transform: translateY(-50%);
+  color: #9ca3af;                    /* gris muté */
+  pointer-events: none;              /* évite de bloquer le clic */
+}
+/* Donne le même style au <select> qu'aux <input> */
+.inputWrapper select {
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 14px;
+    transition: border-color 0.2s;
+    width: 300px !important;
+    background-color: #F8F9FA !important;
+    color: #666464 !important;
+  }
+  
+  .inputWrapper select:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+  }
+  /* Barre contenant les boutons */
+.actionBar {
+    display: flex;
+    justify-content: left;
+    padding-left: 718px;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  
+  /* Bouton générique : même padding et rayon que les inputs */
+  .actionBar button {
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.15s;
+  }
+  
+  /* Cancel : #F8F9FA texte gris foncé */
+  .cancelBtn {
+    background: #F8F9FA;
+    color: #101010;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+ 
+  }
+  
+  /* Add Employee : #556EE6 texte blanc */
+  .addBtn {
+    background: #560BAD;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Petit effet hover */
+  .actionBar button:hover {
+    transform: translateY(-1px);
+  }
+  
+  /* Focus */
+  .actionBar button:focus-visible {
+    outline: 2px solid #6366f1;
+    outline-offset: 2px;
+  }
+  
