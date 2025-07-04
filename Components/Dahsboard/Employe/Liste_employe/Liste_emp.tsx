@@ -30,7 +30,7 @@ function ListeEmp() {
   const [error, setError] = useState<string | null>(null);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const itemsPerPage = 8;
 
   useEffect(() => {
     async function fetchEmployees() {

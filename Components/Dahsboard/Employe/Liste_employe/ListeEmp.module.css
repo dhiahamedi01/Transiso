@@ -9,6 +9,7 @@
   margin: 20px 0 10px;
   padding: 16px;
   overflow-x: auto;
+  min-height: 60vh;
 }
 
 /* header with search + button */
@@ -282,4 +283,76 @@
     justify-content: center;
     align-items: center;
   }
-  
+  /* === MODAL === */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalCard {
+  width: 90%;
+  max-width: 420px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.25s ease;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+}
+
+.modalCard h3 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+}
+
+.modalActions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.cancelBtn,
+.deleteBtn {
+  padding: 6px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.cancelBtn {
+  background: #EFF2F7;
+  color: #3f51b5;
+}
+
+.cancelBtn:hover {
+  background: #d6e0fb;
+}
+
+.deleteBtn {
+  background: #e53935;
+  color: #fff;
+}
+
+.deleteBtn:hover {
+  background: #c62828;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
