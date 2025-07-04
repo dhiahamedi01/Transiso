@@ -1,119 +1,78 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import style from './ListeEmp.module.css';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Link from 'next/link';
 
 type EmployeeRole = 'Admin' | 'Manager' | 'Employee';
 
 interface Employee {
   id: string;
-  image: string;
+  image: string | null;
   name: string;
   email: string;
-  password: string;
+  phone?: string;
+  location?: string;
   role: EmployeeRole;
   createdAt: string;
 }
-const dataInitial: Employee[] = [
-    {
-      id: 'E001',
-      image: 'https://i.pravatar.cc/40?img=1',
-      name: 'Zakaria Ben Salah',
-      email: 'zakaria@example.com',
-      password: '********',
-      role: 'Admin',
-      createdAt: '2025-07-01',
-    },
-    {
-      id: 'E002',
-      image: 'https://i.pravatar.cc/40?img=2',
-      name: 'Nour Youssef',
-      email: 'nour@example.com',
-      password: '********',
-      role: 'Manager',
-      createdAt: '2025-06-20',
-    },
-    {
-      id: 'E003',
-      image: 'https://i.pravatar.cc/40?img=3',
-      name: 'Lina Amari',
-      email: 'lina@example.com',
-      password: '********',
-      role: 'Employee',
-      createdAt: '2025-06-15',
-    },
-    // Nouveaux exemples :
-    {
-      id: 'E004',
-      image: 'https://i.pravatar.cc/40?img=4',
-      name: 'Karim Haddad',
-      email: 'karim.haddad@example.com',
-      password: '********',
-      role: 'Employee',
-      createdAt: '2025-05-10',
-    },
-    {
-      id: 'E005',
-      image: 'https://i.pravatar.cc/40?img=5',
-      name: 'Sara Bensalem',
-      email: 'sara.bensalem@example.com',
-      password: '********',
-      role: 'Manager',
-      createdAt: '2025-04-25',
-    },
-    {
-      id: 'E006',
-      image: 'https://i.pravatar.cc/40?img=6',
-      name: 'Omar Farhat',
-      email: 'omar.farhat@example.com',
-      password: '********',
-      role: 'Admin',
-      createdAt: '2025-03-30',
-    },
-    {
-      id: 'E007',
-      image: 'https://i.pravatar.cc/40?img=7',
-      name: 'Maya Saidi',
-      email: 'maya.saidi@example.com',
-      password: '********',
-      role: 'Employee',
-      createdAt: '2025-07-02',
-    },
-    {
-      id: 'E008',
-      image: 'https://i.pravatar.cc/40?img=8',
-      name: 'Youssef Mansour',
-      email: 'youssef.mansour@example.com',
-      password: '********',
-      role: 'Manager',
-      createdAt: '2025-06-18',
-    },
-  ];
-  
 
 const roles: EmployeeRole[] = ['Admin', 'Manager', 'Employee'];
 
 function ListeEmp() {
-  const [employees, setEmployees] = useState<Employee[]>(dataInitial);
+  const [employees, setEmployees] = useState<Employee[]>([]);
+  const [filteredEmployees, setFilteredEmployees] = useState<Employee[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  // Pagination calculation
+  useEffect(() => {
+    async function fetchEmployees() {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await axios.get('/api/Liste_employee');
+        if (res.data.success) {
+          setEmployees(res.data.employees);
+          setFilteredEmployees(res.data.employees);
+        } else {
+          setError('Erreur lors de la récupération des employés');
+        }
+      } catch (err) {
+        setError('Erreur réseau ou serveur');
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchEmployees();
+  }, []);
+
+  useEffect(() => {
+    const filtered = employees.filter(emp =>
+      emp.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      emp.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      emp.role.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredEmployees(filtered);
+    setCurrentPage(1);
+  }, [searchTerm, employees]);
+
   const indexOfLast = currentPage * itemsPerPage;
   const indexOfFirst = indexOfLast - itemsPerPage;
-  const currentEmployees = employees.slice(indexOfFirst, indexOfLast);
+  const currentEmployees = filteredEmployees.slice(indexOfFirst, indexOfLast);
+  const totalPages = Math.ceil(filteredEmployees.length / itemsPerPage);
 
-  const totalPages = Math.ceil(employees.length / itemsPerPage);
-
-  // Changer de page
   const goToPage = (page: number) => {
     if (page < 1 || page > totalPages) return;
     setCurrentPage(page);
   };
 
-  // Modifier statut (role) via select
   const handleRoleChange = (id: string, newRole: EmployeeRole) => {
     const updated = employees.map(emp =>
       emp.id === id ? { ...emp, role: newRole } : emp
@@ -129,108 +88,133 @@ function ListeEmp() {
             type="search"
             placeholder="Search..."
             className={style.searchInput}
-            // tu peux ajouter gestion filtre ici si tu veux
+            value={searchTerm}
+            onChange={e => setSearchTerm(e.target.value)}
           />
         </div>
         <div className={style.rightHeader}>
+        <Link href="/Employe/New_employe" passHref legacyBehavior>
           <button className={style.newEmpButton}>
-          <span className={style.plusIcon}>+</span>
+            <span className={style.plusIcon}>+</span>
             <span>New Employee</span>
-
           </button>
+        </Link>
         </div>
       </div>
 
-      <div className={style.tableWrapper}>
-        <table className={style.table}>
-          <thead>
-            <tr>
-              <th className={style.tableHeader}>Image</th>
-              <th className={style.tableHeader}>Name</th>
-              <th className={style.tableHeader}>Email</th>
-              <th className={style.tableHeader}>Password</th>
-              <th className={style.tableHeader}>Created At</th>
-              <th className={style.tableHeader}>Role</th>
-              <th className={style.tableHeader}>Actions</th>
-            </tr>
-          </thead>
+      {loading && <p style={{ padding: '1rem' }}>Loading employees...</p>}
+      {error && <p style={{ color: 'red', padding: '1rem' }}>{error}</p>}
 
-          <tbody>
-            {currentEmployees.map((emp) => (
-              <tr key={emp.id} className={style.tableRow}>
-                <td className={style.tableData}>
-                  <img
-                    src={emp.image}
-                    alt={emp.name}
-                    className={style.employeeImage}
-                  />
-                </td>
-                <td className={style.tableData}>{emp.name}</td>
-                <td className={style.tableData}>{emp.email}</td>
-                <td className={style.tableData}>{emp.password}</td>
-                <td className={style.tableData}>{emp.createdAt}</td>
-                <td className={style.tableData}>
-                  <select
-                    className={style.selectRole}
-                    value={emp.role}
-                    onChange={(e) =>
-                      handleRoleChange(emp.id, e.target.value as EmployeeRole)
-                    }
-                  >
-                    {roles.map((role) => (
-                      <option key={role} value={role}>
-                        {role}
-                      </option>
-                    ))}
-                  </select>
-                </td>
-                <td className={style.tableData}>
-                  <button className={style.actionButton} title="Edit">
-                    <EditIcon />
-                  </button>
-                  <button className={style.actionButton} title="Delete">
-                    <DeleteIcon />
-                  </button>
-                </td>
+      {!loading && !error && (
+        <div className={style.tableWrapper}>
+          <table className={style.table}>
+            <thead>
+              <tr>
+                <th className={style.tableHeader}>Image</th>
+                <th className={style.tableHeader}>Name</th>
+                <th className={style.tableHeader}>Email</th>
+                <th className={style.tableHeader}>Phone</th>
+                <th className={style.tableHeader}>Location</th>
+                <th className={style.tableHeader}>Created At</th>
+                <th className={style.tableHeader}>Role</th>
+                <th className={style.tableHeader}>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {currentEmployees.map(emp => (
+                <tr key={emp.id} className={style.tableRow}>
+                  <td className={style.tableData}>
+                    {emp.image ? (
+                        <img
+                        src={emp.image} 
+                        alt={emp.name}
+                        className={style.employeeImage}
+                      />
+                  
+                    ) : (
+                      <div className={style.noImage}>
+                             <img
+                        src="/img/no_img.png" 
+                        alt='no_img'
+                        className={style.employeeImage}
+                      />
+                      </div>
+                    )}
+                  </td>
+                  <td className={style.tableData}>{emp.name}</td>
+                  <td className={style.tableData}>{emp.email}</td>
+                  <td className={style.tableData}>{emp.phone || '-'}</td>
+                  <td className={style.tableData}>{emp.location || '-'}</td>
+                  <td className={style.tableData}>{emp.createdAt.split('T')[0]}</td>
+                  <td className={style.tableData}>
+                    <select
+                      className={style.selectRole}
+                      value={emp.role}
+                      onChange={e => handleRoleChange(emp.id, e.target.value as EmployeeRole)}
+                    >
+                      {roles.map(role => (
+                        <option key={role} value={role}>
+                          {role}
+                        </option>
+                      ))}
+                    </select>
+                  </td>
+                  <td className={style.tableData}>
+                    <button className={style.actionButton} title="Edit">
+                      <EditIcon />
+                    </button>
+                    <button className={style.actionButton} title="Delete">
+                      <DeleteIcon />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+              {currentEmployees.length === 0 && (
+                <tr>
+                  <td colSpan={8} style={{ textAlign: 'center' }}>
+                    Aucun employé trouvé.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
 
-      {/* Pagination */}
-      <div className={style.pagination}>
-        <button
-          className={style.pageButton}
-          onClick={() => goToPage(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Prev
-        </button>
+      {!loading && !error && totalPages > 1 && (
+        <div className={style.pagination}>
+          <button
+            className={style.pageButton}
+            onClick={() => goToPage(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Prev
+          </button>
 
-        {[...Array(totalPages)].map((_, idx) => {
-          const page = idx + 1;
-          return (
-            <button
-              key={page}
-              className={`${style.pageButton} ${
-                page === currentPage ? style.activePage : ''
-              }`}
-              onClick={() => goToPage(page)}
-            >
-              {page}
-            </button>
-          );
-        })}
+          {[...Array(totalPages)].map((_, idx) => {
+            const page = idx + 1;
+            return (
+              <button
+                key={page}
+                className={`${style.pageButton} ${
+                  page === currentPage ? style.activePage : ''
+                }`}
+                onClick={() => goToPage(page)}
+              >
+                {page}
+              </button>
+            );
+          })}
 
-        <button
-          className={style.pageButton}
-          onClick={() => goToPage(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </button>
-      </div>
+          <button
+            className={style.pageButton}
+            onClick={() => goToPage(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 }
