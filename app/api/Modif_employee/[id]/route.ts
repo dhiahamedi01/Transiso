@@ -6,13 +6,16 @@ import bcrypt from 'bcryptjs';
 import db from '@/lib/db';
 
 /* ------------------------------------------------------------------
-   GET /api/employees/:id         → récupérer un employé pour pré‑remplir
+   GET /api/Modif_employee/:id → récupérer un employé pour pré‑remplir
 -------------------------------------------------------------------*/
-export async function GET(
-  _req: Request,
-  { params }: { params: { id: string } }
-) {
-  const id = params.id;
+export async function GET(req: Request) {
+  const url = new URL(req.url);
+  const id = url.pathname.split('/').pop();
+
+  if (!id) {
+    return NextResponse.json({ success: false, error: 'ID manquant' }, { status: 400 });
+  }
+
   const [rows] = await db.query('SELECT * FROM employees WHERE id = ?', [id]);
 
   if ((rows as any[]).length === 0) {
@@ -30,19 +33,21 @@ export async function GET(
       email: emp.email,
       phone: emp.phone ?? '',
       location: emp.location ?? '',
-      permission: emp.permission,          // 'user' | 'manager' | 'admin'
+      permission: emp.permission, // 'user' | 'manager' | 'admin'
     },
   });
 }
 
 /* ------------------------------------------------------------------
-   PATCH /api/employees/:id       → mettre à jour
+   PATCH /api/Modif_employee/:id → mettre à jour
 -------------------------------------------------------------------*/
-export async function PATCH(
-  req: Request,
-  { params }: { params: { id: string } }
-) {
-  const id = params.id;
+export async function PATCH(req: Request) {
+  const url = new URL(req.url);
+  const id = url.pathname.split('/').pop();
+
+  if (!id) {
+    return NextResponse.json({ success: false, error: 'ID manquant' }, { status: 400 });
+  }
 
   try {
     const formData = await req.formData();
@@ -107,7 +112,7 @@ export async function PATCH(
 
     return NextResponse.json({ success: true });
   } catch (err) {
-    console.error('PATCH /employees/:id', err);
+    console.error('PATCH /Modif_employee/:id', err);
     return NextResponse.json(
       { success: false, error: 'Erreur serveur' },
       { status: 500 }
