@@ -4,7 +4,7 @@ import Link from 'next/link';
 import SearchInput   from '@/Components/Dahsboard/Employe/Liste_employe/SearchInput';
 import Pagination    from '@/Components/Dahsboard/Employe/Liste_employe/Pagination';
 import EmployeeTable from '@/Components/Dahsboard/Employe/Liste_employe/EmployeeTable';
-import { useEmployees } from '@/hook/useEmployees';           // dossier plural: hooks
+import { useEmployees } from '@/hooks/useEmployees';           
 import styles from '@/Components/Dahsboard/Employe/Liste_employe/ListeEmp.module.css';
 
 export default function EmployeeListPage() {
@@ -19,7 +19,7 @@ export default function EmployeeListPage() {
     employees,
     changeRole,
     removeEmployee,        
-  } = useEmployees(8);
+  } = useEmployees(6);
 
   return (
     <div className={styles.card}>

@@ -5,7 +5,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Employee, EmployeeRole } from '@/services/employeeService';
 import styles from './ListeEmp.module.css';
-
+import Link from 'next/link';
 const roles: EmployeeRole[] = ['Admin', 'Manager', 'Employee'];
 
 interface Props {
@@ -100,9 +100,11 @@ export default function EmployeeTable({
 
                 {/* actions */}
                 <td className={styles.tableData}>
+                <Link href={`/Employe/${emp.id}`}>
                   <button className={styles.actionButton} title="Edit">
                     <EditIcon />
                   </button>
+                </Link>
                   <button
                     className={styles.actionButton}
                     title="Delete"
