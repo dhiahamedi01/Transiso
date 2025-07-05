@@ -52,21 +52,22 @@ export async function PATCH(req: Request) {
   try {
     const formData = await req.formData();
 
+    /* ---------- Mot de passe (optionnel) ---------- */
     let hashedPwdClause = '';
     const newPwd = formData.get('password') as string | null;
     if (newPwd) {
       const confirm = formData.get('confirmPassword') as string | null;
-      if (newPwd !== confirm) {
+      if (newPwd !== confirm)
         return NextResponse.json(
           { success: false, error: 'Passwords mismatch' },
           { status: 400 }
         );
-      }
       const hash = await bcrypt.hash(newPwd, 10);
       hashedPwdClause = ', password = ?';
       formData.set('hashedPwd', hash);
     }
 
+    /* ---------- Image (optionnelle) ---------- */
     let imageClause = '';
     const image = formData.get('image') as File | null;
     if (image && image.size > 0) {
@@ -81,6 +82,7 @@ export async function PATCH(req: Request) {
       formData.set('newImageName', fileName);
     }
 
+    /* ---------- Construction dynamique ---------- */
     const sql =
       `UPDATE employees SET
          first_name = ?,
@@ -111,26 +113,9 @@ export async function PATCH(req: Request) {
     return NextResponse.json({ success: true });
   } catch (err) {
     console.error('PATCH /employees/:id', err);
-    return NextResponse.json({ success: false, error: 'Erreur serveur' }, { status: 500 });
-  }
-}
-
-/* ------------------------------------------------------------------
-   DELETE /api/employees/:id → suppression d'un employé
--------------------------------------------------------------------*/
-export async function DELETE(req: Request) {
-  const url = new URL(req.url);
-  const id = url.pathname.split('/').pop();
-
-  if (!id) {
-    return NextResponse.json({ success: false, error: 'ID manquant' }, { status: 400 });
-  }
-
-  try {
-    await db.query('DELETE FROM employees WHERE id = ?', [id]);
-    return NextResponse.json({ success: true });
-  } catch (err) {
-    console.error('DELETE /employees/:id', err);
-    return NextResponse.json({ success: false, error: 'Erreur serveur' }, { status: 500 });
+    return NextResponse.json(
+      { success: false, error: 'Erreur serveur' },
+      { status: 500 }
+    );
   }
 }
