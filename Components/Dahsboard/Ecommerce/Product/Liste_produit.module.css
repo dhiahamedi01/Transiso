@@ -1,0 +1,196 @@
+/* --- Carte --- */
+.card {
+    width: 100%;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    font-family: "Poppins", sans-serif;
+    margin: 20px 0 40px;
+    padding: 16px;
+    overflow-x: auto;
+    min-height: 60vh;
+  }
+  .titre_header{
+    font-family: "Poppins", sans-serif;
+    color: #212121;
+    font-weight: 500;
+    font-size: 1.1rem;
+  }
+  /* --- Table --- */
+  .productTableWrapper {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  .productTable {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 0;          /* <-- plus de rayon sur le tableau */
+  }
+  
+  /* Entête */
+  .productTable thead {
+    background-color: #ffffff;
+    border-top: 1px solid #dedede;
+    border-left: 1px solid #dedede;
+    border-right: 1px solid #dedede;
+  }
+  .productTable th{
+    padding: 16px;
+    text-align: left;
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+    color: #2a2a25 !important;
+    font-weight: 500 !important;
+  }
+  
+  .productTable td {
+    padding: 16px;
+    text-align: left;
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+    color: #555544 !important;
+    font-weight: 500 !important;
+  }
+  
+  /* Lignes alternées : 1,3,5… gris F2F2F2 */
+  .productTable tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+  }
+
+  
+  /* --- Contenu --- */
+  .productImage {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .productName {
+    max-width: 300px;
+    line-height: 1.4;
+    color: #6E556E !important;
+    font-weight: 600 !important;
+  }
+  
+  .productPrice {
+    font-weight: bold;
+  }
+  
+  .productStatus {
+    background-color: #28c76f;
+    color: #fff;
+    padding: 5px 12px;
+    border: none;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  
+  .productTag {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #fff;
+    display: inline-block;
+  }
+  
+  .productTag.best {
+    background-color: #007bff;
+  }
+  .productTag.feature {
+    background-color: #6f42c1;
+  }
+  .productTag.new {
+    background-color: #00cfe8;
+  }
+  
+  /* --- Actions / Menu --- */
+  .productActions {
+    position: relative;
+  }
+  
+  .dropdownButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .dropdownWrapper {
+    position: relative;
+  }
+  
+  .dropdownMenu {
+    position: absolute;
+    top: 25px;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    z-index: 100;
+    width: 100px;
+  }
+  
+  .dropdownMenu div {
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .dropdownMenu div:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Pagination centré */
+  .paginationWrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+/* header with search + button */
+.header {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-top: 30px;
+}
+
+/* search input */
+.searchInput {
+  width: 300px;
+  padding: 8px 12px;
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  transition: border-color 0.3s ease;
+}
+
+.searchInput:focus {
+  border-color: #3f51b5;
+  outline: none;
+}
+
+/* new employee button */
+.newEmpButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  font-weight: 400 !important;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+  font-size: 0.8rem;
+}  

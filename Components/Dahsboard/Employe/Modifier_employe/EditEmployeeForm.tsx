@@ -117,7 +117,7 @@ export default function EditEmployeeForm({ employeeId }: { employeeId: string })
 
         {/* Action bar */}
         <div className={style.actionBar}>
-          <Link href="/Employe"><button type="button" className={style.cancelBtn}>Back</button></Link>
+          <Link href="/Dashboard/Employe"><button type="button" className={style.cancelBtn}>Cancel</button></Link>
           <button type="submit" className={style.addBtn} disabled={saving}>
             {saving ? <CircularProgress size={20} color="inherit" /> : 'Save'}
           </button>

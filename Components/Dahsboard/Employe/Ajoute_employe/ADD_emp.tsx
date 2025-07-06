@@ -219,7 +219,7 @@ function ADD_emp() {
 
         {/* Action bar */}
         <div className={style.actionBar}>
-        <Link href="/Employe">
+        <Link href="/Dashboard/Employe">
           <button type="button" className={style.cancelBtn} onClick={resetForm}>
             Cancel
           </button>

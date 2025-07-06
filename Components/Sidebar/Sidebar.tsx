@@ -54,11 +54,11 @@ const MENU_SECTIONS: MenuSection[] = [
   {
     label: "APPS",
     items: [
-      { title: "Gestion employe", href: "/Employe", Icon: GroupOutlined },
+      { title: "Gestion employe", href: "/Dashboard/Employe", Icon: GroupOutlined },
       { title: "Calendar", href: "/calendar", Icon: CalendarMonthOutlined },
-      { title: "Tracking", href: "/Tracking", Icon: TrackChangesOutlined ,
+      { title: "Tracking", href: "", Icon: TrackChangesOutlined ,
         children: [
-          { title: "ARAMEX ", href: "/Tracking" },
+          { title: "ARAMEX ", href: "/Dashboard/Tracking" },
           { title: "DHL Group", href: "/Analytics" },
           { title: "CMA CGM", href: "/Sales" },
         ]
@@ -66,11 +66,11 @@ const MENU_SECTIONS: MenuSection[] = [
       { title: "Translate", href: "/Translate", Icon: GTranslateIcon },
       {
         title: "E commerce",
-        href: "/commerce",
+        href: "",
         Icon: StorefrontOutlined,
         children: [
+          { title: "All Products", href: "/Dashboard/Ecommerce/Product" },
           { title: "Orders", href: "/Orders" },
-          { title: "Analytics", href: "/Analytics" },
           { title: "Sales", href: "/Sales" },
         ],
       },

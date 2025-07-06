@@ -126,7 +126,9 @@
           "username": "username",
           "password": "password",
           "or": "or",
-          "imageAlt": "Login image"
+          "imageAlt": "Login image",
+          "loading": "Loading...",
+          "error": "An error occurred while logging in"
         },
         "signup": {
         "title": "Create Account",

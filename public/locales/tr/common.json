@@ -123,7 +123,9 @@
             "username": "kullanıcı adı",
             "password": "şifre",
             "or": "veya",
-            "imageAlt": "Giriş görseli"
+            "imageAlt": "Giriş görseli",
+            "loading": "Yükleniyor...",
+            "error": "Giriş sırasında bir hata oluştu"
           },
           "signup": {
           "title": "Hesap Oluştur",

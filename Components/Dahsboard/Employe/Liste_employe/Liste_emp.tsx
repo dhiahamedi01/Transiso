@@ -93,7 +93,7 @@ function ListeEmp() {
           />
         </div>
         <div className={style.rightHeader}>
-        <Link href="/Employe/New_employe" passHref legacyBehavior>
+        <Link href="/Dashboard/Employe/New_employe" passHref legacyBehavior>
           <button className={style.newEmpButton}>
             <span className={style.plusIcon}>+</span>
             <span>New Employee</span>

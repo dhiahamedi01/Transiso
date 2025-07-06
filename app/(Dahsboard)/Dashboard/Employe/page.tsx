@@ -27,7 +27,7 @@ export default function EmployeeListPage() {
       <header className={styles.header}>
         <SearchInput value={search} onChange={setSearch} />
 
-        <Link href="/Employe/New_employe">
+        <Link href="/Dashboard/Employe/New_employe">
           <button className={styles.newEmpButton}>
             <span className={styles.plusIcon}>+</span> New Employee
           </button>

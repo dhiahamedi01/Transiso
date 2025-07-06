@@ -100,7 +100,7 @@ export default function EmployeeTable({
 
                 {/* actions */}
                 <td className={styles.tableData}>
-                <Link href={`/Employe/${emp.id}`}>
+                <Link href={`/Dashboard/Employe/${emp.id}`}>
                   <button className={styles.actionButton} title="Edit">
                     <EditIcon />
                   </button>
