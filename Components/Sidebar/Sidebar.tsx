@@ -90,7 +90,7 @@ const MENU_SECTIONS: MenuSection[] = [
         ],
       },
       { title: "Subscription", href: "/Dashboard/subscription", Icon: CardMembershipIcon },
-      { title: "Contact", href: "/contact", Icon: GroupOutlined },
+      { title: "Contact", href: "/Dashboard/contact", Icon: GroupOutlined },
       { title: "Calendar", href: "/calendar", Icon: CalendarMonthOutlined },
       { title: "Translate", href: "/Translate", Icon: GTranslateIcon },
       { title: "Email", href: "/email", Icon: EmailOutlined },

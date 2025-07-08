@@ -236,7 +236,35 @@
         "ratingCount": "(175 değerlendirme)",
         "freshness": "Yiyecekleri taze ve temiz tutar",
         "orderNow": "Şimdi Sipariş Ver",
-        "addToCart": "Sepete Ekle"
+        "addToCart": "Sepete Ekle",
+        "contacter": {
+          "form": {
+            "title": "Yazmaktan çekinmeyin",
+            "subtitle": "Lojistik, malların, hizmetlerin ve bilgilerin etkin planlanması, yönetimi ve koordinasyonunu içerir.",
+            "placeholders": {
+              "name": "İsim",
+              "email": "E-posta",
+              "phone": "Telefon",
+              "subject": "Konu",
+              "message": "Mesaj"
+            },
+            "sendButton": "Mesaj Gönder",
+            "successMessage": "Mesajınız başarıyla gönderildi!",
+            "errorMessage": "Mesaj gönderilirken bir hata oluştu.",
+            "sending": "Gönderiliyor..."
+          },
+          "contactInfo": {
+            "title": "Bize Ulaşın",
+            "subtitle": "Her türlü sorunuzda size yardımcı olmak için buradayız. Bizimle iletişime geçmekten çekinmeyin.",
+            "phoneQuestion": "Herhangi bir sorunuz mu var?",
+            "emailUs": "Bize e-posta gönderin",
+            "headquarters": "Merkez",
+            "phoneNumber": "5377671027 (90+)",
+            "emailAddress": "info@transisologistic.com",
+            "address": "İstanbul, Türkiye Cadde 1582"
+          },
+          "direction": "ltr"
+        }
         
         
       

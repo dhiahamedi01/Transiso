@@ -27,6 +27,7 @@
     "mysql2": "^3.14.1",
     "next": "15.3.3",
     "next-i18next": "^15.4.2",
+    "nodemailer": "^7.0.5",
     "react": "^19.0.0",
     "react-apexcharts": "^1.7.0",
     "react-dom": "^19.0.0",
@@ -34,7 +35,8 @@
     "react-medium-image-zoom": "^5.2.14",
     "react-slick": "^0.30.3",
     "slick-carousel": "^1.8.1",
-    "swiper": "^11.2.8"
+    "swiper": "^11.2.8",
+    "swr": "^2.3.4"
   },
   "devDependencies": {
     "@tailwindcss/line-clamp": "^0.4.4",

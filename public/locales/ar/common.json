@@ -236,7 +236,35 @@
           "ratingCount": "(175 التقييمات)",
           "freshness": "يحفظ الطعام طازجًا ونظيفًا",
           "orderNow": "اطلب الآن",
-          "addToCart": "أضف إلى السلة"
+          "addToCart": "أضف إلى السلة",
+          "contacter": {
+          "form": {
+            "title": "لا تتردد في الكتابة",
+            "subtitle": "تتضمن اللوجستيات التخطيط الفعال والإدارة والتنسيق لحركة السلع والخدمات والمعلومات.",
+            "placeholders": {
+              "name": "الاسم",
+              "email": "البريد الإلكتروني",
+              "phone": "الهاتف",
+              "subject": "الموضوع",
+              "message": "الرسالة"
+            },
+            "sendButton": "إرسال الرسالة",
+            "successMessage": "تم إرسال رسالتك بنجاح!",
+            "errorMessage": "حدث خطأ أثناء إرسال الرسالة.",
+            "sending": "جارٍ الإرسال..."
+          },
+          "contactInfo": {
+            "title": "تواصل معنا",
+            "subtitle": "نحن هنا لمساعدتك في كل استفساراتك. لا تتردد في التواصل معنا.",
+            "phoneQuestion": "هل لديك أي سؤال؟",
+            "emailUs": "راسلنا عبر البريد الإلكتروني",
+            "headquarters": "المقر الرئيسي",
+            "phoneNumber": "5377671027 (90+)",
+            "emailAddress": "info@transisologistic.com",
+            "address": "اسطنبول، تركيا شارع ١٥٨٢"
+          },
+          "direction": "rtl"
+        }
         
         
   

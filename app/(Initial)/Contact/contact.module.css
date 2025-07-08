@@ -13,12 +13,11 @@
     justify-content: center;
     background-image: url('/img/Background/contact.png');
   }
-  
+
   .root {
     background-size: cover;
     background-position: center;
     padding: 60px;
-    direction: rtl;
     width: 90%;
     max-width: 1200px;
     font-family: 'Noto Kufi Arabic' !important;

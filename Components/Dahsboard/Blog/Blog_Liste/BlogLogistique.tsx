@@ -155,11 +155,10 @@ function Transaction() {
                 <td className={style.tableData}>{blog.category}</td>
                 <td className={style.tableData}>
                   <div className={style.actionButtonsWrapper}>
-                  <Link href={`/Dashboard/blog/${blog.id}`} passHref legacyBehavior>
-                    <button className={style.viewButton} title="Edit">
-                      <EditDocumentIcon fontSize="small" />
-                    </button>
+                  <Link href={`/Dashboard/blog/${blog.id}`} className={style.viewButton} title="Edit">
+                    <EditDocumentIcon fontSize="small" />
                   </Link>
+
 
                     <button
                       className={style.deleteButton}
