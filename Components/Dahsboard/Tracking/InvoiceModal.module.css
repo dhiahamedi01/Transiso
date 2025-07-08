@@ -1,0 +1,156 @@
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(40, 40, 50, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow-y: auto;
+    z-index: 9999;
+    zoom: 0.8;
+  }
+  
+  .modalContent {
+    background: #ffffff;
+    border-radius: 8px;
+    width: 850px;
+    max-width: 100%;
+    padding: 30px 40px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+  }
+  
+  .logoLeft img,
+  .logoRight img {
+    object-fit: contain;
+  }
+  
+  .companyInfo {
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .invoiceTitle {
+    text-align: center;
+    color: #004080;
+    font-weight: 700;
+    margin-bottom: 25px;
+    font-size: 28px;
+    letter-spacing: 2px;
+  }
+  
+  .section {
+    margin-bottom: 30px;
+  }
+  
+  .invoiceTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    color: #222;
+  }
+  
+  .invoiceTable th,
+  .invoiceTable td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .invoiceTable th {
+    background-color: #f3f6fb;
+    color: #004080;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .invoiceTable tbody tr:hover {
+    background-color: #e6f0ff;
+  }
+  
+  .invoiceTable td:last-child {
+    text-align: right;
+    font-weight: 600;
+    color: #004080;
+  }
+  
+  /* Totals box aligned right below the table */
+  .totalsBox {
+    max-width: 300px;
+    margin-left: auto;
+    margin-top: 20px;
+    border-top: 2px solid #004080;
+    padding-top: 15px;
+    font-size: 16px;
+    color: #004080;
+    font-weight: 600;
+  }
+  
+  .totalsBox > div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  
+  .totalAmount {
+    font-size: 18px;
+    font-weight: 700;
+    border-top: 2px solid #004080;
+    padding-top: 10px;
+    color: #002050;
+  }
+  
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 35px;
+  }
+  
+  .printBtn,
+  .closeBtn {
+    background-color: #004080;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    user-select: none;
+  }
+  
+  .printBtn:hover {
+    background-color: #0066cc;
+  }
+  
+  .closeBtn {
+    background-color: #888;
+  }
+  
+  .closeBtn:hover {
+    background-color: #555;
+  }
+  
+  .legal {
+    margin-top: 25px;
+    font-size: 12px;
+    color: #aaa;
+    text-align: center;
+    font-style: italic;
+  }
+  

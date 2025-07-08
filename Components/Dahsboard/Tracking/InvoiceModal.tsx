@@ -1,9 +1,8 @@
-// InvoiceModal.tsx
 "use client";
 
-import React from 'react';
-import Image from 'next/image';
-import style from './Tracking.module.css';
+import React from "react";
+import Image from "next/image";
+import style from "./InvoiceModal.module.css";
 
 interface InvoiceModalProps {
   data: {
@@ -13,13 +12,24 @@ interface InvoiceModalProps {
     weight: string;
     status: string;
     service: string;
+    priceHT?: number; // prix hors taxe optionnel pour la sécurité
   };
   onClose: () => void;
   onPrint: () => void;
   printRef: React.RefObject<HTMLDivElement | null>;
 }
 
-export default function InvoiceModal({ data, onClose, onPrint, printRef }: InvoiceModalProps) {
+export default function InvoiceModal({
+  data,
+  onClose,
+  onPrint,
+  printRef,
+}: InvoiceModalProps) {
+  const priceHT = data.priceHT ?? 0; // valeur par défaut 0 si undefined
+  const tauxTVA = 0.20; // 20% de TVA
+  const montantTVA = priceHT * tauxTVA;
+  const totalTTC = priceHT + montantTVA;
+
   return (
     <div className={style.modalOverlay}>
       <div className={style.modalContent} ref={printRef}>
@@ -30,8 +40,8 @@ export default function InvoiceModal({ data, onClose, onPrint, printRef }: Invoi
           </div>
           <div className={style.companyInfo}>
             <p>Adresse: Istanbul, Turkey</p>
-            <p> Email: info@transisologistic.com</p>
-            <p>Téléphone: (+90) 5377671027 </p>
+            <p>Email: info@transisologistic.com</p>
+            <p>Téléphone: (+90) 5377671027</p>
           </div>
           <div className={style.logoRight}>
             <Image src="/img/Aramex_logo.png" alt="Aramex Logo" width={140} height={20} />
@@ -45,12 +55,24 @@ export default function InvoiceModal({ data, onClose, onPrint, printRef }: Invoi
         <section className={style.section}>
           <h3>Détails du destinataire</h3>
           <div className={style.detailsGrid}>
-            <div><strong>Nom :</strong> {data.recipient}</div>
-            <div><strong>ID Colis :</strong> {data.id}</div>
-            <div><strong>Date :</strong> {data.date}</div>
-            <div><strong>Poids :</strong> {data.weight}</div>
-            <div><strong>Statut :</strong> {data.status}</div>
-            <div><strong>Service :</strong> {data.service}</div>
+            <div>
+              <strong>Nom :</strong> {data.recipient}
+            </div>
+            <div>
+              <strong>ID Colis :</strong> {data.id}
+            </div>
+            <div>
+              <strong>Date :</strong> {data.date}
+            </div>
+            <div>
+              <strong>Poids :</strong> {data.weight}
+            </div>
+            <div>
+              <strong>Statut :</strong> {data.status}
+            </div>
+            <div>
+              <strong>Service :</strong> {data.service}
+            </div>
           </div>
         </section>
 
@@ -79,13 +101,40 @@ export default function InvoiceModal({ data, onClose, onPrint, printRef }: Invoi
           </table>
         </section>
 
+        {/* FACTURE MONTANT */}
+        <section className={style.section}>
+          <h3>Détails de la facture</h3>
+          <table className={style.invoiceTable}>
+            <tbody>
+              <tr>
+                <td><strong>Montant HT</strong></td>
+                <td>{priceHT.toFixed(2)} €</td>
+              </tr>
+              <tr>
+                <td><strong>TVA (20%)</strong></td>
+                <td>{montantTVA.toFixed(2)} €</td>
+              </tr>
+              <tr>
+                <td><strong>Total TTC</strong></td>
+                <td>{totalTTC.toFixed(2)} €</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
         {/* FOOTER */}
         <footer className={style.footer}>
-          <button onClick={onPrint} className={style.printBtn}>Imprimer</button>
-          <button onClick={onClose} className={style.closeBtn}>Fermer</button>
+          <button onClick={onPrint} className={style.printBtn}>
+            Imprimer
+          </button>
+          <button onClick={onClose} className={style.closeBtn}>
+            Fermer
+          </button>
         </footer>
 
-        <p className={style.legal}>© 2025 Votre Société Import-Export. Tous droits réservés.</p>
+        <p className={style.legal}>
+          © 2025 Votre Société Import-Export. Tous droits réservés.
+        </p>
       </div>
     </div>
   );
