@@ -1,126 +1,106 @@
-@font-face {
-    font-family: 'Noto Kufi Arabic';
-    src: url('/Font/NotoKufiArabic-VariableFont_wght.ttf') format('woff2');
-    font-weight: 100 900;
-    font-style: normal;
-    font-display: swap;
-  }
-.heroContainer {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: #fff; /* Default text color for the hero section */
-    height: 55vh;
-    padding-inline: 170px;
-    font-family: 'Cairo','Noto Kufi Arabic', sans-serif !important;
-  }
-  .title{
-    font-family: 'Cairo','Noto Kufi Arabic', sans-serif !important;
-    font-optical-sizing: auto;
-    font-style: normal;
-    font-size: 24px;
-  }
-  .description{
-    font-family: 'Cairo','Noto Kufi Arabic', sans-serif !important;
-    font-optical-sizing: auto;
-    font-style: normal;
-    font-size: 14px;
-  }
-  .heroContainer2{
-    width: 100%;
-    height: 600px; 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: #fff; /* Default text color for the hero section */
-    padding-top: 0px;
-    margin-top: 80px;
-    height: 55vh;
-    padding-inline: 170px;
-    font-family: 'Cairo','Noto Kufi Arabic', sans-serif !important;
-  }
-  
-  .img {
-    width: 100%;
-    height: 100%;
-  }
-  .backgroundImage {
-    width: 50%;
-    height: 50vh !important;
-  }
-  
-  .contentBox {
-    width: 50%;
-    background-color: #163249;
-    color: #fff;
-    padding: 40px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: right;
-    height: 50vh;
-    font-family: 'Cairo','Noto Kufi Arabic', sans-serif !important;
-  }
-  
-  .backgroundImage{
-    height: 50vh;
-  }
-.btn{
-    font-family: 'Cairo','Noto Kufi Arabic', sans-serif !important;
-    height: 50px !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    border-radius: 0px !important;
-    background-color: transparent !important;
-    border:  2px solid #fff !important;
-    margin-top: 20px !important;
+.heroContainer,
+.heroContainer2 {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+  height: 55vh;
+  padding-inline: 170px;
+  font-family: 'Cairo', 'Noto Kufi Arabic', sans-serif !important;
+  flex-direction: row; /* garde l’image et le texte côte à côte */
 }
-@media (max-width: 1100px) {
-  .heroContainer,
-  .heroContainer2 {
-zoom: 0.8;
-  }
+
+.heroContainer2 {
+  margin-top: 80px;
 }
-@media (max-width: 900px) {
-  .heroContainer,
-  .heroContainer2 {
-zoom: 0.8;
-padding-inline: 100px;
-  }
+
+.backgroundImage {
+  width: 50%;
+  height: 100%;
 }
-/* Responsive - Mobile */
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.contentBox {
+  width: 50%;
+  background-color: #163249;
+  color: #fff;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.title {
+  font-size: 24px;
+  margin-bottom: 25px;
+  font-weight: bold;
+}
+
+.description {
+  font-size: 14px;
+  margin-bottom: 15px;
+  line-height: 1.8;
+}
+
+.btn {
+  height: 50px !important;
+  border-radius: 0px !important;
+  background-color: transparent !important;
+  border: 2px solid #fff !important;
+  margin-top: 20px !important;
+  font-size: 14px;
+  font-family: 'Cairo', 'Noto Kufi Arabic', sans-serif !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ✅ Responsive - Mobile uniquement */
 @media (max-width: 768px) {
   .heroContainer,
   .heroContainer2 {
     flex-direction: column;
     height: auto;
     padding-inline: 20px;
-    gap: 20px;
   }
 
-  .backgroundImage{
+  .backgroundImage {
     display: none !important;
   }
+
   .contentBox {
     width: 100%;
-    height: auto !important;
     padding: 20px;
+    height: auto;
   }
 
   .title {
     font-size: 20px;
+    text-align: center;
   }
 
   .description {
     font-size: 14px;
+    text-align: center;
   }
 
   .btn {
-    height: 40px !important;
+    width: 100%;
     font-size: 14px;
+    height: 45px !important;
+  }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
   }
 }

@@ -68,3 +68,39 @@
     display: flex;
     justify-content: center;
   }
+  .primary {
+    background: #4f46e5;        /* indigo‑600 */
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  
+  .primary:hover {
+    background: #4338ca;        /* indigo‑700 */
+  }
+  .secondary {
+    background: #6b7280;        /* gray‑500 */
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  
+  .secondary:hover {
+    background: #4b5563;        /* gray‑600 */
+  }
+  .actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 28px;
+  }

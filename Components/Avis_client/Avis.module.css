@@ -101,7 +101,7 @@
     margin-left: 20px !important;
   }
   .testimonials-nom{
-    font-size: 22px !important;
+    font-size: 19px !important;
     font-optical-sizing: auto;
     font-weight: 'weight';
     font-style: normal;
@@ -110,7 +110,7 @@
     font-optical-sizing: auto;
     height: 20px;
     position: absolute;
-    top: 22px;
+    top: 38px;
     right: 140px;
   }
   .testimonials-sous-nom{
@@ -121,7 +121,7 @@
     color: #908DA8;
     text-align: center;
     position: absolute;
-    top: 70px;
+    top: 75px;
     right: 140px;
   }
   .description{

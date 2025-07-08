@@ -1,0 +1,120 @@
+/* ----- Carte ------------------------------------------------------ */
+.card {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 32px;        /* séparation avec la carte images */
+  }
+  
+  /* Titres ----------------------------------------------------------- */
+  .title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2e3a59;
+    margin-bottom: 4px;
+  }
+  
+  .subtitle {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 24px;
+  }
+  
+  /* Grille ‑ 2 colonnes fixes --------------------------------------- */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 32px;             /* row‑gap | column‑gap */
+  }
+  
+  /* Champ générique (label + input) --------------------------------- */
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  
+  .field label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+  }
+  
+  .field input,
+  .field select,
+  .field textarea {
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+  
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: #6366f1;      /* indigo‑500 */
+  }
+  
+  .field textarea {
+    resize: vertical;
+  }
+  
+  /* Pour faire span 2 colonnes (ex. description) -------------------- */
+  .span2 {
+    grid-column: span 2;
+  }
+  
+  /* Zone d’actions --------------------------------------------------- */
+  .actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+  }
+  
+  /* Bouton primaire (Save) ------------------------------------------ */
+  .primary {
+    background: #4f46e5;        /* indigo‑600 */
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  
+  .primary:hover {
+    background: #4338ca;        /* indigo‑700 */
+  }
+  
+  /* Bouton secondaire (Cancel) -------------------------------------- */
+  .secondary {
+    background: #6b7280;        /* gray‑500 */
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  
+  .secondary:hover {
+    background: #4b5563;        /* gray‑600 */
+  }
+  
+  /* ----- Responsive : passe en 1 colonne sous 640 px --------------- */
+  @media (max-width: 639px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+    .span2 {
+      grid-column: span 1;
+    }
+  }
+  

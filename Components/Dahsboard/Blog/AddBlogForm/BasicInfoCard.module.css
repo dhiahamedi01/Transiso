@@ -1,0 +1,157 @@
+.container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 32px;
+  }
+  
+  .title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2e3a59;
+    margin-bottom: 16px;
+  }
+  
+  .form {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  
+  .searchInputSmall {
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 14px;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .searchInputSmall:focus {
+    border-color: #6366f1;
+  }
+  
+  .span4 {
+    grid-column: span 4;
+  }
+  
+  .dropZone {
+    grid-column: span 4;
+    border: 2px dashed #d3dbe6;
+    border-radius: 8px;
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+  }
+  
+  .dropZone:hover {
+    background-color: #f9f9f9;
+  }
+  
+  .icon {
+    color: #757c96;
+    font-size: 50px !important;
+    margin-bottom: 10px;
+  }
+  
+  .text {
+    color: #444c63;
+    font-size: 16px;
+  }
+  
+  .subText {
+    font-size: 13px;
+    color: #999999;
+    margin-top: 4px;
+  }
+  
+  .previewContainer {
+    grid-column: span 4;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  
+  .imageWrapper {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .deleteBtn {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .deleteBtn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  
+  .actions {
+    grid-column: span 4;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 20px;
+  }
+  
+  .primary {
+    background: #4f46e5;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .primary:hover {
+    background: #4338ca;
+  }
+  
+  @media (max-width: 768px) {
+    .form {
+      grid-template-columns: 1fr;
+    }
+  
+    .span4,
+    .dropZone,
+    .previewContainer,
+    .actions {
+      grid-column: span 1;
+    }
+  }
+  
