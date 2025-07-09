@@ -37,7 +37,7 @@ export async function POST(req: Request) {
     }
 
     await db.query(
-      `INSERT INTO employees
+      `INSERT INTO users
        (first_name, last_name, email, phone,
         location, permission, image_name, password)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,

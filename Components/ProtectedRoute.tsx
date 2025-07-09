@@ -13,9 +13,9 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      router.replace("/Login"); // Redirige vers la page de login
+      router.replace("/Login"); 
     }
   }, []);
 
-  return <>{children}</>; // Si le token existe, affiche les enfants (la page)
+  return <>{children}</>; 
 }

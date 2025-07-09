@@ -5,7 +5,7 @@ export async function GET() {
   try {
     const [rows] = await db.query(
       `SELECT id, first_name, last_name, email, phone, location, permission, image_name, created_at 
-       FROM employees ORDER BY created_at DESC`
+       FROM users ORDER BY created_at DESC`
     );
 
     const employees = (rows as any[]).map(emp => ({

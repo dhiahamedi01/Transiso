@@ -10,7 +10,7 @@ export async function DELETE(request: Request) {
   }
 
   try {
-    await db.query('DELETE FROM employees WHERE id = ?', [id]);
+    await db.query('DELETE FROM users WHERE id = ?', [id]);
     return NextResponse.json({ success: true, message: 'Employé supprimé' });
   } catch (error) {
     console.error('Erreur DELETE /employees/:id', error);

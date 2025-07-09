@@ -16,7 +16,7 @@ export async function GET(req: Request) {
     return NextResponse.json({ success: false, error: 'ID manquant' }, { status: 400 });
   }
 
-  const [rows] = await db.query('SELECT * FROM employees WHERE id = ?', [id]);
+  const [rows] = await db.query('SELECT * FROM users WHERE id = ?', [id]);
 
   if ((rows as any[]).length === 0) {
     return NextResponse.json({ success: false }, { status: 404 });
@@ -84,7 +84,7 @@ export async function PATCH(req: Request) {
 
     /* ---------- Construction dynamique ---------- */
     const sql =
-      `UPDATE employees SET
+      `UPDATE users SET
          first_name = ?,
          last_name  = ?,
          email      = ?,

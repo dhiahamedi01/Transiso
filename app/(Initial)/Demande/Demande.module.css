@@ -1,66 +1,181 @@
+/* ---------------------------------- */
+/*  POLICE                           */
+/* ---------------------------------- */
 @font-face {
-    font-family: 'Noto Kufi Arabic';
-    src: url('/Font/NotoKufiArabic-VariableFont_wght.ttf') format('woff2');
-    font-weight: 100 900;
-    font-style: normal;
-    font-display: swap;
-  }
-.Paper{
-    width: 100%;
-    height: auto;
-    padding-inline:6%;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    padding-top:50px;
-    padding-bottom: 30px;
-    position: relative;
+  font-family: "Noto Kufi Arabic";
+  src: url("/Font/NotoKufiArabic-VariableFont_wght.ttf") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
 }
-.Paper_g{
-    width: 42%;
-    height: auto;
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: column;
-    top: 0px;
+/* ---------------------------------- */
+/*  DESIGN ORIGINAL (Paper, etc.)     */
+/* ---------------------------------- */
+.Paper {
+  width: 100%;
+  height: auto;
+  padding-inline: 6%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-top: 50px;
+  padding-bottom: 30px;
+  position: relative;
+  direction: ltr !important;
+  margin-bottom: 40px;
 }
-.Paper_d{
-    width: 100%;
-    height: auto !important;
-    background-color: rgb(255, 255, 255);
-    direction: rtl;
-    border-radius: 10px;
-    margin-left: 30px;
-    border: 1px solid #e4e4e4;
-    padding: 20px;
+
+.Paper_g {
+  width: 42%;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  top: 0px;
 }
-.partie3{
-    width: 100% !important;
-    height: auto !important;
-    background-color: #F9F9F9 !important;
-    padding: 20px;
-    border-radius: 10px;
-    border: 1px solid #e4e4e4;
-    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.1);
+
+.Paper_d {
+  width: 100%;
+  height: auto !important;
+  background-color: #ffffff;
+  direction: rtl;
+  border-radius: 10px;
+  margin-left: 30px;
+  border: 1px solid #e4e4e4;
+  padding: 20px;
 }
-.Arabic2{
-    font-family: "Noto Kufi Arabic", sans-serif !important;
-    direction: rtl;
-    font-size: 20px !important;
-    color: #0C3645 !important;
-  }
-.titre_form{
-    font-family: "Noto Kufi Arabic", sans-serif !important;
-    direction: rtl;
-    font-size: 14px !important;
-    color: #0C3645 !important;
-    text-align: center;
+
+.partie3 {
+  width: 100% !important;
+  height: auto !important;
+  background-color: #f9f9f9 !important;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #e4e4e4;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-.header{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+
+.Arabic2 {
+  font-family: "Noto Kufi Arabic", sans-serif !important;
+  direction: rtl;
+  font-size: 20px !important;
+  color: #0c3645 !important;
+}
+
+.titre_form {
+  font-family: "Noto Kufi Arabic", sans-serif !important;
+  direction: rtl;
+  font-size: 14px !important;
+  color: #0c3645 !important;
+  text-align: center;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* ---------------------------------- */
+/*  INPUTS ÉTAPES 2 & 3               */
+/* ---------------------------------- */
+.basicInput {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  font-family: "Noto Kufi Arabic", sans-serif;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  direction: rtl;
+  color: #0c3547;
+  outline: none;
+  background: #fff;
+  transition: border-color 0.2s;
+}
+
+.basicInput:focus {
+  border-color: #de1e27;
+}
+
+/* ---------------------------------- */
+/*  FORMULAIRE ÉTAPE 5                */
+/* ---------------------------------- */
+.formRow {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.formColumn {
+  flex: 1 1 250px;
+}
+
+.formLabel {
+  display: block;
+  margin-bottom: 8px;
+  font-family: "Noto Kufi Arabic", sans-serif;
+  font-weight: 600;
+  color: #0c3547;
+}
+
+.formInput,
+.formTextArea,
+.formFile {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  direction: rtl;
+  font-family: "Noto Kufi Arabic", sans-serif;
+  font-size: 15px;
+  color: #0c3547;
+  outline: none;
+  background: #fff;
+  transition: border-color 0.2s;
+}
+
+.formInput:focus,
+.formTextArea:focus,
+.formFile:focus {
+  border-color: #de1e27;
+}
+
+.formTextArea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* ---------------------------------- */
+/*  STEPPER & BOUTONS                 */
+/* ---------------------------------- */
+.stepperContainer {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.stepIcon {
+  width: 48px;
+  height: 48px;
+  border: 2px solid;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+.nextButton,
+.backButton {
+  font-family: "Noto Kufi Arabic", sans-serif !important;
+  min-width: 120px;
 }

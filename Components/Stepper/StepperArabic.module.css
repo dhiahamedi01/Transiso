@@ -70,4 +70,107 @@
     background-color: #f9f9f9;
     transition: background-color 0.3s;
   }
-  
+  /* ---------------------------------- */
+/*  INPUTS ÉTAPES 2 & 3               */
+/* ---------------------------------- */
+.basicInput {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  font-family: "Noto Kufi Arabic", sans-serif;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  direction: rtl;
+  color: #0c3547;
+  outline: none;
+  background: #fff;
+  transition: border-color 0.2s;
+  margin-top: 20px;
+}
+.Arabic2 {
+  font-family: "Noto Kufi Arabic", sans-serif !important;
+  direction: rtl;
+  font-size: 18px !important;
+  font-weight: 500;
+  color: #0c3645 !important;
+}
+
+.basicInput:focus {
+  border-color: #de1e27;
+}
+
+/* ---------------------------------- */
+/*  FORMULAIRE ÉTAPE 5                */
+/* ---------------------------------- */
+.formRow {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.formColumn {
+  flex: 1 1 250px;
+}
+
+.formLabel {
+  display: block;
+  margin-bottom: 8px;
+  font-family: "Noto Kufi Arabic", sans-serif;
+  font-weight: 600;
+  color: #0c3547;
+}
+.formLabel2{
+  display: block;
+  margin-bottom: 0px;
+  margin-right: 15px;
+  font-family: "Noto Kufi Arabic", sans-serif;
+  font-weight: 600;
+  color: #0c3547;
+}
+.formInput,
+.formTextArea,
+.formFile {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  direction: rtl;
+  font-family: "Noto Kufi Arabic", sans-serif;
+  font-size: 15px;
+  color: #0c3547;
+  outline: none;
+  background: #fff;
+  transition: border-color 0.2s;
+}
+
+.formInput:focus,
+.formTextArea:focus,
+.formFile:focus {
+  border-color: #de1e27;
+}
+
+.formTextArea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.dateCalendarRoot {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 16px;
+  background-color: #fff;
+  font-family: "Noto Kufi Arabic", sans-serif;
+  width: 100%;
+}
+
+.dateCalendarSelectedDay {
+  background-color: #DE1E27 !important;
+  color: white !important;
+}
+
+.dateCalendarDay,
+.dateCalendarTypography {
+  font-family: "Noto Kufi Arabic", sans-serif !important;
+}

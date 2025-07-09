@@ -17,9 +17,9 @@ export async function POST(req: Request) {
       );
     }
 
-    // Vérifier si l'utilisateur existe dans la table employees
+    // Vérifier si l'utilisateur existe dans la table users
     const [rows]: any = await db.query(
-      "SELECT * FROM employees WHERE email = ?",
+      "SELECT * FROM users WHERE email = ?",
       [email]
     );
 
