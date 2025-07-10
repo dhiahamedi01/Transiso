@@ -4,7 +4,8 @@ import Link from 'next/link';
 import SearchInput   from '@/Components/Dahsboard/Employe/Liste_employe/SearchInput';
 import Pagination    from '@/Components/Dahsboard/Employe/Liste_employe/Pagination';
 import EmployeeTable from '@/Components/Dahsboard/Employe/Liste_employe/EmployeeTable';
-import { useEmployees } from '@/hooks/useEmployees';           
+import { useEmployees } from '@/hooks/useEmployees';         
+import CircularProgress from '@mui/material/CircularProgress';  
 import styles from '@/Components/Dahsboard/Employe/Liste_employe/ListeEmp.module.css';
 
 export default function EmployeeListPage() {
@@ -35,7 +36,11 @@ export default function EmployeeListPage() {
       </header>
 
       {/* ----- CONTENT ----- */}
-      {loading && <p className={styles.info}>Loading…</p>}
+      {loading && (
+        <div className={styles.spinnerContainer}>
+          <CircularProgress color="primary" size={48} />
+        </div>
+      )}
       {error   && <p className={styles.error}>{error}</p>}
 
       {!loading && !error && (

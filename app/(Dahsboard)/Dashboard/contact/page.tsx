@@ -2,7 +2,10 @@
 
 import React, { useEffect, useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EmailIcon from '@mui/icons-material/Email';
 import style from '@/Components/Dahsboard/Tracking/Tracking.module.css';
+import useSendMail from '@/hooks/useSendMail';
+import { Snackbar, Alert } from '@mui/material';
 
 type Contact = {
   id: number;
@@ -17,8 +20,20 @@ export default function ContactList() {
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
-  const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showMailModal, setShowMailModal] = useState(false);
   const [toDeleteId, setToDeleteId] = useState<number | null>(null);
+  const [emailTarget, setEmailTarget] = useState<{ email: string; name: string } | null>(null);
+  const [mailSubject, setMailSubject] = useState('');
+  const [mailMessage, setMailMessage] = useState('');
+  const { sendMail, sending, error } = useSendMail();
+
+  // State pour Snackbar MUI
+  const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; severity: 'success' | 'error' }>({
+    open: false,
+    message: '',
+    severity: 'success',
+  });
 
   useEffect(() => {
     loadContacts();
@@ -31,20 +46,21 @@ export default function ContactList() {
       if (!res.ok) throw new Error('Erreur de récupération');
       const data = await res.json();
       setContacts(data);
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
+      setSnackbar({ open: true, message: 'Erreur lors de la récupération des contacts.', severity: 'error' });
     } finally {
       setLoading(false);
     }
   }
 
-  function openModal(id: number) {
+  function openDeleteModal(id: number) {
     setToDeleteId(id);
-    setShowModal(true);
+    setShowDeleteModal(true);
   }
 
-  function closeModal() {
-    setShowModal(false);
+  function closeDeleteModal() {
+    setShowDeleteModal(false);
     setToDeleteId(null);
   }
 
@@ -54,11 +70,39 @@ export default function ContactList() {
       const res = await fetch(`/api/contact/${toDeleteId}`, { method: 'DELETE' });
       if (!res.ok) throw new Error('Erreur lors de la suppression');
       setContacts(prev => prev.filter(c => c.id !== toDeleteId));
-    } catch (error) {
-      alert('Erreur lors de la suppression.');
-      console.error(error);
+      setSnackbar({ open: true, message: 'Contact supprimé avec succès.', severity: 'success' });
+    } catch (err) {
+      console.error(err);
+      setSnackbar({ open: true, message: 'Erreur lors de la suppression.', severity: 'error' });
     } finally {
-      closeModal();
+      closeDeleteModal();
+    }
+  }
+
+  function openMailModal(email: string, name: string) {
+    setEmailTarget({ email, name });
+    setShowMailModal(true);
+    setMailSubject('');
+    setMailMessage('');
+  }
+
+  function closeMailModal() {
+    setShowMailModal(false);
+    setEmailTarget(null);
+  }
+
+  async function handleSendMail() {
+    if (!emailTarget) return;
+    try {
+      await sendMail({
+        to: emailTarget.email,
+        subject: mailSubject,
+        text: mailMessage,
+      });
+      setSnackbar({ open: true, message: 'Email envoyé avec succès !', severity: 'success' });
+      closeMailModal();
+    } catch (err) {
+      setSnackbar({ open: true, message: 'Erreur lors de l’envoi du mail : ' + (err as Error).message, severity: 'error' });
     }
   }
 
@@ -72,7 +116,6 @@ export default function ContactList() {
     <>
       <div className={style.card}>
         <h2 className={style.header}>Liste des contacts</h2>
-
         <div className={style.actionRow}>
           <input
             type="text"
@@ -82,7 +125,6 @@ export default function ContactList() {
             onChange={e => setSearchTerm(e.target.value)}
           />
         </div>
-
         <div className={style.tableWrapper}>
           {loading ? (
             <p>Chargement...</p>
@@ -99,54 +141,106 @@ export default function ContactList() {
                 </tr>
               </thead>
               <tbody>
-                {filteredContacts.length === 0 && (
+                {filteredContacts.length === 0 ? (
                   <tr>
                     <td colSpan={6} style={{ textAlign: 'center', padding: '20px' }}>
                       Aucun contact trouvé
                     </td>
                   </tr>
+                ) : (
+                  filteredContacts.map(contact => (
+                    <tr key={contact.id} className={style.tableRow}>
+                      <td className={style.tableData}>{contact.name}</td>
+                      <td className={style.tableData}>{contact.email}</td>
+                      <td className={style.tableData}>{contact.phone || '-'}</td>
+                      <td className={style.tableData}>{contact.subject || '-'}</td>
+                      <td className={style.tableData}>{contact.message}</td>
+                      <td className={style.tableData}>
+                        <div className={style.actionButtonsWrapper}>
+                          <button
+                            className={style.deleteButton}
+                            title="Supprimer"
+                            onClick={() => openDeleteModal(contact.id)}
+                          >
+                            <DeleteIcon fontSize="small" />
+                          </button>
+                          <button
+                            className={style.deleteButton}
+                            title="Envoyer un mail"
+                            onClick={() => openMailModal(contact.email, contact.name)}
+                          >
+                            <EmailIcon fontSize="small" />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
                 )}
-                {filteredContacts.map(contact => (
-                  <tr key={contact.id} className={style.tableRow}>
-                    <td className={style.tableData}>{contact.name}</td>
-                    <td className={style.tableData}>{contact.email}</td>
-                    <td className={style.tableData}>{contact.phone || '-'}</td>
-                    <td className={style.tableData}>{contact.subject || '-'}</td>
-                    <td className={style.tableData}>{contact.message}</td>
-                    <td className={style.tableData}>
-                      <button
-                        className={style.deleteButton}
-                        title="Supprimer"
-                        onClick={() => openModal(contact.id)}
-                      >
-                        <DeleteIcon fontSize="small" />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
               </tbody>
             </table>
           )}
         </div>
       </div>
 
-      {/* Modal de confirmation */}
-      {showModal && (
+      {showDeleteModal && (
         <div className={style.modalOverlay}>
           <div className={style.modalCard}>
             <h3>Confirmer la suppression</h3>
             <p>Êtes-vous sûr de vouloir supprimer ce contact ?</p>
             <div className={style.modalActions}>
-              <button className={style.cancelBtn} onClick={closeModal}>
-                Annuler
-              </button>
-              <button className={style.deleteBtn} onClick={handleDelete}>
-                Supprimer
-              </button>
+              <button className={style.cancelBtn} onClick={closeDeleteModal}>Annuler</button>
+              <button className={style.deleteBtn} onClick={handleDelete}>Supprimer</button>
             </div>
           </div>
         </div>
       )}
+
+      {showMailModal && (
+        <div className={style.modalOverlaymail}>
+          <div className={style.modalCardmail}>
+            <h3>Envoyer un email à {emailTarget?.name}</h3>
+            <div  className={style.formmail}>
+              <input
+                type="text"
+                placeholder="subject"
+                className={style.inputmail}
+                value={mailSubject}
+                onChange={e => setMailSubject(e.target.value)}
+              />
+              <textarea
+                placeholder="Message"
+                value={mailMessage}
+                rows={6}
+                className={style.textareamail}
+                onChange={e => setMailMessage(e.target.value)}
+              />
+            </div>
+            <div className={style.modalActions}>
+              <button className={style.cancelBtn} onClick={closeMailModal}>Cancel</button>
+              <button className={style.deleteBtn} onClick={handleSendMail} disabled={sending}>
+                {sending ? 'Sending...' : 'send'}
+              </button>
+            </div>
+            {error && <p style={{color: 'red'}}>{error}</p>}
+          </div>
+        </div>
+      )}
+
+      {/* Snackbar pour afficher les alertes */}
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={6000}
+        onClose={() => setSnackbar(prev => ({ ...prev, open: false }))}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert
+          onClose={() => setSnackbar(prev => ({ ...prev, open: false }))}
+          severity={snackbar.severity}
+          sx={{ width: '100%' }}
+        >
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </>
   );
 }

@@ -1,9 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { Employee, EmployeeRole } from '@/services/employeeService';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { Employee, EmployeeRole } from '@/services/employeeService2';
 import styles from './ListeEmp.module.css';
 import Link from 'next/link';
 const roles: EmployeeRole[] = ['Admin', 'Manager', 'Employee'];
@@ -51,7 +50,6 @@ export default function EmployeeTable({
               <th className={styles.tableHeader}>Phone</th>
               <th className={styles.tableHeader}>Location</th>
               <th className={styles.tableHeader}>Created At</th>
-              <th className={styles.tableHeader}>Role</th>
               <th className={styles.tableHeader}>Actions</th>
             </tr>
           </thead>
@@ -83,25 +81,13 @@ export default function EmployeeTable({
                   {emp.createdAt.split('T')[0]}
                 </td>
 
-                {/* rôle */}
-                <td className={styles.tableData}>
-                {emp.role}
-                </td>
-
                 {/* actions */}
                 <td className={styles.tableData}>
                 <Link href={`/Dashboard/Employe/${emp.id}`}>
                   <button className={styles.actionButton} title="Edit">
-                    <EditIcon />
+                    <LocationOnIcon />
                   </button>
                 </Link>
-                  <button
-                    className={styles.actionButton}
-                    title="Delete"
-                    onClick={() => openModal(emp.id)}
-                  >
-                    <DeleteIcon />
-                  </button>
                 </td>
               </tr>
             ))}

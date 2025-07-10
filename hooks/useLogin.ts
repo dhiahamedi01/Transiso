@@ -12,15 +12,25 @@ export function useLogin() {
     try {
       const data = await login(email, password);
 
-      // 1) Toujours là si vous en avez encore besoin côté client
+      // Sauvegarde du token
       localStorage.setItem("token", data.token);
 
+      // Sauvegarde des infos utilisateur (id, name, role)
+      localStorage.setItem("userId", data.user.id.toString());
+      localStorage.setItem("userName", data.user.name);
+
+      // Ajout du rôle dans localStorage
+      // Assumons que data.user.role contient le rôle en clair (ex: "admin", "user", etc.)
+      if (data.user.role) {
+        localStorage.setItem("role", data.user.role.toLowerCase());
+      } else {
+        localStorage.removeItem("role");
+      }
+
+      // Set cookie pour session côté serveur / SSR si besoin
       Cookies.set("token", data.token, {
-        // durée de vie d’une semaine (ou ce que vous voulez)
         expires: 7,
-        // envoyé sur tout le site
         path: "/",
-        // empêche la plupart des CSRF
         sameSite: "lax",
         secure: process.env.NODE_ENV === "production",
       });
@@ -28,6 +38,7 @@ export function useLogin() {
       return data;
     } catch (err: any) {
       setError(err.message);
+      throw err; // propager l'erreur si besoin
     } finally {
       setLoading(false);
     }

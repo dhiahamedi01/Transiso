@@ -1,4 +1,3 @@
-
 import mysql from 'mysql2/promise';
 
 const pool = mysql.createPool({
@@ -7,5 +6,10 @@ const pool = mysql.createPool({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
 });
+
+export async function query<T>(sql: string, params?: any[]): Promise<T[]> {
+  const [rows] = await pool.execute(sql, params);
+  return rows as T[];
+}
 
 export default pool;

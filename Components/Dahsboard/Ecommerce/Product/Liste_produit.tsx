@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import SearchInput from '@/Components/Dahsboard/Employe/Liste_employe/SearchInput';
 import styles from './Liste_produit.module.css';
 import {
@@ -35,20 +36,14 @@ const SplitButton: React.FC<SplitButtonProps> = ({
   mainLabel,
   onMainClick,
   menu,
-  width = 120, // default width so text can align left nicely
+  width = 120,
 }) => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
 
   const handleToggle = () => setOpen((prev) => !prev);
-  const handleClose = (
-    event: Event | React.SyntheticEvent
-  ) => {
-    if (
-      anchorRef.current &&
-      anchorRef.current.contains(event.target as Node)
-    )
-      return;
+  const handleClose = (event: Event | React.SyntheticEvent) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target as Node)) return;
     setOpen(false);
   };
 
@@ -61,12 +56,11 @@ const SplitButton: React.FC<SplitButtonProps> = ({
         aria-label="split button"
         sx={{ backgroundColor: '#1976D2', width }}
       >
-        {/* Main button: left‑aligned text */}
         <Button
           sx={{
             backgroundColor: '#1976D2',
             color: 'white',
-            justifyContent: 'flex-start', // <-- left align the label
+            justifyContent: 'flex-start',
             textTransform: 'none',
             flex: 1,
             pl: 1.5,
@@ -98,8 +92,7 @@ const SplitButton: React.FC<SplitButtonProps> = ({
           <Grow
             {...TransitionProps}
             style={{
-              transformOrigin:
-                placement === 'bottom' ? 'center top' : 'center bottom',
+              transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
             }}
           >
             <Paper>
@@ -128,14 +121,14 @@ const SplitButton: React.FC<SplitButtonProps> = ({
 };
 
 const Liste_produit: React.FC = () => {
+  const router = useRouter();
   const { products, loading, error, refetch } = useProducts();
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
-  // --- Event handlers ---
   const handleUpdate = (id: number) => {
-    console.info('Update product', id);
+    router.push(`/Dashboard/Ecommerce/${id}`);
   };
 
   const handleDelete = async (id: number) => {
@@ -153,17 +146,13 @@ const Liste_produit: React.FC = () => {
     await refetch();
   };
 
-  // --- Filtering + mapping ---
   const filtered = products
-    .filter((p) =>
-      p.name.toLowerCase().includes(search.toLowerCase())
-    )
+    .filter((p) => p.name.toLowerCase().includes(search.toLowerCase()))
     .map((row) => {
       const isPublished = (row as any).isPublished ?? true;
       return {
         id: row.id,
-        image:
-          row.image1 !== null ? `/${row.image1}` : '/img/no-image.png',
+        image: row.image1 !== null ? `/${row.image1}` : '/img/no-image.png',
         nom: row.name,
         prix: Number(row.price),
         statut: isPublished ? 'Publish' : 'Draft',
@@ -177,7 +166,7 @@ const Liste_produit: React.FC = () => {
 
   const cellStyle: React.CSSProperties = {
     borderRight: '1px solid #dedede',
-    textAlign: 'left', // ensure all cells left aligned
+    textAlign: 'left',
   };
 
   return (
@@ -250,7 +239,6 @@ const Liste_produit: React.FC = () => {
             </table>
           </div>
 
-          {/* Pagination */}
           <div className={styles.paginationWrapper}>
             <Pagination
               count={totalPages}

@@ -6,7 +6,7 @@ export async function GET() {
     const [rows] = await db.query(
       `SELECT id, first_name, last_name, email, phone, location, permission, image_name, created_at 
        FROM users 
-       WHERE role = 'employe'
+       WHERE role = 'user'
        ORDER BY created_at DESC`
     );
 

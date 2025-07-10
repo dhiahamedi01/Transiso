@@ -39,8 +39,8 @@ export async function POST(req: Request) {
     await db.query(
       `INSERT INTO users
        (first_name, last_name, email, phone,
-        location, permission, image_name, password)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+        location, permission, image_name, password, role)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         formData.get("firstName"),
         formData.get("lastName"),
@@ -48,10 +48,12 @@ export async function POST(req: Request) {
         formData.get("phone"),
         formData.get("location"),
         formData.get("permission"),
-        fileNameInDb,         
-        hashedPwd
+        fileNameInDb,
+        hashedPwd,
+        "employe" 
       ]
     );
+    
 
     return NextResponse.json({ success: true });
   } catch (err) {

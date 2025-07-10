@@ -6,7 +6,7 @@ import trCommon from '../../public/locales/tr/common.json';
 import arCommon from '../../public/locales/ar/common.json';
 
 export const languages = ['en', 'tr', 'ar'] as const;
-export const fallbackLng = 'en';
+export const fallbackLng = 'ar';
 export const defaultNS = 'common';
 
 if (!i18next.isInitialized) {

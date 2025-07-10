@@ -15,7 +15,7 @@ export interface Employee {
 
 export async function fetchEmployees() {
   const { data } = await api.get<{ success: boolean; employees: Employee[] }>(
-    '/Liste_employee'
+    '/Liste_users'
   );
   if (!data.success) throw new Error('API returned success = false');
   return data.employees;

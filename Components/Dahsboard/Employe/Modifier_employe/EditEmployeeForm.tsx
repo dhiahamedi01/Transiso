@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import style from '../Ajoute_employe/Modif_emp.module.css';        // ← ton CSS existant
+import axios from 'axios';   // <-- importer axios
+import style from '../Ajoute_employe/Modif_emp.module.css';
 import {
   Person as PersonIcon,
   Email as EmailIcon,
@@ -21,13 +22,37 @@ export default function EditEmployeeForm({ employeeId }: { employeeId: string })
   const [form, setForm] = useState<any>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
 
-  /* pré‑remplir */
-  useEffect(() => { if (initial) setForm(initial); }, [initial]);
+  const [groups, setGroups] = useState<{ user_name: string }[]>([]);
+  const [loadingGroups, setLoadingGroups] = useState(false);
+  const [groupsError, setGroupsError] = useState<string | null>(null);
 
-  /* auto‑fermeture snackbar */
+  useEffect(() => {
+    if (initial) setForm(initial);
+  }, [initial]);
+
+  useEffect(() => {
+    async function fetchGroups() {
+      setLoadingGroups(true);
+      try {
+        const res = await axios.get('/api/permissions/groups');  // axios
+        setGroups(res.data);
+        setGroupsError(null);
+      } catch (err) {
+        console.error("Erreur chargement permissions :", err);
+        setGroupsError('Erreur lors du chargement des groupes');
+      } finally {
+        setLoadingGroups(false);
+      }
+    }
+    fetchGroups();
+  }, []);
+
   useEffect(() => {
     if (success || error) {
-      const t = setTimeout(() => { setError(null); setSuccess(false); }, 6000);
+      const t = setTimeout(() => {
+        setError(null);
+        setSuccess(false);
+      }, 6000);
       return () => clearTimeout(t);
     }
   }, [success, error, setError, setSuccess]);
@@ -93,11 +118,18 @@ export default function EditEmployeeForm({ employeeId }: { employeeId: string })
           </div>
           <div className={style.inputWrapper}>
             <label htmlFor="permission">Permission</label>
-            <select id="permission" value={form.permission} onChange={onChange} required>
-              <option value="user">User</option>
-              <option value="manager">Manager</option>
-              <option value="admin">Admin</option>
-            </select>
+            {loadingGroups ? (
+              <p>Loading groups...</p>
+            ) : groupsError ? (
+              <p style={{ color: 'red' }}>{groupsError}</p>
+            ) : (
+              <select id="permission" value={form.permission} onChange={onChange} required>
+                <option value="" disabled>-- Select group --</option>
+                {groups.map((g) => (
+                  <option key={g.user_name} value={g.user_name}>{g.user_name}</option>
+                ))}
+              </select>
+            )}
           </div>
         </div>
 

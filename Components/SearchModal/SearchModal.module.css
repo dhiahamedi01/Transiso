@@ -36,6 +36,7 @@
     background-color: #DE1E27 !important;
     width: 150px;
     margin-top: 20px !important;
+    direction: ltr !important;
     font-family: 'Noto Kufi Arabic', sans-serif !important;
     height: 40px;
   }
