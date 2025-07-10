@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { query } from "@/lib/db";
 
 interface User {
@@ -6,30 +6,38 @@ interface User {
   permission: string;
 }
 
-export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
-  const userId = parseInt(params.id, 10);
+export async function GET(req: NextRequest) {
+  try {
 
-  // Pour debug
-  console.log("→ Requête utilisateur ID =", userId);
+    const segments = req.nextUrl.pathname.split('/');
+    const idStr = segments[segments.length - 1];
+    const userId = parseInt(idStr, 10);
 
-  const result = await query<User>(
-    "SELECT id,permission FROM users WHERE id = ?",
-    [userId]
-  );
+    if (isNaN(userId)) {
+      return NextResponse.json({ error: "ID invalide" }, { status: 400 });
+    }
 
-  console.log("→ Résultat SQL =", result);
+    console.log("→ Requête utilisateur ID =", userId);
 
-  if (result.length === 0) {
-    return NextResponse.json({ error: "User not found" }, { status: 404 });
+    const result = await query<User>(
+      "SELECT id, permission FROM users WHERE id = ?",
+      [userId]
+    );
+
+    console.log("→ Résultat SQL =", result);
+
+    if (result.length === 0) {
+      return NextResponse.json({ error: "Utilisateur introuvable" }, { status: 404 });
+    }
+
+    const user = result[0];
+
+    return NextResponse.json({
+      id: user.id,
+      permissionGroup: user.permission,
+    });
+  } catch (error) {
+    console.error("Erreur serveur :", error);
+    return NextResponse.json({ error: "Erreur interne du serveur" }, { status: 500 });
   }
-
-  const user = result[0];
-
-  return NextResponse.json({
-    id: user.id,
-    permissionGroup: user.permission,
-  });
 }
