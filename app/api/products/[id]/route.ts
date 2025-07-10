@@ -15,30 +15,41 @@ async function saveFile(file: File): Promise<string> {
   return `uploads/${fileName}`;
 }
 
-// GET produit unique par id
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
-  try {
-    const id = parseInt(params.id, 10);
-    if (isNaN(id)) return NextResponse.json({ error: 'Invalid product ID' }, { status: 400 });
+function extractIdFromUrl(req: NextRequest): number | null {
+  const segments = req.nextUrl.pathname.split('/');
+  const idStr = segments[segments.length - 1];
+  const id = parseInt(idStr, 10);
+  return isNaN(id) ? null : id;
+}
 
+// ✅ GET produit par ID
+export async function GET(req: NextRequest) {
+  const id = extractIdFromUrl(req);
+  if (id === null) {
+    return NextResponse.json({ error: 'ID invalide' }, { status: 400 });
+  }
+
+  try {
     const [rows] = await db.query('SELECT * FROM products WHERE id = ?', [id]);
     if ((rows as any).length === 0) {
-      return NextResponse.json({ error: 'Product not found' }, { status: 404 });
+      return NextResponse.json({ error: 'Produit non trouvé' }, { status: 404 });
     }
 
     return NextResponse.json((rows as any)[0]);
   } catch (err) {
     console.error('[product GET]', err);
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+    return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 });
   }
 }
 
-// PUT mise à jour produit par id
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
-  try {
-    const id = parseInt(params.id, 10);
-    if (isNaN(id)) return NextResponse.json({ error: 'Invalid product ID' }, { status: 400 });
+// ✅ PUT mise à jour produit par ID
+export async function PUT(req: NextRequest) {
+  const id = extractIdFromUrl(req);
+  if (id === null) {
+    return NextResponse.json({ error: 'ID invalide' }, { status: 400 });
+  }
 
+  try {
     const form = await req.formData();
 
     const name = String(form.get('productName') ?? '');
@@ -49,7 +60,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     const description = form.get('description')?.toString() ?? null;
 
     if (!name || !category || !priceStr) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+      return NextResponse.json({ error: 'Champs requis manquants' }, { status: 400 });
     }
 
     const rawFiles = form.getAll('images');
@@ -61,11 +72,14 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
       images[i] = await saveFile(limitedFiles[i]);
     }
 
-    // Récupérer anciennes images pour garder celles non remplacées
-    const [rows] = await db.query('SELECT image1, image2, image3, image4, image5 FROM products WHERE id = ?', [id]);
+    const [rows] = await db.query(
+      'SELECT image1, image2, image3, image4, image5 FROM products WHERE id = ?',
+      [id]
+    );
     if ((rows as any).length === 0) {
-      return NextResponse.json({ error: 'Product not found' }, { status: 404 });
+      return NextResponse.json({ error: 'Produit non trouvé' }, { status: 404 });
     }
+
     const oldImages = (rows as any)[0];
     for (let i = 0; i < 5; i++) {
       if (!images[i]) images[i] = oldImages[`image${i + 1}`];
@@ -98,6 +112,6 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     return NextResponse.json({ id }, { status: 200 });
   } catch (err) {
     console.error('[product PUT]', err);
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+    return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 });
   }
 }
