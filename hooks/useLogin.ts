@@ -32,6 +32,7 @@ export function useLogin() {
       localStorage.setItem("token", data.token);
       localStorage.setItem("userId", data.user.id.toString());
       localStorage.setItem("userName", data.user.name);
+      localStorage.setItem("userEmail", email); 
       if (data.user.role) {
         localStorage.setItem("role", data.user.role.toLowerCase());
       } else {

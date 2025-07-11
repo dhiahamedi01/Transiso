@@ -1,63 +1,46 @@
-"use client";
+'use client';
 
-import React, { useState, useRef } from "react";
-import PrintIcon from "@mui/icons-material/Print";
-import InvoiceModal, { OrderData } from "./InvoiceModal";
-import style from "@/Components/Dahsboard/Ecommerce/Order/Order.module.css";
+import React, { useEffect, useState, useRef } from 'react';
+import axios from 'axios';
+import PrintIcon from '@mui/icons-material/Print';
+import InvoiceModal, { OrderData } from '@/Components/Dahsboard/Ecommerce/Order/InvoiceModal';
+import style from '@/Components/Dahsboard/Ecommerce/Order/Order.module.css';
 
-const orders: OrderData[] = [
-  {
-    id: "#ORD1001",
-    recipient: "Amine Chebbi",
-    date: "July 5, 2025",
-    address: "123 Main Street, Tunis",
-    products: "Phone, Charger",
-    status: "Delivered",
-    paymentStatus: "Paid",
-  },
-  {
-    id: "#ORD1003",
-    recipient: "Karim Haddad",
-    date: "July 3, 2025",
-    address: "Route de la Marsa, La Marsa",
-    products: "Books, Pen",
-    status: "Delayed",
-    paymentStatus: "Paid",
-  },
-  {
-    id: "#ORD1004",
-    recipient: "Layla Nasser",
-    date: "July 2, 2025",
-    address: "Centre ville, Ariana",
-    products: "Shoes, T-shirt",
-    status: "Cancelled",
-    paymentStatus: "Unpaid",
-  },
-  {
-    id: "#ORD1006",
-    recipient: "Rim Mansour",
-    date: "July 6, 2025",
-    address: "Rue El Khadra, Sousse",
-    products: "Camera, Tripod",
-    status: "In Transit",
-    paymentStatus: "Unpaid",
-  },
-];
-
-function OrdersPage() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [orderList, setOrderList] = useState<OrderData[]>(orders);
-
+const OrdersHistoryPage: React.FC = () => {
+  const [orderList, setOrderList] = useState<OrderData[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
   const [selectedOrder, setSelectedOrder] = useState<OrderData | null>(null);
   const printRef = useRef<HTMLDivElement | null>(null);
 
-  const filteredOrders = orderList.filter(
-    (order) =>
-      order.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      order.recipient.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      order.status.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      order.address.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      order.products.toLowerCase().includes(searchTerm.toLowerCase())
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const email = localStorage.getItem('userEmail');
+        if (!email) return;
+
+        const res = await axios.get('/api/orders', { params: { email } });
+
+        if (res.data.success) {
+          setOrderList(res.data.data);
+        } else {
+          console.error('Failed to fetch orders:', res.data.error);
+        }
+      } catch (error) {
+        console.error('Error fetching orders:', error);
+      }
+    };
+
+    fetchOrders();
+  }, []);
+
+  const filteredOrders = orderList.filter((order) =>
+    searchTerm === '' ? true : (
+      order.orderId?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      order.customer?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      order.status?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      order.address?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      order.products?.toLowerCase().includes(searchTerm.toLowerCase())
+    )
   );
 
   const openInvoiceModal = (order: OrderData) => {
@@ -71,11 +54,11 @@ function OrdersPage() {
   const handlePrint = () => {
     if (printRef.current) {
       const printContents = printRef.current.innerHTML;
-      const newWindow = window.open("", "", "width=600,height=600");
+      const newWindow = window.open('', '', 'width=600,height=600');
       if (newWindow) {
-        newWindow.document.write("<html><head><title>Facture</title></head><body>");
+        newWindow.document.write('<html><head><title>Invoice</title></head><body>');
         newWindow.document.write(printContents);
-        newWindow.document.write("</body></html>");
+        newWindow.document.write('</body></html>');
         newWindow.document.close();
         newWindow.focus();
         newWindow.print();
@@ -86,23 +69,23 @@ function OrdersPage() {
 
   const getStatusClass = (status: string) => {
     switch (status) {
-      case "Delivered":
+      case 'Delivered':
         return style.statusDelivered;
-      case "In Transit":
+      case 'In Transit':
         return style.statusInTransit;
-      case "Delayed":
+      case 'Delayed':
         return style.statusDelayed;
-      case "Cancelled":
+      case 'Cancelled':
         return style.statusCancelled;
       default:
-        return "";
+        return '';
     }
   };
 
   return (
     <div className={style.card}>
       <div className={style.actionRow}>
-        <h3 className={style.titre}>Order list</h3>
+        <h3 className={style.titre}>Order History</h3>
         <input
           type="text"
           placeholder="Search order..."
@@ -127,9 +110,9 @@ function OrdersPage() {
           </thead>
           <tbody>
             {filteredOrders.map((order) => (
-              <tr key={order.id} className={style.tableRow}>
-                <td className={style.tableData}>{order.id}</td>
-                <td className={style.tableData}>{order.recipient}</td>
+              <tr key={order.orderId} className={style.tableRow}>
+                <td className={style.tableData}>{order.orderId}</td>
+                <td className={style.tableData}>{order.customer}</td>
                 <td className={style.tableData}>{order.date}</td>
                 <td className={style.tableData}>{order.address}</td>
                 <td className={style.tableData}>{order.products}</td>
@@ -154,16 +137,15 @@ function OrdersPage() {
       </div>
 
       {selectedOrder && (
-  <InvoiceModal
-    data={selectedOrder}
-    onClose={closeInvoiceModal}
-    onPrint={handlePrint}
-    printRef={printRef}
-  />
-)}
-
+        <InvoiceModal
+          data={selectedOrder}
+          onClose={closeInvoiceModal}
+          onPrint={handlePrint}
+          printRef={printRef}
+        />
+      )}
     </div>
   );
-}
+};
 
-export default OrdersPage;
+export default OrdersHistoryPage;

@@ -1,19 +1,21 @@
-// InvoiceModal.tsx
 "use client";
 
 import React from 'react';
 import Image from 'next/image';
 import style from './Order.module.css';
 
+// Export the OrderData interface for use elsewhere
+export interface OrderData {
+  id: string;
+  recipient: string;
+  date: string;
+  weight: string;
+  status: string;
+  service: string;
+}
+
 interface InvoiceModalProps {
-  data: {
-    id: string;
-    recipient: string;
-    date: string;
-    weight: string;
-    status: string;
-    service: string;
-  };
+  data: OrderData;
   onClose: () => void;
   onPrint: () => void;
   printRef: React.RefObject<HTMLDivElement | null>;
@@ -30,8 +32,8 @@ export default function InvoiceModal({ data, onClose, onPrint, printRef }: Invoi
           </div>
           <div className={style.companyInfo}>
             <p>Adresse: Istanbul, Turkey</p>
-            <p> Email: info@transisologistic.com</p>
-            <p>Téléphone: (+90) 5377671027 </p>
+            <p>Email: info@transisologistic.com</p>
+            <p>Téléphone: (+90) 5377671027</p>
           </div>
           <div className={style.logoRight}>
             <Image src="/img/Aramex_logo.png" alt="Aramex Logo" width={140} height={20} />
