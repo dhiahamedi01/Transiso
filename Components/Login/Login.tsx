@@ -22,11 +22,25 @@ export default function LoginPage() {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const result = await handleLogin(email, password);
-    if (result?.success) {
-      router.push("/Dashboard");
+    try {
+      const result = await handleLogin(email, password);
+      if (result?.success && result.user) {
+        const role = result.user.role?.toLowerCase() || "";
+        if (role === "user") {
+          router.push("/Client");
+        } else {
+          router.push("/Dashboard");
+        }
+      } else {
+ 
+        console.log("Login failed or user data missing");
+      }
+    } catch (err) {
+      console.error("Erreur login:", err);
     }
   };
+  
+  
 
   return (
     <div className={styles.Page} dir={isRTL ? "rtl" : "ltr"}>

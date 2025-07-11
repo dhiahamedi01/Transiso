@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React, { useState, ChangeEvent, FormEvent, useEffect, useRef } from "react";
 import styles from "./Inscription.module.css";
 
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -17,6 +17,11 @@ import { useTranslation } from "react-i18next";
 
 import { useSignup } from "@/hooks/useSignup";
 import { SignupData } from "@/services/Signup";
+
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+
+import useSendMail from "@/hooks/useSendMail";
 
 export default function SignupPage() {
   const { t, i18n } = useTranslation("common");
@@ -36,15 +41,92 @@ export default function SignupPage() {
   });
 
   const { loading, error, success, submitSignup } = useSignup();
+  const { sendMail, sending: sendingMail, error: mailError } = useSendMail();
+
+  const [openSuccessAlert, setOpenSuccessAlert] = useState(false);
+  const [localError, setLocalError] = useState<string | null>(null);
+  const [showThankYou, setShowThankYou] = useState(false);
+
+  const mailSentRef = useRef(false);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    setLocalError(null);
+  }
+
+  async function checkEmailExists(email: string): Promise<boolean> {
+    try {
+      const res = await fetch(`/api/check-email?email=${encodeURIComponent(email)}`);
+      if (!res.ok) throw new Error("Erreur lors de la vérification");
+      const data = await res.json();
+      return data.exists === true;
+    } catch {
+      return false;
+    }
   }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    if (loading || sendingMail) return; // منع إعادة الإرسال أثناء التحميل
+
+    const exists = await checkEmailExists(formData.email);
+    if (exists) {
+      setLocalError(t("signup.emailExists") || "Cet email est déjà utilisé.");
+      return;
+    }
+
+    mailSentRef.current = false; // إعادة تعيين الحالة قبل التسجيل جديد
     await submitSignup(formData);
+  }
+
+  useEffect(() => {
+    if (success && !mailSentRef.current) {
+      setOpenSuccessAlert(true);
+
+      sendMail({
+        to: formData.email,
+        subject: t("signup.welcomeSubject") || "Bienvenue !",
+        text: t("signup.welcomeText") || `Bonjour ${formData.firstName}, merci pour votre inscription !`,
+      }).catch(console.error);
+
+      mailSentRef.current = true; // تأكيد إرسال الميل
+
+      setTimeout(() => {
+        setShowThankYou(true);
+      }, 3000);
+    }
+  }, [success, formData.email, formData.firstName, sendMail, t]);
+
+  function handleCloseAlert(event?: React.SyntheticEvent | Event, reason?: string) {
+    if (reason === "clickaway") return;
+    setOpenSuccessAlert(false);
+  }
+
+  if (showThankYou) {
+    return (
+      <div className={styles.Page} dir={isRTL ? "rtl" : "ltr"}>
+        <div className={styles.container} dir={isRTL ? "rtl" : "ltr"}>
+          <div className={styles.left} style={{ textAlign: isRTL ? "right" : "left" }}>
+            <div className={styles.thankYouCard} style={{ padding: 20, border: "1px solid #ddd", borderRadius: 8 }}>
+              <img
+                src="/img/check.webp"
+                alt="Merci"
+                style={{ maxWidth: "100%", marginBottom: 20 }}
+              />
+              <h2>{t("signup.thankYouTitle") || "Merci pour votre inscription !"}</h2>
+              <p>{t("signup.thankYouMessage") || "Votre inscription a été réalisée avec succès."}</p>
+              <Link href="/Login">
+                <button className={styles.button} style={{ marginTop: 20 }}>
+                  {t("signup.goToLogin") || "Se connecter"}
+                </button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -62,6 +144,7 @@ export default function SignupPage() {
             </p>
 
             <form className={styles.form} onSubmit={handleSubmit}>
+              {/* inputs */}
               <div className={styles.row}>
                 <div className={styles.column}>
                   <label className={styles.label}>{t("signup.fullName")}</label>
@@ -161,8 +244,14 @@ export default function SignupPage() {
                 </div>
               </div>
 
-              <button type="submit" className={styles.button} disabled={loading}>
-                {loading ? t("signup.loading") || "Chargement..." : t("signup.button")}
+              <button
+                type="submit"
+                className={styles.button}
+                disabled={loading || sendingMail}
+              >
+                {loading || sendingMail
+                  ? t("signup.loading") || "Chargement..."
+                  : t("signup.button")}
               </button>
 
               <div className={styles.divider}>{t("signup.orWith")}</div>
@@ -179,12 +268,24 @@ export default function SignupPage() {
                 </button>
               </div>
 
-              {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
-              {success && <p style={{ color: "green", marginTop: "10px" }}>{t("signup.successMessage") || "Inscription réussie !"}</p>}
+              {localError && <p style={{ color: "red", marginTop: 10 }}>{localError}</p>}
+              {error && <p style={{ color: "red", marginTop: 10 }}>{error}</p>}
+              {mailError && <p style={{ color: "red", marginTop: 10 }}>{mailError}</p>}
             </form>
           </div>
         </div>
       </div>
+
+      <Snackbar
+        open={openSuccessAlert}
+        autoHideDuration={6000}
+        onClose={handleCloseAlert}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert onClose={handleCloseAlert} severity="success" sx={{ width: "100%" }}>
+          {t("signup.successMessage") || "Inscription réussie !"}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }

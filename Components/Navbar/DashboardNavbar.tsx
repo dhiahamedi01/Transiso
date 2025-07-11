@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { styled } from '@mui/material/styles';
 import Style from './DashboardNavbar.module.css';
@@ -42,12 +42,22 @@ const StyledInputBase = styled(InputBase)({
   },
 });
 
-
 /* -------------------------------------------------------------------------- */
 /*                               Main component                              */
 /* -------------------------------------------------------------------------- */
 
 const DashboardNavbar: React.FC = () => {
+  const [userName, setUserName] = useState<string>(''); // État pour le nom d'utilisateur
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedName = localStorage.getItem('userName');
+      if (storedName) {
+        setUserName(storedName);
+      }
+    }
+  }, []);
+
   return (
     <AppBar
       position="static"
@@ -67,28 +77,15 @@ const DashboardNavbar: React.FC = () => {
             placeholder="Search..."
             inputProps={{ 'aria-label': 'search' }}
             fullWidth
-            sx={{ paddingLeft: '10px',color: '#2a3042' }} 
+            sx={{ paddingLeft: '10px', color: '#2a3042' }} 
           />
         </div>
-
-        {/* Mega menu trigger */}
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            ml: 3,
-            cursor: 'pointer',
-            gap: 0.5,
-          }}
-        >
-          
-        </Box>
 
         <Spacer />
 
         {/* Right controls */}
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          {/* Language flag */}
+          {/* Langue */}
           <Box component="span" sx={{ width: 24, height: 16 }}>
             <Image src="/img/flags/eng.jpg" alt="English" width={24} height={16} />
           </Box>
@@ -111,11 +108,11 @@ const DashboardNavbar: React.FC = () => {
             </Badge>
           </IconButton>
 
-          {/* Profile */}
+          {/* Profil utilisateur */}
           <Box sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer', gap: 0.5 }}>
-            <Avatar alt="Admin" src="/img/avatar.jpg" sx={{ width: 34, height: 34 }} />
+            <Avatar alt={userName || "Admin"} src="/img/no_img.png" sx={{ width: 34, height: 34 }} />
             <Typography className={Style.avatarName} variant="subtitle1">
-              Amal Jdidi
+              {userName || 'Admin'}
             </Typography>
             <ExpandMoreIcon fontSize="small" sx={{ color: '#4b506d' }} />
           </Box>

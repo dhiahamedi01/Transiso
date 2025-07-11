@@ -47,7 +47,7 @@ export async function POST(req: Request) {
       {
         id: user.id,
         email: user.email,
-        role: user.permission,
+        role: user.role,
         name: user.first_name + " " + user.last_name
       },
       JWT_SECRET,
@@ -61,7 +61,7 @@ export async function POST(req: Request) {
         id: user.id,
         email: user.email,
         name: user.first_name + " " + user.last_name,
-        role: user.permission,
+        role: user.role,
         image: user.image_name
       }
     });
