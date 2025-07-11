@@ -1,17 +1,21 @@
+// InvoiceModal.tsx
 "use client";
 
 import React from "react";
-import styles from "./InvoiceModal.module.css";
+import Image from "next/image";
+import style from "./InvoiceModal.module.css";
 
-export type OrderData = {
-  id: string;
-  recipient: string;
+export interface OrderData {
+  orderId: string;
+  customer: string;
   date: string;
   address: string;
-  products: string; // pour version avancée on pourrait faire un tableau
+  products: string;
   status: string;
-  paymentStatus: "Paid" | "Unpaid";
-};
+  paymentStatus: string;
+  weight?: string;  // optionnel, si tu veux ajouter plus de détails
+  service?: string; // optionnel
+}
 
 interface InvoiceModalProps {
   data: OrderData;
@@ -20,72 +24,77 @@ interface InvoiceModalProps {
   printRef: React.RefObject<HTMLDivElement | null>;
 }
 
-const InvoiceModal: React.FC<InvoiceModalProps> = ({ data, onClose, onPrint, printRef }) => {
-  const TVA_RATE = 0.19;
-  const totalHT = 120.0; // Remplacer par un calcul réel si nécessaire
-  const tva = totalHT * TVA_RATE;
-  const totalTTC = totalHT + tva;
-
+export default function InvoiceModal({ data, onClose, onPrint, printRef }: InvoiceModalProps) {
   return (
-    <div className={styles.modalOverlay}>
-      <div className={styles.modalContent} ref={printRef}>
-        <header className={styles.header}>
-          <img src="/img/logo2.jpg" alt="Logo Société" className={styles.logo} />
-          <div className={styles.companyInfo}>
-            <p>123 Avenue, Tunis</p>
-            <p>Email: contact@societe.com</p>
-            <p>TVA: XX-XXX-XXX</p>
+    <div className={style.modalOverlay}>
+      <div className={style.modalContent} ref={printRef}>
+        {/* HEADER */}
+        <header className={style.header}>
+          <div className={style.logoLeft}>
+            <Image src="/img/logo2.jpg" alt="Votre Logo" width={190} height={60} />
+          </div>
+          <div className={style.companyInfo}>
+            <p>Adresse: Istanbul, Turkey</p>
+            <p>Email: info@transisologistic.com</p>
+            <p>Téléphone: (+90) 5377671027</p>
+          </div>
+          <div className={style.logoRight}>
+            <Image src="/img/Aramex_logo.png" alt="Aramex Logo" width={140} height={20} />
           </div>
         </header>
 
-        <section className={styles.clientInfo}>
-          <h2>Facture</h2>
-          <p><strong>Client :</strong> {data.recipient}</p>
-          <p><strong>Adresse :</strong> {data.address}</p>
-          <p><strong>Date :</strong> {data.date}</p>
-          <p><strong>Produits :</strong> {data.products}</p>
+        {/* TITRE */}
+        <h2 className={style.invoiceTitle}>FACTURE D'EXPÉDITION</h2>
+
+        {/* DESTINATAIRE */}
+        <section className={style.section}>
+          <h3>Détails du destinataire</h3>
+          <div className={style.detailsGrid}>
+            <div><strong>Nom :</strong> {data.customer}</div>
+            <div><strong>ID Colis :</strong> {data.orderId}</div>
+            <div><strong>Date :</strong> {data.date}</div>
+            <div><strong>Adresse :</strong> {data.address}</div>
+            <div><strong>Produits :</strong> {data.products}</div>
+            <div><strong>Statut :</strong> {data.status}</div>
+            <div><strong>Statut Paiement :</strong> {data.paymentStatus}</div>
+            <div><strong>Poids :</strong> {data.weight ?? "-"}</div>
+            <div><strong>Service :</strong> {data.service ?? "-"}</div>
+          </div>
         </section>
 
-        <section className={styles.pricing}>
-          <table className={styles.invoiceTable}>
+        {/* TABLEAU RÉCAPITULATIF */}
+        <section className={style.section}>
+          <h3>Résumé de l'expédition</h3>
+          <table className={style.invoiceTable}>
             <thead>
               <tr>
-                <th>Désignation</th>
-                <th>Quantité</th>
-                <th>Prix Unitaire</th>
-                <th>Total</th>
+                <th>ID Colis</th>
+                <th>Client</th>
+                <th>Poids</th>
+                <th>Statut</th>
+                <th>Service</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>{data.products}</td>
-                <td>1</td>
-                <td>{totalHT.toFixed(2)} TND</td>
-                <td>{totalHT.toFixed(2)} TND</td>
-              </tr>
-              <tr>
-                <td colSpan={3} className={styles.rightAlign}>Sous-total HT</td>
-                <td>{totalHT.toFixed(2)} TND</td>
-              </tr>
-              <tr>
-                <td colSpan={3} className={styles.rightAlign}>TVA ({(TVA_RATE * 100).toFixed(0)}%)</td>
-                <td>{tva.toFixed(2)} TND</td>
-              </tr>
-              <tr className={styles.totalRow}>
-                <td colSpan={3} className={styles.rightAlign}>Total TTC</td>
-                <td>{totalTTC.toFixed(2)} TND</td>
+                <td>{data.orderId}</td>
+                <td>{data.customer}</td>
+                <td>{data.weight ?? "-"}</td>
+                <td>{data.status}</td>
+                <td>{data.service ?? "-"}</td>
               </tr>
             </tbody>
           </table>
         </section>
 
-        <footer className={styles.actions}>
-          <button onClick={onPrint} className={styles.printBtn}>Imprimer</button>
-          <button onClick={onClose} className={styles.closeBtn}>Fermer</button>
+        {/* FOOTER */}
+        <footer className={style.footer}>
+          <button onClick={onPrint} className={style.printBtn}>Imprimer</button>
+          <button onClick={onClose} className={style.closeBtn}>Fermer</button>
         </footer>
+
+        <p className={style.legal}>© 2025 Votre Société Import-Export. Tous droits réservés.</p>
       </div>
     </div>
   );
-};
-
-export default InvoiceModal;
+}
