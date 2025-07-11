@@ -26,10 +26,11 @@ type Product = {
   oldPrice?: number;
   image: string;
   tag?: string;
-  rating: number;
+  rating: number; // 🔴 Obligatoire
   description: string;
   category?: string;
 };
+
 
 export default function ProductCard({ product }: { product: Product }) {
   const { i18n } = useTranslation();
@@ -46,14 +47,14 @@ export default function ProductCard({ product }: { product: Product }) {
           sx={{
             boxShadow: 3,
             height: '100%',
-            minHeight: 500,
+            minHeight: 400,
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
             position: 'relative',
             overflow: 'hidden',
             borderBottom: '1px solid #e0e0e0',
-            zoom: 0.9,
+            zoom: 0.8,
             direction: isRTL ? 'rtl' : 'ltr',
             pb: 2,
             backgroundColor: '#fff',
@@ -85,7 +86,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
           <CardMedia sx={{ height: 300, position: 'relative' }}>
             <Image
-              src={product.image}
+              src={product.image ? `/${product.image}` : '/img/no-image.png'}
               alt={product.title}
               fill
               style={{ objectFit: 'cover', transition: '0.3s ease' }}
@@ -135,6 +136,7 @@ export default function ProductCard({ product }: { product: Product }) {
               textAlign: isRTL ? 'right' : 'left',
               flexGrow: 1,
               display: 'flex',
+              height:'230px',
               flexDirection: 'column',
               justifyContent: 'space-between',
             }}
@@ -168,17 +170,18 @@ export default function ProductCard({ product }: { product: Product }) {
               sx={{
                 fontFamily: 'Noto Kufi Arabic, sans-serif',
                 display: '-webkit-box',
-                WebkitLineClamp: 2,
+                WebkitLineClamp: 1,         // <- changer à 1 ligne seulement
                 WebkitBoxOrient: 'vertical',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 mt: 0.5,
                 mb: 1,
-                minHeight: '3.2em',
+                Height: '1.6em',          // ajuster pour une ligne (environ la hauteur d'une ligne)
               }}
             >
               {product.description}
             </Typography>
+
 
             <Box sx={{ direction: 'rtl', mb: 1 }}>
                 <Rating

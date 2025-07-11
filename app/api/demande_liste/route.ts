@@ -26,3 +26,27 @@ export async function GET() {
     );
   }
 }
+export async function DELETE(request: Request) {
+  try {
+    const body = await request.json();
+    const { id } = body;
+
+    if (!id) {
+      return NextResponse.json({ message: 'ID manquant' }, { status: 400 });
+    }
+
+    const connection = await pool.getConnection();
+
+    await connection.execute(`DELETE FROM devis WHERE id = ?`, [id]);
+
+    connection.release();
+
+    return NextResponse.json({ message: 'Demande supprimée avec succès' });
+  } catch (error) {
+    console.error('Erreur lors de la suppression :', error);
+    return NextResponse.json(
+      { message: 'Erreur serveur lors de la suppression' },
+      { status: 500 }
+    );
+  }
+}

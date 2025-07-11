@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, IconButton, Typography } from '@mui/material';
+import { Box, IconButton, Typography, CircularProgress } from '@mui/material';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
@@ -8,23 +8,12 @@ import 'swiper/css/navigation';
 import { useEffect } from 'react';
 import { ChevronLeft, ChevronRight, ViewList } from '@mui/icons-material';
 import ProductCard from './ProductCard';
-import { products as allProducts, ProductRow } from '../ProductList/Data_produit';
 import { useTranslation } from 'react-i18next';
-
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  oldPrice?: number;
-  image: string;
-  tag?: string;
-  rating: number;
-  description: string;
-  category?: string;
-}
+import { useProducts } from '@/hooks/useProducts';
 
 export default function TrendingCarousel() {
   const { t } = useTranslation();
+  const { products, loading, error } = useProducts();
 
   useEffect(() => {
     const font = new FontFace(
@@ -42,17 +31,31 @@ export default function TrendingCarousel() {
     });
   }, []);
 
-  // Transformation de ProductRow en Product avec traduction dynamique
-  const topProducts: Product[] = allProducts.slice(0, 10).map((item: ProductRow) => ({
-    id: item.id,
-    title: t(item.titleKey),
-    price: item.price,
-    oldPrice: item.oldPrice,
-    image: item.image,
-    tag: item.tagKey ? t(item.tagKey) : undefined,
-    rating: item.rating,
-    description: t(item.descKey),
-    category: t(item.catKey),
+  if (loading) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', py: 8 }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (error || products.length === 0) {
+    return (
+      <Box sx={{ textAlign: 'center', py: 8 }}>
+        <Typography color="error">{t('productList.noProducts') || 'Aucun produit à afficher.'}</Typography>
+      </Box>
+    );
+  }
+
+  const topProducts = products.slice(0, 10).map((p) => ({
+    id: p.id,
+    title: p.name,
+    price: Number(p.price),
+    oldPrice: p.old_price ? Number(p.old_price) : undefined,
+    image: p.image1 || '/img/no-image.png',
+    rating: 5, // à adapter si tu stockes la note dans la DB plus tard
+    description: p.description || '',
+    category: p.category,
   }));
 
   return (
@@ -83,8 +86,9 @@ export default function TrendingCarousel() {
           }}
         >
           <ViewList />
-          <Typography component="span" sx={{ userSelect: 'none', fontFamily: 'Noto Kufi Arabic, sans-serif' }}>
-            {t('productList.categories.0')} {/* ici c'est "الكل" depuis ta traduction */}
+          <Typography component="span" sx={{ userSelect: 'none',
+    fontFamily: 'Noto Kufi Arabic, sans-serif',  }}>
+            {t('productList.categories.0')}
           </Typography>
         </Box>
 
@@ -93,12 +97,10 @@ export default function TrendingCarousel() {
           fontWeight="bold"
           color="#0D3546"
           sx={{
-            fontSize: { xs: '1.4rem', sm: '2rem' },
-            mb: { xs: 1, sm: 0 },
-            fontFamily: 'Noto Kufi Arabic, sans-serif',
+            fontSize: { xs: '1.3rem', sm: '1.6rem' },  fontFamily: 'Noto Kufi Arabic, sans-serif'
           }}
         >
-          {t('productList.title')} {/* titre traduit dynamique */}
+          {t('productList.title')}
         </Typography>
       </Box>
 

@@ -2,49 +2,52 @@
 
 import {
   Box, Pagination, InputBase, Select, MenuItem, Paper,
-  useMediaQuery, useTheme, Typography
+  useMediaQuery, useTheme, Typography, CircularProgress
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { useState, useMemo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { products } from './Data_produit';
 import ProductCard from '../TrendingCarousel/ProductCard';
+import { useProducts } from '@/hooks/useProducts';
 
 const ITEMS_PER_PAGE = 12;
 const ITEMS_PER_ROW_DESKTOP = 4;
 
 export default function ProductList() {
-  /* ---------- i18n ---------- */
-  const { t, i18n } = useTranslation(['common']);      // "common" contient productList + products
+  const { t, i18n } = useTranslation(['common']);
   const categories = t('productList.categories', { returnObjects: true }) as string[];
+  const direction = i18n.dir();
 
-  const direction = i18n.dir();  // 'ltr' ou 'rtl'
-
-  /* ---------- responsive & state ---------- */
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
   const [cat, setCat] = useState(categories[0]);
+
+  const { products, loading, error } = useProducts();
+
   useEffect(() => {
     setCat(categories[0]);
   }, [categories]);
 
-  /* ---------- tableau traduit ---------- */
   const localisedProducts = useMemo(() => {
     return products.map(p => ({
       ...p,
-      title: t(p.titleKey),
-      description: t(p.descKey),
-      category: t(p.catKey),
-      tag: p.tagKey ? t(p.tagKey) : undefined
+      title: p.name,
+      description: p.description || '',
+      category: p.category,
+      image: p.image1 || '', // Assure-toi que ce soit string, pas null
+      price: Number(p.price), // Converti en number
+      oldPrice: p.old_price ? Number(p.old_price) : undefined, // rename old_price en oldPrice et converti
+      stock: p.stock,
+      rating: 5, // valeur statique pour satisfaire ProductCard
     }));
-  }, [i18n.language]);
+  }, [products, i18n.language]);
+  
 
-  /* ---------- recherche + filtre ---------- */
   const filtered = useMemo(() => {
     const term = search.toLowerCase();
     return localisedProducts.filter(prod => {
@@ -59,18 +62,17 @@ export default function ProductList() {
     [filtered, page]
   );
 
-  /* ---------- rendu ---------- */
   return (
     <Box
       sx={{
         px: { xs: 3, sm: 6, md: 10 },
         py: 6,
         mt: 3,
-        direction: direction,
+        direction,
         fontFamily: direction === 'rtl' ? 'Noto Kufi Arabic, sans-serif' : 'Arial, sans-serif'
       }}
     >
-      {/* --------- En‑tête --------- */}
+      {/* En-tête */}
       <Box
         sx={{
           display: 'flex',
@@ -79,7 +81,7 @@ export default function ProductList() {
           justifyContent: 'space-between',
           gap: 2,
           mb: 4,
-          direction: direction,
+          direction,
           px: { xs: 1, md: 0 }
         }}
       >
@@ -96,7 +98,7 @@ export default function ProductList() {
         </Typography>
 
         <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', alignItems: 'center' }}>
-          {/* barre recherche */}
+          {/* Recherche */}
           <Paper
             component="form"
             sx={{
@@ -109,7 +111,7 @@ export default function ProductList() {
               bg: '#fff',
               border: '1px solid #e0e0e0',
               boxShadow: '0px 2px 4px rgba(0,0,0,0.1)',
-              direction: direction,
+              direction,
             }}
           >
             <SearchIcon sx={{ color: '#153B4C', mr: 1 }} />
@@ -130,7 +132,7 @@ export default function ProductList() {
             />
           </Paper>
 
-          {/* filtre catégorie */}
+          {/* Filtre Catégorie */}
           <Box
             sx={{
               display: 'flex',
@@ -141,7 +143,7 @@ export default function ProductList() {
               backgroundColor: '#0C3547',
               borderRadius: '4px',
               height: 42,
-              direction: direction,
+              direction,
             }}
           >
             <FilterListIcon sx={{ color: '#fff' }} />
@@ -171,8 +173,25 @@ export default function ProductList() {
         </Box>
       </Box>
 
-      {/* --------- Contenu --------- */}
-      {filtered.length === 0 ? (
+      {/* Contenu */}
+      {loading ? (
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                minHeight: '70vh',
+              }}
+            >
+              <CircularProgress />
+            </Box>
+          ) : error ? (
+
+
+        <Typography sx={{ color: 'red', textAlign: 'center', mt: 4 }}>
+          {t('productList.error', { defaultValue: 'Erreur lors du chargement.' })}
+        </Typography>
+      ) : filtered.length === 0 ? (
         <Box
           sx={{
             mt: 10,
@@ -184,7 +203,7 @@ export default function ProductList() {
             px: 3,
             height: '50vh',
             mb: '80px',
-            direction: direction,
+            direction,
           }}
         >
           <Box
@@ -215,7 +234,7 @@ export default function ProductList() {
               justifyContent: paginated.length < ITEMS_PER_ROW_DESKTOP ? 'center' : 'flex-start',
               rowGap: 5,
               columnGap: { xs: 2, sm: 3, md: 2 },
-              direction: direction,
+              direction,
             }}
           >
             {paginated.map(prod => (
@@ -233,7 +252,7 @@ export default function ProductList() {
             ))}
           </Box>
 
-          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4, direction: direction }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4, direction }}>
             <Pagination
               count={Math.ceil(filtered.length / ITEMS_PER_PAGE)}
               page={page}

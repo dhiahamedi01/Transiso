@@ -183,9 +183,12 @@ function Nav() {
                      {t('phoneNumber')}
                   </Typography>
                 </Box>
-                <Button variant="contained" className={styles.trackButton}>
+                <NextLink href="/Login" passHref legacyBehavior>
+                <Button variant="contained" className={styles.trackButton} component="a">
                   {t('trackOrder')}&nbsp;<TrendingUpIcon />
                 </Button>
+              </NextLink>
+
               </Box>
             </>
           )}

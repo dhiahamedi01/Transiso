@@ -1,12 +1,21 @@
+'use client';
+
 import React from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Box, Button } from '@mui/material';
 import FlashOnIcon from '@mui/icons-material/FlashOn';
 import LocalMallIcon from '@mui/icons-material/LocalMall';
 import { useTranslation } from 'react-i18next';
+import Link from 'next/link';
 
-const ProductActions = () => {
+const ProductActions = ({ product }: { product: any }) => {
   const { t } = useTranslation();
+  const router = useRouter();
+
+  const handleCheckout = () => {
+    router.push(`/checkout?productId=${product.id}`);
+  };
+  
 
   return (
     <Box
@@ -23,37 +32,34 @@ const ProductActions = () => {
         },
       }}
     >
-      <Link href="/" legacyBehavior>
-        <a style={{ textDecoration: 'none' }}>
-          <Button
-            variant="contained"
-            size="large"
-            startIcon={<FlashOnIcon />}
-            sx={{
-              py: 1.3,
-              px: 6,
-              width: '270px',
-              fontSize: '1.1rem',
-              display: 'flex',
-              gap: '6px',
-              direction: 'ltr',
-              fontFamily: 'Noto Kufi Arabic',
-              textTransform: 'none',
-              whiteSpace: 'nowrap',
-              backgroundColor: '#E53935',
-              borderRadius: '6px',
-              '&:hover': {
-                backgroundColor: '#E53935',
-              },
-              '@media (max-width: 768px)': {
-                width: '100%',
-              },
-            }}
-          >
-            {t('orderNow')}
-          </Button>
-        </a>
-      </Link>
+      <Button
+        variant="contained"
+        size="large"
+        startIcon={<FlashOnIcon />}
+        onClick={handleCheckout}
+        sx={{
+          py: 1.3,
+          px: 6,
+          width: '270px',
+          fontSize: '1.1rem',
+          display: 'flex',
+          gap: '6px',
+          direction: 'ltr',
+          fontFamily: 'Noto Kufi Arabic',
+          textTransform: 'none',
+          whiteSpace: 'nowrap',
+          backgroundColor: '#E53935',
+          borderRadius: '6px',
+          '&:hover': {
+            backgroundColor: '#E53935',
+          },
+          '@media (max-width: 768px)': {
+            width: '100%',
+          },
+        }}
+      >
+        {t('orderNow')}
+      </Button>
 
       <Link href="/Panier" legacyBehavior>
         <a style={{ textDecoration: 'none' }}>

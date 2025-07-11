@@ -7,7 +7,7 @@ export interface Slide {
 }
 
 export const slides = [
-  { id: 2, image: '/img/Slide/slide2.jpg', icon: '/img/icon/ocean-freight.svg' },
   { id: 3, image: '/img/Slide/slide3.jpg', icon: '/img/icon/cargo.svg' },
-  { id: 4, image: '/img/Slide/airt.jpg',   icon: '/img/icon/air-freight.svg' }
+  { id: 4, image: '/img/Slide/airt.jpg',   icon: '/img/icon/air-freight.svg' },
+  { id: 2, image: '/img/Slide/slide2.jpg', icon: '/img/icon/ocean-freight.svg' }
 ];
