@@ -30,7 +30,6 @@ const ACCOUNT_ITEMS: MenuItem[] = [
   { title: "Current Orders", href: "/Client/Cart", Icon: StorefrontOutlined },
   { title: "Invoices", href: "/Client/Invoices", Icon: ReceiptLongOutlined },
   { title: "Support Contact", href: "/Client/Support", Icon: EmailOutlined },
-  { title: "Change Language", href: "/Client/Language", Icon: GTranslate },
 ];
 
 export default function Sidebar() {

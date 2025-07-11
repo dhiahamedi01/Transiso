@@ -11,6 +11,7 @@ import Footer from '@/Components/Footer/Footer';
 import WhatsappButtons from '@/Components/WhatsappButtons';
 import ScrollToTopButton from '@/Components/ScrollToTopButton';
 import TrendingCarousel from '@/Components/Produit/TrendingCarousel/TrendingCarousel'
+import Carousel from '@/Components/Carrousel/carrousel'
 
 const page = () => {
   return (
@@ -20,6 +21,7 @@ const page = () => {
     <Card/>
     <Section/>
     <br /><br /><br />
+    <Carousel/>
     <TrendingCarousel/>
     <br /><br /><br />
     <HeroSection/>

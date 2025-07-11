@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from '../Service.module.css'
 import Image from 'next/image';
+import Link from 'next/link';
 import FAQ from '@/Components/FAQ/FAQ';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
@@ -35,6 +36,7 @@ function page() {
               لطلب المساعدة يرجى النقر على استفسر الآن وملء المعلومات المطلوبة
               </div>
               <div className={styles.button_demande}>
+              <Link href="/Demande">
                 <button className={styles.btn_arabic}>
                 <Image 
                     src="/img/Background/email.svg" 
@@ -45,6 +47,7 @@ function page() {
                   />
                   استفسر الآن
                 </button>
+              </Link>
               </div>
           </div>
           <div className={styles.bottom_image_container}>

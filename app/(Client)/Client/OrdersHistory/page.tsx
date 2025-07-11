@@ -1,112 +1,101 @@
 "use client";
 
-import React, { useState } from 'react';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import DeleteIcon from '@mui/icons-material/Delete';
-import PrintIcon from '@mui/icons-material/Print';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import InvoiceModal from '@/Components/Dahsboard/Ecommerce/Order/InvoiceModal';
-import { usePrintInvoice, InvoiceData } from '@/hooks/usePrintInvoice';
-import style from '@/Components/Dahsboard/Ecommerce/Order/Order.module.css';
-
-type OrderData = {
-  id: string;
-  recipient: string;
-  date: string;
-  address: string;
-  products: string;
-  status: string;
-  paymentStatus: 'Paid' | 'Unpaid';
-};
+import React, { useState, useRef } from "react";
+import PrintIcon from "@mui/icons-material/Print";
+import InvoiceModal, { OrderData } from "./InvoiceModal";
+import style from "@/Components/Dahsboard/Ecommerce/Order/Order.module.css";
 
 const orders: OrderData[] = [
   {
-    id: '#ORD1001',
-    recipient: 'Amine Chebbi',
-    date: 'July 5, 2025',
-    address: '123 Main Street, Tunis',
-    products: 'Phone, Charger',
-    status: 'Delivered',
-    paymentStatus: 'Paid',
+    id: "#ORD1001",
+    recipient: "Amine Chebbi",
+    date: "July 5, 2025",
+    address: "123 Main Street, Tunis",
+    products: "Phone, Charger",
+    status: "Delivered",
+    paymentStatus: "Paid",
   },
   {
-    id: '#ORD1003',
-    recipient: 'Karim Haddad',
-    date: 'July 3, 2025',
-    address: 'Route de la Marsa, La Marsa',
-    products: 'Books, Pen',
-    status: 'Delayed',
-    paymentStatus: 'Paid',
+    id: "#ORD1003",
+    recipient: "Karim Haddad",
+    date: "July 3, 2025",
+    address: "Route de la Marsa, La Marsa",
+    products: "Books, Pen",
+    status: "Delayed",
+    paymentStatus: "Paid",
   },
   {
-    id: '#ORD1004',
-    recipient: 'Layla Nasser',
-    date: 'July 2, 2025',
-    address: 'Centre ville, Ariana',
-    products: 'Shoes, T-shirt',
-    status: 'Cancelled',
-    paymentStatus: 'Unpaid',
+    id: "#ORD1004",
+    recipient: "Layla Nasser",
+    date: "July 2, 2025",
+    address: "Centre ville, Ariana",
+    products: "Shoes, T-shirt",
+    status: "Cancelled",
+    paymentStatus: "Unpaid",
   },
   {
-    id: '#ORD1006',
-    recipient: 'Rim Mansour',
-    date: 'July 6, 2025',
-    address: 'Rue El Khadra, Sousse',
-    products: 'Camera, Tripod',
-    status: 'In Transit',
-    paymentStatus: 'Unpaid',
+    id: "#ORD1006",
+    recipient: "Rim Mansour",
+    date: "July 6, 2025",
+    address: "Rue El Khadra, Sousse",
+    products: "Camera, Tripod",
+    status: "In Transit",
+    paymentStatus: "Unpaid",
   },
 ];
 
 function OrdersPage() {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [orderList, setOrderList] = useState<OrderData[]>(orders);
-  const { invoiceData, openInvoice, closeInvoice, printInvoice, printRef } = usePrintInvoice();
-  const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
-  const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
 
-  const filteredOrders = orderList.filter(order =>
-    order.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    order.recipient.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    order.status.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    order.address.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    order.products.toLowerCase().includes(searchTerm.toLowerCase())
+  const [selectedOrder, setSelectedOrder] = useState<OrderData | null>(null);
+  const printRef = useRef<HTMLDivElement | null>(null);
+
+  const filteredOrders = orderList.filter(
+    (order) =>
+      order.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      order.recipient.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      order.status.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      order.address.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      order.products.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>, orderId: string) => {
-    setMenuAnchor(event.currentTarget);
-    setSelectedOrderId(orderId);
+  const openInvoiceModal = (order: OrderData) => {
+    setSelectedOrder(order);
   };
 
-  const handleMenuClose = () => {
-    setMenuAnchor(null);
-    setSelectedOrderId(null);
+  const closeInvoiceModal = () => {
+    setSelectedOrder(null);
   };
 
-  const handleChangePaymentStatus = (orderId: string, newStatus: 'Paid' | 'Unpaid') => {
-    const updatedOrders = orderList.map(order =>
-      order.id === orderId ? { ...order, paymentStatus: newStatus } : order
-    );
-    setOrderList(updatedOrders);
-    handleMenuClose();
+  const handlePrint = () => {
+    if (printRef.current) {
+      const printContents = printRef.current.innerHTML;
+      const newWindow = window.open("", "", "width=600,height=600");
+      if (newWindow) {
+        newWindow.document.write("<html><head><title>Facture</title></head><body>");
+        newWindow.document.write(printContents);
+        newWindow.document.write("</body></html>");
+        newWindow.document.close();
+        newWindow.focus();
+        newWindow.print();
+        newWindow.close();
+      }
+    }
   };
 
   const getStatusClass = (status: string) => {
     switch (status) {
-      case 'Delivered':
+      case "Delivered":
         return style.statusDelivered;
-      case 'In Transit':
+      case "In Transit":
         return style.statusInTransit;
-      case 'Delayed':
+      case "Delayed":
         return style.statusDelayed;
-      case 'Cancelled':
+      case "Cancelled":
         return style.statusCancelled;
       default:
-        return '';
+        return "";
     }
   };
 
@@ -137,7 +126,7 @@ function OrdersPage() {
             </tr>
           </thead>
           <tbody>
-            {filteredOrders.map(order => (
+            {filteredOrders.map((order) => (
               <tr key={order.id} className={style.tableRow}>
                 <td className={style.tableData}>{order.id}</td>
                 <td className={style.tableData}>{order.recipient}</td>
@@ -149,23 +138,14 @@ function OrdersPage() {
                     {order.status}
                   </span>
                 </td>
-        
                 <td className={style.tableData}>
-                  <div className={style.actionButtonsWrapper}>
-                    <button className={style.viewButton} title="View details">
-                      <VisibilityIcon fontSize="small" />
-                    </button>
-                    <button className={style.deleteButton} title="Delete">
-                      <DeleteIcon fontSize="small" />
-                    </button>
-                    <button
-                      className={style.printButton}
-                      title="Print invoice"
-
-                    >
-                      <PrintIcon fontSize="small" />
-                    </button>
-                  </div>
+                  <button
+                    className={style.printButton}
+                    title="Print invoice"
+                    onClick={() => openInvoiceModal(order)}
+                  >
+                    <PrintIcon fontSize="small" />
+                  </button>
                 </td>
               </tr>
             ))}
@@ -173,14 +153,15 @@ function OrdersPage() {
         </table>
       </div>
 
-      {invoiceData && (
-        <InvoiceModal
-          data={invoiceData}
-          onClose={closeInvoice}
-          onPrint={printInvoice}
-          printRef={printRef}
-        />
-      )}
+      {selectedOrder && (
+  <InvoiceModal
+    data={selectedOrder}
+    onClose={closeInvoiceModal}
+    onPrint={handlePrint}
+    printRef={printRef}
+  />
+)}
+
     </div>
   );
 }

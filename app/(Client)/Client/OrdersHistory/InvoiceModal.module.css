@@ -1,0 +1,141 @@
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+
+    padding: 20px;
+  }
+  
+  .modalContent {
+    background-color: #fff;
+    max-width: 700px;
+    width: 100%;
+    border-radius: 8px;
+    padding: 30px 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    zoom: 0.8;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #1976d2;
+    padding-bottom: 15px;
+  }
+  
+  .logo {
+    width: 150px;
+    height: auto;
+    margin-right: 20px;
+  }
+  
+  .companyInfo h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #1976d2;
+    font-weight: 700;
+  }
+  
+  .companyInfo p {
+    margin: 3px 0;
+    font-size: 0.9rem;
+  }
+  
+  .clientInfo {
+    margin-bottom: 30px;
+  }
+  
+  .clientInfo h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #1c1c1c;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 8px;
+  }
+  
+  .clientInfo p {
+    font-size: 1rem;
+    margin: 5px 0;
+  }
+  
+  .pricing {
+    margin-bottom: 30px;
+  }
+  
+  .invoiceTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+  }
+  
+  .invoiceTable th,
+  .invoiceTable td {
+    border-bottom: 1px solid #ddd;
+    padding: 12px 10px;
+    text-align: left;
+  }
+  
+  .invoiceTable th {
+    background-color: #f4f4f4;
+    color: #333;
+    font-weight: bold;
+    font-size: 1rem;
+  }
+  
+  .rightAlign {
+    text-align: right;
+  }
+  
+  .totalRow td {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #1976d2;
+    border-top: 2px solid #1976d2;
+    padding-top: 15px;
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+  }
+  
+  .printBtn,
+  .closeBtn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+  
+  .printBtn {
+    background-color: #1976d2;
+    color: white;
+  }
+  
+  .printBtn:hover {
+    background-color: #115293;
+  }
+  
+  .closeBtn {
+    background-color: #ccc;
+    color: #444;
+  }
+  
+  .closeBtn:hover {
+    background-color: #999;
+  }
+  
