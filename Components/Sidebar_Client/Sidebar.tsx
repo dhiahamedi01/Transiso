@@ -27,8 +27,6 @@ const ACCOUNT_ITEMS: MenuItem[] = [
   { title: "Profile Information", href: "/Client/Profile", Icon: GroupOutlined, isProfile: true },
   { title: "Previous Orders", href: "/Client/OrdersHistory", Icon: WorkOutlineOutlined },
   { title: "Shipment Tracking", href: "/Client/TrackingStatus", Icon: TrackChangesOutlined },
-  { title: "Current Orders", href: "/Client/Cart", Icon: StorefrontOutlined },
-  { title: "Invoices", href: "/Client/Invoices", Icon: ReceiptLongOutlined },
   { title: "Support Contact", href: "/Client/Support", Icon: EmailOutlined },
 ];
 

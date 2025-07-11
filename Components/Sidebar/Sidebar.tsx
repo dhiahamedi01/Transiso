@@ -62,7 +62,7 @@ const MENU_SECTIONS: MenuSection[] = [
         Icon: GroupOutlined,
         permission: "manage employe",
         children: [
-          { title: "Employer", href: "/Dashboard/Employe", permission: "manage employe" },
+          { title: "Employe", href: "/Dashboard/Employe", permission: "manage employe" },
           { title: "Permission", href: "/Dashboard/Employe/Permission", permission: "permission" },
         ],
       },
@@ -98,7 +98,7 @@ const MENU_SECTIONS: MenuSection[] = [
           { title: "CMA CGM", href: "/Sales", permission: "tracking" },
         ],
       },
-      { title: "Subscription", href: "/Dashboard/subscription", Icon: CardMembershipIcon, permission: "subscription" },
+      { title: "User", href: "/Dashboard/subscription", Icon: CardMembershipIcon, permission: "subscription" },
       { title: "Contact", href: "/Dashboard/contact", Icon: GroupOutlined, permission: "contact" },
       { title: "Inquiry", href: "/Dashboard/Demandes", Icon: WorkOutlineOutlined, permission: "inquiry" },
       { title: "Calendar", href: "/calendar", Icon: CalendarMonthOutlined, permission: "calendar" },
