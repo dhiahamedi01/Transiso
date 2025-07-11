@@ -1,7 +1,7 @@
-// app/(Initial)/checkout/page.tsx
+export const dynamic = 'force-dynamic';
 
-import CheckoutPage from './CheckoutPage';
+import CheckoutClient from './CheckoutPage';
 
 export default function Page() {
-  return <CheckoutPage />;
+  return <CheckoutClient />;
 }
