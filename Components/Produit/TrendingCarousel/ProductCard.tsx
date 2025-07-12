@@ -8,15 +8,10 @@ import {
   Chip,
   Rating,
   Box,
-  IconButton,
-  Fade,
+  useMediaQuery,
 } from '@mui/material';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 type Product = {
@@ -26,193 +21,142 @@ type Product = {
   oldPrice?: number;
   image: string;
   tag?: string;
-  rating: number; // 🔴 Obligatoire
+  rating: number;
   description: string;
   category?: string;
 };
 
-
 export default function ProductCard({ product }: { product: Product }) {
   const { i18n } = useTranslation();
   const isRTL = i18n.dir() === 'rtl';
-
-  const [hovered, setHovered] = useState(false);
+  const isMobile = useMediaQuery('(max-width:768px)');
 
   return (
     <Link href={`/Liste_produit/${product.id}`} style={{ textDecoration: 'none' }}>
-      <Box sx={{ cursor: 'pointer', height: '100%' }}>
-        <Card
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
+      <Card
+        sx={{
+          width: '100%',
+          height: isMobile ? 280 : 360, // hauteur fixe
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'flex-start', // évite l’espace blanc en bas
+          position: 'relative',
+          borderRadius: '10px',
+          overflow: 'hidden',
+          backgroundColor: '#fff',
+          boxShadow: 1,
+          mb: 2,
+        }}
+      >
+        {product.tag && (
+          <Chip
+            label={product.tag}
+            sx={{
+              position: 'absolute',
+              top: 10,
+              right: isRTL ? undefined : 10,
+              left: isRTL ? 10 : undefined,
+              zIndex: 2,
+              backgroundColor: '#f0a500',
+              color: '#fff',
+              fontFamily: 'Noto Kufi Arabic, sans-serif',
+              fontWeight: 700,
+              borderRadius: '20px',
+              px: 1.5,
+              py: 0.5,
+              fontSize: '0.65rem',
+            }}
+          />
+        )}
+
+        <CardMedia sx={{ height: isMobile ? 130 : 190, position: 'relative' }}>
+          <Image
+            src={product.image ? `/${product.image}` : '/img/no-image.png'}
+            alt={product.title}
+            fill
+            style={{ objectFit: 'cover' }}
+          />
+        </CardMedia>
+
+        <CardContent
           sx={{
-            boxShadow: 3,
-            height: '100%',
-            minHeight: 400,
+            textAlign: isRTL ? 'right' : 'left',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'space-between',
-            position: 'relative',
-            overflow: 'hidden',
-            borderBottom: '1px solid #e0e0e0',
-            zoom: 0.8,
-            direction: isRTL ? 'rtl' : 'ltr',
-            pb: 2,
-            backgroundColor: '#fff',
+            gap: 0.5,
+            px: 1.5,
+            pt: 1,
+            minHeight: 'auto', // laisse la hauteur naturelle au contenu
+            // flexGrow: 1 supprimé pour éviter expansion inutile
           }}
         >
-          {product.tag && (
-            <Chip
-              label={product.tag}
+          {product.category && (
+            <Typography
+              variant="caption"
               sx={{
-                position: 'absolute',
-                top: 10,
-                right: isRTL ? undefined : 10,
-                left: isRTL ? 10 : undefined,
-                zIndex: 2,
-                backgroundColor:
-                  product.tag.includes('%') || product.tag.includes('خصم')
-                    ? '#e53935'
-                    : '#168591',
-                color: '#fff',
                 fontFamily: 'Noto Kufi Arabic, sans-serif',
-                borderRadius: '6px',
-                px: 1,
-                py: 0.5,
-                fontSize: '0.75rem',
-                direction: isRTL ? 'rtl' : 'ltr',
+                color: '#888',
+                fontSize: '0.7rem',
               }}
-            />
+            >
+              {product.category}
+            </Typography>
           )}
 
-          <CardMedia sx={{ height: 300, position: 'relative' }}>
-            <Image
-              src={product.image ? `/${product.image}` : '/img/no-image.png'}
-              alt={product.title}
-              fill
-              style={{ objectFit: 'cover', transition: '0.3s ease' }}
-            />
-            <Box
-              sx={{
-                position: 'absolute',
-                inset: 0,
-                background: hovered ? 'rgba(0,0,0,0.1)' : 'transparent',
-                transition: '0.3s ease',
-                zIndex: 1,
-              }}
-            />
-
-            <Fade in={hovered}>
-              <Box
-                sx={{
-                  position: 'absolute',
-                  bottom: 12,
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  display: 'flex',
-                  gap: 1,
-                  zIndex: 2,
-                }}
-              >
-                {[FavoriteBorderIcon, VisibilityOutlinedIcon, BookmarkBorderOutlinedIcon].map(
-                  (Icon, i) => (
-                    <IconButton
-                      key={i}
-                      sx={{
-                        backgroundColor: '#fff',
-                        p: 1,
-                        '&:hover': { backgroundColor: '#eee' },
-                      }}
-                    >
-                      <Icon fontSize="small" sx={{ color: '#3a3a3a' }} />
-                    </IconButton>
-                  )
-                )}
-              </Box>
-            </Fade>
-          </CardMedia>
-
-          <CardContent
+          <Typography
             sx={{
-              textAlign: isRTL ? 'right' : 'left',
-              flexGrow: 1,
-              display: 'flex',
-              height:'230px',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
+              fontFamily: 'Noto Kufi Arabic, sans-serif',
+              fontWeight: 600,
+              fontSize: '0.8rem',
+              display: '-webkit-box',
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              minHeight: '2.2rem',
             }}
           >
-            {product.category && (
+            {product.title}
+          </Typography>
+
+          <Box sx={{ display: 'flex', alignItems: 'center', mt: 0.5 }}>
+            <Rating value={product.rating} precision={0.1} readOnly size="small" />
+          </Box>
+
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'flex-start',
+              gap: 1,
+              mt: 1,
+            }}
+          >
+            {product.oldPrice && (
               <Typography
-                variant="caption"
+                variant="body2"
                 sx={{
-                  fontFamily: 'Noto Kufi Arabic, sans-serif',
-                  color: '#168591',
-                  display: 'block',
-                  mb: 0.5,
+                  textDecoration: 'line-through',
+                  color: '#999',
                   fontSize: '0.75rem',
                 }}
               >
-                {product.category}
+                €{product.oldPrice.toLocaleString()}
               </Typography>
             )}
-
             <Typography
-              fontWeight={700}
-              fontSize={18}
-              sx={{ fontFamily: 'Noto Kufi Arabic, sans-serif' }}
-            >
-              {product.title}
-            </Typography>
-
-            <Typography
-              variant="body2"
-              color="text.secondary"
+              variant="h6"
               sx={{
-                fontFamily: 'Noto Kufi Arabic, sans-serif',
-                display: '-webkit-box',
-                WebkitLineClamp: 1,         // <- changer à 1 ligne seulement
-                WebkitBoxOrient: 'vertical',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                mt: 0.5,
-                mb: 1,
-                Height: '1.6em',          // ajuster pour une ligne (environ la hauteur d'une ligne)
+                color: '#e64a19',
+                fontSize: '0.85rem',
+                fontWeight: 700,
               }}
             >
-              {product.description}
+              €{product.price.toLocaleString(undefined, { minimumFractionDigits: 2 })}
             </Typography>
-
-
-            <Box sx={{ direction: 'rtl', mb: 1 }}>
-                <Rating
-                  value={product.rating}
-                  precision={0.1}
-                  readOnly
-                  size="small"
-                  sx={{ direction: 'ltr' }}
-                />
-              </Box>
-
-
-            <Typography variant="h6" sx={{ fontFamily: 'Noto Kufi Arabic, sans-serif' }}>
-              ${product.price.toFixed(2)}{' '}
-              {product.oldPrice && (
-                <Typography
-                  component="span"
-                  sx={{
-                    textDecoration: 'line-through',
-                    ml: isRTL ? 0 : 1,
-                    mr: isRTL ? 1 : 0,
-                    color: 'gray',
-                  }}
-                >
-                  ${product.oldPrice.toFixed(2)}
-                </Typography>
-              )}
-            </Typography>
-          </CardContent>
-        </Card>
-      </Box>
+          </Box>
+        </CardContent>
+      </Card>
     </Link>
   );
 }

@@ -94,7 +94,7 @@ const MENU_SECTIONS: MenuSection[] = [
         permission: "tracking",
         children: [
           { title: "ARAMEX", href: "/Dashboard/Tracking", permission: "tracking" },
-          { title: "DHL Group", href: "/Analytics", permission: "tracking" },
+          { title: "DHL Group", href: "/Dashboard/Dhl", permission: "tracking" },
           { title: "CMA CGM", href: "/Sales", permission: "tracking" },
         ],
       },

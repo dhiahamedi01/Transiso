@@ -1,19 +1,23 @@
 'use client';
 
-import { Box, IconButton, Typography, CircularProgress } from '@mui/material';
+import { Box, IconButton, Typography, CircularProgress, useMediaQuery, useTheme } from '@mui/material';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { useEffect } from 'react';
-import { ChevronLeft, ChevronRight, ViewList } from '@mui/icons-material';
+import { ChevronLeft, ChevronRight } from '@mui/icons-material';
 import ProductCard from './ProductCard';
 import { useTranslation } from 'react-i18next';
 import { useProducts } from '@/hooks/useProducts';
+import CarouselHeader from './CarouselHeader';
 
 export default function TrendingCarousel() {
   const { t } = useTranslation();
   const { products, loading, error } = useProducts();
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm')); // mobile ≤600px
 
   useEffect(() => {
     const font = new FontFace(
@@ -42,7 +46,9 @@ export default function TrendingCarousel() {
   if (error || products.length === 0) {
     return (
       <Box sx={{ textAlign: 'center', py: 8 }}>
-        <Typography color="error">{t('productList.noProducts') || 'Aucun produit à afficher.'}</Typography>
+        <Typography color="error">
+          {t('productList.noProducts') || 'Aucun produit à afficher.'}
+        </Typography>
       </Box>
     );
   }
@@ -53,114 +59,98 @@ export default function TrendingCarousel() {
     price: Number(p.price),
     oldPrice: p.old_price ? Number(p.old_price) : undefined,
     image: p.image1 || '/img/no-image.png',
-    rating: 5, // à adapter si tu stockes la note dans la DB plus tard
+    rating: 5,
     description: p.description || '',
     category: p.category,
   }));
 
   return (
-    <Box sx={{ px: 4, py: 6, zoom: '0.9', paddingInline: '80px' }}>
-      <Box
-        sx={{
-          mx: { xs: 2, sm: 5 },
-          mb: 4,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexDirection: { xs: 'column-reverse', sm: 'row' },
-          textAlign: { xs: 'center', sm: 'right' },
-          gap: 2,
-          direction: 'ltr',
-          fontFamily: 'Noto Kufi Arabic, sans-serif',
-        }}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 1,
-            cursor: 'pointer',
-            color: '#000',
-            fontWeight: 'bold',
-            fontSize: { xs: '1rem', sm: '1.2rem' },
-          }}
-        >
-          <ViewList />
-          <Typography component="span" sx={{ userSelect: 'none',
-    fontFamily: 'Noto Kufi Arabic, sans-serif',  }}>
-            {t('productList.categories.0')}
-          </Typography>
-        </Box>
+<Box
+  sx={{
+    px: {
+      xs: 0,      // mobile: 0 padding horizontal
+      sm: 4,      // tablette+ desktop: padding horizontal 4 (32px)
+      md: 8       // desktop large: padding horizontal 6 (48px)
+    },
+    py: 6,
+    pb: 8,
+  }}
+>
 
-        <Typography
-          variant="h5"
-          fontWeight="bold"
-          color="#0D3546"
-          sx={{
-            fontSize: { xs: '1.3rem', sm: '1.6rem' },  fontFamily: 'Noto Kufi Arabic, sans-serif'
-          }}
-        >
-          {t('productList.title')}
-        </Typography>
-      </Box>
+      <CarouselHeader />
 
       <Box sx={{ position: 'relative', '&:hover .nav-button': { opacity: 1 } }}>
-        <IconButton
-          className="nav-button"
-          sx={{
-            position: 'absolute',
-            top: '50%',
-            left: -25,
-            zIndex: 2,
-            transform: 'translateY(-50%)',
-            backgroundColor: 'white',
-            border: '1px solid #ccc',
-            opacity: 0,
-            transition: '0.3s',
-            '&:hover': { backgroundColor: '#f1f1f1' },
-          }}
-          id="prevBtn"
-        >
-          <ChevronLeft />
-        </IconButton>
+        {!isMobile && (
+          <>
+            <IconButton
+              className="nav-button"
+              sx={{
+                position: 'absolute',
+                top: '50%',
+                left: -25,
+                zIndex: 2,
+                transform: 'translateY(-50%)',
+                backgroundColor: 'white',
+                border: '1px solid #ccc',
+                opacity: 0,
+                transition: '0.3s',
+                '&:hover': { backgroundColor: '#f1f1f1' },
+              }}
+              id="prevBtn"
+            >
+              <ChevronLeft />
+            </IconButton>
 
-        <IconButton
-          className="nav-button"
-          sx={{
-            position: 'absolute',
-            top: '50%',
-            right: -25,
-            zIndex: 2,
-            transform: 'translateY(-50%)',
-            backgroundColor: 'white',
-            border: '1px solid #ccc',
-            opacity: 0,
-            transition: '0.3s',
-            '&:hover': { backgroundColor: '#f1f1f1' },
-          }}
-          id="nextBtn"
-        >
-          <ChevronRight />
-        </IconButton>
+            <IconButton
+              className="nav-button"
+              sx={{
+                position: 'absolute',
+                top: '50%',
+                right: -25,
+                zIndex: 2,
+                transform: 'translateY(-50%)',
+                backgroundColor: 'white',
+                border: '1px solid #ccc',
+                opacity: 0,
+                transition: '0.3s',
+                '&:hover': { backgroundColor: '#f1f1f1' },
+              }}
+              id="nextBtn"
+            >
+              <ChevronRight />
+            </IconButton>
+          </>
+        )}
 
-        <Box sx={{ overflow: 'visible', px: 4 }}>
+        <Box sx={{ overflow: 'visible', px: isMobile ? 0 : 1 }}>
           <Swiper
             modules={[Navigation]}
-            navigation={{
-              nextEl: '#nextBtn',
-              prevEl: '#prevBtn',
-            }}
-            spaceBetween={20}
+            navigation={
+              !isMobile
+                ? {
+                    nextEl: '#nextBtn',
+                    prevEl: '#prevBtn',
+                  }
+                : false
+            }
+            spaceBetween={isMobile ? 6 : 12} // espace réduit encore en mobile
             breakpoints={{
-              640: { slidesPerView: 1 },
-              768: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
-              1280: { slidesPerView: 4 },
+              0: { slidesPerView: 2 },
+              768: { slidesPerView: 3 },
+              1024: { slidesPerView: 5 },
             }}
           >
             {topProducts.map((product) => (
               <SwiperSlide key={product.id}>
-                <Box sx={{ mx: 1, height: '100%' }}>
+                <Box
+                  sx={{
+                    maxWidth: isMobile ? 180 : 250, // ↑ largeur un peu plus grande en mobile
+                    height: isMobile ? 310 : '100%',
+                    mx: 'auto',
+                    paddingBottom: '12px',
+                    boxSizing: 'border-box',
+                  }}
+                >
                   <ProductCard product={product} />
                 </Box>
               </SwiperSlide>
