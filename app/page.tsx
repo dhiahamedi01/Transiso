@@ -20,7 +20,6 @@ const page = () => {
     <HeroSlider/>
     <Card/>
     <Section/>
-    <br /><br /><br />
     <Carousel/>
     <TrendingCarousel/>
     <br /><br /><br />

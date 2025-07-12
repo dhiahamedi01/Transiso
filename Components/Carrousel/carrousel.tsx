@@ -12,7 +12,7 @@ export default function Carousel() {
     <div className={Style.section}>
       <div className={Style.carousel_container}>
         <div className={Style.carousel}>
-          {[...images, ...images].map((src, i) => (
+          {[...images].map((src, i) => (
             <div className={Style.image_wrapper} key={i}>
               <img src={src} alt={`Slide ${i}`} className={Style.carousel_image} />
             </div>

@@ -4,14 +4,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #F8F8F8;
   overflow: hidden;
+  /* Optionnel : pour s'assurer qu'il prend toute la largeur disponible */
+  box-sizing: border-box;
+  padding: 0 20px; /* un petit padding horizontal si besoin */
 }
 
 .carousel_container {
-  width: 100%;
+  width: 80%; /* ou max-width: 900px; par ex */
+  max-width: 1000px;
+  margin: 0 auto;
   overflow: hidden;
   position: relative;
 }
+
 
 .carousel {
   display: flex;
@@ -21,7 +28,7 @@
 
 .image_wrapper {
   flex: 0 0 auto;
-  width: 190px; /* largeur fixe pour tous les logos */
+  width: 220px; /* largeur fixe pour tous les logos */
   height: 80px; /* hauteur fixe */
   display: flex;
   align-items: center;
@@ -35,18 +42,6 @@
   object-fit: contain;
 }
 
-/* Animation infinie linéaire */
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(-25%);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
 
 /* Responsive */
 @media (max-width: 1024px) {
