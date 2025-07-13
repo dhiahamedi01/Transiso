@@ -1,8 +1,15 @@
 'use client';
+
 import EditSliderForm from '@/Components/Dahsboard/Manage_site/Slider/SliderForm';
 import { useEffect, useState } from 'react';
 
-export default function EditSliderPage({ params }: { params: { id: string } }) {
+interface EditSliderPageProps {
+  params: {
+    id: string;
+  };
+}
+
+export default function EditSliderPage({ params }: EditSliderPageProps) {
   const [slider, setSlider] = useState<any>(null);
 
   useEffect(() => {
