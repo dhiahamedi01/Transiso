@@ -87,6 +87,15 @@ const MENU_SECTIONS: MenuSection[] = [
           { title: "Add Blog", href: "/Dashboard/AddBlog", permission: "blog" },
         ],
       },
+      { title: "Manage site", href: "", Icon: StorefrontOutlined, permission: "manage site" ,
+        children: [
+          { title: "Image Slider", href: "/Dashboard/Image_Slider", permission: "manage site" },
+          { title: "Service Globale", href: "", permission: "manage site" },
+          { title: "Section Description", href: "", permission: "manage site" },
+          { title: "Banner", href: "/Dashboard/Banner_manage", permission: "manage site" },
+          { title: "Banner Service", href: "", permission: "manage site" },
+          { title: "Service Globale", href: "", permission: "manage site" },
+        ],},
       {
         title: "Tracking",
         href: "",
@@ -105,9 +114,7 @@ const MENU_SECTIONS: MenuSection[] = [
       { title: "Translate", href: "/Translate", Icon: GTranslateIcon, permission: "translate" },
       { title: "Email", href: "/email", Icon: EmailOutlined, permission: "email" },
       { title: "Invoice", href: "/invoice", Icon: ReceiptLongOutlined, permission: "invoice" },
-      { title: "Task", href: "/task", Icon: CheckBoxOutlined, permission: "task" },
-      { title: "Manage site", href: "/manage-site", Icon: StorefrontOutlined, permission: "manage site" },
-      { title: "File Manager", href: "/file-manager", Icon: InsertDriveFileOutlined, permission: "file manager" },
+   
     ],
   },
 ];

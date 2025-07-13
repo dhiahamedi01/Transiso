@@ -181,42 +181,26 @@
   }
 
   @media (max-width: 768px) {
-    .Liste_card {
-      padding-inline: 5px; /* moins de padding horizontal */
-      gap: 35px; /* plus d’espace entre les cartes */
-    }
-  
     .card, .card1, .card2, .card3 {
-      flex: 0 0 calc(50% - 17.5px); /* 2 cartes par ligne avec gap */
-      height: 40vh; /* hauteur un peu plus grande */
+      flex: 0 0 100%; /* une carte par ligne */
+      height: 30vh; /* réduire la hauteur pour mobile */
+      padding: 10px; /* un peu moins de padding */
     }
   
-    /* Rendre l’image de fond plus claire (réduire l’opacité du masque bleu) */
-    .card::before,
-    .card1::before,
-    .card2::before,
-    .card3::before {
-      opacity: 0.15; /* moins sombre */
+    .Liste_card {
+      padding-inline: 20px;
+      gap: 20px;
     }
-  
-    /* Icône plus petite */
-    .icon {
-      width: 50px !important;
-      height: 50px !important;
+    .contenue{
+      top: 2vh;
     }
-  
-    /* Texte et description plus petits */
     .span {
-      font-size: 14px !important;
-      margin-top: 6px !important;
+      font-size: 16px; /* réduire un peu la taille du texte */
     }
   
     .description {
-      font-size: 12px !important;
-      margin-top: 40px !important;
-    }
-    .contenue {
-      top: 2vh !important;  /* remonte le bloc icône + titre */
+      font-size: 14px; /* description plus petite */
+      margin-top: 40px; /* moins d’espace au-dessus */
     }
   }
   

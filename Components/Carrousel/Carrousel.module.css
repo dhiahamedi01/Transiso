@@ -6,30 +6,30 @@
   justify-content: center;
   background-color: #F8F8F8;
   overflow: hidden;
-  /* Optionnel : pour s'assurer qu'il prend toute la largeur disponible */
   box-sizing: border-box;
-  padding: 0 20px; /* un petit padding horizontal si besoin */
+  padding: 0 20px;
 }
 
 .carousel_container {
-  width: 80%; /* ou max-width: 900px; par ex */
+  width: 80%;
   max-width: 1000px;
   margin: 0 auto;
   overflow: hidden;
   position: relative;
 }
 
-
+/* Pour animation fluide, on duplique le contenu à l’intérieur */
 .carousel {
   display: flex;
-  width: max-content;
   animation: scroll 40s linear infinite;
+  /* width auto selon contenu */
 }
 
+/* wrapper fixe taille et centré */
 .image_wrapper {
   flex: 0 0 auto;
-  width: 220px; /* largeur fixe pour tous les logos */
-  height: 80px; /* hauteur fixe */
+  width: 220px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,12 +42,31 @@
   object-fit: contain;
 }
 
+/* Animation défilement horizontal */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-220px - 30px) * 4); /* (largeur+margin) * nombre d’images */
+  }
+}
 
 /* Responsive */
 @media (max-width: 1024px) {
   .image_wrapper {
     width: 120px;
     height: 60px;
+    margin: 0 10px;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-120px - 20px) * 4);
+    }
   }
 }
 
@@ -55,6 +74,16 @@
   .image_wrapper {
     width: 100px;
     height: 50px;
+    margin: 0 8px;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-100px - 16px) * 4);
+    }
   }
 }
 
@@ -62,5 +91,15 @@
   .image_wrapper {
     width: 80px;
     height: 40px;
+    margin: 0 6px;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-80px - 12px) * 4);
+    }
   }
 }

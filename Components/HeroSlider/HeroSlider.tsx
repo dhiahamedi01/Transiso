@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, IconButton } from '@mui/material';
 import { ArrowBackIosNew, ArrowForwardIos } from '@mui/icons-material';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -11,11 +11,33 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-import { slides } from './slidesData';
 import styles from './HeroSlider.module.css';
+
+interface Slide {
+  id: number;
+  Icon: string;
+  Titre: string;
+  Description: string;
+  Image: string;
+}
 
 const HeroSlider: React.FC = () => {
   const { t } = useTranslation('common');
+  const [slides, setSlides] = useState<Slide[]>([]);
+
+  useEffect(() => {
+    const fetchSlides = async () => {
+      try {
+        const res = await fetch('/api/home-slider');
+        const data = await res.json();
+        setSlides(data);
+      } catch (error) {
+        console.error('Erreur lors du chargement des slides:', error);
+      }
+    };
+
+    fetchSlides();
+  }, []);
 
   return (
     <Box
@@ -44,61 +66,57 @@ const HeroSlider: React.FC = () => {
         style={{ height: '100%' }}
         modules={[Navigation, Pagination, Autoplay]}
       >
-        {slides.map(({ id, image, icon }) => {
-          const title = t(`slide${id}Title`);
-          const desc = t(`slide${id}Desc`);
-          return (
-            <SwiperSlide key={id}>
+        {slides.map(({ id, Image: bgImage, Icon: icon, Titre, Description }) => (
+          <SwiperSlide key={id}>
+            <Box
+              sx={{
+                position: 'relative',
+                height: '100%',
+                width: '100%',
+                backgroundImage: `url(${bgImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                px: { xs: 2, sm: 4 },
+              }}
+            >
+              <Box
+                sx={{
+                  position: 'absolute',
+                  inset: 0,
+                  opacity: 0.9,
+                  backgroundColor: 'rgba(13,53,72,0.6)',
+                  zIndex: 1,
+                }}
+              />
               <Box
                 sx={{
                   position: 'relative',
-                  height: '100%',
-                  width: '100%',
-                  backgroundImage: `url(${image})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  px: { xs: 2, sm: 4 },
+                  zIndex: 2,
+                  color: 'white',
+                  textAlign: 'center',
+                  maxWidth: '90%',
+                  mx: 'auto',
                 }}
               >
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    inset: 0,
-                    opacity: 0.9,
-                    backgroundColor: 'rgba(13,53,72,0.6)',
-                    zIndex: 1,
-                  }}
-                />
-                <Box
-                  sx={{
-                    position: 'relative',
-                    zIndex: 2,
-                    color: 'white',
-                    textAlign: 'center',
-                    maxWidth: '90%',
-                    mx: 'auto',
-                  }}
-                >
-                  <div className={styles.contenu_slider}>
-                    <Image
-                      src={icon}
-                      alt="icon"
-                      width={100}
-                      height={100}
-                      className={styles.icon_slider}
-                      style={{ objectFit: 'contain', maxWidth: '100%' }}
-                    />
-                    <h1 className={styles.title}>{title}</h1>
-                    <p className={styles.sous_title}>{desc}</p>
-                  </div>
-                </Box>
+                <div className={styles.contenu_slider}>
+                  <Image
+                    src={icon}
+                    alt="icon"
+                    width={100}
+                    height={100}
+                    className={styles.icon_slider}
+                    style={{ objectFit: 'contain', maxWidth: '100%' }}
+                  />
+                  <h1 className={styles.title}>{Titre}</h1>
+                  <p className={styles.sous_title}>{Description}</p>
+                </div>
               </Box>
-            </SwiperSlide>
-          );
-        })}
+            </Box>
+          </SwiperSlide>
+        ))}
       </Swiper>
 
       {/* Flèches custom */}

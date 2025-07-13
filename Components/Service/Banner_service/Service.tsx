@@ -13,7 +13,7 @@ const Service = () => {
         <div className={styles['Service-logistic']}>
           <div className={styles.part1}>
             <div className={styles['service-title']}>
-            ضمان النقل الآمن !<br />
+            ضمان الشحن الآمن !<br />
             والتسليم السريع
             </div>
             <div className={styles['footer-servcie']}>
@@ -35,7 +35,6 @@ const Service = () => {
             />
           </div>
         </div>
-
         <div className={styles['Service-etape']}>
   <div className={styles.etape1}>
     <div className={styles.icon}>
@@ -47,9 +46,9 @@ const Service = () => {
       />
     </div>
     <div className={styles['etape-text']}>
-      <div className={styles['etape-titre']}>نقل البضائع</div>
+      <div className={styles['etape-titre']}>خدمة الشحن</div>
       <div className={styles['etape-desc']}>
-        نوفر لك نقلًا آمنًا وسريعًا لجميع بضائعك مع خدماتنا المميزة.
+        نقدم لك حلول شحن موثوقة وآمنة تضمن وصول بضائعك بسرعة وكفاءة إلى وجهتها.
       </div>
     </div>
   </div>
@@ -64,9 +63,9 @@ const Service = () => {
       />
     </div>
     <div className={styles['etape-text']}>
-      <div className={styles['etape-titre2']}>التتبع الفوري</div>
+      <div className={styles['etape-titre2']}>تتبع مباشر</div>
       <div className={styles['etape-desc2']}>
-        تتبع حالة شحنتك في كل مرحلة من مراحل النقل.
+        راقب شحنتك لحظة بلحظة من خلال نظام تتبع دقيق وسهل الاستخدام.
       </div>
     </div>
   </div>
@@ -81,13 +80,14 @@ const Service = () => {
       />
     </div>
     <div className={styles['etape-text']}>
-      <div className={styles['etape-titre2']}>دعم على مدار الساعة</div>
+      <div className={styles['etape-titre2']}>دعم فني متواصل</div>
       <div className={styles['etape-desc2']}>
-        استفد من خدمة عملاء متاحة 24 ساعة طوال أيام الأسبوع.
+        فريق دعم متواجد على مدار الساعة لضمان تجربة شحن خالية من المتاعب.
       </div>
     </div>
   </div>
 </div>
+
 
       </div>
     </section>

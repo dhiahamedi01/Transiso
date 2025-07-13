@@ -132,6 +132,9 @@ margin-top: 0px;
     width: 100%;
     height: 100%;
     direction: rtl;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding-right: 10px; padding-right: 10px;
   }
   .etape1{
@@ -139,6 +142,8 @@ margin-top: 0px;
     display: flex;
     text-align: left !important;
     padding-right: 10px;
+    border-right: 1px solid #e3e3e3;
+    border-bottom: 1px solid #e3e3e3;
   }
   
   .icon{
@@ -265,34 +270,38 @@ margin-top: 0px;
     object-fit: cover;
     background-size: contain;
   }
-  
-  
-  @media (max-width: 1024px) {
-    .service_tout {
-      display: none !important;
+  @media (max-width: 1280px) {
+    .Service-etape {
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      width: 95vw;
+      height: auto;
     }
-  .services-section{
-    height: 0px;
+  
+    .etape1, .etape2, .etape3 {
+      width: 90%;
+      height: auto;
+      flex-direction: row;
+      padding: 15px;
+      text-align: right;
+    }
+  
+    .icon {
+      width: 50px;
+    }
+  
+    .icon img {
+      width: 40px;
+    }
+  
+    .etape-text {
+      padding-inline: 15px;
+    }
   }
-    .Card-liste {
-      gap: 10px; 
-    }
   
-    .services-section {
-      padding: 20px; 
-      height: 50vh;
-    }
+
   
-    .section-title {
-      font-size: 22px; 
-    }
-    .services-section .service-box .img-bg {
-      width: 100%;
-      height: 110px;
-      object-fit: cover;
-      background-size: contain;
-    }
-  }
   
   
   @media (max-width: 768px) {

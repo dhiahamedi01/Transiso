@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="66.955" height="53.284" viewBox="0 0 66.955 53.284">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #fff;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-miterlimit: 10;
+        stroke-width: 2px;
+      }
+    </style>
+  </defs>
+  <g id="cargo" transform="translate(1.351 1)">
+    <path id="Path_58969" data-name="Path 58969" class="cls-1" d="M176.746,83.348V80.077h-23.8L137.034,61.01H127.5l4.929,18.511h0a2.531,2.531,0,0,0-2.628,2.529h0a2.531,2.531,0,0,0,2.628,2.529l1.044-.04.008.04,22.207,13.908h21.057V95.2" transform="translate(-112.142 -61.01)"/>
+    <line id="Line_74" data-name="Line 74" class="cls-1" transform="translate(64.606 28.22)"/>
+    <rect id="Rectangle_7023" data-name="Rectangle 7023" class="cls-1" width="19.853" height="16.912" transform="translate(-0.351 28.988)"/>
+    <path id="Path_58970" data-name="Path 58970" class="cls-1" d="M62.89,288.9l-3.945-2.63L55,288.9v-7.89h7.89Z" transform="translate(-49.176 -252.081)"/>
+    <path id="Path_58971" data-name="Path 58971" class="cls-1" d="M48.664,322.317,29.725,333.98H10v5.26H29.684a5.26,5.26,0,0,0,2.754-.779l21.2-13.029Z" transform="translate(-10.093 -287.956)"/>
+    <circle id="Ellipse_123" data-name="Ellipse 123" class="cls-1" cx="3.309" cy="3.309" r="3.309" transform="translate(45.973 44.429)"/>
+    <path id="Path_58972" data-name="Path 58972" class="cls-1" d="M160.124,206.343l-12.5.481A2.531,2.531,0,0,1,145,204.3h0a2.531,2.531,0,0,1,2.628-2.529l12.5.481a2.05,2.05,0,0,1,1.971,2.048h0A2.05,2.05,0,0,1,160.124,206.343Z" transform="translate(-127.341 -183.256)"/>
+    <path id="Path_58973" data-name="Path 58973" class="cls-1" d="M144.063,108.9h-3.812l-2.1-7.89h4.512a1.315,1.315,0,0,1,1.271.976l1.4,5.26A1.315,1.315,0,0,1,144.063,108.9Z" transform="translate(-121.392 -95.75)"/>
+    <line id="Line_75" data-name="Line 75" class="cls-1" y1="1.471" x2="5.882" transform="translate(34.944 19.429)"/>
+    <line id="Line_76" data-name="Line 76" class="cls-1" y1="7.353" transform="translate(51.12 37.811)"/>
+  </g>
+</svg>
