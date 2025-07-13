@@ -3,13 +3,8 @@
 import EditSliderForm from '@/Components/Dahsboard/Manage_site/Slider/SliderForm';
 import { useEffect, useState } from 'react';
 
-interface EditSliderPageProps {
-  params: {
-    id: string;
-  };
-}
-
-export default function EditSliderPage({ params }: EditSliderPageProps) {
+// Correction ici : utilisez directement { params }: { params: { id: string } }
+export default function EditSliderPage({ params }: { params: { id: string } }) {
   const [slider, setSlider] = useState<any>(null);
 
   useEffect(() => {
