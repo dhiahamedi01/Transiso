@@ -107,15 +107,15 @@
 @media (min-width: 1024px) and (max-width: 1280px) {
   .heroContainer,
   .heroContainer2 {
-    flex-direction: row; /* Image et texte côte à côte */
-    align-items: stretch; /* ⚠️ TRÈS IMPORTANT : force les deux colonnes à la même hauteur */
-    height: 60vh; /* ou ajuster selon ton besoin */
-    padding-inline: 60px;
+    flex-direction: row; /* ✅ reste horizontal */
+    height: 60vh; /* ou ajuster selon ton design */
+    align-items: stretch; /* ✅ même hauteur */
+    padding-inline: 40px;
   }
 
   .backgroundImage {
     width: 50%;
-    height: 100%; /* prend toute la hauteur du parent */
+    height: 100%;
     display: block !important;
   }
 
@@ -127,33 +127,48 @@
 
   .contentBox {
     width: 50%;
-    height: 100%; /* prend toute la hauteur du parent */
+    height: 100%; /* ✅ même hauteur que .backgroundImage */
     padding: 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    background-color: #163249;
+    box-sizing: border-box;
+    position: relative; /* 👇 nécessaire pour éviter débordement */
   }
 
   .title {
-    font-size: 20px;
+    font-size: 22px;
     text-align: right;
   }
 
   .description {
-    font-size: 13px;
+    font-size: 14px;
     text-align: right;
-  }
-
-  .btn {
-    width: fit-content;
-    font-size: 13px;
-    height: 45px !important;
+    line-height: 1.8;
   }
 
   .buttonContainer {
     display: flex;
     justify-content: flex-start;
     width: 100%;
+    margin-top: 20px;
+  }
+
+  .btn {
+    height: 45px !important;
+    border-radius: 0 !important;
+    background-color: transparent !important;
+    border: 2px solid #fff !important;
+    font-size: 14px;
+    font-family: 'Cairo', 'Noto Kufi Arabic', sans-serif !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 0 20px;
+    white-space: nowrap;
   }
 }
+
 
