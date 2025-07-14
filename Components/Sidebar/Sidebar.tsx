@@ -91,9 +91,9 @@ const MENU_SECTIONS: MenuSection[] = [
         children: [
           { title: "Image Slider", href: "/Dashboard/Image_Slider", permission: "manage site" },
           { title: "Service Globale", href: "", permission: "manage site" },
-          { title: "Section Description", href: "", permission: "manage site" },
+          { title: "Section Description", href: "/Dashboard/Manage_website/Section_description", permission: "manage site" },
           { title: "Banner", href: "/Dashboard/Banner_manage", permission: "manage site" },
-          { title: "Banner Service", href: "", permission: "manage site" },
+          { title: "Banner Service", href: "/Dashboard/Manage_website/Banner_Service", permission: "manage site" },
           { title: "Service Globale", href: "", permission: "manage site" },
         ],},
       {
