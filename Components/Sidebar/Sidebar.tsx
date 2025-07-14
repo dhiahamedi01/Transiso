@@ -111,10 +111,6 @@ const MENU_SECTIONS: MenuSection[] = [
       { title: "Contact", href: "/Dashboard/contact", Icon: GroupOutlined, permission: "contact" },
       { title: "Inquiry", href: "/Dashboard/Demandes", Icon: WorkOutlineOutlined, permission: "inquiry" },
       { title: "Calendar", href: "/calendar", Icon: CalendarMonthOutlined, permission: "calendar" },
-      { title: "Translate", href: "/Translate", Icon: GTranslateIcon, permission: "translate" },
-      { title: "Email", href: "/email", Icon: EmailOutlined, permission: "email" },
-      { title: "Invoice", href: "/invoice", Icon: ReceiptLongOutlined, permission: "invoice" },
-   
     ],
   },
 ];

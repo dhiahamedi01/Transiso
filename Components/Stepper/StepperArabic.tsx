@@ -209,7 +209,9 @@ export default function StepperArabic() {
                       </Box>
                     }
                   >
+                    <span className={styles.text_step}>
                     {label}
+                    </span>
                   </StepLabel>
                 </Step>
               );

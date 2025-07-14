@@ -174,3 +174,71 @@
 .dateCalendarTypography {
   font-family: "Noto Kufi Arabic", sans-serif !important;
 }
+@media (max-width: 768px) {
+  .basicInput {
+    margin-top: 12px;
+  }
+
+  .formRow {
+    margin-bottom: 16px;
+    gap: 8px;
+  }
+
+  .buttons {
+    margin-top: 16px;
+    gap: 8px;
+  }
+
+  .formTextArea {
+    min-height: 100px;
+  }
+
+  .formLabel,
+  .formLabel2 {
+    margin-bottom: 4px;
+  }
+  .buttons {
+    flex-direction: column;
+    flex-direction: column-reverse; 
+    gap: 12px;
+  }
+   .text_step{
+    display: none !important;
+   }
+  .nextButton,
+  .backButton {
+    width: 100%;
+    padding: 10px 0 !important;
+    font-size: 16px !important;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .stepIcon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .basicInput,
+  .formInput,
+  .formTextArea,
+  .formFile,
+  .dateCalendarRoot {
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  .Arabic2 {
+    font-size: 15px !important;
+  }
+
+  .formLabel,
+  .formLabel2 {
+    font-size: 14px;
+  }
+
+  .stepperContainer {
+    padding: 12px 8px;
+  }
+}

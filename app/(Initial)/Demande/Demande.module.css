@@ -179,3 +179,61 @@
   font-family: "Noto Kufi Arabic", sans-serif !important;
   min-width: 120px;
 }
+/* ---------------------------------- */
+/*  RESPONSIVE                        */
+/* ---------------------------------- */
+
+/* Pour tablettes et mobiles */
+@media (max-width: 1024px) {
+  .Paper {
+    flex-direction: column;
+    flex-direction: column-reverse; 
+    padding-inline: 4%;
+  }
+
+  .Paper_g {
+    width: 100%;
+    margin-bottom: 30px;
+  }
+
+  .Paper_d {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .titre_form {
+    font-size: 13px !important;
+  }
+
+  .Arabic2 {
+    font-size: 18px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .Paper {
+    padding-inline: 2%;
+    padding-top: 30px;
+    padding-bottom: 20px;
+  }
+
+  .formRow {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nextButton,
+  .backButton {
+    width: 100%;
+  }
+}

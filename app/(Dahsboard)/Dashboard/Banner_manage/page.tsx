@@ -6,6 +6,7 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import CloseIcon from '@mui/icons-material/Close';
 import SaveIcon from '@mui/icons-material/Save';
 import { Snackbar, Alert } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 
 const EditBannerForm = () => {
   const [title1, setTitle1] = useState('');
@@ -18,7 +19,6 @@ const EditBannerForm = () => {
   const [image2Url, setImage2Url] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // MUI Snackbar
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [alertSeverity, setAlertSeverity] = useState<'success' | 'error'>('success');
@@ -30,7 +30,6 @@ const EditBannerForm = () => {
     fetch('/api/Manage_website/Banner')
       .then(res => res.json())
       .then(data => {
-        // Supposons que `data` est un objet (pas un tableau)
         setTitle1(data.titre1 || '');
         setTitle2(data.titre2 || '');
         setText1(data.description1 || '');
@@ -39,12 +38,11 @@ const EditBannerForm = () => {
         setImage2Url(data.image2 || '');
       })
       .catch(() => {
-        setAlertMessage("Erreur lors du chargement.");
+        setAlertMessage('Error while loading banner data.');
         setAlertSeverity('error');
         setAlertOpen(true);
       });
   }, []);
-  
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const file = e.target.files?.[0];
@@ -89,14 +87,14 @@ const EditBannerForm = () => {
       });
 
       if (res.ok) {
-        setAlertMessage('✅ Mise à jour réussie !');
+        setAlertMessage('✅ Banner updated successfully!');
         setAlertSeverity('success');
       } else {
-        setAlertMessage('❌ Erreur lors de la mise à jour.');
+        setAlertMessage('❌ Update failed.');
         setAlertSeverity('error');
       }
     } catch (error) {
-      setAlertMessage('Erreur réseau.');
+      setAlertMessage('Network error. Please try again.');
       setAlertSeverity('error');
     } finally {
       setLoading(false);
@@ -106,22 +104,43 @@ const EditBannerForm = () => {
 
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>Modifier la bannière</h3>
+      <h3 className={styles.title}>Edit Banner</h3>
 
       <form className={styles.form} onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-        {/* Titre 1 et Titre 2 */}
         <div style={{ display: 'flex', gap: '20px' }}>
-          <input type="text" value={title1} onChange={(e) => setTitle1(e.target.value)} placeholder="Titre 1" className={styles.searchInputSmall} />
-          <input type="text" value={title2} onChange={(e) => setTitle2(e.target.value)} placeholder="Titre 2" className={styles.searchInputSmall} />
+          <input
+            type="text"
+            value={title1}
+            onChange={(e) => setTitle1(e.target.value)}
+            placeholder="Main Title"
+            className={styles.searchInputSmall}
+          />
+          <input
+            type="text"
+            value={title2}
+            onChange={(e) => setTitle2(e.target.value)}
+            placeholder="Subtitle"
+            className={styles.searchInputSmall}
+          />
         </div>
 
-        {/* Texte 1 et Texte 2 */}
         <div style={{ display: 'flex', gap: '20px' }}>
-          <textarea value={text1} onChange={(e) => setText1(e.target.value)} placeholder="Texte ligne 1" className={styles.searchInputSmall} rows={4} />
-          <textarea value={text2} onChange={(e) => setText2(e.target.value)} placeholder="Texte ligne 2" className={styles.searchInputSmall} rows={4} />
+          <textarea
+            value={text1}
+            onChange={(e) => setText1(e.target.value)}
+            placeholder="Line 1 text"
+            className={styles.searchInputSmall}
+            rows={4}
+          />
+          <textarea
+            value={text2}
+            onChange={(e) => setText2(e.target.value)}
+            placeholder="Line 2 text"
+            className={styles.searchInputSmall}
+            rows={4}
+          />
         </div>
 
-        {/* Uploaders */}
         <div style={{ display: 'flex', gap: '20px' }}>
           {[1, 2].map((index) => {
             const image = index === 1 ? image1 : image2;
@@ -137,9 +156,15 @@ const EditBannerForm = () => {
                 onDragOver={(e) => e.preventDefault()}
               >
                 <CloudUploadIcon className={styles.icon} />
-                <p className={styles.text}>{image ? image.name : `Uploader image ${index}`}</p>
-                <p className={styles.subText}>Taille recommandée : 1200×400 px</p>
-                <input type="file" ref={inputRef} hidden accept="image/*" onChange={(e) => handleImageChange(e, index)} />
+                <p className={styles.text}>{image ? image.name : `Upload Image ${index}`}</p>
+                <p className={styles.subText}>Recommended size: 1200×400 px</p>
+                <input
+                  type="file"
+                  ref={inputRef}
+                  hidden
+                  accept="image/*"
+                  onChange={(e) => handleImageChange(e, index)}
+                />
 
                 {(image || imageUrl) && (
                   <div className={styles.previewContainer}>
@@ -155,7 +180,7 @@ const EditBannerForm = () => {
                       </button>
                       <img
                         src={image ? URL.createObjectURL(image) : imageUrl}
-                        alt="Aperçu"
+                        alt="Preview"
                         className={styles.image}
                       />
                     </div>
@@ -166,13 +191,18 @@ const EditBannerForm = () => {
           })}
         </div>
 
-        {/* ✅ Bouton avec SaveIcon */}
-        <button type="submit" className={styles.primary} disabled={loading}>
-          <SaveIcon fontSize="small" /> {loading ? 'Publishing...' : 'Publish Blog Post'}
-        </button>
+        <LoadingButton
+          type="submit"
+          className={styles.primary}
+          loading={loading}
+          loadingPosition="start"
+          startIcon={<SaveIcon fontSize="small" />}
+          variant="contained"
+        >
+          Save Changes
+        </LoadingButton>
       </form>
 
-      {/* ✅ MUI Alert */}
       <Snackbar
         open={alertOpen}
         autoHideDuration={4000}

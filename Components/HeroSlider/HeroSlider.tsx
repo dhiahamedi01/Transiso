@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-
+import Link  from 'next/link';
 import styles from './HeroSlider.module.css';
 
 interface Slide {
@@ -112,6 +112,34 @@ const HeroSlider: React.FC = () => {
                   />
                   <h1 className={styles.title}>{Titre}</h1>
                   <p className={styles.sous_title}>{Description}</p>
+
+                  {/* Bouton "إستفسر الان" */}
+                  <Box mt={3}>
+                    <Link href="/Demande" style={{ textDecoration: 'none' }}>
+                      <Box
+                        component="button"
+                        sx={{
+                          border: '1px solid white',
+                          color: 'white',
+                          backgroundColor: 'transparent',
+                          px: 3,
+                          py: 1,
+                          cursor: 'pointer',
+                          fontWeight: 'bold',
+                          fontFamily: "'Noto Kufi Arabic', sans-serif",
+                          fontSize: { xs: '0.9rem', sm: '1rem' },
+                          transition: 'background-color 0.3s, color 0.3s',
+                          '&:hover': {
+                            backgroundColor: 'white',
+                            color: '#0D3548',
+                          },
+                        }}
+                        aria-label="إستفسر الان"
+                      >
+                        إستفسر الان !
+                      </Box>
+                    </Link>
+                  </Box>
                 </div>
               </Box>
             </Box>
