@@ -1,9 +1,11 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styles from '@/Components/Dahsboard/Blog/AddBlogForm/BasicInfoCard.module.css';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import CloseIcon from '@mui/icons-material/Close';
+import SaveIcon from '@mui/icons-material/Save';
+import { Snackbar, Alert } from '@mui/material';
 
 const EditBannerForm = () => {
   const [title1, setTitle1] = useState('');
@@ -12,114 +14,175 @@ const EditBannerForm = () => {
   const [text2, setText2] = useState('');
   const [image1, setImage1] = useState<File | null>(null);
   const [image2, setImage2] = useState<File | null>(null);
+  const [image1Url, setImage1Url] = useState('');
+  const [image2Url, setImage2Url] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  // MUI Snackbar
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertSeverity, setAlertSeverity] = useState<'success' | 'error'>('success');
 
   const inputRef1 = useRef<HTMLInputElement | null>(null);
   const inputRef2 = useRef<HTMLInputElement | null>(null);
 
+  useEffect(() => {
+    fetch('/api/Manage_website/Banner')
+      .then(res => res.json())
+      .then(data => {
+        // Supposons que `data` est un objet (pas un tableau)
+        setTitle1(data.titre1 || '');
+        setTitle2(data.titre2 || '');
+        setText1(data.description1 || '');
+        setText2(data.description2 || '');
+        setImage1Url(data.image1 || '');
+        setImage2Url(data.image2 || '');
+      })
+      .catch(() => {
+        setAlertMessage("Erreur lors du chargement.");
+        setAlertSeverity('error');
+        setAlertOpen(true);
+      });
+  }, []);
+  
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    if (index === 1) setImage1(file);
-    else setImage2(file);
+    if (index === 1) {
+      setImage1(file);
+      setImage1Url('');
+    } else {
+      setImage2(file);
+      setImage2Url('');
+    }
   };
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>, index: number) => {
     e.preventDefault();
     const file = e.dataTransfer.files?.[0];
     if (!file) return;
-    if (index === 1) setImage1(file);
-    else setImage2(file);
+    if (index === 1) {
+      setImage1(file);
+      setImage1Url('');
+    } else {
+      setImage2(file);
+      setImage2Url('');
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const formData = new FormData();
+      formData.append('titre1', title1);
+      formData.append('titre2', title2);
+      formData.append('description1', text1);
+      formData.append('description2', text2);
+      if (image1) formData.append('image1', image1);
+      if (image2) formData.append('image2', image2);
+
+      const res = await fetch('/api/Manage_website/Banner', {
+        method: 'PUT',
+        body: formData,
+      });
+
+      if (res.ok) {
+        setAlertMessage('✅ Mise à jour réussie !');
+        setAlertSeverity('success');
+      } else {
+        setAlertMessage('❌ Erreur lors de la mise à jour.');
+        setAlertSeverity('error');
+      }
+    } catch (error) {
+      setAlertMessage('Erreur réseau.');
+      setAlertSeverity('error');
+    } finally {
+      setLoading(false);
+      setAlertOpen(true);
+    }
   };
 
   return (
     <div className={styles.container}>
       <h3 className={styles.title}>Modifier la bannière</h3>
 
-      <form className={styles.form} style={{display:'flex',flexDirection:'column',gap:'10px'}}>
-        {/* Ligne 1 : deux input */}
-        <div className={styles.row}  style={{display:'flex',gap:'20px'}}>
-          <input
-            type="text"
-            placeholder="Titre 1"
-            value={title1}
-            onChange={(e) => setTitle1(e.target.value)}
-            className={styles.searchInputSmall}
-          />
-          <input
-            type="text"
-            placeholder="Titre 2"
-            value={title2}
-            onChange={(e) => setTitle2(e.target.value)}
-            className={styles.searchInputSmall}
-          />
+      <form className={styles.form} onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        {/* Titre 1 et Titre 2 */}
+        <div style={{ display: 'flex', gap: '20px' }}>
+          <input type="text" value={title1} onChange={(e) => setTitle1(e.target.value)} placeholder="Titre 1" className={styles.searchInputSmall} />
+          <input type="text" value={title2} onChange={(e) => setTitle2(e.target.value)} placeholder="Titre 2" className={styles.searchInputSmall} />
         </div>
 
-        {/* Ligne 2 : deux textarea */}
-        <div className={styles.row} style={{display:'flex',gap:'20px'}}>
-          <textarea
-            placeholder="Texte ligne 1"
-            value={text1}
-            onChange={(e) => setText1(e.target.value)}
-            className={styles.searchInputSmall}
-            rows={4}
-          />
-          <textarea
-            placeholder="Texte ligne 2"
-            value={text2}
-            onChange={(e) => setText2(e.target.value)}
-            className={styles.searchInputSmall}
-            rows={4}
-          />
+        {/* Texte 1 et Texte 2 */}
+        <div style={{ display: 'flex', gap: '20px' }}>
+          <textarea value={text1} onChange={(e) => setText1(e.target.value)} placeholder="Texte ligne 1" className={styles.searchInputSmall} rows={4} />
+          <textarea value={text2} onChange={(e) => setText2(e.target.value)} placeholder="Texte ligne 2" className={styles.searchInputSmall} rows={4} />
         </div>
 
-       {/* Ligne 3 : deux uploaders côte à côte */}
-<div className={styles.row} style={{ display: 'flex', gap: '20px' }}>
-  {[1, 2].map((index) => {
-    const image = index === 1 ? image1 : image2;
-    const inputRef = index === 1 ? inputRef1 : inputRef2;
+        {/* Uploaders */}
+        <div style={{ display: 'flex', gap: '20px' }}>
+          {[1, 2].map((index) => {
+            const image = index === 1 ? image1 : image2;
+            const inputRef = index === 1 ? inputRef1 : inputRef2;
+            const imageUrl = index === 1 ? image1Url : image2Url;
 
-    return (
-      <div
-        key={index}
-        className={styles.dropZone}
-        onClick={() => inputRef.current?.click()}
-        onDrop={(e) => handleDrop(e, index)}
-        onDragOver={(e) => e.preventDefault()}
-      >
-        <CloudUploadIcon className={styles.icon} />
-        <p className={styles.text}>
-          {image ? image.name : `Uploader image ${index}`}
-        </p>
-        <p className={styles.subText}>Taille recommandée : 1200×400 px</p>
-        <input
-          ref={inputRef}
-          type="file"
-          hidden
-          accept="image/*"
-          onChange={(e) => handleImageChange(e, index)}
-        />
-
-        {image && (
-          <div className={styles.previewContainer}>
-            <div className={styles.imageWrapper}>
-              <button
-                type="button"
-                className={styles.deleteBtn}
-                onClick={() => index === 1 ? setImage1(null) : setImage2(null)}
-                aria-label="Supprimer l'image"
+            return (
+              <div
+                key={index}
+                className={styles.dropZone}
+                onClick={() => inputRef.current?.click()}
+                onDrop={(e) => handleDrop(e, index)}
+                onDragOver={(e) => e.preventDefault()}
               >
-                <CloseIcon fontSize="small" />
-              </button>
-              <img src={URL.createObjectURL(image)} alt="Aperçu" className={styles.image} />
-            </div>
-          </div>
-        )}
-      </div>
-    );
-  })}
-</div>
+                <CloudUploadIcon className={styles.icon} />
+                <p className={styles.text}>{image ? image.name : `Uploader image ${index}`}</p>
+                <p className={styles.subText}>Taille recommandée : 1200×400 px</p>
+                <input type="file" ref={inputRef} hidden accept="image/*" onChange={(e) => handleImageChange(e, index)} />
 
+                {(image || imageUrl) && (
+                  <div className={styles.previewContainer}>
+                    <div className={styles.imageWrapper}>
+                      <button
+                        type="button"
+                        className={styles.deleteBtn}
+                        onClick={() => {
+                          index === 1 ? (setImage1(null), setImage1Url('')) : (setImage2(null), setImage2Url(''));
+                        }}
+                      >
+                        <CloseIcon fontSize="small" />
+                      </button>
+                      <img
+                        src={image ? URL.createObjectURL(image) : imageUrl}
+                        alt="Aperçu"
+                        className={styles.image}
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* ✅ Bouton avec SaveIcon */}
+        <button type="submit" className={styles.primary} disabled={loading}>
+          <SaveIcon fontSize="small" /> {loading ? 'Publishing...' : 'Publish Blog Post'}
+        </button>
       </form>
+
+      {/* ✅ MUI Alert */}
+      <Snackbar
+        open={alertOpen}
+        autoHideDuration={4000}
+        onClose={() => setAlertOpen(false)}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert severity={alertSeverity} onClose={() => setAlertOpen(false)} sx={{ width: '100%' }}>
+          {alertMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
