@@ -2,23 +2,33 @@
 
 import EditSliderForm from '@/Components/Dahsboard/Manage_site/Slider/SliderForm';
 import { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
 
-// Correction ici : utilisez directement { params }: { params: { id: string } }
-export default function EditSliderPage({ params }: { params: { id: string } }) {
+export default function EditSliderPage() {
+  const params = useParams();
+  const idParam = params?.id;
+
+  // idParam est string | string[] | undefined
+  // Ici on prend uniquement le premier si c'est un tableau
+  const id = Array.isArray(idParam) ? idParam[0] : idParam;
+
   const [slider, setSlider] = useState<any>(null);
 
   useEffect(() => {
-    fetch(`/api/home-slider/${params.id}`)
+    if (!id) return;
+
+    fetch(`/api/home-slider/${id}`)
       .then(res => res.json())
       .then(setSlider)
       .catch(() => alert('Failed to load slider'));
-  }, [params.id]);
+  }, [id]);
 
+  if (!id) return <p>Id missing</p>;
   if (!slider) return <p>Loading...</p>;
 
   return (
     <EditSliderForm
-      id={params.id}
+      id={id}  // Ici id est bien une string simple
       initialTitle={slider.Titre}
       initialDescription={slider.Description}
       initialIconUrl={slider.Icon}
