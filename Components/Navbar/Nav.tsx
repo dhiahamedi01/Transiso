@@ -171,14 +171,17 @@ function Nav() {
                   <SearchIcon className={styles.searchIcon} />
                 </IconButton>
                 <Divider orientation="vertical" flexItem />
-                <Box className={styles.phoneBox}>
-                  <Box className={styles.phoneIconCircle}>
-                    <PhoneIcon className={styles.phoneIcon} />
+                <Link href={`tel:${t('phoneNumber')}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <Box className={styles.phoneBox}>
+                    <Box className={styles.phoneIconCircle}>
+                      <PhoneIcon className={styles.phoneIcon} />
+                    </Box>
+                    <Typography className={styles.phoneNumber}>
+                      {t('phoneNumber')}
+                    </Typography>
                   </Box>
-                  <Typography className={styles.phoneNumber}>
-                    {t('phoneNumber')}
-                  </Typography>
-                </Box>
+                </Link>
+
                 <Link href="/Login">
                   <Button variant="contained" className={styles.trackButton}>
                     {t('trackOrder')}&nbsp;<TrendingUpIcon />
