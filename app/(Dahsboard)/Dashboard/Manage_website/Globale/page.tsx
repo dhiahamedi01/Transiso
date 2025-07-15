@@ -16,7 +16,6 @@ import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Avatar from '@mui/material/Avatar';
-import InputAdornment from '@mui/material/InputAdornment';
 import Button from '@mui/material/Button';
 import { blue } from '@mui/material/colors';
 
@@ -83,11 +82,11 @@ export default function WebsiteSettingsTabs() {
   const [footerDesc, setFooterDesc] = React.useState('');
   const [socialLinks, setSocialLinks] = React.useState<SocialLink[]>([]);
 
-  // Nouveaux états pour horaires
+  // New states for opening hours
   const [openingTime, setOpeningTime] = React.useState('09:00');
   const [closingTime, setClosingTime] = React.useState('18:00');
 
-  // Etats SMTP
+  // SMTP states
   const [smtpHost, setSmtpHost] = React.useState('');
   const [smtpPort, setSmtpPort] = React.useState('');
   const [smtpUser, setSmtpUser] = React.useState('');
@@ -152,7 +151,7 @@ export default function WebsiteSettingsTabs() {
         boxShadow: 4,
         mt: 8,
         mx: 'auto',
-        pb: 7, // plus de padding pour footer
+        pb: 7, // more padding for footer
       }}
     >
       <AppBar position="static" color="default">
@@ -165,231 +164,222 @@ export default function WebsiteSettingsTabs() {
           aria-label="website settings tabs"
         >
           <Tab label="Logo" id="action-tab-0" aria-controls="action-tabpanel-0" />
-          <Tab label="Réseaux sociaux" id="action-tab-1" aria-controls="action-tabpanel-1" />
+          <Tab label="Social Media" id="action-tab-1" aria-controls="action-tabpanel-1" />
           <Tab label="Footer" id="action-tab-2" aria-controls="action-tabpanel-2" />
           <Tab label="SMTP Email" id="action-tab-3" aria-controls="action-tabpanel-3" />
         </Tabs>
       </AppBar>
 
-  {/* Tab 0 : Logo Upload */}
-<TabPanel value={value} index={0}>
-  <Typography variant="h6" gutterBottom>
-    Uploader le logo du site
-  </Typography>
-  <Box
-    sx={{
-      width: 600,
-      height: 160,
-      borderRadius: 3,
-      border: `2px dashed ${blue[400]}`,
-      bgcolor: logo ? 'transparent' : '#f9f9f9',
-      cursor: 'pointer',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      color: blue[400],
-      position: 'relative',
-      overflow: 'hidden',
-      mx: 'auto',
-      transition: 'background-color 0.3s, border-color 0.3s',
-      '&:hover': {
-        bgcolor: logo ? 'transparent' : '#e3f2fd',
-        borderColor: blue[600],
-      },
-    }}
-    onClick={() => {
-      const input = document.getElementById('logo-upload-input');
-      input?.click();
-    }}
-  >
-    {logo ? (
-      <Avatar
-        src={logo}
-        alt="Logo du site"
-        variant="rounded"
-        sx={{ width: '100%', height: '100%', borderRadius: 3 }}
-      />
-    ) : (
-      <>
-        <UploadFileIcon sx={{ fontSize: 48, mb: 1 }} />
-        <Typography variant="body2" textAlign="center" sx={{ px: 2 }}>
-          Glissez-déposez votre logo ici ou cliquez pour choisir un fichier
+      {/* Tab 0: Logo Upload */}
+      <TabPanel value={value} index={0}>
+        <Typography variant="h6" gutterBottom>
+          Upload Website Logo
         </Typography>
-      </>
-    )}
+        <Box
+          sx={{
+            width: 600,
+            height: 160,
+            borderRadius: 3,
+            border: `2px dashed ${blue[400]}`,
+            bgcolor: logo ? 'transparent' : '#f9f9f9',
+            cursor: 'pointer',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            color: blue[400],
+            position: 'relative',
+            overflow: 'hidden',
+            mx: 'auto',
+            transition: 'background-color 0.3s, border-color 0.3s',
+            '&:hover': {
+              bgcolor: logo ? 'transparent' : '#e3f2fd',
+              borderColor: blue[600],
+            },
+          }}
+          onClick={() => {
+            const input = document.getElementById('logo-upload-input');
+            input?.click();
+          }}
+        >
+          {logo ? (
+            <Avatar
+              src={logo}
+              alt="Website Logo"
+              variant="rounded"
+              sx={{ width: '100%', height: '100%', borderRadius: 3 }}
+            />
+          ) : (
+            <>
+              <UploadFileIcon sx={{ fontSize: 48, mb: 1 }} />
+              <Typography variant="body2" textAlign="center" sx={{ px: 2 }}>
+                Drag & drop your logo here or click to select a file
+              </Typography>
+            </>
+          )}
 
-    <input
-      id="logo-upload-input"
-      type="file"
-      accept="image/*"
-      hidden
-      onChange={handleLogoUpload}
-      onClick={(e) => e.stopPropagation()} // éviter ouverture double
-    />
-  </Box>
-</TabPanel>
+          <input
+            id="logo-upload-input"
+            type="file"
+            accept="image/*"
+            hidden
+            onChange={handleLogoUpload}
+            onClick={(e) => e.stopPropagation()} // prevent double open
+          />
+        </Box>
+      </TabPanel>
 
+      {/* Tab 1: Social Media Links */}
+      <TabPanel value={value} index={1}>
+        <Typography variant="h6" gutterBottom>
+          Manage Social Media Links
+        </Typography>
 
+        {socialLinks.length === 0 && (
+          <Typography color="text.secondary" sx={{ mb: 2 }}>
+            No social links added. Click + to add one.
+          </Typography>
+        )}
 
+        {socialLinks.map((link, idx) => (
+          <Box
+            key={idx}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 2,
+              mb: 2,
+            }}
+          >
+            <TextField
+              fullWidth
+              variant="outlined"
+              placeholder="Social media URL"
+              value={link.url}
+              onChange={(e) => updateSocialLink(idx, 'url', e.target.value)}
+            />
 
+            <Select
+              value={link.platform}
+              onChange={(e) =>
+                updateSocialLink(idx, 'platform', e.target.value as keyof typeof socialIconComponents)
+              }
+              variant="outlined"
+              sx={{
+                width: 56,
+                height: 55,
+                borderRadius: 1,
+                bgcolor: socialColors[link.platform],
+                color: 'white',
+                // Remove arrow
+                '& .MuiSelect-icon': {
+                  display: 'none',
+                },
+                // Remove border on focus
+                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'transparent',
+                },
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'transparent',
+                },
+                '&:hover .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'transparent',
+                },
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: 0,
+              }}
+              MenuProps={{
+                PaperProps: {
+                  sx: {
+                    mt: 1,
+                    '& .MuiMenuItem-root': {
+                      display: 'flex',
+                      justifyContent: 'center',
+                      padding: 1,
+                      borderRadius: 0,
+                    },
+                    '& .MuiMenuItem-root.Mui-selected': {
+                      bgcolor: (theme) => theme.palette.action.selected,
+                      '& svg': {
+                        color: (theme) => theme.palette.primary.main,
+                      },
+                    },
+                  },
+                },
+              }}
+            >
+              {Object.entries(socialIconComponents).map(([platform, icon]) => (
+                <MenuItem
+                  key={platform}
+                  value={platform}
+                  sx={{
+                    minWidth: 40,
+                    bgcolor: socialColors[platform as keyof typeof socialIconComponents],
+                    borderRadius: 1,
+                    '&:hover': {
+                      bgcolor: socialColors[platform as keyof typeof socialIconComponents],
+                      opacity: 0.8,
+                    },
+                    '& svg': {
+                      color: 'white',
+                    },
+                  }}
+                >
+                  {icon}
+                </MenuItem>
+              ))}
+            </Select>
 
+            <IconButton
+              aria-label="delete link"
+              onClick={() => removeSocialLink(idx)}
+              color="error"
+              size="large"
+            >
+              <DeleteIcon />
+            </IconButton>
+          </Box>
+        ))}
 
+        {socialLinks.length > 0 && (
+          <Box sx={{ textAlign: 'center', mt: 3 }}>
+            <Button
+              variant="contained"
+              onClick={() => {
+                console.log('Submitting all social links:', socialLinks);
+              }}
+            >
+              Submit
+            </Button>
+          </Box>
+        )}
 
-<TabPanel value={value} index={1}>
-  <Typography variant="h6" gutterBottom>
-    Gestion des liens réseaux sociaux
-  </Typography>
+        <Zoom
+          in={value === 1}
+          timeout={theme.transitions.duration.enteringScreen}
+          style={{
+            transitionDelay: `${value === 1 ? theme.transitions.duration.leavingScreen : 0}ms`,
+          }}
+          unmountOnExit
+        >
+          <Fab color="primary" aria-label="add social link" sx={fabStyle} onClick={addSocialLink}>
+            <AddIcon />
+          </Fab>
+        </Zoom>
+      </TabPanel>
 
-  {socialLinks.length === 0 && (
-    <Typography color="text.secondary" sx={{ mb: 2 }}>
-      Aucun lien social ajouté. Cliquez sur + pour en ajouter.
-    </Typography>
-  )}
-
-  {socialLinks.map((link, idx) => (
-    <Box
-      key={idx}
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: 2,
-        mb: 2,
-      }}
-    >
-      <TextField
-        fullWidth
-        variant="outlined"
-        placeholder="URL du réseau social"
-        value={link.url}
-        onChange={(e) => updateSocialLink(idx, 'url', e.target.value)}
-      />
-
-<Select
-  value={link.platform}
-  onChange={(e) =>
-    updateSocialLink(idx, 'platform', e.target.value as keyof typeof socialIconComponents)
-  }
-  variant="outlined"
-  sx={{
-    width: 56,
-    height: 55,
-    borderRadius: 1,
-    bgcolor: socialColors[link.platform],
-    color: 'white',
-    // Supprimer la flèche
-    '& .MuiSelect-icon': {
-      display: 'none',
-    },
-    // Supprimer la bordure au focus
-    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-      borderColor: 'transparent',
-    },
-    '& .MuiOutlinedInput-notchedOutline': {
-      borderColor: 'transparent',
-    },
-    '&:hover .MuiOutlinedInput-notchedOutline': {
-      borderColor: 'transparent',
-    },
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 0,
-  }}
-  MenuProps={{
-    PaperProps: {
-      sx: {
-        mt: 1,
-        // On force les couleurs des icônes dans le menu
-        '& .MuiMenuItem-root': {
-          display: 'flex',
-          justifyContent: 'center',
-          padding: 1,
-          borderRadius: 0,
-        },
-        '& .MuiMenuItem-root.Mui-selected': {
-          bgcolor: (theme) => theme.palette.action.selected, // ou une couleur plus discrète
-          '& svg': {
-            color: (theme) => theme.palette.primary.main,
-          },
-        },
-      },
-    },
-  }}
->
-  {Object.entries(socialIconComponents).map(([platform, icon]) => (
-    <MenuItem
-      key={platform}
-      value={platform}
-      sx={{
-        minWidth: 40,
-        bgcolor: socialColors[platform as keyof typeof socialIconComponents],
-        borderRadius: 1,
-        '&:hover': {
-          bgcolor: socialColors[platform as keyof typeof socialIconComponents],
-          opacity: 0.8,
-        },
-        '& svg': {
-          color: 'white',
-        },
-      }}
-    >
-      {icon}
-    </MenuItem>
-  ))}
-</Select>
-
-
-      <IconButton
-        aria-label="supprimer le lien"
-        onClick={() => removeSocialLink(idx)}
-        color="error"
-        size="large"
-      >
-        <DeleteIcon />
-      </IconButton>
-    </Box>
-  ))}
-
-  {socialLinks.length > 0 && (
-    <Box sx={{ textAlign: 'center', mt: 3 }}>
-      <Button
-        variant="contained"
-        onClick={() => {
-          console.log('Soumission de tous les liens:', socialLinks);
-        }}
-      >
-        Submit
-      </Button>
-    </Box>
-  )}
-
-  <Zoom
-    in={value === 1}
-    timeout={theme.transitions.duration.enteringScreen}
-    style={{
-      transitionDelay: `${value === 1 ? theme.transitions.duration.leavingScreen : 0}ms`,
-    }}
-    unmountOnExit
-  >
-    <Fab color="primary" aria-label="ajouter un lien social" sx={fabStyle} onClick={addSocialLink}>
-      <AddIcon />
-    </Fab>
-  </Zoom>
-</TabPanel>
-
-
-
-      {/* Tab 2 : Footer Description + horaires */}
+      {/* Tab 2: Footer Description + Hours */}
       <TabPanel value={value} index={2}>
         <Typography variant="h6" gutterBottom>
-          Description du footer
+          Footer Description
         </Typography>
         <TextField
           fullWidth
           multiline
           minRows={4}
-          placeholder="Entrez la description du footer ici..."
+          placeholder="Enter footer description here..."
           value={footerDesc}
           onChange={(e) => setFooterDesc(e.target.value)}
           variant="outlined"
@@ -397,11 +387,11 @@ export default function WebsiteSettingsTabs() {
         />
 
         <Typography variant="subtitle1" gutterBottom>
-          Horaires d'ouverture et de fermeture
+          Opening and Closing Hours
         </Typography>
         <Box sx={{ display: 'flex', gap: 2 }}>
           <TextField
-            label="Ouverture"
+            label="Opening"
             type="time"
             value={openingTime}
             onChange={(e) => setOpeningTime(e.target.value)}
@@ -409,7 +399,7 @@ export default function WebsiteSettingsTabs() {
             inputProps={{ step: 300 }}
           />
           <TextField
-            label="Fermeture"
+            label="Closing"
             type="time"
             value={closingTime}
             onChange={(e) => setClosingTime(e.target.value)}
@@ -419,10 +409,10 @@ export default function WebsiteSettingsTabs() {
         </Box>
       </TabPanel>
 
-      {/* Tab 3 : SMTP Email Form */}
+      {/* Tab 3: SMTP Email Form */}
       <TabPanel value={value} index={3}>
         <Typography variant="h6" gutterBottom>
-          Configuration SMTP Email
+          SMTP Email Configuration
         </Typography>
         <Box
           component="form"
@@ -443,25 +433,25 @@ export default function WebsiteSettingsTabs() {
             required
           />
           <TextField
-            label="Utilisateur"
+            label="User"
             value={smtpUser}
             onChange={(e) => setSmtpUser(e.target.value)}
             required
           />
           <TextField
-            label="Mot de passe"
+            label="Password"
             type="password"
             value={smtpPass}
             onChange={(e) => setSmtpPass(e.target.value)}
             required
           />
           <Button type="submit" variant="contained">
-            Sauvegarder SMTP
+            Save SMTP
           </Button>
         </Box>
       </TabPanel>
 
-      {/* Footer affichant horaires */}
+      {/* Footer showing hours */}
       <Box
         component="footer"
         sx={{
@@ -477,7 +467,7 @@ export default function WebsiteSettingsTabs() {
           fontSize: '0.875rem',
         }}
       >
-        Ouverture: {openingTime} — Fermeture: {closingTime}
+        Opening: {openingTime} — Closing: {closingTime}
       </Box>
     </Box>
   );
