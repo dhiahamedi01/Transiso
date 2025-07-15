@@ -97,9 +97,16 @@ export default function Produit_detaille({ product }: { product: any }) {
 
           <span className={Style.text_head}>
             <span className={Style.titre}>{product.name}</span>
-            <span className={Style.price}>
-              ${typeof product.price === 'number' ? product.price.toFixed(2) : product.price ?? 'N/A'}
-            </span>
+            <div className={Style.flous}>
+                <span className={Style.price}>
+                  ${typeof product.price === 'number' ? product.price.toFixed(2) : product.price ?? 'N/A'}
+                </span>
+                 {product.old_price && (
+                  <span className={Style.price_avant2}>
+                    {t('oldPrice', { price: `$${Number(product.old_price).toFixed(2)}` })}
+                  </span>
+                )}
+            </div>
           </span>
 
           <br />

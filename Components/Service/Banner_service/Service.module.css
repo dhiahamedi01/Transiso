@@ -270,33 +270,50 @@ margin-top: 0px;
     object-fit: cover;
     background-size: contain;
   }
-  @media (max-width: 1280px) {
-    .Service-etape {
-      flex-wrap: wrap;
-      gap: 10px;
+  @media (min-width: 1024px) and (max-width: 1380px) {
+    .services-section{
+      zoom: 0.9;
+      margin-top: 40px;
+    }
+    .Service-logistic{
+      background-image: url('/img/content-bg-3.jpg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 43vh;
+      width: 170vh;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      overflow: visible;
+
+    }
+    .etape-text{
+      display: flex;
+      height: 100%;
+      flex-direction: column;
+      padding-top: 20px;
+      padding-inline: 20px;
+    }
+    .Service-etape{
+      height: 24vh;
+      width: 170vh;
       justify-content: center;
-      width: 95vw;
-      height: auto;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+      padding-top: 0 !important;
     }
-  
-    .etape1, .etape2, .etape3 {
-      width: 90%;
-      height: auto;
-      flex-direction: row;
-      padding: 15px;
-      text-align: right;
-    }
-  
-    .icon {
-      width: 50px;
-    }
-  
-    .icon img {
-      width: 40px;
-    }
-  
-    .etape-text {
-      padding-inline: 15px;
+    .etape1,.etape2,.etape3{
+      width: 100%;
+      height: 100%;
+      direction: rtl;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-right: 10px; 
+
     }
   }
   
@@ -309,7 +326,9 @@ margin-top: 0px;
       justify-content: center;
       gap: 10px
     }
-  
+    .services-section{
+      display: none !important;
+    }
     .services-section .service-box {
       width: 100%; 
     }

@@ -58,7 +58,7 @@ const SectionFormGlobalTop = () => {
   return (
     <Box className={styles.container}>
       <Typography variant="h5" className={styles.title}>
-        Formulaire avec input global en haut + 3 sections
+        Form Banner Service
       </Typography>
 <br />
       <form onSubmit={handleSubmit} className={styles.form} noValidate>

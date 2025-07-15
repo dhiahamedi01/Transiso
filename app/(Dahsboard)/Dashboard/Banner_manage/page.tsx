@@ -5,7 +5,7 @@ import styles from '@/Components/Dahsboard/Blog/AddBlogForm/BasicInfoCard.module
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import CloseIcon from '@mui/icons-material/Close';
 import SaveIcon from '@mui/icons-material/Save';
-import { Snackbar, Alert } from '@mui/material';
+import { Snackbar, Alert, CircularProgress, Box } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 
 const EditBannerForm = () => {
@@ -18,6 +18,7 @@ const EditBannerForm = () => {
   const [image1Url, setImage1Url] = useState('');
   const [image2Url, setImage2Url] = useState('');
   const [loading, setLoading] = useState(false);
+  const [pageLoading, setPageLoading] = useState(true); // 👉 Nouvelle variable pour loading initial
 
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
@@ -41,6 +42,9 @@ const EditBannerForm = () => {
         setAlertMessage('Error while loading banner data.');
         setAlertSeverity('error');
         setAlertOpen(true);
+      })
+      .finally(() => {
+        setPageLoading(false); // ✅ On cache le spinner quand les données sont prêtes
       });
   }, []);
 
@@ -102,43 +106,36 @@ const EditBannerForm = () => {
     }
   };
 
+  // ⏳ Affichage du loader pleine page pendant le fetch
+  if (pageLoading) {
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        height="60vh"
+        width="100%"
+        flexDirection="column"
+      >
+        <CircularProgress size={48} />
+        <p style={{ marginTop: '10px', color: '#666' }}>Loading banner data...</p>
+      </Box>
+    );
+  }
+
   return (
     <div className={styles.container}>
       <h3 className={styles.title}>Edit Banner</h3>
 
       <form className={styles.form} onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
         <div style={{ display: 'flex', gap: '20px' }}>
-          <input
-            type="text"
-            value={title1}
-            onChange={(e) => setTitle1(e.target.value)}
-            placeholder="Main Title"
-            className={styles.searchInputSmall}
-          />
-          <input
-            type="text"
-            value={title2}
-            onChange={(e) => setTitle2(e.target.value)}
-            placeholder="Subtitle"
-            className={styles.searchInputSmall}
-          />
+          <input type="text" value={title1} onChange={(e) => setTitle1(e.target.value)} placeholder="Main Title" className={styles.searchInputSmall} />
+          <input type="text" value={title2} onChange={(e) => setTitle2(e.target.value)} placeholder="Subtitle" className={styles.searchInputSmall} />
         </div>
 
         <div style={{ display: 'flex', gap: '20px' }}>
-          <textarea
-            value={text1}
-            onChange={(e) => setText1(e.target.value)}
-            placeholder="Line 1 text"
-            className={styles.searchInputSmall}
-            rows={4}
-          />
-          <textarea
-            value={text2}
-            onChange={(e) => setText2(e.target.value)}
-            placeholder="Line 2 text"
-            className={styles.searchInputSmall}
-            rows={4}
-          />
+          <textarea value={text1} onChange={(e) => setText1(e.target.value)} placeholder="Line 1 text" className={styles.searchInputSmall} rows={4} />
+          <textarea value={text2} onChange={(e) => setText2(e.target.value)} placeholder="Line 2 text" className={styles.searchInputSmall} rows={4} />
         </div>
 
         <div style={{ display: 'flex', gap: '20px' }}>
@@ -158,13 +155,7 @@ const EditBannerForm = () => {
                 <CloudUploadIcon className={styles.icon} />
                 <p className={styles.text}>{image ? image.name : `Upload Image ${index}`}</p>
                 <p className={styles.subText}>Recommended size: 1200×400 px</p>
-                <input
-                  type="file"
-                  ref={inputRef}
-                  hidden
-                  accept="image/*"
-                  onChange={(e) => handleImageChange(e, index)}
-                />
+                <input type="file" ref={inputRef} hidden accept="image/*" onChange={(e) => handleImageChange(e, index)} />
 
                 {(image || imageUrl) && (
                   <div className={styles.previewContainer}>

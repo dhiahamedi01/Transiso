@@ -1,49 +1,73 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '@/Components/Dahsboard/Blog/AddBlogForm/BasicInfoCard.module.css';
 import SaveIcon from '@mui/icons-material/Save';
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 const DescriptionForm = () => {
-  const [field1, setField1] = useState('');
-  const [field2, setField2] = useState('');
-  const [textarea, setTextarea] = useState('');
-  const [field3, setField3] = useState('');
-  const [field4, setField4] = useState('');
-  const [field5, setField5] = useState('');
-  const [field6, setField6] = useState('');
+  const [data, setData] = useState({
+    titre: '',
+    sous_titre: '',
+    description: '',
+    service1: '',
+    service2: '',
+    service3: '',
+    service4: '',
+  });
 
+  const [loadingInitial, setLoadingInitial] = useState(true);
   const [loading, setLoading] = useState(false);
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertSeverity, setAlertSeverity] = useState<'success' | 'error'>('success');
   const [alertMessage, setAlertMessage] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch('/api/Manage_website/description');
+        const json = await res.json();
+        setData(json);
+      } catch (err) {
+        console.error('Error loading description:', err);
+        setAlertSeverity('error');
+        setAlertMessage("Erreur lors du chargement des données.");
+        setAlertOpen(true);
+      } finally {
+        setLoadingInitial(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setData(prev => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      // Simuler une requête API
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const res = await fetch('/api/Manage_website/description', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) throw new Error('Update failed');
 
       setAlertSeverity('success');
-      setAlertMessage('Description saved successfully!');
-      setAlertOpen(true);
-
-      setField1('');
-      setField2('');
-      setTextarea('');
-      setField3('');
-      setField4('');
-      setField5('');
-      setField6('');
+      setAlertMessage('Description mise à jour avec succès !');
     } catch (err) {
       setAlertSeverity('error');
-      setAlertMessage('Error saving description.');
-      setAlertOpen(true);
+      setAlertMessage('Échec de la mise à jour de la description.');
     } finally {
+      setAlertOpen(true);
       setLoading(false);
     }
   };
@@ -53,71 +77,86 @@ const DescriptionForm = () => {
     setAlertOpen(false);
   };
 
+  if (loadingInitial) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="300px">
+        <CircularProgress />
+      </Box>
+    );
+  }
+
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>Description Section</h3>
+      <h3 className={styles.title}>Edit Description Section</h3>
 
       <form onSubmit={handleSubmit} className={styles.form}>
-        {/* Ligne 1 */}
+        {/* Row 1 */}
         <input
           type="text"
-          placeholder="Field 1"
-          value={field1}
-          onChange={(e) => setField1(e.target.value)}
+          name="titre"
+          placeholder="Title"
+          value={data.titre}
+          onChange={handleChange}
           className={styles.searchInputSmall}
           required
         />
         <input
           type="text"
-          placeholder="Field 2"
-          value={field2}
-          onChange={(e) => setField2(e.target.value)}
+          name="sous_titre"
+          placeholder="Subtitle"
+          value={data.sous_titre}
+          onChange={handleChange}
           className={styles.searchInputSmall}
           required
         />
 
-        {/* Ligne 2 */}
+        {/* Row 2 */}
         <textarea
+          name="description"
           placeholder="Description..."
-          value={textarea}
-          onChange={(e) => setTextarea(e.target.value)}
+          value={data.description}
+          onChange={handleChange}
           className={`${styles.searchInputSmall} ${styles.span4}`}
           rows={6}
           required
         />
 
-        {/* Ligne 3 */}
+        {/* Row 3 */}
         <input
           type="text"
-          placeholder="Field 3"
-          value={field3}
-          onChange={(e) => setField3(e.target.value)}
+          name="service1"
+          placeholder="Service 1"
+          value={data.service1}
+          onChange={handleChange}
           className={styles.searchInputSmall}
           required
         />
         <input
           type="text"
-          placeholder="Field 4"
-          value={field4}
-          onChange={(e) => setField4(e.target.value)}
+          name="service2"
+          placeholder="Service 2"
+          value={data.service2}
+          onChange={handleChange}
           className={styles.searchInputSmall}
           required
         />
 
-        {/* Ligne 4 */}
+        {/* Row 4 */}
         <input
           type="text"
-          placeholder="Field 5"
-          value={field5}
-          onChange={(e) => setField5(e.target.value)}
+          name="service3"
+          placeholder="Service 3"
+          value={data.service3}
+          onChange={handleChange}
           className={styles.searchInputSmall}
           required
         />
         <input
           type="text"
-          placeholder="Field 6"
-          value={field6}
-          onChange={(e) => setField6(e.target.value)}
+          name="service4"
+          placeholder="Service 4"
+          value={data.service4}
+          onChange={handleChange}
           className={styles.searchInputSmall}
           required
         />
@@ -125,7 +164,7 @@ const DescriptionForm = () => {
         <div className={styles.actions}>
           <button type="submit" className={styles.primary} disabled={loading}>
             <SaveIcon fontSize="small" />
-            {loading ? 'Saving...' : 'Save Description'}
+            {loading ? 'Updating...' : 'Update'}
           </button>
         </div>
       </form>

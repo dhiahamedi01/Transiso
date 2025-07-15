@@ -15,7 +15,6 @@ const ProductActions = ({ product }: { product: any }) => {
   const handleCheckout = () => {
     router.push(`/checkout?productId=${product.id}`);
   };
-  
 
   return (
     <Box
@@ -54,7 +53,17 @@ const ProductActions = ({ product }: { product: any }) => {
             backgroundColor: '#E53935',
           },
           '@media (max-width: 768px)': {
-            width: '100%',
+            width: '100%',     // <-- modifié ici
+            maxWidth: '200px',
+            fontSize: '0.95rem',
+            px: 2,
+            py: 1,
+            gap: '4px',
+          },
+          '@media (max-width: 480px)': {
+            fontSize: '0.85rem',
+            px: 1.5,
+            py: 0.8,
           },
         }}
       >
@@ -89,6 +98,15 @@ const ProductActions = ({ product }: { product: any }) => {
               },
               '@media (max-width: 768px)': {
                 width: '100%',
+                fontSize: '0.95rem',
+                px: 2,
+                py: 1,
+                gap: '4px',
+              },
+              '@media (max-width: 480px)': {
+                fontSize: '0.85rem',
+                px: 1.5,
+                py: 0.8,
               },
             }}
           >

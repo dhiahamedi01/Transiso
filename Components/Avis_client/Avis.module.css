@@ -55,7 +55,6 @@
     width: 100%;
     gap: 20px; 
 
-  
   }
   
   .testimonial-box {
@@ -110,7 +109,7 @@
     font-optical-sizing: auto;
     height: 20px;
     position: absolute;
-    top: 38px;
+    top: 41px;
     right: 140px;
   }
   .testimonials-sous-nom{
@@ -198,10 +197,13 @@
       width: 33.33%; 
     }
   }
-  @media (max-width: 1024px) {
+  @media (min-width: 1024px) and (max-width: 1380px) {
     .Card-liste {
       flex-wrap: wrap; 
       overflow-x: visible; 
+    }
+    .testimonials{
+      zoom: 0.8;
     }
     .testimonial-box {
       width: 100%; 
@@ -227,8 +229,18 @@
     }
   }
   
+  @media (max-width: 768px) {
+    .testimonials {
+      height: auto !important;
+      overflow-y: visible !important;
+      margin-bottom: 40px;
+    }
+  }
   
   @media (max-width: 768px) {
+    .testimonials{
+      zoom: 0.7;
+    }
     .testimonial-box {
       width: 100%; 
       height: auto; 
@@ -238,7 +250,8 @@
       text-align: center;
     }
     .comment{
-      font-size: 15px !important;
+      font-size: 14px !important;
+      margin-right: 40px;
     }
   }
   /* Conteneur du slider avec boutons */
@@ -293,6 +306,8 @@
   @media (max-width: 768px) {
     .Card-liste {
       width: 90%;
+      padding-inline: 40px;
+      flex-direction: column;
     }
     .testimonial-box {
       width: 100%;

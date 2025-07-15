@@ -152,8 +152,52 @@
     color: #E71D25;
   }
   
-  /* ───────── Responsive ───────── */
   @media (max-width: 768px) {
-    .grid { flex-direction: column; }
+    .grid {
+      flex-direction: column;
+      gap: 2rem;
+    }
+  
+    .brand {
+      margin-left: 0;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+  
+    .logo {
+      width: 180px;
+      margin: 0 auto 16px;
+    }
+  
+    .description {
+      font-size: 14px;
+      text-align: center;
+      padding: 0 12px;
+    }
+  
+    .socialLinks {
+      justify-content: center;
+    }
+  
+    .socialLinks a {
+      margin: 0 4px;
+    }
+  
+    .col {
+      text-align: center;
+    }
+  
+    .col h4 {
+      margin-bottom: 12px;
+    }
+  
+    .col h4::after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  
+    .footer a:hover {
+      padding-right: 0;
+    }
   }
   

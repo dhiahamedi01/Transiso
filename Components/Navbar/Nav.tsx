@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import SearchModal from '../SearchModal/SearchModal';
 
 import styles from './Nav.module.css';
+
 import {
   AppBar,
   Toolbar,
@@ -34,46 +35,43 @@ const TwitterIcon    = dynamic(() => import('@mui/icons-material/Twitter'),    {
 const WhatsAppIcon   = dynamic(() => import('@mui/icons-material/WhatsApp'),   { ssr: false });
 const InstagramIcon  = dynamic(() => import('@mui/icons-material/Instagram'),  { ssr: false });
 
-import Image     from 'next/image';
-import NextLink  from 'next/link';
+import Image from 'next/image';
+import Link from 'next/link';
 import LanguageSelector from '../LanguageSelector/LanguageSelector';
 
 function Nav() {
   const { t, i18n } = useTranslation('common');
 
-  const isMobile = useMediaQuery('(max-width:900px)', {
-    noSsr: true,
-    defaultMatches: false,
-  });
+  const [isClient, setIsClient] = useState(false);
+  const isMobile = useMediaQuery('(max-width:900px)', { noSsr: true });
 
-  // Gérer la direction globale selon la langue
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      document.body.dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
-    }
+    setIsClient(true);
+    document.body.dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
   }, [i18n.language]);
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
 
-  const openDrawer  = useCallback(() => setDrawerOpen(true),  []);
+  const openDrawer = useCallback(() => setDrawerOpen(true), []);
   const closeDrawer = useCallback(() => setDrawerOpen(false), []);
-  const openSearch  = () => setSearchOpen(true);
+  const openSearch = () => setSearchOpen(true);
   const closeSearch = () => setSearchOpen(false);
 
   const navItems = [
-    { label: t('home'),     href: '/' },
-    { label: t('about'),    href: '/About' },
+    { label: t('home'), href: '/' },
+    { label: t('about'), href: '/About' },
     { label: t('services'), href: '/Services' },
     { label: t('products2'), href: '/Liste_produit' },
-    { label: t('contact'),  href: '/Contact' },
+    { label: t('contact'), href: '/Contact' },
   ];
+
+  if (!isClient) return null;
 
   return (
     <>
       {/* ---------- Top Bar ---------- */}
       <div className={`${styles.topBar} ${!isMobile && i18n.language === 'ar' ? styles.rtl : ''}`}>
-
         <div className={styles.left}>
           <div className={styles.infoItem}>
             <LocationOnIcon fontSize="small" sx={{ color: '#DE1E27' }} />
@@ -107,9 +105,8 @@ function Nav() {
         {!isMobile && (
           <div className={styles.right}>
             <LanguageSelector />
-
             <MuiLink
-              component={NextLink}
+              component={Link}
               href="#"
               underline="none"
               className={`${styles.Arabe} ${styles.link2}`}
@@ -119,10 +116,9 @@ function Nav() {
             </MuiLink>
 
             <Typography className={styles.Arabe}>{t('followUs')}</Typography>
-
             <div className={styles.Liste_icon}>
               <IconButton size="small" className={styles.icon}><FacebookIcon fontSize="small" /></IconButton>
-              <IconButton size="small" className={styles.icon}><TwitterIcon  fontSize="small" /></IconButton>
+              <IconButton size="small" className={styles.icon}><TwitterIcon fontSize="small" /></IconButton>
               <IconButton size="small" className={styles.icon}><WhatsAppIcon fontSize="small" /></IconButton>
               <IconButton size="small" className={styles.icon}><InstagramIcon fontSize="small" /></IconButton>
             </div>
@@ -160,7 +156,7 @@ function Nav() {
                 {navItems.map(({ label, href }) => (
                   <MuiLink
                     key={href}
-                    component={NextLink}
+                    component={Link}
                     href={href}
                     underline="none"
                     className={styles.link}
@@ -180,15 +176,14 @@ function Nav() {
                     <PhoneIcon className={styles.phoneIcon} />
                   </Box>
                   <Typography className={styles.phoneNumber}>
-                     {t('phoneNumber')}
+                    {t('phoneNumber')}
                   </Typography>
                 </Box>
-                <NextLink href="/Login" passHref legacyBehavior>
-                <Button variant="contained" className={styles.trackButton} component="a">
-                  {t('trackOrder')}&nbsp;<TrendingUpIcon />
-                </Button>
-              </NextLink>
-
+                <Link href="/Login">
+                  <Button variant="contained" className={styles.trackButton}>
+                    {t('trackOrder')}&nbsp;<TrendingUpIcon />
+                  </Button>
+                </Link>
               </Box>
             </>
           )}
@@ -202,13 +197,12 @@ function Nav() {
         onClose={closeDrawer}
         disableScrollLock
       >
-
         <Box sx={{ width: 250, p: 2 }}>
           <List>
             {navItems.map(({ label, href }) => (
               <ListItem key={href}>
                 <MuiLink
-                  component={NextLink}
+                  component={Link}
                   href={href}
                   underline="none"
                   className={`${styles.Arabe} ${styles.link}`}
@@ -221,7 +215,6 @@ function Nav() {
           </List>
 
           <Divider sx={{ my: 1 }} />
-
           <Box sx={{ mt: 2 }}>
             <Typography className={styles.Arabe} sx={{ mb: 1 }}>
               {t('workingHours')}
@@ -230,7 +223,7 @@ function Nav() {
             <LanguageSelector />
 
             <MuiLink
-              component={NextLink}
+              component={Link}
               href="#"
               underline="none"
               className={`${styles.Arabe} ${styles.link}`}
@@ -246,7 +239,7 @@ function Nav() {
 
             <Box sx={{ display: 'flex', gap: 1 }}>
               <IconButton size="small"><FacebookIcon fontSize="small" /></IconButton>
-              <IconButton size="small"><TwitterIcon  fontSize="small" /></IconButton>
+              <IconButton size="small"><TwitterIcon fontSize="small" /></IconButton>
               <IconButton size="small"><WhatsAppIcon fontSize="small" /></IconButton>
               <IconButton size="small"><InstagramIcon fontSize="small" /></IconButton>
             </Box>

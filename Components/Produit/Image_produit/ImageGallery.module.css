@@ -36,13 +36,27 @@
 
   @media (max-width: 768px) {
 
-    .thumbnailContainer {
-       display: none;
-    }
     .galleryContainer{
       padding-inline: 50px !important;
     }
     .image{
-      zoom: 0.75 !important;
+      zoom: 0.7 !important;
     }
+
+
+      .thumbnailContainer {
+        gap: 8px;
+      }
+      .thumbnail {
+        width: 60px;
+        height: 60px;
+      }
+      .thumbnail img {
+        width: 60px;
+        height: 60px;
+      }
+      .selected{
+        border: none !important;
+      }
+    
 }

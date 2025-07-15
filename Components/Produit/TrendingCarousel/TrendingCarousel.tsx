@@ -17,8 +17,9 @@ export default function TrendingCarousel() {
   const { products, loading, error } = useProducts();
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm')); // mobile ≤600px
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
+  // Chargement dynamique de la police - attention à ne pas écraser la police globale si ce n'est pas voulu
   useEffect(() => {
     const font = new FontFace(
       'Noto Kufi Arabic',
@@ -31,7 +32,8 @@ export default function TrendingCarousel() {
     );
     font.load().then((loadedFont) => {
       document.fonts.add(loadedFont);
-      document.body.style.fontFamily = "'Noto Kufi Arabic', sans-serif";
+      // Si tu veux changer la police juste du composant, utilise un conteneur avec style CSS et pas document.body:
+      // Par exemple, ajouter une classe CSS sur la Box racine et appliquer fontFamily dans ce scope uniquement.
     });
   }, []);
 
@@ -53,30 +55,32 @@ export default function TrendingCarousel() {
     );
   }
 
+  // Préparer les produits à afficher (top 10)
   const topProducts = products.slice(0, 10).map((p) => ({
     id: p.id,
     title: p.name,
     price: Number(p.price),
     oldPrice: p.old_price ? Number(p.old_price) : undefined,
     image: p.image1 || '/img/no-image.png',
-    rating: 5,
+    rating: 5, // Note fixe, à adapter si tu as des notes réelles
     description: p.description || '',
     category: p.category,
   }));
 
   return (
-<Box
-  sx={{
-    px: {
-      xs: 0,      // mobile: 0 padding horizontal
-      sm: 4,      // tablette+ desktop: padding horizontal 4 (32px)
-      md: 8       // desktop large: padding horizontal 6 (48px)
-    },
-    py: 6,
-    pb: 8,
-  }}
->
-
+    <Box
+      sx={{
+        px: {
+          xs: 0,
+          sm: 4,
+          md: 8,
+        },
+        py: 6,
+        pb: 8,
+        // Appliquer la police seulement dans ce conteneur (évite de toucher document.body)
+        fontFamily: "'Noto Kufi Arabic', sans-serif",
+      }}
+    >
       <CarouselHeader />
 
       <Box sx={{ position: 'relative', '&:hover .nav-button': { opacity: 1 } }}>
@@ -97,6 +101,7 @@ export default function TrendingCarousel() {
                 '&:hover': { backgroundColor: '#f1f1f1' },
               }}
               id="prevBtn"
+              aria-label="Précédent"
             >
               <ChevronLeft />
             </IconButton>
@@ -116,6 +121,7 @@ export default function TrendingCarousel() {
                 '&:hover': { backgroundColor: '#f1f1f1' },
               }}
               id="nextBtn"
+              aria-label="Suivant"
             >
               <ChevronRight />
             </IconButton>
@@ -133,7 +139,7 @@ export default function TrendingCarousel() {
                   }
                 : false
             }
-            spaceBetween={isMobile ? 6 : 12} // espace réduit encore en mobile
+            spaceBetween={isMobile ? 6 : 12}
             breakpoints={{
               0: { slidesPerView: 2 },
               768: { slidesPerView: 3 },
@@ -144,7 +150,7 @@ export default function TrendingCarousel() {
               <SwiperSlide key={product.id}>
                 <Box
                   sx={{
-                    maxWidth: isMobile ? 180 : 250, // ↑ largeur un peu plus grande en mobile
+                    maxWidth: isMobile ? 180 : 250,
                     height: isMobile ? 310 : '100%',
                     mx: 'auto',
                     paddingBottom: '12px',
