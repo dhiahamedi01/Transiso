@@ -89,8 +89,8 @@ const MENU_SECTIONS: MenuSection[] = [
       },
       { title: "Manage site", href: "", Icon: StorefrontOutlined, permission: "manage site" ,
         children: [
+          { title: "Manage Globale", href: "/Dashboard/Manage_website/Globale", permission: "manage site" },
           { title: "Image Slider", href: "/Dashboard/Image_Slider", permission: "manage site" },
-          { title: "Service Globale", href: "", permission: "manage site" },
           { title: "Section Description", href: "/Dashboard/Manage_website/Section_description", permission: "manage site" },
           { title: "Banner", href: "/Dashboard/Banner_manage", permission: "manage site" },
           { title: "Banner Service", href: "/Dashboard/Manage_website/Banner_Service", permission: "manage site" },
@@ -110,7 +110,7 @@ const MENU_SECTIONS: MenuSection[] = [
       { title: "User", href: "/Dashboard/subscription", Icon: CardMembershipIcon, permission: "subscription" },
       { title: "Contact", href: "/Dashboard/contact", Icon: GroupOutlined, permission: "contact" },
       { title: "Inquiry", href: "/Dashboard/Demandes", Icon: WorkOutlineOutlined, permission: "inquiry" },
-      { title: "Calendar", href: "/calendar", Icon: CalendarMonthOutlined, permission: "calendar" },
+      { title: "Calendar", href: "/Dashboard/calendar", Icon: CalendarMonthOutlined, permission: "calendar" },
     ],
   },
 ];
