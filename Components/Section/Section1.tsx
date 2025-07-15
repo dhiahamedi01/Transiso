@@ -41,13 +41,16 @@ const Section: React.FC = () => {
   return (
     <div className={`${styles.about} dir-rtl`}>
       <div className={styles.block12}>
-        <Image
-          src="/img/about_img01.png"
-          alt="عن الشركة"
-          width={500}
-          height={500}
-          style={{ height: 'auto', width: '100%', maxWidth: '500px' }}
-        />
+      <div style={{ position: 'relative', width: '500px', height: '500px' }}>
+      <Image
+        src="/img/about_img01.png"
+        alt="عن الشركة"
+        fill
+        style={{ objectFit: 'contain', borderRadius: '8px' }}
+      />
+    </div>
+
+
       </div>
 
       <div className={`${styles.block13} dir-rtl`}>

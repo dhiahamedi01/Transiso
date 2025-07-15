@@ -19,14 +19,18 @@
   .RTL_direction{
     direction: ltr !important;
   }*/
-  .block12{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 30px;
-  }
+  .block12 {
+  width: 100%;
+
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+.blockimage{
+  max-width: 500px;  /* limite à 500px */
+}
   .block13{
     width: 100%;
     height: 100%;
