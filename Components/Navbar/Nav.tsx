@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import SearchModal from '../SearchModal/SearchModal';
 
 import styles from './Nav.module.css';
+import useLogo from '@/hooks/useLogo';
 
 import {
   AppBar,
@@ -57,6 +58,7 @@ function Nav() {
   const closeDrawer = useCallback(() => setDrawerOpen(false), []);
   const openSearch = () => setSearchOpen(true);
   const closeSearch = () => setSearchOpen(false);
+  const { logo, loading: logoLoading } = useLogo();
 
   const navItems = [
     { label: t('home'), href: '/' },
@@ -140,15 +142,16 @@ function Nav() {
             </IconButton>
           )}
 
-          <Box className={styles.logoBox}>
+        <Box className={styles.logoBox}>
             <Image
-              src="/img/logo2.jpg"
+              src={logo || '/img/logo2.jpg'}
               alt="Logo"
               width={190}
               height={60}
               priority
             />
-          </Box>
+        </Box>
+
 
           {!isMobile && (
             <>

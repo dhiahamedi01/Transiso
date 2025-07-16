@@ -128,7 +128,7 @@ export default function ProductCard({ product }: { product: Product }) {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'flex-start',
-              gap: 1,
+              gap: 2,
               mt: 1,
             }}
           >
@@ -138,7 +138,7 @@ export default function ProductCard({ product }: { product: Product }) {
                 sx={{
                   textDecoration: 'line-through',
                   color: '#999',
-                  fontSize: '0.75rem',
+                  fontSize: '1.05rem',
                 }}
               >
                 €{product.oldPrice.toLocaleString()}
@@ -148,7 +148,7 @@ export default function ProductCard({ product }: { product: Product }) {
               variant="h6"
               sx={{
                 color: '#e64a19',
-                fontSize: '0.85rem',
+                fontSize: '1.05rem',
                 fontWeight: 700,
               }}
             >

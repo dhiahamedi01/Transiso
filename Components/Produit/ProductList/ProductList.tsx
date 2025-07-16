@@ -12,8 +12,8 @@ import { useTranslation } from 'react-i18next';
 import ProductCard from '../TrendingCarousel/ProductCard';
 import { useProducts } from '@/hooks/useProducts';
 
-const ITEMS_PER_PAGE = 12;
-const ITEMS_PER_ROW_DESKTOP = 4;
+const ITEMS_PER_PAGE = 15; // 3 lignes de 5 cartes
+const ITEMS_PER_ROW_DESKTOP = 5;
 
 export default function ProductList() {
   const { t, i18n } = useTranslation(['common']);
@@ -39,14 +39,13 @@ export default function ProductList() {
       title: p.name,
       description: p.description || '',
       category: p.category,
-      image: p.image1 || '', // Assure-toi que ce soit string, pas null
-      price: Number(p.price), // Converti en number
-      oldPrice: p.old_price ? Number(p.old_price) : undefined, // rename old_price en oldPrice et converti
+      image: p.image1 || '',
+      price: Number(p.price),
+      oldPrice: p.old_price ? Number(p.old_price) : undefined,
       stock: p.stock,
-      rating: 5, // valeur statique pour satisfaire ProductCard
+      rating: 5,
     }));
   }, [products, i18n.language]);
-  
 
   const filtered = useMemo(() => {
     const term = search.toLowerCase();
@@ -175,19 +174,17 @@ export default function ProductList() {
 
       {/* Contenu */}
       {loading ? (
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                minHeight: '70vh',
-              }}
-            >
-              <CircularProgress />
-            </Box>
-          ) : error ? (
-
-
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            minHeight: '70vh',
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      ) : error ? (
         <Typography sx={{ color: 'red', textAlign: 'center', mt: 4 }}>
           {t('productList.error', { defaultValue: 'Erreur lors du chargement.' })}
         </Typography>
@@ -243,8 +240,16 @@ export default function ProductList() {
                 sx={{
                   p: 1,
                   boxSizing: 'border-box',
-                  flexBasis: { xs: '100%', sm: 'calc(50% - 12px)', md: 'calc(25% - 16px)' },
-                  maxWidth: { xs: '100%', sm: 'calc(50% - 12px)' },
+                  flexBasis: {
+                    xs: '100%',
+                    sm: 'calc(50% - 12px)',
+                    md: 'calc(20% - 16px)' // 5 par ligne
+                  },
+                  maxWidth: {
+                    xs: '100%',
+                    sm: 'calc(50% - 12px)',
+                    md: 'calc(20% - 16px)'
+                  },
                 }}
               >
                 <ProductCard product={prod} />

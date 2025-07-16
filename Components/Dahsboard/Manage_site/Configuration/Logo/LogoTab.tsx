@@ -1,7 +1,15 @@
 'use client';
 
 import * as React from 'react';
-import { Box, Typography, Avatar, Button } from '@mui/material';
+import axios from 'axios';
+import {
+  Box,
+  Typography,
+  Avatar,
+  Button,
+  Alert,
+  CircularProgress,
+} from '@mui/material';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import { blue } from '@mui/material/colors';
 
@@ -10,19 +18,24 @@ export default function LogoUploadDynamic() {
   const [loading, setLoading] = React.useState(true);
   const [submitting, setSubmitting] = React.useState(false);
 
+  // Pour l'alerte sous la card
+  const [alertMessage, setAlertMessage] = React.useState('');
+  const [alertSeverity, setAlertSeverity] = React.useState<'success' | 'error' | undefined>(undefined);
+
   React.useEffect(() => {
     async function fetchLogo() {
       try {
-        const res = await fetch('/api/logo');
-        if (!res.ok) throw new Error('Erreur lors du fetch du logo');
-        const data = await res.json();
-        setLogo(data.Logo || null);
+        const res = await axios.get('/api/Manage_website/Logo');
+        setLogo(res.data.Logo || null);
       } catch (error) {
-        console.error(error);
+        console.error('Erreur lors du chargement du logo :', error);
+        setAlertMessage('Erreur lors du chargement du logo');
+        setAlertSeverity('error');
       } finally {
         setLoading(false);
       }
     }
+
     fetchLogo();
   }, []);
 
@@ -38,29 +51,40 @@ export default function LogoUploadDynamic() {
   };
 
   const handleSubmit = async () => {
-    if (!logo) return;
     setSubmitting(true);
+    setAlertMessage('');
+    setAlertSeverity(undefined); // Corrected here
     try {
-      const res = await fetch('/api/logo', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ logo }),
+      const input = document.getElementById('logo-upload-input') as HTMLInputElement;
+      const file = input?.files?.[0];
+      if (!file) throw new Error('Aucun fichier sélectionné');
+
+      const formData = new FormData();
+      formData.append('logo', file);
+
+      const res = await axios.put('/api/Manage_website/Logo', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
-      if (!res.ok) throw new Error('Erreur lors de la sauvegarde du logo');
-      const result = await res.json();
-      alert('Logo sauvegardé avec succès !');
-      setLogo(result.logoUrl || logo);
-    } catch (error) {
-      alert((error as Error).message);
+
+      setLogo(res.data.logoUrl); // Met à jour l'affichage avec le nouveau chemin
+
+      setAlertMessage('Logo sauvegardé avec succès !');
+      setAlertSeverity('success');
+    } catch (error: any) {
+      console.error('Erreur lors du PUT logo :', error);
+      setAlertMessage(error.response?.data?.error || 'Erreur lors de la sauvegarde du logo');
+      setAlertSeverity('error');
     } finally {
       setSubmitting(false);
     }
   };
 
   if (loading) {
-    return <Typography>Chargement du logo...</Typography>;
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+        <CircularProgress />
+      </Box>
+    );
   }
 
   return (
@@ -101,11 +125,10 @@ export default function LogoUploadDynamic() {
           <>
             <UploadFileIcon sx={{ fontSize: 48, mb: 1 }} />
             <Typography variant="body2" textAlign="center" sx={{ px: 2 }}>
-              Drag & drop your logo here or click to select a file
+              Glissez votre logo ou cliquez pour sélectionner un fichier
             </Typography>
           </>
         )}
-
         <input
           id="logo-upload-input"
           type="file"
@@ -125,10 +148,30 @@ export default function LogoUploadDynamic() {
           textTransform: 'none',
         }}
         onClick={handleSubmit}
-        disabled={submitting || !logo}
+        disabled={submitting}
       >
-        {submitting ? 'Enregistrement...' : 'Sauvegarder le logo'}
+        {submitting ? (
+          <>
+            <CircularProgress size={20} sx={{ mr: 1, color: 'white' }} />
+            Enregistrement...
+          </>
+        ) : (
+          'Sauvegarder le logo'
+        )}
       </Button>
+
+      {alertMessage && (
+        <Alert
+          severity={alertSeverity}
+          sx={{ mt: 3 }}
+          onClose={() => {
+            setAlertMessage('');
+            setAlertSeverity(undefined);
+          }}
+        >
+          {alertMessage}
+        </Alert>
+      )}
     </Box>
   );
 }

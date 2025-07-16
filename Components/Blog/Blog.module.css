@@ -13,6 +13,7 @@
 }
 .card {
     max-width: 400px;
+    height: 450px;
     width: 100%;
     border-radius: 3px;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
@@ -24,9 +25,14 @@
     font-family: "Noto Kufi Arabic", sans-serif !important;
     font-optical-sizing: auto;
     font-style: normal;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     transition: all 0.3s ease-in-out;
   }
+
   
+
   .card:hover {
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
                 0 10px 10px -5px rgba(0, 0, 0, 0.04);
@@ -44,22 +50,30 @@
     object-fit: cover;
   }
   
-  /* Date precisely centered on the line between image and content */
   .dateOverlay {
     position: absolute;
-    padding: 0 !important;
     top: 13rem; 
     left: 1rem;
     display: flex;
+    flex-direction: row; /* s'assurer que c'est bien en ligne */
     align-items: center;
-    justify-content: space-between;
-    background-color: #04223E; /* red-500 */
+    justify-content: start;
+    background-color: #04223E;
     color: #fff;
     font-weight: 700;
     font-size: 1rem;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     z-index: 10;
+    white-space: nowrap; /* ✅ empêche le retour à la ligne */
   }
+  
+  .dateNumber,
+  .dateMonth {
+    padding: 0.5rem 0.75rem;
+    white-space: nowrap; /* ✅ empêche le retour à la ligne pour chaque partie */
+    display: inline-block;
+  }
+  
   
   .dateNumber {
     padding: 0.5rem 0.75rem;
@@ -112,3 +126,24 @@
     bottom: -15px;
     position: absolute;
   }
+  .description {
+    display: -webkit-box;
+    -webkit-line-clamp: 2 !important; /* 1 ligne */
+    line-clamp: 2 !important;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 2.5;
+    height: calc(1.5em * 2); /* 1.5em = hauteur d’une ligne */
+  }
+  
+  
+  .truncateDescription {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-clamp: 2;
+  }
+  

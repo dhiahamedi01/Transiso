@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Box, AppBar, Tabs, Tab, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import LogoUpload from '@/Components/Dahsboard/Manage_site/Configuration/Logo/LogoTab';
-import SocialMediaLinks, { SocialLink } from '@/Components/Dahsboard/Manage_site/Configuration/SocialMediaLinks/SocialMediaLinks';
+import SocialMediaLinks from '@/Components/Dahsboard/Manage_site/Configuration/SocialMediaLinks/SocialMediaLinks';
 import FooterSettings from '@/Components/Dahsboard/Manage_site/Configuration/Footer/Footer';
 import SmtpSettings from '@/Components/Dahsboard/Manage_site/Configuration/SmtpSettings/SmtpSettings';
 
@@ -38,7 +38,6 @@ export default function WebsiteSettingsTabs() {
   // States partagés
   const [logo, setLogo] = React.useState<string | null>(null);
   const [footerDesc, setFooterDesc] = React.useState('');
-  const [socialLinks, setSocialLinks] = React.useState<SocialLink[]>([]);
   const [openingTime, setOpeningTime] = React.useState('09:00');
   const [closingTime, setClosingTime] = React.useState('18:00');
   const [smtpHost, setSmtpHost] = React.useState('');
@@ -84,7 +83,7 @@ export default function WebsiteSettingsTabs() {
       </TabPanel>
 
       <TabPanel value={value} index={1}>
-        <SocialMediaLinks socialLinks={socialLinks} setSocialLinks={setSocialLinks} visible={value === 1} />
+        <SocialMediaLinks />
       </TabPanel>
 
       <TabPanel value={value} index={2}>

@@ -1,56 +1,97 @@
 'use client';
-import * as React from 'react';
-import { Box, Typography, TextField, Select, MenuItem, IconButton, Button, Fab, Zoom } from '@mui/material';
+
+import React, { useState } from 'react';
+import {
+  Box,
+  Typography,
+  TextField,
+  Select,
+  MenuItem,
+  IconButton,
+  Button,
+  Fab,
+  Zoom,
+  Snackbar,
+  Alert,
+} from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import { useTheme } from '@mui/material/styles';
+import { useSocialLinks } from '@/hooks/useSocialLinks';
 
-const socialIconComponents = {
-  facebook: <FacebookIcon sx={{ color: 'white', fontSize: 20 }} />,
-  twitter: <TwitterIcon sx={{ color: 'white', fontSize: 20 }} />,
-  linkedin: <LinkedInIcon sx={{ color: 'white', fontSize: 20 }} />,
-  instagram: <InstagramIcon sx={{ color: 'white', fontSize: 20 }} />,
+type Platform = 'facebook' | 'twitter' | 'linkedin' | 'instagram';
+
+const socialIconComponents: Record<Platform, React.ReactElement> = {
+  facebook: <FacebookIcon sx={{ color: '#fff', fontSize: 20 }} />,
+  twitter: <TwitterIcon sx={{ color: '#fff', fontSize: 20 }} />,
+  linkedin: <LinkedInIcon sx={{ color: '#fff', fontSize: 20 }} />,
+  instagram: <InstagramIcon sx={{ color: '#fff', fontSize: 20 }} />,
 };
 
-const socialColors = {
+const socialColors: Record<Platform, string> = {
   facebook: '#1877F2',
   twitter: '#1DA1F2',
   linkedin: '#0077B5',
   instagram: '#E4405F',
 };
 
-export type SocialLink = {
-  platform: keyof typeof socialIconComponents;
-  url: string;
-};
-
-interface SocialMediaLinksProps {
-  socialLinks: SocialLink[];
-  setSocialLinks: React.Dispatch<React.SetStateAction<SocialLink[]>>;
-  visible: boolean;
-}
-
-export default function SocialMediaLinks({ socialLinks, setSocialLinks, visible }: SocialMediaLinksProps) {
+export default function SocialMediaLinks() {
   const theme = useTheme();
+  const { socialLinks, addSocialLink, deleteSocialLink, setSocialLinks } = useSocialLinks();
+  const [visible, setVisible] = useState(true);
+  const [alert, setAlert] = useState<{ open: boolean; message: string; type: 'success' | 'error' }>({
+    open: false,
+    message: '',
+    type: 'success',
+  });
 
-  const addSocialLink = () => {
-    setSocialLinks((prev) => [...prev, { platform: 'facebook', url: '' }]);
+  const showAlert = (message: string, type: 'success' | 'error' = 'success') => {
+    setAlert({ open: true, message, type });
   };
 
-  const updateSocialLink = (index: number, key: keyof SocialLink, value: string) => {
-    setSocialLinks((prev) => {
-      const copy = [...prev];
-      copy[index] = { ...copy[index], [key]: value };
-      return copy;
-    });
+  const handleChange = (id: number, key: 'url' | 'platform', value: string) => {
+    setSocialLinks((prev) =>
+      prev.map((link) => (link.id === id ? { ...link, [key]: value } : link))
+    );
   };
 
-  const removeSocialLink = (index: number) => {
-    setSocialLinks((prev) => prev.filter((_el, i) => i !== index));
+  const handleAdd = () => {
+    const tempId = Math.random();
+    setSocialLinks((prev) => [
+      ...prev,
+      { id: tempId, platform: 'facebook', url: '', isNew: true },
+    ]);
+  };
+
+  const handleSubmit = () => {
+    const newLinks = socialLinks.filter((link) => link.isNew && link.url.trim() !== '');
+    if (newLinks.length === 0) {
+      showAlert('Please add a valid URL before submitting.', 'error');
+      return;
+    }
+
+    newLinks.forEach((link) =>
+      addSocialLink({ platform: link.platform, url: link.url.trim() })
+    );
+
+    showAlert(`${newLinks.length} link(s) added successfully 🎉`);
+
+    setSocialLinks((prev) => prev.filter((l) => !l.isNew));
+  };
+
+  const handleDelete = (id: number) => {
+    const target = socialLinks.find((l) => l.id === id);
+    if (target?.isNew) {
+      setSocialLinks((prev) => prev.filter((l) => l.id !== id));
+      showAlert('New link removed 🗑️');
+    } else {
+      deleteSocialLink(id);
+      showAlert('Link deleted successfully 🗑️');
+    }
   };
 
   return (
@@ -65,9 +106,9 @@ export default function SocialMediaLinks({ socialLinks, setSocialLinks, visible 
         </Typography>
       )}
 
-      {socialLinks.map((link, idx) => (
+      {socialLinks.map((link) => (
         <Box
-          key={idx}
+          key={link.id}
           sx={{
             display: 'flex',
             alignItems: 'center',
@@ -80,71 +121,41 @@ export default function SocialMediaLinks({ socialLinks, setSocialLinks, visible 
             variant="outlined"
             placeholder="Social media URL"
             value={link.url}
-            onChange={(e) => updateSocialLink(idx, 'url', e.target.value)}
+            onChange={(e) => handleChange(link.id, 'url', e.target.value)}
           />
 
           <Select
             value={link.platform}
             onChange={(e) =>
-              updateSocialLink(idx, 'platform', e.target.value as keyof typeof socialIconComponents)
+              handleChange(link.id, 'platform', e.target.value as Platform)
             }
             variant="outlined"
             sx={{
               width: 56,
               height: 55,
-              borderRadius: 1,
-              bgcolor: socialColors[link.platform],
+              bgcolor: socialColors[link.platform as Platform],
               color: 'white',
               '& .MuiSelect-icon': { display: 'none' },
-              '&.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: 'transparent' },
               '& .MuiOutlinedInput-notchedOutline': { borderColor: 'transparent' },
-              '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: 'transparent' },
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
               padding: 0,
             }}
-            MenuProps={{
-              PaperProps: {
-                sx: {
-                  mt: 1,
-                  '& .MuiMenuItem-root': {
-                    display: 'flex',
-                    justifyContent: 'center',
-                    padding: 1,
-                    borderRadius: 0,
-                  },
-                  '& .MuiMenuItem-root.Mui-selected': {
-                    bgcolor: (theme) => theme.palette.action.selected,
-                    '& svg': {
-                      color: (theme) => theme.palette.primary.main,
-                    },
-                  },
-                },
-              },
-            }}
           >
-            {Object.entries(socialIconComponents).map(([platform, icon]) => (
+            {(Object.keys(socialIconComponents) as Platform[]).map((platform) => (
               <MenuItem
                 key={platform}
                 value={platform}
                 sx={{
                   minWidth: 40,
-                  bgcolor: socialColors[platform as keyof typeof socialIconComponents],
-                  borderRadius: 1,
-                  '&:hover': {
-                    bgcolor: socialColors[platform as keyof typeof socialIconComponents],
-                    opacity: 0.8,
-                  },
+                  bgcolor: socialColors[platform],
                   '& svg': { color: 'white' },
                 }}
               >
-                {icon}
+                {socialIconComponents[platform]}
               </MenuItem>
             ))}
           </Select>
 
-          <IconButton aria-label="delete link" onClick={() => removeSocialLink(idx)} color="error" size="large">
+          <IconButton onClick={() => handleDelete(link.id)} color="error">
             <DeleteIcon />
           </IconButton>
         </Box>
@@ -152,24 +163,34 @@ export default function SocialMediaLinks({ socialLinks, setSocialLinks, visible 
 
       {socialLinks.length > 0 && (
         <Box sx={{ textAlign: 'center', mt: 3 }}>
-          <Button variant="contained" onClick={() => console.log('Submitting all social links:', socialLinks)}>
-            Submit
+          <Button variant="contained" color="primary" onClick={handleSubmit}>
+            Save
           </Button>
         </Box>
       )}
 
-      <Zoom
-        in={visible}
-        timeout={theme.transitions.duration.enteringScreen}
-        style={{
-          transitionDelay: `${visible ? theme.transitions.duration.leavingScreen : 0}ms`,
-        }}
-        unmountOnExit
-      >
-        <Fab color="primary" aria-label="add social link" sx={{ position: 'absolute', bottom: 16, right: 16 }} onClick={addSocialLink}>
+      <Zoom in={visible}>
+        <Fab
+          color="primary"
+          sx={{ position: 'absolute', bottom: 16, right: 16 }}
+          onClick={handleAdd}
+          aria-label="add"
+        >
           <AddIcon />
         </Fab>
       </Zoom>
+
+      {/* Snackbar for alerts */}
+      <Snackbar
+        open={alert.open}
+        autoHideDuration={3000}
+        onClose={() => setAlert({ ...alert, open: false })}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert severity={alert.type} variant="filled" sx={{ width: '100%' }}>
+          {alert.message}
+        </Alert>
+      </Snackbar>
     </>
   );
 }

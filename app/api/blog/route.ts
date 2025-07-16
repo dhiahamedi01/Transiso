@@ -50,6 +50,7 @@ export async function GET() {
           DATE_FORMAT(date,'%M %e, %Y') AS date,  -- July 8, 2025
           status,
           category,
+          content,
           image_path              -- ex : "/uploads/1720433600000_banner.jpg"
         FROM blogs
         ORDER BY id DESC
