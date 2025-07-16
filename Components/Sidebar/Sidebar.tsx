@@ -94,7 +94,7 @@ const MENU_SECTIONS: MenuSection[] = [
           { title: "Section Description", href: "/Dashboard/Manage_website/Section_description", permission: "manage site" },
           { title: "Banner", href: "/Dashboard/Banner_manage", permission: "manage site" },
           { title: "Banner Service", href: "/Dashboard/Manage_website/Banner_Service", permission: "manage site" },
-          { title: "Service Globale", href: "", permission: "manage site" },
+          { title: "Service Globale", href: "/Dashboard/Manage_website/Manage_service", permission: "manage site" },
         ],},
       {
         title: "Tracking",
@@ -104,7 +104,7 @@ const MENU_SECTIONS: MenuSection[] = [
         children: [
           { title: "ARAMEX", href: "/Dashboard/Tracking", permission: "tracking" },
           { title: "DHL Group", href: "/Dashboard/Dhl", permission: "tracking" },
-          { title: "CMA CGM", href: "/Sales", permission: "tracking" },
+          { title: "CMA CGM", href: "", permission: "tracking" },
         ],
       },
       { title: "User", href: "/Dashboard/subscription", Icon: CardMembershipIcon, permission: "subscription" },

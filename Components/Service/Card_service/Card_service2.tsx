@@ -1,10 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import styles from "./Card_service.module.css";
+import axios from "axios";
+import styles from "./Card_service2.module.css";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import { useTranslation } from "react-i18next";
+import CircularProgress from "@mui/material/CircularProgress";  // <-- import MUI loading spinner
+import Box from "@mui/material/Box";
 
 function RedLineWithAnimatedArrow() {
   return (
@@ -14,19 +17,48 @@ function RedLineWithAnimatedArrow() {
   );
 }
 
-const services = [
-  { titleKey: "2", slug: "2", image: "/img/Service/img5.jpg" },
-  { titleKey: "6", slug: "6", image: "/img/Service/img8.avif" },
-  { titleKey: "7", slug: "7", image: "/img/Service/img7.avif" },
-  { titleKey: "8", slug: "8", image: "/img/Service/img6.jpg" },
-  { titleKey: "1", slug: "1", image: "/img/Service/img2.webp" },
-  { titleKey: "5", slug: "5", image: "/img/Service/img9.avif" },
-  { titleKey: "3", slug: "3", image: "/img/Service/img4.jpg" },
-  { titleKey: "4", slug: "4", image: "/img/Service/img3.webp" }
-];
+interface Service {
+  id: number;
+  title: string;
+  description: string;
+  icon_path: string;
+}
 
 export default function CardService() {
   const { t } = useTranslation();
+  const [services, setServices] = useState<Service[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    axios
+      .get("/api/services")
+      .then((res) => {
+        setServices(res.data.services);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Erreur chargement services:", err);
+        setError("Impossible de charger les services");
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading)
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "200px", // ou la hauteur que tu veux pour centrer verticalement
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+
+  if (error) return <p>{error}</p>;
 
   return (
     <>
@@ -39,20 +71,22 @@ export default function CardService() {
       <div className={styles.Liste_card}>
         {services.map((service) => (
           <Link
-            key={service.slug}
-            href={`/Services/${service.slug}`}
+            key={service.id}
+            href={`/Services/${service.id}`}
             className={styles.card}
             style={{
-              backgroundImage: `url(${service.image})`,
+              backgroundImage: `url(${service.icon_path})`,
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
-              backgroundSize: "cover"
+              backgroundSize: "cover",
             }}
           >
             <div className={styles.contenue}>
-              <span className={styles.span}>{t(`sub_services.services.${service.titleKey}`)}</span>
+              <span className={styles.span}>
+                {t(`sub_services.services.${service.title}`, service.title)}
+              </span>
             </div>
-            <div className={styles.description}>{t("sub_services.description")}</div>
+            <div className={styles.description}>{service.description}</div>
           </Link>
         ))}
       </div>

@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import { Person, Event, Category, ArrowBack } from '@mui/icons-material';
 import styles from '@/Components/Blog/BlogDetail.module.css';
+import ContactCard from '@/Components/ContactCard/ContactCard';
 
 type BlogArticle = {
   id: number;
@@ -106,7 +107,7 @@ export default function BlogDetail() {
           <Button
             variant="outlined"
             color="error"
-            onClick={() => router.back()}
+            onClick={() => router.push(`/bloglist`)}
             startIcon={<ArrowBack />}
             sx={{ mb: 3,gap:2 }}
             className={styles.aroubica}
@@ -130,7 +131,7 @@ export default function BlogDetail() {
 
         {/* Sidebar */}
         <Box className={styles.sidebar}>
-          
+          <ContactCard/>
           <Typography className={styles.sidebarTitle}>مقالات أخرى</Typography>
           <Divider sx={{ mb: 2 }} />
 
@@ -161,7 +162,7 @@ export default function BlogDetail() {
                       backgroundColor: '#fef2f2',
                     },
                   }}
-                  onClick={() => router.push(`/blogdetail/${item.id}`)}
+                  onClick={() => router.push(`/bloglist/${item.id}`)}
                 >
                   <Typography
                     variant="subtitle1"

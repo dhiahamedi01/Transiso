@@ -1,0 +1,106 @@
+
+@font-face {
+    font-family: 'Noto Kufi Arabic';
+    src: url('/Font/NotoKufiArabic-VariableFont_wght.ttf') format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+.container {
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+    font-optical-sizing: auto;
+    font-style: normal;
+    direction: rtl;
+  }
+  
+  .contactCard {
+    width: 350px;
+    border-radius: 16px;
+    overflow: hidden;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin: 40px auto;
+    position: relative;
+  }
+  
+  .topSection {
+    background-color: #062442;
+    padding-top: 30px;
+    padding-left: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .contactImage {
+    width: 200px;
+    height: auto;
+    display: block;
+  }
+  
+  .orangeBar {
+    position: relative;
+    background-color: #f15c22;
+    height: 20px;
+  }
+  
+  .iconWrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #062442;
+    border: 4px solid #fff;
+    border-radius: 50%;
+    padding: 20px;
+    height: 35px;
+    width: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+  }
+  
+  .bottomSection {
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+  
+  .phoneNumber {
+    color: #062442;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+    font-optical-sizing: auto;
+    font-style: normal;
+  }
+  
+  .helpText {
+    color: #555;
+    font-size: 14px;
+    margin: 10px 0 20px;
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+    font-optical-sizing: auto;
+    font-style: normal;
+  }
+  
+  .callButton {
+    background-color: #E61D25;
+    color: white;
+    border: none;
+    padding: 6px 20px;
+    font-size: 13px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+    font-optical-sizing: auto;
+    font-style: normal;
+  }
+  
+  .callButton:hover {
+    background-color: #c5151b;
+  }
+  

@@ -86,4 +86,25 @@
       transform: translateY(0);
     }
   }
+  @media (max-width: 980px) {
+    .faqItem {
+      width: 100%;
+      font-size: 13px !important;
+    }
+  
+    .faqHeader {
+      font-size: 13px !important;
+      padding: 15px 10px;
+    }
+  
+    .faqAnswer {
+      font-size: 13px !important;
+      padding: 15px 10px;
+      line-height: 1.5;
+    }
+  
+    .icon {
+      font-size: 20px;
+    }
+  }
   

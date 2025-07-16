@@ -8,6 +8,11 @@ import {
   Button,
   ButtonGroup,
   ClickAwayListener,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Grow,
   MenuItem,
   MenuList,
@@ -127,13 +132,50 @@ const Liste_produit: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
+  // Modal states
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [productToDelete, setProductToDelete] = useState<number | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+
   const handleUpdate = (id: number) => {
     router.push(`/Dashboard/Ecommerce/${id}`);
   };
 
-  const handleDelete = async (id: number) => {
-    console.info('Delete product', id);
-    await refetch();
+  // Ouvre modal confirmation
+  const openDeleteConfirm = (id: number) => {
+    setProductToDelete(id);
+    setOpenConfirm(true);
+  };
+
+  // Gestion fermeture modal avec blocage clic hors et touche ESC si suppression en cours
+  const handleCloseConfirm = (
+    event: React.SyntheticEvent<any, Event>,
+    reason?: 'backdropClick' | 'escapeKeyDown'
+  ) => {
+    if (isDeleting) return; // bloque fermeture si suppression en cours
+    if (reason === 'backdropClick') return; // bloque clic hors modal
+    setOpenConfirm(false);
+    setProductToDelete(null);
+  };
+
+  // Suppression produit avec appel API
+  const handleDelete = async () => {
+    if (productToDelete === null) return;
+    setIsDeleting(true);
+    try {
+      const res = await fetch(`/api/products/${productToDelete}`, {
+        method: 'DELETE',
+      });
+      if (!res.ok) throw new Error('Erreur suppression produit');
+      await refetch();
+      setOpenConfirm(false);
+      setProductToDelete(null);
+    } catch (err) {
+      console.error(err);
+      // Ici tu peux ajouter une notification d'erreur si besoin
+    } finally {
+      setIsDeleting(false);
+    }
   };
 
   const handlePublish = async (id: number) => {
@@ -227,9 +269,20 @@ const Liste_produit: React.FC = () => {
                         onMainClick={() => handleUpdate(prod.id)}
                         menu={[
                           { label: 'Update product', onClick: () => handleUpdate(prod.id) },
-                          { label: 'Publish', onClick: () => handlePublish(prod.id), disabled: prod.statut === 'Publish' },
-                          { label: 'Unpublish', onClick: () => handleUnpublish(prod.id), disabled: prod.statut !== 'Publish' },
-                          { label: 'Delete product', onClick: () => handleDelete(prod.id) },
+                          {
+                            label: 'Publish',
+                            onClick: () => handlePublish(prod.id),
+                            disabled: prod.statut === 'Publish',
+                          },
+                          {
+                            label: 'Unpublish',
+                            onClick: () => handleUnpublish(prod.id),
+                            disabled: prod.statut !== 'Publish',
+                          },
+                          {
+                            label: 'Delete product',
+                            onClick: () => openDeleteConfirm(prod.id),
+                          },
                         ]}
                       />
                     </td>
@@ -260,6 +313,50 @@ const Liste_produit: React.FC = () => {
           </div>
         </>
       )}
+
+      {/* Modal confirmation suppression */}
+      <Dialog
+  open={openConfirm}
+  onClose={handleCloseConfirm}
+  aria-labelledby="alert-dialog-title"
+  aria-describedby="alert-dialog-description"
+  disableEscapeKeyDown={isDeleting}
+>
+  <DialogTitle id="alert-dialog-title" dir="rtl" style={{ textAlign: 'right' }} className={styles.arabica}>
+    {"تأكيد الحذف"}
+  </DialogTitle>
+  <DialogContent>
+    <DialogContentText id="alert-dialog-description" dir="rtl" style={{ textAlign: 'right' }} className={styles.arabica2}>
+      هل أنت متأكد من رغبتك في حذف هذا المنتج؟ هذا الإجراء لا رجعة فيه.
+    </DialogContentText>
+  </DialogContent>
+  <DialogActions style={{ justifyContent: 'flex-start' }}>
+    <Button
+    className={styles.arabica2}
+      onClick={() => {
+        if (!isDeleting) {
+          setOpenConfirm(false);
+          setProductToDelete(null);
+        }
+      }}
+      disabled={isDeleting}
+      dir="rtl"
+    >
+      إلغاء
+    </Button>
+    <Button
+    className={styles.arabica2}
+      onClick={handleDelete}
+      color="error"
+      variant="contained"
+      disabled={isDeleting}
+      dir="rtl"
+    >
+      {isDeleting ? 'جاري الحذف...' : 'حذف'}
+    </Button>
+  </DialogActions>
+</Dialog>
+
     </div>
   );
 };

@@ -1,0 +1,211 @@
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  src: url('/Font/NotoKufiArabic-VariableFont_wght.ttf') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 17px;
+  direction: rtl;
+}
+
+.sectionSubheading {
+  font-size: 19px;
+  color: #d60000;
+  font-weight: 600;
+  margin-top: 50px;
+  font-family: "Noto Kufi Arabic", sans-serif;
+}
+
+.sectionHeading {
+  font-size: 30px;
+  color: #0C3645;
+  font-weight: 700;
+  font-family: "Noto Kufi Arabic", sans-serif;
+}
+
+.sectionDescription {
+  font-size: 16px;
+  color: #444;
+  margin-top: 10px;
+  max-width: 600px;
+  margin-inline: auto;
+  line-height: 1.7;
+  font-family: "Noto Kufi Arabic", sans-serif;
+  margin-bottom: 20px;
+}
+
+/* Ligne rouge avec flèche animée */
+.redLineWrapper {
+  position: relative;
+  max-width: 250px;
+  margin: 15px auto 25px auto;
+  height: 3px;
+  background-color: #d60000;
+  border-radius: 2px;
+}
+
+.animatedArrow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  color: #d60000;
+  font-size: 34px;
+  padding: 0 6px;
+  animation: slideLeftRight 2s ease-in-out infinite;
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+@keyframes slideLeftRight {
+  0%, 100% {
+    transform: translate(calc(-50% - 0px), -50%);
+  }
+  50% {
+    transform: translate(calc(-50% + 8px), -50%);
+  }
+}
+
+.Liste_card {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start; /* <-- changer */
+  align-items: center;
+  gap: 25px;
+  margin-top: 50px;
+  padding-inline: 150px;
+  flex-wrap: wrap;
+}
+
+/* Carte individuelle */
+.card {
+  flex: 0 0 23%; /* environ 4 cartes par ligne avec gap */
+  max-width: 23%;
+  height: 50vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+}
+
+
+/* Masque bleu foncé */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: #070707;
+  opacity: 0.2;
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 60%;
+  background: linear-gradient(to top, #0C2B46, transparent); /* masque bleu foncé */
+  opacity: 1; /* toujours visible */
+  z-index: 5;
+  transition: background 0.4s ease;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+/* Lors du hover, changement de couleur du dégradé */
+.card:hover::after {
+  background: linear-gradient(to top, rgba(214, 0, 0, 0.6), transparent); /* rouge */
+}
+
+
+/* Contenu */
+.contenue {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 10;
+  transition: transform 0.3s ease;
+}
+
+/* Titre du service */
+.span {
+  font-family: "Noto Kufi Arabic", sans-serif;
+  color: #fff;
+  font-size: 23px;
+  font-weight: 700;
+  text-align: center;
+  direction: rtl;
+  margin-top: 10px;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
+}
+
+/* Description cachée par défaut */
+.description {
+  position: relative;
+  z-index: 10;
+  color: white;
+  text-align: center;
+  font-family: "Noto Kufi Arabic", sans-serif;
+  opacity: 0;
+  transform: translateY(20px);
+  font-size: 16px;
+  margin-top: 80px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+
+  display: -webkit-box;         /* pour Webkit */
+  -webkit-box-orient: vertical; /* pour Webkit */
+  -webkit-line-clamp: 2;        /* pour Webkit */
+  line-clamp: 2;                /* propriété standard */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+/* Hover animations */
+.card:hover {
+  transform: scale(1.03);
+}
+
+.card:hover::after {
+  opacity: 1;
+}
+
+.card:hover .description {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card:hover .contenue {
+  transform: translateY(-10%);
+}
+
+@media (max-width: 768px) {
+  .card {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .Liste_card {
+    padding-inline: 20px;
+    gap: 20px;
+  }
+}

@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  src: url('/Font/NotoKufiArabic-VariableFont_wght.ttf') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
 /* --- Carte --- */
 .card {
     width: 100%;
@@ -195,3 +202,15 @@
   transition: background-color 0.25s ease;
   font-size: 0.8rem;
 }  
+.arabica{
+  font-family: "Noto Kufi Arabic", sans-serif !important;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 17px !important;
+}
+.arabica2{
+  font-family: "Noto Kufi Arabic", sans-serif !important;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 12px !important;
+}

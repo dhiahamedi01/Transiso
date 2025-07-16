@@ -115,3 +115,25 @@ export async function PUT(req: NextRequest) {
     return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 });
   }
 }
+
+
+
+export async function DELETE(req: NextRequest) {
+  const id = extractIdFromUrl(req);
+  if (id === null) {
+    return NextResponse.json({ error: 'ID invalide' }, { status: 400 });
+  }
+
+  try {
+    const [result] = await db.query('DELETE FROM products WHERE id = ?', [id]);
+
+    if ((result as any).affectedRows === 0) {
+      return NextResponse.json({ error: 'Produit non trouvé' }, { status: 404 });
+    }
+
+    return NextResponse.json({ message: 'Produit supprimé' }, { status: 200 });
+  } catch (err) {
+    console.error('[product DELETE]', err);
+    return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 });
+  }
+}
