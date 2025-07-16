@@ -23,6 +23,7 @@ import Alert from "@mui/material/Alert";
 import Pagination from "@mui/material/Pagination";
 
 import style from "./Order.module.css";
+import InvoiceModal from "./InvoiceModal"; // <-- Import du modal facture
 
 type OrderData = {
   id: number;
@@ -94,7 +95,7 @@ function EditStatusModal({
           </Select>
         </FormControl>
       </DialogContent>
-      <DialogActions >
+      <DialogActions>
         <Button className={style.btn_modal} onClick={onClose} color="secondary">
           Cancel
         </Button>
@@ -122,6 +123,10 @@ export default function OrdersPage() {
   // Edit status modal
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [editingOrder, setEditingOrder] = useState<OrderData | null>(null);
+
+  // Invoice modal state
+  const [invoiceModalOpen, setInvoiceModalOpen] = useState(false);
+  const [invoiceOrder, setInvoiceOrder] = useState<OrderData | null>(null);
 
   // Snackbar alert state
   const [alertOpen, setAlertOpen] = useState(false);
@@ -273,6 +278,17 @@ export default function OrdersPage() {
     }
   };
 
+  // Nouvelle fonction pour ouvrir la facture
+  const openInvoiceModal = (order: OrderData) => {
+    setInvoiceOrder(order);
+    setInvoiceModalOpen(true);
+  };
+
+  const closeInvoiceModal = () => {
+    setInvoiceModalOpen(false);
+    setInvoiceOrder(null);
+  };
+
   const handleAlertClose = (
     event?: React.SyntheticEvent | Event,
     reason?: string
@@ -313,7 +329,6 @@ export default function OrdersPage() {
               <th className={style.tableHeader}>Address</th>
               <th className={style.tableHeader}>Products</th>
               <th className={style.tableHeader}>Status</th>
- 
               <th className={style.tableHeader}>Actions</th>
             </tr>
           </thead>
@@ -332,7 +347,6 @@ export default function OrdersPage() {
                     {order.status}
                   </span>
                 </td>
-       
                 <td className={style.tableData}>
                   <div className={style.actionButtonsWrapper}>
                     <button
@@ -346,7 +360,7 @@ export default function OrdersPage() {
                     <button
                       className={style.printButton}
                       title="Print Invoice"
-                      // Add print functionality here if needed
+                      onClick={() => openInvoiceModal(order)}
                     >
                       <PrintIcon fontSize="small" />
                     </button>
@@ -387,6 +401,14 @@ export default function OrdersPage() {
           onClose={closeEditModal}
           currentStatus={editingOrder.status}
           onSave={saveStatusUpdate}
+        />
+      )}
+
+      {invoiceOrder && (
+        <InvoiceModal
+          open={invoiceModalOpen}
+          onClose={closeInvoiceModal}
+          order={invoiceOrder}
         />
       )}
 
