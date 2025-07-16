@@ -432,4 +432,7 @@
     font-size: 3rem;
     color: #ccc;
   }
-  
+  .btn_modal{
+    text-decoration: none !important;
+    color: #d11a02 !important;
+  }

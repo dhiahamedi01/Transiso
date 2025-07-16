@@ -18,8 +18,10 @@ import Select from "@mui/material/Select";
 import MenuItemMUI from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
-import InvoiceModal from "./InvoiceModal";
-import { usePrintInvoice } from "@/hooks/usePrintInvoice";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+import Pagination from "@mui/material/Pagination";
+
 import style from "./Order.module.css";
 
 type OrderData = {
@@ -38,6 +40,14 @@ type OrderData = {
   email?: string | null;
 };
 
+const ORDER_STATUSES = [
+  "Pending",
+  "In Transit",
+  "Delivered",
+  "Delayed",
+  "Cancelled",
+];
+
 function formatDate(isoDate: string) {
   const date = new Date(isoDate);
   return date.toLocaleDateString("en-US", {
@@ -46,14 +56,6 @@ function formatDate(isoDate: string) {
     day: "numeric",
   });
 }
-
-const ORDER_STATUSES = [
-  "Pending",
-  "In Transit",
-  "Delivered",
-  "Delayed",
-  "Cancelled",
-];
 
 function EditStatusModal({
   open,
@@ -68,20 +70,15 @@ function EditStatusModal({
 }) {
   const [status, setStatus] = useState(currentStatus);
 
-  // Reset status when modal opens
-  React.useEffect(() => {
+  useEffect(() => {
     setStatus(currentStatus);
   }, [currentStatus]);
-
-  const handleSave = () => {
-    onSave(status);
-  };
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
       <DialogTitle>Edit Order Status</DialogTitle>
       <DialogContent>
-        <FormControl fullWidth variant="outlined" margin="normal">
+        <FormControl fullWidth margin="normal" variant="outlined">
           <InputLabel id="status-select-label">Status</InputLabel>
           <Select
             labelId="status-select-label"
@@ -89,19 +86,24 @@ function EditStatusModal({
             onChange={(e) => setStatus(e.target.value)}
             label="Status"
           >
-            {ORDER_STATUSES.map((statusOption) => (
-              <MenuItemMUI key={statusOption} value={statusOption}>
-                {statusOption}
+            {ORDER_STATUSES.map((opt) => (
+              <MenuItemMUI key={opt} value={opt}>
+                {opt}
               </MenuItemMUI>
             ))}
           </Select>
         </FormControl>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose} color="secondary">
+      <DialogActions >
+        <Button className={style.btn_modal} onClick={onClose} color="secondary">
           Cancel
         </Button>
-        <Button onClick={handleSave} variant="contained" color="primary">
+        <Button
+          onClick={() => onSave(status)}
+          variant="contained"
+          color="primary"
+          disabled={status === currentStatus}
+        >
           Save
         </Button>
       </DialogActions>
@@ -109,19 +111,28 @@ function EditStatusModal({
   );
 }
 
-function OrdersPage() {
+export default function OrdersPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [orderList, setOrderList] = useState<OrderData[]>([]);
   const [loading, setLoading] = useState(true);
-  const { invoiceData, openInvoice, closeInvoice, printInvoice, printRef } =
-    usePrintInvoice();
 
   const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
   const [selectedOrderId, setSelectedOrderId] = useState<number | null>(null);
 
-  // For edit modal
+  // Edit status modal
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [editingOrder, setEditingOrder] = useState<OrderData | null>(null);
+
+  // Snackbar alert state
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertSeverity, setAlertSeverity] = useState<
+    "success" | "error" | "info" | "warning"
+  >("success");
+
+  // Pagination
+  const [page, setPage] = useState(1);
+  const rowsPerPage = 10;
 
   useEffect(() => {
     async function fetchOrders() {
@@ -132,9 +143,15 @@ function OrdersPage() {
           setOrderList(data.data);
         } else {
           console.error("API returned success:false");
+          setAlertMessage("Failed to load orders.");
+          setAlertSeverity("error");
+          setAlertOpen(true);
         }
       } catch (error) {
         console.error("Failed to fetch orders", error);
+        setAlertMessage("Failed to fetch orders.");
+        setAlertSeverity("error");
+        setAlertOpen(true);
       } finally {
         setLoading(false);
       }
@@ -148,6 +165,16 @@ function OrdersPage() {
       .toLowerCase()
       .includes(searchTerm.toLowerCase())
   );
+
+  // Pagination slice:
+  const paginatedOrders = filteredOrders.slice(
+    (page - 1) * rowsPerPage,
+    page * rowsPerPage
+  );
+
+  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+  };
 
   const handleMenuOpen = (
     event: React.MouseEvent<HTMLElement>,
@@ -168,6 +195,10 @@ function OrdersPage() {
     );
     setOrderList(updatedOrders);
     handleMenuClose();
+
+    setAlertMessage(`Payment status changed to "${newStatus}"`);
+    setAlertSeverity("success");
+    setAlertOpen(true);
   };
 
   const getStatusClass = (status: string) => {
@@ -192,21 +223,20 @@ function OrdersPage() {
     }
   };
 
-  // Open Edit Modal
   const openEditModal = (order: OrderData) => {
     setEditingOrder(order);
     setEditModalOpen(true);
   };
 
-  // Close Edit Modal
   const closeEditModal = () => {
     setEditModalOpen(false);
     setEditingOrder(null);
   };
 
-  // Save status from modal (update frontend & backend)
   const saveStatusUpdate = async (newStatus: string) => {
     if (!editingOrder) return;
+
+    const prevStatus = editingOrder.status;
 
     // Optimistic UI update
     setOrderList((prev) =>
@@ -218,24 +248,39 @@ function OrdersPage() {
     closeEditModal();
 
     try {
-      const response = await fetch(`/api/update_order_status`, {
-        method: "POST",
+      const response = await fetch(`/api/Liste_order/${editingOrder.id}`, {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: editingOrder.id, status: newStatus }),
+        body: JSON.stringify({ status: newStatus }),
       });
       const data = await response.json();
       if (!data.success) {
         throw new Error(data.message || "Failed to update status");
       }
+      setAlertMessage("Order status updated successfully.");
+      setAlertSeverity("success");
+      setAlertOpen(true);
     } catch (error) {
-      alert("Failed to update status in the database.");
-      // Rollback UI change on failure
+      setAlertMessage("Error updating status.");
+      setAlertSeverity("error");
+      setAlertOpen(true);
+      // Rollback on error
       setOrderList((prev) =>
         prev.map((order) =>
-          order.id === editingOrder.id ? { ...order, status: editingOrder.status } : order
+          order.id === editingOrder.id ? { ...order, status: prevStatus } : order
         )
       );
     }
+  };
+
+  const handleAlertClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setAlertOpen(false);
   };
 
   if (loading) {
@@ -248,10 +293,13 @@ function OrdersPage() {
         <h3 className={style.title}>Order List</h3>
         <input
           type="text"
-          placeholder="Search order..."
+          placeholder="Search orders..."
           className={style.searchInputSmall}
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+            setPage(1); // reset to first page on search
+          }}
         />
       </div>
 
@@ -265,12 +313,12 @@ function OrdersPage() {
               <th className={style.tableHeader}>Address</th>
               <th className={style.tableHeader}>Products</th>
               <th className={style.tableHeader}>Status</th>
-              <th className={style.tableHeader}>Payment</th>
+ 
               <th className={style.tableHeader}>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {filteredOrders.map((order) => (
+            {paginatedOrders.map((order) => (
               <tr key={order.id} className={style.tableRow}>
                 <td className={style.tableData}>{order.orderId}</td>
                 <td className={style.tableData}>{order.customer}</td>
@@ -284,74 +332,22 @@ function OrdersPage() {
                     {order.status}
                   </span>
                 </td>
-                <td className={style.tableData}>
-                  <ButtonGroup variant="contained" size="small" disableElevation>
-                    <Button
-                      style={{
-                        backgroundColor:
-                          order.payment.toLowerCase() === "paid"
-                            ? "#4caf50"
-                            : "#f44336",
-                        color: "#fff",
-                        fontWeight: "600",
-                        minWidth: 70,
-                        borderRight: "none",
-                      }}
-                    >
-                      {order.payment}
-                    </Button>
-                    <Button
-                      onClick={(e) => handleMenuOpen(e, order.id)}
-                      style={{
-                        backgroundColor:
-                          order.payment.toLowerCase() === "paid"
-                            ? "#4caf50"
-                            : "#f44336",
-                        color: "#fff",
-                        borderLeft: "1px solid rgba(255,255,255,0.2)",
-                      }}
-                    >
-                      <ArrowDropDownIcon />
-                    </Button>
-                  </ButtonGroup>
-                  <Menu
-                    anchorEl={menuAnchor}
-                    open={selectedOrderId === order.id && Boolean(menuAnchor)}
-                    onClose={handleMenuClose}
-                  >
-                    <MenuItem
-                      onClick={() => handleChangePaymentStatus(order.id, "paid")}
-                      sx={{ display: "flex", justifyContent: "left" }}
-                    >
-                      Mark as Paid
-                    </MenuItem>
-                    <MenuItem
-                      onClick={() => handleChangePaymentStatus(order.id, "unpaid")}
-                    >
-                      Mark as Unpaid
-                    </MenuItem>
-                  </Menu>
-                </td>
+       
                 <td className={style.tableData}>
                   <div className={style.actionButtonsWrapper}>
                     <button
                       className={style.viewButton}
-                      title="View details"
-                      onClick={() => openInvoice(order)}
-                    >
-                      <VisibilityIcon fontSize="small" />
-                    </button>
-                    <button
-                      className={style.editButton}
-                      title="Edit status"
+                      title="Edit Status"
                       onClick={() => openEditModal(order)}
                     >
                       <EditIcon fontSize="small" />
                     </button>
-                    <button className={style.deleteButton} title="Delete">
-                      <DeleteIcon fontSize="small" />
-                    </button>
-                    <button className={style.printButton} title="Print invoice">
+
+                    <button
+                      className={style.printButton}
+                      title="Print Invoice"
+                      // Add print functionality here if needed
+                    >
                       <PrintIcon fontSize="small" />
                     </button>
                   </div>
@@ -369,14 +365,21 @@ function OrdersPage() {
         </table>
       </div>
 
-      {invoiceData && (
-        <InvoiceModal
-          data={invoiceData}
-          onClose={closeInvoice}
-          onPrint={printInvoice}
-          printRef={printRef}
+      <div
+        style={{
+          marginTop: "1rem",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <Pagination
+          count={Math.ceil(filteredOrders.length / rowsPerPage)}
+          page={page}
+          onChange={handlePageChange}
+          color="primary"
+          shape="rounded"
         />
-      )}
+      </div>
 
       {editingOrder && (
         <EditStatusModal
@@ -386,8 +389,22 @@ function OrdersPage() {
           onSave={saveStatusUpdate}
         />
       )}
+
+      <Snackbar
+        open={alertOpen}
+        autoHideDuration={4000}
+        onClose={handleAlertClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleAlertClose}
+          severity={alertSeverity}
+          sx={{ width: "100%" }}
+          variant="filled"
+        >
+          {alertMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }
-
-export default OrdersPage;
