@@ -98,6 +98,7 @@ export default function ProductList() {
           alignItems: 'center',
           justifyContent: 'space-between',
           gap: 2,
+          fontFamily: direction === 'rtl' ? 'Noto Kufi Arabic, sans-serif' : 'Arial, sans-serif',
           mb: 4,
           direction,
           px: { xs: 1, md: 0 }
@@ -109,6 +110,7 @@ export default function ProductList() {
             fontSize: 20,
             color: '#0C3547',
             textAlign: direction === 'rtl' ? 'right' : 'left',
+            fontFamily: direction === 'rtl' ? 'Noto Kufi Arabic, sans-serif' : 'Arial, sans-serif',
           }}
         >
           {t('productList.title')}
@@ -142,6 +144,7 @@ export default function ProductList() {
               fullWidth
               sx={{
                 color: '#333',
+                fontFamily: direction === 'rtl' ? 'Noto Kufi Arabic, sans-serif' : 'Arial, sans-serif',
                 '::placeholder': { color: '#999' },
                 textAlign: direction === 'rtl' ? 'right' : 'left',
               }}
