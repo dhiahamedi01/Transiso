@@ -75,6 +75,7 @@ const MENU_SECTIONS: MenuSection[] = [
           { title: "All Products", href: "/Dashboard/Ecommerce/Product", permission: "e commerce" },
           { title: "Add Products", href: "/Dashboard/Ecommerce/AddProduct", permission: "e commerce" },
           { title: "Orders", href: "/Dashboard/Ecommerce/Orders", permission: "e commerce" },
+          { title: "Cathégorie", href: "/Dashboard/Ecommerce/Cathegorie", permission: "e commerce" },
         ],
       },
       {
