@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 
 const Nav = dynamic(() => import('@/Components/Navbar/Nav'), { ssr: false });
+const Navlogin = dynamic(() => import('@/Components/Navbar_login/Navlogin'), { ssr: false });
 const HeroSlider = dynamic(() => import('@/Components/HeroSlider/HeroSlider'), { ssr: false });
 const TrendingCarousel = dynamic(() => import('@/Components/Produit/TrendingCarousel/TrendingCarousel'), { ssr: false });
 
@@ -20,10 +21,16 @@ import Carousel from '@/Components/Carrousel/carrousel';
 
 export default function Page() {
   const [isLoading, setIsLoading] = useState(true);
-  const [hasMounted, setHasMounted] = useState(false); 
+  const [hasMounted, setHasMounted] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
 
   useEffect(() => {
-    setHasMounted(true); 
+    setHasMounted(true);
+
+    // Vérification de la présence de userName dans localStorage
+    const userName = localStorage.getItem('userName');
+    setIsLoggedIn(!!userName);
+
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 3000);
@@ -31,7 +38,7 @@ export default function Page() {
     return () => clearTimeout(timer);
   }, []);
 
-  if (!hasMounted) return null; 
+  if (!hasMounted) return null;
 
   return (
     <>
@@ -53,7 +60,9 @@ export default function Page() {
       )}
 
       <div style={{ visibility: isLoading ? 'hidden' : 'visible' }}>
-        <Nav />
+        {/* Affiche Nav ou Navlogin selon login */}
+        {isLoggedIn ? <Navlogin /> : <Nav />}
+
         <HeroSlider />
         <Card />
         <Section />
