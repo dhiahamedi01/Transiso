@@ -1,12 +1,6 @@
 'use client';
 
-import React, { useState, useCallback, useEffect, memo } from 'react';
-import dynamic from 'next/dynamic';
-import SearchModal from '../SearchModal/SearchModal';
-
-import styles from './Nav.module.css';
-import useLogo from '@/hooks/useLogo';
-
+import React, { useState, useEffect } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -22,43 +16,64 @@ import {
   Link as MuiLink,
 } from '@mui/material';
 
-import { useTranslation } from 'react-i18next';
-
-const MenuIcon       = dynamic(() => import('@mui/icons-material/Menu'),       { ssr: false });
-const SearchIcon     = dynamic(() => import('@mui/icons-material/Search'),     { ssr: false });
-const PhoneIcon      = dynamic(() => import('@mui/icons-material/Phone'),      { ssr: false });
-const TrendingUpIcon = dynamic(() => import('@mui/icons-material/TrendingUp'), { ssr: false });
-const LocationOnIcon = dynamic(() => import('@mui/icons-material/LocationOn'), { ssr: false });
-const EmailIcon      = dynamic(() => import('@mui/icons-material/Email'),      { ssr: false });
-const AccessTimeIcon = dynamic(() => import('@mui/icons-material/AccessTime'), { ssr: false });
-const FacebookIcon   = dynamic(() => import('@mui/icons-material/Facebook'),   { ssr: false });
-const TwitterIcon    = dynamic(() => import('@mui/icons-material/Twitter'),    { ssr: false });
-const WhatsAppIcon   = dynamic(() => import('@mui/icons-material/WhatsApp'),   { ssr: false });
-const InstagramIcon  = dynamic(() => import('@mui/icons-material/Instagram'),  { ssr: false });
-
+import dynamic from 'next/dynamic';
+import SearchModal from '../SearchModal/SearchModal';
+import styles from './Nav.module.css';
+import useLogo from '@/hooks/useLogo';
 import Image from 'next/image';
 import Link from 'next/link';
 import LanguageSelector from '../LanguageSelector/LanguageSelector';
+import { useTranslation } from 'react-i18next';
+
+const MenuIcon = dynamic(() => import('@mui/icons-material/Menu'), { ssr: false });
+const SearchIcon = dynamic(() => import('@mui/icons-material/Search'), { ssr: false });
+const PhoneIcon = dynamic(() => import('@mui/icons-material/Phone'), { ssr: false });
+const TrendingUpIcon = dynamic(() => import('@mui/icons-material/TrendingUp'), { ssr: false });
+const LocationOnIcon = dynamic(() => import('@mui/icons-material/LocationOn'), { ssr: false });
+const EmailIcon = dynamic(() => import('@mui/icons-material/Email'), { ssr: false });
+const AccessTimeIcon = dynamic(() => import('@mui/icons-material/AccessTime'), { ssr: false });
+const FacebookIcon = dynamic(() => import('@mui/icons-material/Facebook'), { ssr: false });
+const TwitterIcon = dynamic(() => import('@mui/icons-material/Twitter'), { ssr: false });
+const WhatsAppIcon = dynamic(() => import('@mui/icons-material/WhatsApp'), { ssr: false });
+const InstagramIcon = dynamic(() => import('@mui/icons-material/Instagram'), { ssr: false });
 
 function Nav() {
   const { t, i18n } = useTranslation('common');
-
   const [isClient, setIsClient] = useState(false);
   const isMobile = useMediaQuery('(max-width:900px)', { noSsr: true });
+
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [email, setEmail] = useState('');
+  const [location, setLocation] = useState('');
 
   useEffect(() => {
     setIsClient(true);
     document.body.dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
+
+    // Fetch Personal Information
+    async function fetchInfo() {
+      try {
+        const res = await fetch('/api/Manage_website/PersonalInformation');
+        if (!res.ok) throw new Error('Erreur API');
+        const data = await res.json();
+        setPhoneNumber(data.phoneNumber || '');
+        setEmail(data.email || '');
+        setLocation(data.location || '');
+      } catch (err) {
+        console.error('Erreur de chargement des données de contact :', err);
+      }
+    }
+
+    fetchInfo();
   }, [i18n.language]);
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-
-  const openDrawer = useCallback(() => setDrawerOpen(true), []);
-  const closeDrawer = useCallback(() => setDrawerOpen(false), []);
+  const openDrawer = () => setDrawerOpen(true);
+  const closeDrawer = () => setDrawerOpen(false);
   const openSearch = () => setSearchOpen(true);
   const closeSearch = () => setSearchOpen(false);
-  const { logo, loading: logoLoading } = useLogo();
+  const { logo } = useLogo();
 
   const navItems = [
     { label: t('home'), href: '/' },
@@ -72,24 +87,28 @@ function Nav() {
 
   return (
     <>
-      {/* ---------- Top Bar ---------- */}
+      {/* Top Bar */}
       <div className={`${styles.topBar} ${!isMobile && i18n.language === 'ar' ? styles.rtl : ''}`}>
         <div className={styles.left}>
-          <div className={styles.infoItem}>
-            <LocationOnIcon fontSize="small" sx={{ color: '#DE1E27' }} />
-            <Typography sx={{ fontWeight: 300 }} className={styles.icon_topbar}>
-              Istanbul, Turkey
-            </Typography>
-          </div>
+          {location && (
+            <div className={styles.infoItem}>
+              <LocationOnIcon fontSize="small" sx={{ color: '#DE1E27' }} />
+              <Typography sx={{ fontWeight: 300 }} className={styles.icon_topbar}>
+                {location}
+              </Typography>
+            </div>
+          )}
 
           <span className={styles.separator}>|</span>
 
-          <div className={styles.infoItem}>
-            <EmailIcon fontSize="small" sx={{ color: '#DE1E27' }} />
-            <Typography sx={{ fontWeight: 300 }} className={styles.icon_topbar}>
-              info@transisologistic.com
-            </Typography>
-          </div>
+          {email && (
+            <div className={styles.infoItem}>
+              <EmailIcon fontSize="small" sx={{ color: '#DE1E27' }} />
+              <Typography sx={{ fontWeight: 300 }} className={styles.icon_topbar}>
+                {email}
+              </Typography>
+            </div>
+          )}
 
           {!isMobile && (
             <>
@@ -107,16 +126,9 @@ function Nav() {
         {!isMobile && (
           <div className={styles.right}>
             <LanguageSelector />
-            <MuiLink
-              component={Link}
-              href="#"
-              underline="none"
-              className={`${styles.Arabe} ${styles.link2}`}
-              color="inherit"
-            >
+            <MuiLink component={Link} href="/Demande" underline="none" className={`${styles.Arabe} ${styles.link2}`}>
               {t('inquiryOnline')}
             </MuiLink>
-
             <Typography className={styles.Arabe}>{t('followUs')}</Typography>
             <div className={styles.Liste_icon}>
               <IconButton size="small" className={styles.icon}><FacebookIcon fontSize="small" /></IconButton>
@@ -128,13 +140,8 @@ function Nav() {
         )}
       </div>
 
-      {/* ---------- NavBar ---------- */}
-      <AppBar
-        position="static"
-        color="transparent"
-        elevation={0}
-        className={`${styles.navbar} ${i18n.language === 'ar' ? styles.rtl : ''}`}
-      >
+      {/* Navbar */}
+      <AppBar position="static" color="transparent" elevation={0} className={`${styles.navbar} ${i18n.language === 'ar' ? styles.rtl : ''}`}>
         <Toolbar className={styles.toolbar}>
           {isMobile && (
             <IconButton edge="start" onClick={openDrawer} className={styles.hamburger}>
@@ -142,28 +149,15 @@ function Nav() {
             </IconButton>
           )}
 
-        <Box className={styles.logoBox}>
-            <Image
-              src={logo || '/img/logo2.jpg'}
-              alt="Logo"
-              width={190}
-              height={60}
-              priority
-            />
-        </Box>
-
+          <Box className={styles.logoBox}>
+            <Image src={logo || '/img/logo2.jpg'} alt="Logo" width={190} height={60} priority />
+          </Box>
 
           {!isMobile && (
             <>
               <Box className={styles.navLinks}>
                 {navItems.map(({ label, href }) => (
-                  <MuiLink
-                    key={href}
-                    component={Link}
-                    href={href}
-                    underline="none"
-                    className={styles.link}
-                  >
+                  <MuiLink key={href} component={Link} href={href} underline="none" className={styles.link}>
                     {label}
                   </MuiLink>
                 ))}
@@ -174,13 +168,13 @@ function Nav() {
                   <SearchIcon className={styles.searchIcon} />
                 </IconButton>
                 <Divider orientation="vertical" flexItem />
-                <Link href={`tel:${t('phoneNumber')}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Link href={`tel:${phoneNumber}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                   <Box className={styles.phoneBox}>
                     <Box className={styles.phoneIconCircle}>
                       <PhoneIcon className={styles.phoneIcon} />
                     </Box>
                     <Typography className={styles.phoneNumber}>
-                      {t('phoneNumber')}
+                      {phoneNumber}
                     </Typography>
                   </Box>
                 </Link>
@@ -196,24 +190,13 @@ function Nav() {
         </Toolbar>
       </AppBar>
 
-      {/* ---------- Drawer mobile ---------- */}
-      <Drawer
-        anchor="right"
-        open={drawerOpen}
-        onClose={closeDrawer}
-        disableScrollLock
-      >
+      {/* Drawer Mobile */}
+      <Drawer anchor="right" open={drawerOpen} onClose={closeDrawer} disableScrollLock>
         <Box sx={{ width: 250, p: 2 }}>
           <List>
             {navItems.map(({ label, href }) => (
               <ListItem key={href}>
-                <MuiLink
-                  component={Link}
-                  href={href}
-                  underline="none"
-                  className={`${styles.Arabe} ${styles.link}`}
-                  onClick={closeDrawer}
-                >
+                <MuiLink component={Link} href={href} underline="none" className={`${styles.Arabe} ${styles.link}`} onClick={closeDrawer}>
                   {label}
                 </MuiLink>
               </ListItem>
@@ -228,14 +211,7 @@ function Nav() {
 
             <LanguageSelector />
 
-            <MuiLink
-              component={Link}
-              href="#"
-              underline="none"
-              className={`${styles.Arabe} ${styles.link}`}
-              color="inherit"
-              onClick={closeDrawer}
-            >
+            <MuiLink component={Link} href="#" underline="none" className={`${styles.Arabe} ${styles.link}`} color="inherit" onClick={closeDrawer}>
               {t('inquiryOnline')}
             </MuiLink>
 
@@ -259,4 +235,4 @@ function Nav() {
   );
 }
 
-export default memo(Nav);
+export default React.memo(Nav);

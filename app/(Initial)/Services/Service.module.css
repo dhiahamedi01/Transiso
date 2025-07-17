@@ -286,3 +286,161 @@
     font-size: 20px !important;
     color: #0C3645 !important;
   }
+  /* ==== Petit PC & écrans entre 992px et 1200px ==== */
+@media (max-width: 1200px) and (min-width: 992px) {
+  .Paper {
+    padding-inline: 4%;
+  }
+
+  .Paper_g {
+    width: 45%;
+  }
+
+  .Paper_d {
+    width: 55%;
+    padding-left: 15px;
+  }
+
+  .Card {
+    gap: 30px;
+  }
+}
+
+/* ==== Tablettes et petits écrans (768px à 991px) ==== */
+@media (max-width: 991px) and (min-width: 768px) {
+  .Paper {
+    flex-direction: column;
+    padding-inline: 5%;
+  }
+
+  .Paper_g,
+  .Paper_d {
+    width: 100% !important;
+  }
+
+  .Paper_g {
+    margin-bottom: 40px;
+  }
+  
+  .partie1,
+  .partie3 {
+    height: auto !important;
+  }
+
+  .Card {
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .sous_Card1:nth-child(2)::before {
+    display: none;
+  }
+
+  .bottom_image_container {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    margin-top: 20px;
+    text-align: center;
+  }
+}
+
+/* ==== Mobiles (moins de 768px) ==== */
+@media (max-width: 767px) {
+  .Paper {
+    flex-direction: column;
+    padding-inline: 3%;
+    padding-top: 30px;
+    padding-bottom: 20px;
+  }
+  .Paper_d {
+    order: 1;    /* droite en haut */
+    width: 100% !important;
+  }
+
+  .Paper_g {
+    order: 2;    /* gauche en bas */
+    width: 100% !important;
+  }
+  .Paper_g,
+  .Paper_d {
+    width: 100% !important;
+  }
+
+  .partie1,
+  .partie3 {
+    height: auto !important;
+    padding: 15px;
+  }
+
+  .contenue {
+    margin-top: 15px;
+  }
+
+  .titre_demande {
+    font-size: 24px;
+  }
+
+  .Description_demande {
+    font-size: 13px;
+    padding: 0 10px;
+  }
+
+  .button_demande {
+    width: 100%;
+  }
+
+  .btn_arabic {
+    padding: 10px 30px;
+    font-size: 14px;
+  }
+
+  .Card {
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px 0;
+  }
+
+  .sous_Card1 {
+    justify-content: flex-start;
+  }
+
+  .sous_Card1:nth-child(2)::before {
+    display: none;
+  }
+
+  .icon_card {
+    font-size: 28px;
+  }
+
+  .titre_card {
+    font-size: 16px;
+  }
+
+  .desc_card {
+    font-size: 13px;
+  }
+
+  .bottom_image_container {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    margin-top: 15px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .imagec {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+  }
+
+  .description {
+    font-size: 13px;
+    padding-left: 15px;
+    margin-bottom: 15px;
+  }
+}

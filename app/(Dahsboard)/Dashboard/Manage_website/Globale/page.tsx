@@ -5,7 +5,7 @@ import { useTheme } from '@mui/material/styles';
 import LogoUpload from '@/Components/Dahsboard/Manage_site/Configuration/Logo/LogoTab';
 import SocialMediaLinks from '@/Components/Dahsboard/Manage_site/Configuration/SocialMediaLinks/SocialMediaLinks';
 import FooterSettings from '@/Components/Dahsboard/Manage_site/Configuration/Footer/Footer';
-import SmtpSettings from '@/Components/Dahsboard/Manage_site/Configuration/SmtpSettings/SmtpSettings';
+import PersonalInformation  from '@/Components/Dahsboard/Manage_site/Configuration/PersonalInformation/PersonalInformation';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -36,6 +36,9 @@ export default function WebsiteSettingsTabs() {
   const [value, setValue] = React.useState(0);
 
   // States partagés
+  const [location, setLocation] = React.useState('');
+  const [phoneNumber, setPhoneNumber] = React.useState('');
+  const [email, setEmail] = React.useState('');
   const [logo, setLogo] = React.useState<string | null>(null);
   const [footerDesc, setFooterDesc] = React.useState('');
   const [openingTime, setOpeningTime] = React.useState('09:00');
@@ -74,7 +77,7 @@ export default function WebsiteSettingsTabs() {
           <Tab label="Logo" id="action-tab-0" aria-controls="action-tabpanel-0" />
           <Tab label="Social Media" id="action-tab-1" aria-controls="action-tabpanel-1" />
           <Tab label="Footer" id="action-tab-2" aria-controls="action-tabpanel-2" />
-          <Tab label="SMTP Email" id="action-tab-3" aria-controls="action-tabpanel-3" />
+          <Tab label="Information" id="action-tab-3" aria-controls="action-tabpanel-3" />
         </Tabs>
       </AppBar>
 
@@ -88,25 +91,11 @@ export default function WebsiteSettingsTabs() {
 
       <TabPanel value={value} index={2}>
         <FooterSettings
-          footerDesc={footerDesc}
-          setFooterDesc={setFooterDesc}
-          openingTime={openingTime}
-          setOpeningTime={setOpeningTime}
-          closingTime={closingTime}
-          setClosingTime={setClosingTime}
         />
       </TabPanel>
 
       <TabPanel value={value} index={3}>
-        <SmtpSettings
-          smtpHost={smtpHost}
-          setSmtpHost={setSmtpHost}
-          smtpPort={smtpPort}
-          setSmtpPort={setSmtpPort}
-          smtpUser={smtpUser}
-          setSmtpUser={setSmtpUser}
-          smtpPass={smtpPass}
-          setSmtpPass={setSmtpPass}
+      <PersonalInformation
         />
       </TabPanel>
 

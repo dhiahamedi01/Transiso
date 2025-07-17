@@ -14,9 +14,9 @@ type Service = {
 
 const services: Service[] = [
   { id: 1, title: 'شحن بالطائرة', img: '/img/Service/other4.jpg', slug: 'Plane' },
-  { id: 2, title: 'شحن بالقطار', img: '/img/Service/other_2-1.jpg', slug: 'Plane' },
-  { id: 3, title: 'شحن بحري', img: '/img/Service/other_3-1.jpg', slug: 'Plane' },
-  { id: 4, title: 'شحن بالشاحنة', img: '/img/Service/other_1-1.jpg', slug: 'Plane' },
+  { id: 2, title: 'شحن بالقطار', img: '/img/Service/other_2-1.jpg', slug: 'Train' },
+  { id: 3, title: 'شحن بحري', img: '/img/Service/other_3-1.jpg', slug: 'Sea' },
+  { id: 4, title: 'شحن بالشاحنة', img: '/img/Service/other_1-1.jpg', slug: 'truck' },
 ];
 
 export default function OtherServices() {
