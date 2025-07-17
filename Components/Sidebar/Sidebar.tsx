@@ -97,6 +97,7 @@ const MENU_SECTIONS: MenuSection[] = [
           { title: "Banner Service", href: "/Dashboard/Manage_website/Banner_Service", permission: "manage site" },
           { title: "Service Globale", href: "/Dashboard/Manage_website/Manage_service", permission: "manage site" },
           { title: "Manage About", href: "/Dashboard/Manage_website/About", permission: "manage site" },
+          { title: "Manage Field", href: "/Dashboard/Manage_website/Field", permission: "manage site" },
         ],},
       {
         title: "Tracking",

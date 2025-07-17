@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, ChangeEvent } from "react";
+
+import React, { useState, useEffect, ChangeEvent } from "react";
 import Image from "next/image";
 import dayjs, { Dayjs } from "dayjs";
 import "dayjs/locale/ar";
@@ -18,6 +19,8 @@ import {
   FormControlLabel,
   Radio,
   RadioGroup,
+  CircularProgress,
+  Typography,
 } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -33,17 +36,6 @@ const steps = [
   { label: "الخطوة الثانية", icon: "/img/icon/step2.svg" },
   { label: "الخطوة الثالثة", icon: "/img/icon/step4.svg" },
   { label: "الخطوة الرابعة", icon: "/img/icon/step5.svg" },
-];
-
-const services = [
-  "الشحن البحري",
-  "الشحن التجاري",
-  "الشحن الجوي",
-  "شحن السيارات",
-  "شحن الاثاث",
-  "شحن الطرود",
-  "التخليص الجمركي",
-  "أخرى",
 ];
 
 /* ---------- Connecteur RTL ---------- */
@@ -85,12 +77,20 @@ type FormData = {
   file: File | null;
 };
 
+type ServiceType = {
+  id: number;
+  name: string;
+};
+
 /* ---------- Composant principal ---------- */
 export default function StepperArabic() {
   const [activeStep, setActiveStep] = useState(0);
   const [selected, setSelected] = useState<string>("");
   const [shippingFrom, setShippingFrom] = useState("");
   const [shippingTo, setShippingTo] = useState("");
+  const [services, setServices] = useState<ServiceType[]>([]);
+  const [loadingServices, setLoadingServices] = useState(true);
+  const [fetchError, setFetchError] = useState<string | null>(null);
 
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -119,6 +119,26 @@ export default function StepperArabic() {
     sending: sendingMail,
     error: mailError,
   } = useSendMail();
+
+  /* ---------- Fetch services depuis /api/fields ---------- */
+  useEffect(() => {
+    const fetchServices = async () => {
+      setLoadingServices(true);
+      setFetchError(null);
+      try {
+        const res = await fetch("/api/fields/");
+        if (!res.ok) throw new Error(`Erreur: ${res.status}`);
+        const data: ServiceType[] = await res.json();
+        setServices(data);
+      } catch (error) {
+        setFetchError("Erreur lors du chargement des services.");
+        setServices([]);
+      } finally {
+        setLoadingServices(false);
+      }
+    };
+    fetchServices();
+  }, []);
 
   /* ---------- Handlers ---------- */
   const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) =>
@@ -238,60 +258,79 @@ export default function StepperArabic() {
 
           {/* --- FORMULAIRES PAR ÉTAPE --- */}
           {activeStep === 0 && (
-            <RadioGroup
-              value={selected}
-              onChange={handleRadioChange}
-              sx={{
-                mt: 4,
-                gap: 1.5,
-                color: "#0C3547",
-                fontFamily: '"Noto Kufi Arabic", sans-serif !important',
-              }}
-            >
-              {services.map((srv, idx) => (
-                <Box
-                  key={srv}
-                  onClick={() => setSelected(srv)}
+            <>
+              {loadingServices ? (
+                <Box sx={{ mt: 6, display: "flex", justifyContent: "center" }}>
+                  <CircularProgress />
+                </Box>
+              ) : fetchError ? (
+                <Typography
                   sx={{
-                    width: "100%",
-                    bgcolor: "#fff",
-                    borderRadius: 2,
-                    border: "1px solid #ddd",
-                    padding: 1.5,
-                    mb: idx === services.length - 1 ? 0 : 1,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    boxShadow: "0 1px 3px rgb(0 0 0 / 0.1)",
-                    cursor: "pointer",
-                    transition: "background-color 0.3s",
-                    "&:hover": { bgcolor: "#f9f9f9" },
+                    mt: 6,
+                    color: "error.main",
+                    textAlign: "center",
+                    fontFamily: '"Noto Kufi Arabic", sans-serif',
                   }}
                 >
-                  <FormControlLabel
-                    value={srv}
-                    control={
-                      <Radio
+                  {fetchError}
+                </Typography>
+              ) : (
+                <RadioGroup
+                  value={selected}
+                  onChange={handleRadioChange}
+                  sx={{
+                    mt: 4,
+                    gap: 1.5,
+                    color: "#0C3547",
+                    fontFamily: '"Noto Kufi Arabic", sans-serif !important',
+                  }}
+                >
+                  {services.map((srv, idx) => (
+                    <Box
+                      key={srv.id}
+                      onClick={() => setSelected(srv.name)}
+                      sx={{
+                        width: "100%",
+                        bgcolor: "#fff",
+                        borderRadius: 2,
+                        border: "1px solid #ddd",
+                        padding: 1.5,
+                        mb: idx === services.length - 1 ? 0 : 1,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        boxShadow: "0 1px 3px rgb(0 0 0 / 0.1)",
+                        cursor: "pointer",
+                        transition: "background-color 0.3s",
+                        "&:hover": { bgcolor: "#f9f9f9" },
+                      }}
+                    >
+                      <FormControlLabel
+                        value={srv.name}
+                        control={
+                          <Radio
+                            sx={{
+                              color: "#BDBDBD",
+                              "&.Mui-checked": { color: "#DE1E27" },
+                              "& .MuiSvgIcon-root": { fontSize: 28 },
+                            }}
+                          />
+                        }
+                        label={srv.name}
                         sx={{
-                          color: "#BDBDBD",
-                          "&.Mui-checked": { color: "#DE1E27" },
-                          "& .MuiSvgIcon-root": { fontSize: 28 },
+                          flexGrow: 1,
+                          ".MuiFormControlLabel-label": {
+                            fontWeight: 600,
+                            fontSize: "0.9rem",
+                            fontFamily: '"Noto Kufi Arabic", sans-serif !important',
+                          },
                         }}
                       />
-                    }
-                    label={srv}
-                    sx={{
-                      flexGrow: 1,
-                      ".MuiFormControlLabel-label": {
-                        fontWeight: 600,
-                        fontSize: "0.9rem",
-                        fontFamily: '"Noto Kufi Arabic", sans-serif !important',
-                      },
-                    }}
-                  />
-                </Box>
-              ))}
-            </RadioGroup>
+                    </Box>
+                  ))}
+                </RadioGroup>
+              )}
+            </>
           )}
 
           {activeStep === 1 && (
@@ -324,7 +363,7 @@ export default function StepperArabic() {
             </Box>
           )}
 
-          {activeStep === 3 && (
+{activeStep === 3 && (
             <Box sx={{ mt: 4 }}>
               {/* Nom */}
               <div className={styles.formRow}>
@@ -459,84 +498,90 @@ export default function StepperArabic() {
             </Box>
           )}
 
-          {/* --- Boutons Navigation & Soumission --- */}
+
+          {/* --- Boutons navigation --- */}
           <Box
             sx={{
               mt: 6,
               display: "flex",
               justifyContent: "space-between",
-              alignItems: "center",
+              px: 1,
             }}
           >
             <Button
-              disabled={activeStep === 0 || isPending}
+              disabled={activeStep === 0}
               onClick={handleBack}
               variant="outlined"
-              sx={{ fontFamily: '"Noto Kufi Arabic", sans-serif' }}
+              sx={{
+                fontFamily: '"Noto Kufi Arabic", sans-serif',
+                fontWeight: 700,
+                color: "#DE1E27",
+                borderColor: "#DE1E27",
+                "&:hover": { borderColor: "#DE1E27" },
+              }}
             >
               السابق
             </Button>
 
-            {activeStep < steps.length - 1 && (
+            {activeStep < steps.length - 1 ? (
               <Button
-                variant="contained"
                 onClick={handleNext}
-                disabled={
-                  isPending ||
-                  (activeStep === 0 && selected === "") ||
-                  (activeStep === 1 && shippingFrom.trim() === "") ||
-                  (activeStep === 2 && shippingTo.trim() === "")
-                }
+                variant="contained"
                 sx={{
-                  backgroundColor: "#DE1E27",
-                  "&:hover": { backgroundColor: "#b51720" },
                   fontFamily: '"Noto Kufi Arabic", sans-serif',
+                  fontWeight: 700,
+                  backgroundColor: "#DE1E27",
+                  "&:hover": { backgroundColor: "#B81E26" },
                 }}
+                disabled={activeStep === 0 && !selected}
               >
                 التالي
               </Button>
-            )}
-
-            {activeStep === steps.length - 1 && (
+            ) : (
               <Button
-                variant="contained"
-                color="primary"
                 onClick={handleSubmit}
-                disabled={isPending}
+                variant="contained"
                 sx={{
-                  backgroundColor: "#DE1E27",
-                  "&:hover": { backgroundColor: "#b51720" },
                   fontFamily: '"Noto Kufi Arabic", sans-serif',
+                  fontWeight: 700,
+                  backgroundColor: "#DE1E27",
+                  "&:hover": { backgroundColor: "#B81E26" },
                 }}
+                disabled={isPending || sendingMail}
               >
-                {isPending ? "جاري الإرسال..." : "إرسال الطلب"}
+                {isPending || sendingMail ? "جارٍ الإرسال..." : "إرسال"}
               </Button>
             )}
           </Box>
 
-          {/* --- Messages de succès / erreur --- */}
-          <Box sx={{ mt: 3, textAlign: "center", fontFamily: '"Noto Kufi Arabic", sans-serif' }}>
-            {isSuccess && (
-              <p style={{ color: "green", fontWeight: "bold" }}>
-                تم إرسال طلبك بنجاح!
-              </p>
-            )}
-            {isError && (
-              <p style={{ color: "red", fontWeight: "bold" }}>
-                حدث خطأ أثناء إرسال الطلب. الرجاء المحاولة مرة أخرى.
-              </p>
-            )}
-            {sendingMail && (
-              <p style={{ color: "blue", fontWeight: "bold" }}>
-                جاري إرسال رسالة الشكر...
-              </p>
-            )}
-            {mailError && (
-              <p style={{ color: "red", fontWeight: "bold" }}>
-                حدث خطأ أثناء إرسال رسالة الشكر.
-              </p>
-            )}
-          </Box>
+          {/* --- Message succès ou erreur --- */}
+          {(isSuccess || isError) && (
+            <Box
+              sx={{
+                mt: 4,
+                textAlign: "center",
+                fontFamily: '"Noto Kufi Arabic", sans-serif',
+              }}
+            >
+              {isSuccess && (
+                <Typography sx={{ color: "success.main" }}>
+                  تم إرسال الطلب بنجاح!
+                </Typography>
+              )}
+          {isError && (
+            <Typography sx={{ color: "error.main" }}>
+                {error?.message}
+              </Typography>
+
+              )}
+              {mailError && (
+                <Typography sx={{ color: "error.main" }}>
+                  خطأ في إرسال البريد الإلكتروني: {mailError}
+                </Typography>
+              )}
+
+            </Box>
+          )}
         </Box>
       </LocalizationProvider>
     </ThemeProvider>

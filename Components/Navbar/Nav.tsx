@@ -50,7 +50,6 @@ function Nav() {
     setIsClient(true);
     document.body.dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
 
-    // Fetch Personal Information
     async function fetchInfo() {
       try {
         const res = await fetch('/api/Manage_website/PersonalInformation');
@@ -195,12 +194,35 @@ function Nav() {
         <Box sx={{ width: 250, p: 2 }}>
           <List>
             {navItems.map(({ label, href }) => (
-              <ListItem key={href}>
-                <MuiLink component={Link} href={href} underline="none" className={`${styles.Arabe} ${styles.link}`} onClick={closeDrawer}>
+              <ListItem key={href} disablePadding>
+                <MuiLink
+                  component={Link}
+                  href={href}
+                  underline="none"
+                  className={`${styles.Arabe} ${styles.link}`}
+                  onClick={closeDrawer}
+                  sx={{ display: 'block', width: '100%', py: 1 }}
+                >
                   {label}
                 </MuiLink>
               </ListItem>
             ))}
+
+            {/* Ajout du trackOrder en mode mobile dans drawer avec lien */}
+            {isMobile && (
+              <ListItem disablePadding>
+                <MuiLink
+                  component={Link}
+                  href="/Login"
+                  underline="none"
+                  className={`${styles.Arabe} ${styles.link}`}
+                  onClick={closeDrawer}
+                  sx={{ display: 'block', width: '100%', py: 1, fontWeight: 'bold' }}
+                >
+                  {t('trackOrder')}
+                </MuiLink>
+              </ListItem>
+            )}
           </List>
 
           <Divider sx={{ my: 1 }} />
@@ -211,7 +233,14 @@ function Nav() {
 
             <LanguageSelector />
 
-            <MuiLink component={Link} href="#" underline="none" className={`${styles.Arabe} ${styles.link}`} color="inherit" onClick={closeDrawer}>
+            <MuiLink
+              component={Link}
+              href="#"
+              underline="none"
+              className={`${styles.Arabe} ${styles.link}`}
+              color="inherit"
+              onClick={closeDrawer}
+            >
               {t('inquiryOnline')}
             </MuiLink>
 

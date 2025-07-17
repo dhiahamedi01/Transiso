@@ -33,7 +33,12 @@
     border: 1px solid rgba(255, 255, 255, 0.4); /* Bordure translucide */
     zoom: 0.8;
   }
-  
+  @media (min-width: 1024px) and (max-width: 1380px) {
+    .container {
+      height: 110vh;
+      zoom: 0.6;
+    }
+  }
   .left {
     flex: 1;
     padding: 3rem;
