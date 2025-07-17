@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './BasicInfoCard.module.css';
 
 interface Props {
@@ -24,7 +24,28 @@ interface Props {
   >;
 }
 
+interface Category {
+  id: number;
+  name: string;
+}
+
 const BasicInfoCard: React.FC<Props> = ({ form, setForm }) => {
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch('/api/categories');
+        const data = await res.json();
+        setCategories(data);
+      } catch (error) {
+        console.error('Failed to fetch categories:', error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
   ) => {
@@ -45,7 +66,7 @@ const BasicInfoCard: React.FC<Props> = ({ form, setForm }) => {
   return (
     <form
       className={styles.card}
-      onSubmit={(e) => e.preventDefault()} // Submit géré par parent
+      onSubmit={(e) => e.preventDefault()}
     >
       <h3 className={styles.title}>Basic Information</h3>
       <p className={styles.subtitle}>Fill all information below</p>
@@ -64,12 +85,20 @@ const BasicInfoCard: React.FC<Props> = ({ form, setForm }) => {
 
         <div className={styles.field}>
           <label htmlFor="category">Category</label>
-          <select id="category" name="category" value={form.category} onChange={handleChange}>
-            <option value="">Select…</option>
-            <option value="electronics">Electronics</option>
-            <option value="furniture">Furniture</option>
-            <option value="toys">Toys</option>
+          <select
+            id="category"
+            name="category"
+            value={form.category}
+            onChange={handleChange}
+          >
+            <option value="">Select a category…</option>
+            {categories.map((cat) => (
+              <option key={cat.id} value={cat.name}>  {/* <-- ici value=cat.name */}
+                {cat.name}
+              </option>
+            ))}
           </select>
+
         </div>
 
         <div className={styles.field}>
@@ -126,8 +155,6 @@ const BasicInfoCard: React.FC<Props> = ({ form, setForm }) => {
           />
         </div>
       </div>
-
-    
     </form>
   );
 };
