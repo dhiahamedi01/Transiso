@@ -316,43 +316,68 @@ gap: 7px;
   background-color: #c61218;
   transition: 0.3ms;
   }
-  @media (max-width: 1280px) {
-    .card_about {
+  @media (min-width: 1024px) and (max-width: 1380px) {
+    .banner2 {
+      flex-wrap: nowrap; /* garde le flex en ligne */
+      gap: 20px;
+    }
+  
+    .partieTexte,
+    .partieTexte2 {
+      width: 50%; /* moitié écran pour le texte */
+      padding-top: 120px;
+      padding-left: 40px;
+      padding-right: 20px;
+    }
+  
+    .partieImage {
+      width: 50%; /* moitié écran pour l’image */
       display: flex;
-      justify-content: space-between;
-
+      justify-content: center;
       align-items: center;
-      padding-left: 0rem;
+      padding: 0;
+    }
+  
+    .partieImage .Image {
+      width: auto;
+      max-width: 100%;
+      max-height: 700px; /* limite hauteur pour éviter débordement */
+      object-fit: contain;
+    }
+  
+    .card_about,
+    .card_about2 {
+      flex-direction: row; /* côte à côte */
+      gap: 20px;
       padding-top: 25px;
-      background: transparent;
-      border-radius: 12px;
-      zoom: 0.8;
+      padding-left: 0;
+      padding-right: 0;
     }
-    
-    .partieTexte {
-      padding-top: 130px;
+  
+    .left_about {
+      max-width: 300px;
+      flex-shrink: 0;
     }
-      
-  .partieTexte h1 {
-    font-size: 1.4rem;
-    max-width: 100%;
+  
+    .list_about {
+      white-space: normal; /* autorise retour à la ligne si besoin */
+      max-width: calc(100% - 320px); /* éviter dépassement */
+    }
+  
+    .partieTexte h1 {
+      font-size: 1.6rem;
+      max-width: 100%;
+    }
+  
+    .sous_titre {
+      font-size: 1.3rem;
+    }
+  
+    .description {
+      font-size: 1rem;
+    }
   }
   
-    .sous_titre{
-      font-size: 1.2rem;
-    }
-       .left_about{
-        max-width: 100% !important;
-        width: 100% !important;
-       }
-       .subtitle_about{
-        max-width: 200px;
-       }
-
-       .description {
-        font-size: 0.9rem;
-      }
-  }
 /* MOBILE PETIT ECRAN */
 @media (max-width: 600px) {
   .banner2 {

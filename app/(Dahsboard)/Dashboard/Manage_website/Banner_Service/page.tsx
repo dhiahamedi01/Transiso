@@ -1,28 +1,62 @@
 'use client';
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Box, Button, Alert, Snackbar, Typography } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import SaveIcon from '@mui/icons-material/Save';
 import CloseIcon from '@mui/icons-material/Close';
-import styles from './Description.module.css'; // adapte le chemin
+import axios from 'axios';
+import styles from './Description.module.css'; // Ton propre design CSS
 
 const SectionFormGlobalTop = () => {
   const [globalInput, setGlobalInput] = useState('');
   const [sections, setSections] = useState([
-    { input: '', textarea: '', image: null as File | null },
-    { input: '', textarea: '', image: null as File | null },
-    { input: '', textarea: '', image: null as File | null },
+    { input: '', textarea: '', image: null as File | null, existingImage: '' },
+    { input: '', textarea: '', image: null as File | null, existingImage: '' },
+    { input: '', textarea: '', image: null as File | null, existingImage: '' },
   ]);
-  const inputRefs = [
-    useRef<HTMLInputElement>(null),
-    useRef<HTMLInputElement>(null),
-    useRef<HTMLInputElement>(null),
-  ];
+
+// Références fichiers
+const inputRefs = [
+  useRef<HTMLInputElement | null>(null),
+  useRef<HTMLInputElement | null>(null),
+  useRef<HTMLInputElement | null>(null),
+];
+
 
   const [loading, setLoading] = useState(false);
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertSeverity, setAlertSeverity] = useState<'success' | 'error'>('success');
   const [alertMessage, setAlertMessage] = useState('');
+
+  // Charger les données du backend
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await axios.get('/api/Banner_service');
+      const data = res.data;
+      setGlobalInput(data.titre_globale || '');
+      setSections([
+        {
+          input: data.titre1,
+          textarea: data.description1,
+          image: null,
+          existingImage: data.icon1,
+        },
+        {
+          input: data.titre2,
+          textarea: data.description2,
+          image: null,
+          existingImage: data.icon2,
+        },
+        {
+          input: data.titre3,
+          textarea: data.description3,
+          image: null,
+          existingImage: data.icon3,
+        },
+      ]);
+    };
+    fetchData();
+  }, []);
 
   const handleImageChange = (index: number, file: File | null) => {
     const updated = [...sections];
@@ -30,84 +64,85 @@ const SectionFormGlobalTop = () => {
     setSections(updated);
   };
 
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>, index: number) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files?.[0];
-    if (file) handleImageChange(index, file);
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      // Simule API/save
-      await new Promise((res) => setTimeout(res, 1000));
+      const formData = new FormData();
+      formData.append('titre_globale', globalInput);
+
+      sections.forEach((section, i) => {
+        formData.append(`titre${i + 1}`, section.input);
+        formData.append(`description${i + 1}`, section.textarea);
+        if (section.image) {
+          formData.append(`icon${i + 1}`, section.image);
+        } else {
+          formData.append(`existing_icon${i + 1}`, section.existingImage);
+        }
+      });
+
+      await axios.put('/api/Banner_service', formData);
       setAlertSeverity('success');
-      setAlertMessage('Sections saved successfully!');
-      setAlertOpen(true);
+      setAlertMessage('Mise à jour réussie !');
     } catch {
       setAlertSeverity('error');
-      setAlertMessage('Failed to save.');
-      setAlertOpen(true);
+      setAlertMessage("Erreur lors de l'enregistrement.");
     } finally {
       setLoading(false);
+      setAlertOpen(true);
     }
   };
 
   return (
     <Box className={styles.container}>
       <Typography variant="h5" className={styles.title}>
-        Form Banner Service
+        Modifier la Bannière de Service
       </Typography>
-<br />
-      <form onSubmit={handleSubmit} className={styles.form} noValidate>
-        {/* Input global */}
+
+      <form onSubmit={handleSubmit} className={styles.form}>
         <input
           type="text"
-          placeholder="Global Input"
           value={globalInput}
           onChange={(e) => setGlobalInput(e.target.value)}
           className={styles.globalInput}
+          placeholder="Titre Global"
           required
         />
 
-        {/* Les 3 sections */}
         {sections.map((section, i) => (
           <div key={i} className={styles.section}>
             <input
               type="text"
-              placeholder={`Input ${i + 1}`}
               value={section.input}
               onChange={(e) => {
                 const updated = [...sections];
                 updated[i].input = e.target.value;
                 setSections(updated);
               }}
+              placeholder={`Titre ${i + 1}`}
             />
-
             <textarea
-              placeholder={`Textarea ${i + 1}`}
               value={section.textarea}
               onChange={(e) => {
                 const updated = [...sections];
                 updated[i].textarea = e.target.value;
                 setSections(updated);
               }}
+              placeholder={`Description ${i + 1}`}
             />
-
             <Box
               className={styles.dropZone}
               onClick={() => inputRefs[i].current?.click()}
-              onDrop={(e) => handleDrop(e, i)}
               onDragOver={(e) => e.preventDefault()}
+              onDrop={(e) => {
+                e.preventDefault();
+                const file = e.dataTransfer.files?.[0];
+                if (file) handleImageChange(i, file);
+              }}
             >
-              <CloudUploadIcon sx={{ fontSize: 48, mb: 1 }} />
-              <p>{section.image ? section.image.name : 'Click or drag an image'}</p>
-              <p style={{ fontSize: '0.8rem', color: '#666' }}>
-                800 × 800 px recommandée
-              </p>
-
+              <CloudUploadIcon sx={{ fontSize: 40 }} />
+              <p>{section.image ? section.image.name : 'Choisir ou glisser une image'}</p>
               <input
                 type="file"
                 hidden
@@ -117,20 +152,22 @@ const SectionFormGlobalTop = () => {
               />
             </Box>
 
-            {/* Preview image */}
-            {section.image && (
+            {(section.image || section.existingImage) && (
               <div className={styles.previewImageWrapper}>
                 <button
                   type="button"
                   className={styles.deleteBtn}
                   onClick={() => handleImageChange(i, null)}
-                  aria-label="Supprimer l'image"
                 >
                   <CloseIcon fontSize="small" />
                 </button>
                 <img
-                  src={URL.createObjectURL(section.image)}
-                  alt={`Preview ${i + 1}`}
+                  src={
+                    section.image
+                      ? URL.createObjectURL(section.image)
+                      : section.existingImage
+                  }
+                  alt={`Aperçu ${i + 1}`}
                   className={styles.previewImage}
                 />
               </div>
@@ -138,21 +175,19 @@ const SectionFormGlobalTop = () => {
           </div>
         ))}
 
-        {/* Bouton Submit */}
         <div className={styles.actions}>
           <Button
+            type="submit"
             variant="contained"
             color="primary"
-            type="submit"
-            disabled={loading}
             startIcon={<SaveIcon />}
+            disabled={loading}
           >
-            {loading ? 'Saving...' : 'Save'}
+            {loading ? 'Enregistrement...' : 'Enregistrer'}
           </Button>
         </div>
       </form>
 
-      {/* Snackbar alert */}
       <Snackbar
         open={alertOpen}
         autoHideDuration={4000}
