@@ -153,8 +153,8 @@ const Contact = () => {
                     <PhoneEnabledIcon sx={{ color: 'white', fontSize: '27px' }} />
                   </div>
                   <div>
-                    <Typography fontWeight="bold">{t('contacter.contactInfo.phoneQuestion')}</Typography>
-                    <Typography>{t('contacter.contactInfo.phoneNumber')}</Typography>
+                    <Typography fontWeight="bold" className={styles.arabicah}>{t('contacter.contactInfo.phoneQuestion')}</Typography>
+                    <Typography className={styles.arabicah2}>{t('contacter.contactInfo.phoneNumber')}</Typography>
                   </div>
                 </Box>
 
@@ -163,8 +163,8 @@ const Contact = () => {
                     <Email sx={{ color: 'white', fontSize: '27px' }} />
                   </div>
                   <div>
-                    <Typography fontWeight="bold">{t('contacter.contactInfo.emailUs')}</Typography>
-                    <Typography>{t('contacter.contactInfo.emailAddress')}</Typography>
+                    <Typography fontWeight="bold" className={styles.arabicah}>{t('contacter.contactInfo.emailUs')}</Typography>
+                    <Typography className={styles.arabicah2}>{t('contacter.contactInfo.emailAddress')}</Typography>
                   </div>
                 </Box>
 
@@ -173,8 +173,8 @@ const Contact = () => {
                     <LocationOn sx={{ color: 'white', fontSize: '27px' }} />
                   </div>
                   <div>
-                    <Typography fontWeight="bold">{t('contacter.contactInfo.headquarters')}</Typography>
-                    <Typography>{t('contacter.contactInfo.address')}</Typography>
+                    <Typography fontWeight="bold" className={styles.arabicah}>{t('contacter.contactInfo.headquarters')}</Typography>
+                    <Typography className={styles.arabicah2}>{t('contacter.contactInfo.address')}</Typography>
                   </div>
                 </Box>
               </Box>
