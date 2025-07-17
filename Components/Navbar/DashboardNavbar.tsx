@@ -29,9 +29,10 @@ import {
   MenuItem,
   ListItemIcon,
   Divider,
+  CircularProgress,
+  Paper,
+  ClickAwayListener,
 } from '@mui/material';
-
-/* -------------------- Styled -------------------- */
 
 const Spacer = styled('div')({
   flexGrow: 1,
@@ -47,38 +48,89 @@ const StyledInputBase = styled(InputBase)({
   },
 });
 
-/* -------------------- Component -------------------- */
+const NOTIFICATIONS_API = '/api/notifications';
 
 const DashboardNavbar: React.FC = () => {
   const [userName, setUserName] = useState<string>('Admin');
   const [userId, setUserId] = useState<string | null>(null);
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [notifications, setNotifications] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [notifOpen, setNotifOpen] = useState(false);
   const router = useRouter();
 
-  const open = Boolean(anchorEl);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const storedName = localStorage.getItem('userName');
       const storedId = localStorage.getItem('userId');
+      const role = localStorage.getItem('role');
+
       if (storedName) setUserName(storedName);
       if (storedId) setUserId(storedId);
+      if (role === 'admin') setIsAdmin(true);
     }
   }, []);
 
-  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+  // Charger les notifications dès le début si admin
+  useEffect(() => {
+    if (isAdmin) {
+      fetchNotifications();
+    }
+  }, [isAdmin]);
+
+  const fetchNotifications = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(NOTIFICATIONS_API);
+      const json = await res.json();
+      if (json.success) {
+        setNotifications(json.data);
+      } else {
+        setNotifications([]);
+      }
+    } catch {
+      setNotifications([]);
+    }
+    setLoading(false);
   };
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
+  const handleNotifClick = (event: React.MouseEvent<HTMLElement>) => {
+    if (!isAdmin) return;
+    setNotifOpen((prev) => !prev);
+  };
+
+  const deleteNotifications = async () => {
+    try {
+      await fetch(NOTIFICATIONS_API, { method: 'DELETE' });
+      setNotifications([]);
+    } catch {
+      // fail silently
+    }
+  };
+
+  const handleNotificationItemClick = async (orderId: string) => {
+    await deleteNotifications();
+    setNotifOpen(false);
+    router.push('/Dashboard/Ecommerce/Orders');
+  };
+
+  const [anchorUserMenu, setAnchorUserMenu] = useState<null | HTMLElement>(null);
+  const openUserMenu = Boolean(anchorUserMenu);
+
+  const handleUserMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorUserMenu(event.currentTarget);
+  };
+
+  const handleUserMenuClose = () => {
+    setAnchorUserMenu(null);
   };
 
   const handleEditProfile = () => {
     if (userId) {
       router.push(`/Client/Profile/${userId}`);
     }
-    handleMenuClose();
+    handleUserMenuClose();
   };
 
   const handleLogout = () => {
@@ -118,14 +170,56 @@ const DashboardNavbar: React.FC = () => {
             <FullscreenIcon sx={{ color: '#4b506d' }} />
           </IconButton>
 
-          <IconButton size="large" aria-label="notifications">
-            <Badge badgeContent={3} classes={{ badge: Style.badgeRoot }} overlap="circular">
-              <NotificationsIcon sx={{ color: '#4b506d' }} />
-            </Badge>
-          </IconButton>
+          {isAdmin && (
+            <ClickAwayListener onClickAway={() => setNotifOpen(false)}>
+              <Box sx={{ position: 'relative' }}>
+                <IconButton size="large" aria-label="notifications" onClick={handleNotifClick}>
+                  <Badge badgeContent={notifications.length} color="error" classes={{ badge: Style.badgeRoot }} overlap="circular">
+                    <NotificationsIcon sx={{ color: '#4b506d' }} />
+                  </Badge>
+                </IconButton>
 
-          {/* Profil avec Dropdown */}
-          <Box sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={handleMenuOpen}>
+                {notifOpen && (
+                  <Paper
+                    sx={{
+                      position: 'absolute',
+                      right: 0,
+                      mt: 1,
+                      width: 320,
+                      maxHeight: 400,
+                      overflowY: 'auto',
+                      boxShadow: 3,
+                      borderRadius: 2,
+                      zIndex: 1300,
+                    }}
+                  >
+                    {loading ? (
+                      <Box sx={{ display: 'flex', justifyContent: 'center', p: 2 }}>
+                        <CircularProgress size={24} />
+                      </Box>
+                    ) : notifications.length === 0 ? (
+                      <Typography sx={{ p: 2, textAlign: 'center' }}>Aucune notification</Typography>
+                    ) : (
+                      notifications.map((notif) => (
+                        <MenuItem
+                          key={notif.orderId + notif.createdAt}
+                          onClick={() => handleNotificationItemClick(notif.orderId)}
+                          sx={{ whiteSpace: 'normal' }}
+                        >
+                          <Typography variant="body2">{notif.message}</Typography>
+                          <Typography variant="caption" color="text.secondary" sx={{ ml: 1 }}>
+                            {new Date(notif.createdAt).toLocaleString()}
+                          </Typography>
+                        </MenuItem>
+                      ))
+                    )}
+                  </Paper>
+                )}
+              </Box>
+            </ClickAwayListener>
+          )}
+
+          <Box sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={handleUserMenuOpen}>
             <Avatar alt={userName} src="/img/no_img.png" sx={{ width: 34, height: 34 }} />
             <Typography className={Style.avatarName} variant="subtitle1" sx={{ marginLeft: 1 }}>
               {userName}
@@ -133,12 +227,11 @@ const DashboardNavbar: React.FC = () => {
             <ExpandMoreIcon fontSize="small" sx={{ color: '#4b506d' }} />
           </Box>
 
-          {/* Menu déroulant */}
           <Menu
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleMenuClose}
-            onClick={handleMenuClose}
+            anchorEl={anchorUserMenu}
+            open={openUserMenu}
+            onClose={handleUserMenuClose}
+            onClick={handleUserMenuClose}
             PaperProps={{
               elevation: 4,
               sx: {

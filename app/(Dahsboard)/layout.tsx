@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styles from './DashboardLayout.module.css';
-
+import 'react-big-calendar/lib/css/react-big-calendar.css'; 
 import DashboardSidebar from '@/Components/Sidebar/Sidebar';
 import DashboardNavbar from '@/Components/Navbar/DashboardNavbar';
 import ProtectedRoute from '@/Components/ProtectedRoute'; 
