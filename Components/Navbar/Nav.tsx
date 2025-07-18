@@ -25,6 +25,10 @@ import Link from 'next/link';
 import LanguageSelector from '../LanguageSelector/LanguageSelector';
 import { useTranslation } from 'react-i18next';
 
+// Import du hook socialLinks
+import { useSocialLinks } from '@/hooks/useSocialLinks';
+
+// Icônes dynamiques MUI
 const MenuIcon = dynamic(() => import('@mui/icons-material/Menu'), { ssr: false });
 const SearchIcon = dynamic(() => import('@mui/icons-material/Search'), { ssr: false });
 const PhoneIcon = dynamic(() => import('@mui/icons-material/Phone'), { ssr: false });
@@ -32,10 +36,21 @@ const TrendingUpIcon = dynamic(() => import('@mui/icons-material/TrendingUp'), {
 const LocationOnIcon = dynamic(() => import('@mui/icons-material/LocationOn'), { ssr: false });
 const EmailIcon = dynamic(() => import('@mui/icons-material/Email'), { ssr: false });
 const AccessTimeIcon = dynamic(() => import('@mui/icons-material/AccessTime'), { ssr: false });
+
 const FacebookIcon = dynamic(() => import('@mui/icons-material/Facebook'), { ssr: false });
 const TwitterIcon = dynamic(() => import('@mui/icons-material/Twitter'), { ssr: false });
 const WhatsAppIcon = dynamic(() => import('@mui/icons-material/WhatsApp'), { ssr: false });
 const InstagramIcon = dynamic(() => import('@mui/icons-material/Instagram'), { ssr: false });
+const LinkedInIcon = dynamic(() => import('@mui/icons-material/LinkedIn'), { ssr: false });
+
+// Map des icônes (avec clés en minuscules correspondant aux plateformes)
+const iconMap: Record<string, React.ReactElement> = {
+  facebook: <FacebookIcon fontSize="small" />,
+  twitter: <TwitterIcon fontSize="small" />,
+  instagram: <InstagramIcon fontSize="small" />,
+  linkedin: <LinkedInIcon fontSize="small" />,
+  whatsapp: <WhatsAppIcon fontSize="small" />,
+};
 
 function Nav() {
   const { t, i18n } = useTranslation('common');
@@ -45,6 +60,9 @@ function Nav() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [location, setLocation] = useState('');
+
+  // Social links dynamiques
+  const { socialLinks } = useSocialLinks();
 
   useEffect(() => {
     setIsClient(true);
@@ -129,11 +147,44 @@ function Nav() {
               {t('inquiryOnline')}
             </MuiLink>
             <Typography className={styles.Arabe}>{t('followUs')}</Typography>
+
+            {/* Social links dynamiques dans top bar */}
             <div className={styles.Liste_icon}>
-              <IconButton size="small" className={styles.icon}><FacebookIcon fontSize="small" /></IconButton>
-              <IconButton size="small" className={styles.icon}><TwitterIcon fontSize="small" /></IconButton>
-              <IconButton size="small" className={styles.icon}><WhatsAppIcon fontSize="small" /></IconButton>
-              <IconButton size="small" className={styles.icon}><InstagramIcon fontSize="small" /></IconButton>
+              {socialLinks.length > 0 ? (
+                socialLinks.map(({ id, platform, url }) => {
+                  const icon = iconMap[platform.toLowerCase()];
+                  if (!icon || !url) return null;
+                  return (
+                    <IconButton
+                      key={id}
+                      size="small"
+                      component="a"
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={platform}
+                      className={styles.icon}
+                    >
+                      {icon}
+                    </IconButton>
+                  );
+                })
+              ) : (
+                <>
+                  <IconButton size="small" className={styles.icon} aria-label="Facebook">
+                    <FacebookIcon fontSize="small" />
+                  </IconButton>
+                  <IconButton size="small" className={styles.icon} aria-label="Twitter">
+                    <TwitterIcon fontSize="small" />
+                  </IconButton>
+                  <IconButton size="small" className={styles.icon} aria-label="WhatsApp">
+                    <WhatsAppIcon fontSize="small" />
+                  </IconButton>
+                  <IconButton size="small" className={styles.icon} aria-label="Instagram">
+                    <InstagramIcon fontSize="small" />
+                  </IconButton>
+                </>
+              )}
             </div>
           </div>
         )}
@@ -248,11 +299,34 @@ function Nav() {
               {t('followUs')}
             </Typography>
 
+            {/* Social links dynamiques dans Drawer mobile */}
             <Box sx={{ display: 'flex', gap: 1 }}>
-              <IconButton size="small"><FacebookIcon fontSize="small" /></IconButton>
-              <IconButton size="small"><TwitterIcon fontSize="small" /></IconButton>
-              <IconButton size="small"><WhatsAppIcon fontSize="small" /></IconButton>
-              <IconButton size="small"><InstagramIcon fontSize="small" /></IconButton>
+              {socialLinks.length > 0 ? (
+                socialLinks.map(({ id, platform, url }) => {
+                  const icon = iconMap[platform.toLowerCase()];
+                  if (!icon || !url) return null;
+                  return (
+                    <IconButton
+                      key={id}
+                      size="small"
+                      component="a"
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={platform}
+                    >
+                      {icon}
+                    </IconButton>
+                  );
+                })
+              ) : (
+                <>
+                  <IconButton size="small" aria-label="Facebook"><FacebookIcon fontSize="small" /></IconButton>
+                  <IconButton size="small" aria-label="Twitter"><TwitterIcon fontSize="small" /></IconButton>
+                  <IconButton size="small" aria-label="WhatsApp"><WhatsAppIcon fontSize="small" /></IconButton>
+                  <IconButton size="small" aria-label="Instagram"><InstagramIcon fontSize="small" /></IconButton>
+                </>
+              )}
             </Box>
           </Box>
         </Box>

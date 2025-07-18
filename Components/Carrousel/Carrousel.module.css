@@ -1,105 +1,41 @@
 .section {
   width: 100%;
-  height: 30vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #F8F8F8;
-  overflow: hidden;
+  padding: 20px 0;
+  background-color: #f8f8f8;
   box-sizing: border-box;
-  padding: 0 20px;
 }
 
 .carousel_container {
-  width: 80%;
+  width: 90%;
   max-width: 1000px;
   margin: 0 auto;
-  overflow: hidden;
-  position: relative;
 }
 
-/* Pour animation fluide, on duplique le contenu à l’intérieur */
-.carousel {
-  display: flex;
-  animation: scroll 40s linear infinite;
-  /* width auto selon contenu */
-}
-
-/* wrapper fixe taille et centré */
 .image_wrapper {
-  flex: 0 0 auto;
-  width: 220px;
-  height: 80px;
   display: flex;
-  align-items: center;
   justify-content: center;
-  margin: 0 15px;
+  align-items: center;
+  height: 80px;
 }
 
-.carousel_image {
+.brand_image {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
 }
 
-/* Animation défilement horizontal */
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(calc(-220px - 30px) * 4); /* (largeur+margin) * nombre d’images */
+@media (max-width: 767px) {
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none !important;
   }
 }
-
-/* Responsive */
-@media (max-width: 1024px) {
-  .image_wrapper {
-    width: 120px;
-    height: 60px;
-    margin: 0 10px;
-  }
-
-  @keyframes scroll {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(calc(-120px - 20px) * 4);
-    }
-  }
+/* Exemple dans Carrousel.module.css */
+.swiper-pagination {
+  margin-top: 20px; /* ajuste la valeur comme tu veux */
 }
+/* Carrousel.module.css */
 
-@media (max-width: 768px) {
-  .image_wrapper {
-    width: 100px;
-    height: 50px;
-    margin: 0 8px;
-  }
-
-  @keyframes scroll {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(calc(-100px - 16px) * 4);
-    }
-  }
-}
-
-@media (max-width: 480px) {
-  .image_wrapper {
-    width: 80px;
-    height: 40px;
-    margin: 0 6px;
-  }
-
-  @keyframes scroll {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(calc(-80px - 12px) * 4);
-    }
-  }
+.carousel_container :global(.swiper-pagination) {
+  margin-top: 20px;
 }

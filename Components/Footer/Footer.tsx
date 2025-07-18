@@ -81,27 +81,27 @@ const Footer = () => {
             <div className={styles.col}>
               <h4>الشركة</h4>
               <ul>
-                <li><Link href="#">من نحن</Link></li>
-                <li><Link href="#">خدماتنا في ترانسيسو</Link></li>
-                <li><Link href="#">لوجيستيات</Link></li>
+                <li><Link href="/About">من نحن</Link></li>
+                <li><Link href="/Services">خدماتنا في ترانسيسو</Link></li>
+                <li><Link href="/bloglist">بلوجر</Link></li>
               </ul>
             </div>
 
             <div className={styles.col}>
               <h4>المساعدة</h4>
               <ul>
-                <li><Link href="#">الاستفسار اون لاين</Link></li>
-                <li><Link href="#">الشحن والإرجاع</Link></li>
-                <li><Link href="#">تتبع الطلب</Link></li>
+                <li><Link href="/Demande">الاستفسار اون لاين</Link></li>
+                <li><Link href="/Inscription">الشحن والإرجاع</Link></li>
+                <li><Link href="/Client/TrackingStatus">تتبع الطلب</Link></li>
               </ul>
             </div>
 
             <div className={styles.col}>
               <h4>قائمة منتجاتنا</h4>
               <ul>
-                <li><Link href="#">آلات تعبئة وتغليف</Link></li>
-                <li><Link href="#">حاويات بلاستيكية</Link></li>
-                <li><Link href="#">زيت نباتي خام</Link></li>
+                <li><Link href="/Liste_produit">آلات تعبئة وتغليف</Link></li>
+                <li><Link href="/Liste_produit">حاويات بلاستيكية</Link></li>
+                <li><Link href="/Liste_produit">زيت نباتي خام</Link></li>
               </ul>
             </div>
           </div>
@@ -111,8 +111,8 @@ const Footer = () => {
       {/* -------- SUB-FOOTER -------- */}
       <div className={styles.subFooter}>
         © {new Date().getFullYear()} جميع الحقوق محفوظة •
-        <Link href="#"> Privacy&nbsp;Policy </Link>•
-        <Link href="#"> Terms&nbsp;&amp;&nbsp;Conditions </Link>
+        <Link href="/politique"> Privacy&nbsp;Policy </Link>•
+        <Link href="/Terms"> Terms&nbsp;&amp;&nbsp;Conditions </Link>
       </div>
     </>
   );

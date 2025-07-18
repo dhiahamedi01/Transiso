@@ -12,45 +12,26 @@ import { useTranslation } from 'react-i18next';
 import ProductCard from '../TrendingCarousel/ProductCard';
 import { useProducts } from '@/hooks/useProducts';
 
-const ITEMS_PER_PAGE = 15;
+const ITEMS_PER_PAGE = 15; // 3 lignes de 5 cartes
 const ITEMS_PER_ROW_DESKTOP = 5;
 
 export default function ProductList() {
   const { t, i18n } = useTranslation(['common']);
+  const categories = t('productList.categories', { returnObjects: true }) as string[];
   const direction = i18n.dir();
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  // --- Categories dynamiques ---
-  const [categories, setCategories] = useState<string[]>(['All']); // Default "All"
-  const [loadingCategories, setLoadingCategories] = useState(true);
-
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
-  const [cat, setCat] = useState('All');
+  const [cat, setCat] = useState(categories[0]);
 
-  const { products, loading: loadingProducts, error } = useProducts();
+  const { products, loading, error } = useProducts();
 
-  // Fetch categories from backend
   useEffect(() => {
-    async function fetchCategories() {
-      try {
-        const res = await fetch('/api/categories');
-        if (!res.ok) throw new Error('Failed to fetch categories');
-        const data = await res.json();
-        // Assuming data is an array of categories with { id, name }
-        const categoryNames = data.map((c: { name: string }) => c.name);
-        setCategories(['All', ...categoryNames]);
-        setCat('All'); // reset selected category to All
-      } catch {
-        setCategories(['All']); // fallback
-      } finally {
-        setLoadingCategories(false);
-      }
-    }
-    fetchCategories();
-  }, []);
+    setCat(categories[0]);
+  }, [categories]);
 
   const localisedProducts = useMemo(() => {
     return products.map(p => ({
@@ -70,10 +51,10 @@ export default function ProductList() {
     const term = search.toLowerCase();
     return localisedProducts.filter(prod => {
       const matchTitle = prod.title.toLowerCase().includes(term);
-      const matchCat = cat === 'All' || prod.category === cat;
+      const matchCat = cat === categories[0] || prod.category === cat;
       return matchTitle && matchCat;
     });
-  }, [search, cat, localisedProducts]);
+  }, [search, cat, localisedProducts, categories]);
 
   const paginated = useMemo(
     () => filtered.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE),
@@ -90,7 +71,7 @@ export default function ProductList() {
         fontFamily: direction === 'rtl' ? 'Noto Kufi Arabic, sans-serif' : 'Arial, sans-serif'
       }}
     >
-      {/* Header */}
+      {/* En-tête */}
       <Box
         sx={{
           display: 'flex',
@@ -98,7 +79,6 @@ export default function ProductList() {
           alignItems: 'center',
           justifyContent: 'space-between',
           gap: 2,
-          fontFamily: direction === 'rtl' ? 'Noto Kufi Arabic, sans-serif' : 'Arial, sans-serif',
           mb: 4,
           direction,
           px: { xs: 1, md: 0 }
@@ -106,18 +86,18 @@ export default function ProductList() {
       >
         <Typography
           sx={{
+            fontFamily: direction === 'rtl' ? 'Noto Kufi Arabic, sans-serif' : 'Arial, sans-serif',
             fontWeight: 600,
             fontSize: 20,
             color: '#0C3547',
             textAlign: direction === 'rtl' ? 'right' : 'left',
-            fontFamily: direction === 'rtl' ? 'Noto Kufi Arabic, sans-serif' : 'Arial, sans-serif',
           }}
         >
           {t('productList.title')}
         </Typography>
 
         <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', alignItems: 'center' }}>
-          {/* Search */}
+          {/* Recherche */}
           <Paper
             component="form"
             sx={{
@@ -127,7 +107,7 @@ export default function ProductList() {
               height: 42,
               width: { xs: '100%', sm: 250 },
               borderRadius: '4px',
-              bgcolor: '#fff',
+              bg: '#fff',
               border: '1px solid #e0e0e0',
               boxShadow: '0px 2px 4px rgba(0,0,0,0.1)',
               direction,
@@ -151,7 +131,7 @@ export default function ProductList() {
             />
           </Paper>
 
-          {/* Category filter */}
+          {/* Filtre Catégorie */}
           <Box
             sx={{
               display: 'flex',
@@ -169,35 +149,31 @@ export default function ProductList() {
             <Select
               value={cat}
               onChange={e => {
-                setCat(e.target.value);
+                setCat(e.target.value as string);
                 setPage(1);
               }}
               size="small"
               variant="standard"
               disableUnderline
               sx={{
+                fontFamily: direction === 'rtl' ? 'Noto Kufi Arabic, sans-serif' : 'Arial, sans-serif',
                 color: 'white',
                 '& .MuiSelect-icon': { color: 'white' },
                 textAlign: direction === 'rtl' ? 'right' : 'left',
               }}
-              disabled={loadingCategories}
             >
-              {loadingCategories ? (
-                <MenuItem disabled>Loading...</MenuItem>
-              ) : (
-                categories.map((c, i) => (
-                  <MenuItem key={i} value={c}>
-                    {c}
-                  </MenuItem>
-                ))
-              )}
+              {categories.map((c, i) => (
+                <MenuItem key={i} value={c}>
+                  {c}
+                </MenuItem>
+              ))}
             </Select>
           </Box>
         </Box>
       </Box>
 
-      {/* Content */}
-      {loadingProducts ? (
+      {/* Contenu */}
+      {loading ? (
         <Box
           sx={{
             display: 'flex',
@@ -210,7 +186,7 @@ export default function ProductList() {
         </Box>
       ) : error ? (
         <Typography sx={{ color: 'red', textAlign: 'center', mt: 4 }}>
-          {t('productList.error', { defaultValue: 'Error loading data.' })}
+          {t('productList.error', { defaultValue: 'Erreur lors du chargement.' })}
         </Typography>
       ) : filtered.length === 0 ? (
         <Box
@@ -231,10 +207,11 @@ export default function ProductList() {
             component="img"
             src="/img/icon/no_data.png"
             alt="no data"
-            sx={{ width: isMobile ? '80%' : 300, opacity: 0.7 }}
+            sx={{ width: isMobile ? '80%' : '300px', opacity: 0.7 }}
           />
           <Typography
             sx={{
+              fontFamily: direction === 'rtl' ? 'Noto Kufi Arabic, sans-serif' : 'Arial, sans-serif',
               fontSize: 18,
               color: '#0C3547',
               fontWeight: 500,
@@ -266,7 +243,7 @@ export default function ProductList() {
                   flexBasis: {
                     xs: '100%',
                     sm: 'calc(50% - 12px)',
-                    md: 'calc(20% - 16px)' // 5 per row
+                    md: 'calc(20% - 16px)' // 5 par ligne
                   },
                   maxWidth: {
                     xs: '100%',

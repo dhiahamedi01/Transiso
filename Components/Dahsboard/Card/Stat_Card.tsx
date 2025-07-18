@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './UserCard.module.css';
 import { Button, Typography, Box, useTheme } from '@mui/material';
 import dynamic from 'next/dynamic';
@@ -8,14 +8,56 @@ const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 function Stat_Card() {
   const theme = useTheme();
 
+  const [orderCount, setOrderCount] = useState(0);
+  const [revenue, setRevenue] = useState(0);
+
+  const UNIT_PRICE = 120;
+  const MONTHLY_GOAL = 50000;
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const res = await fetch('/api/Liste_order');
+        const json = await res.json();
+        if (json.success) {
+          const orders = json.data;
+
+          // Date actuelle (UTC)
+          const now = new Date();
+          const currentMonth = now.getMonth() + 1; // ⚠️ getMonth() = 0 (janvier) → on ajoute +1
+          const currentYear = now.getFullYear();
+
+          const monthlyOrders = orders.filter((order: any) => {
+            const dateParts = order.createdAt.split(/[- :]/); // ['2025','07','11','02','50','32']
+            const orderYear = parseInt(dateParts[0]);
+            const orderMonth = parseInt(dateParts[1]);
+
+            return orderYear === currentYear && orderMonth === currentMonth;
+          });
+
+          const totalOrders = monthlyOrders.length;
+          const totalRevenue = totalOrders * UNIT_PRICE;
+
+          setOrderCount(totalOrders);
+          setRevenue(totalRevenue);
+        }
+      } catch (err) {
+        console.error('Error fetching orders:', err);
+      }
+    };
+
+    fetchOrders();
+  }, []);
+
+  const revenuePercentage = Math.min((revenue / MONTHLY_GOAL) * 100, 100).toFixed(0);
+  const chartSeries = [parseInt(revenuePercentage)];
+
   const chartOptions = {
     chart: {
       type: 'radialBar',
       height: 200,
       offsetY: 0,
-      sparkline: {
-        enabled: true
-      }
+      sparkline: { enabled: true }
     },
     plotOptions: {
       radialBar: {
@@ -23,11 +65,11 @@ function Stat_Card() {
         endAngle: 100,
         hollow: {
           margin: 0,
-          size: '60%', // ✅ Plus petit → élargit la barre bleue principale
+          size: '60%',
         },
         track: {
           background: theme.palette.grey[300],
-          strokeWidth: '100%', // ✅ Pleine largeur pour le fond
+          strokeWidth: '100%',
           margin: 0,
         },
         dataLabels: {
@@ -47,19 +89,16 @@ function Stat_Card() {
         }
       }
     },
-    
     fill: {
       type: 'solid',
-      colors: ['#556EE6'], // ✅ Couleur des “aiguilles” (bleu)
+      colors: ['#556EE6'],
     },
     stroke: {
       lineCap: 'butt',
-      dashArray: 4 // ✅ Crée l’effet "tick"
+      dashArray: 4
     },
-    labels: ['Series A'],
+    labels: ['Progress'],
   };
-
-  const chartSeries = [67];
 
   return (
     <div>
@@ -74,35 +113,33 @@ function Stat_Card() {
           boxSizing: 'border-box'
         }}
       >
-        {/* Haut de carte */}
         <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', gap: 1 }}>
-          <Typography variant="h6" component="h2" sx={{ fontWeight: 600,color:'#343A40' }}>
+          <Typography variant="h6" component="h2" sx={{ fontWeight: 600, color: '#343A40' }}>
             Monthly Earning
           </Typography>
-         
+
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <Box>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
-            This Month
-            </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
+                This Month
+              </Typography>
               <Typography variant="h4" sx={{ fontWeight: 700, mb: 0.5 }}>
-                $34,252
+                ${revenue.toLocaleString()}
               </Typography>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                <Typography variant="body2" color="success.main" sx={{ fontWeight: 600, color:'#52CCA0' }}>
-                  12%
+                <Typography variant="body2" sx={{ fontWeight: 600, color: '#52CCA0' }}>
+                  +{chartSeries[0]}%
                 </Typography>
-                <span style={{ color: '#52CCA0', fontSize: '1rem',marginBottom:'5px' }}>↑</span>
+                <span style={{ color: '#52CCA0', fontSize: '1rem', marginBottom: '5px' }}>↑</span>
                 <Typography variant="body2" color="text.secondary">
-                  From previous period
+                  From goal of ${MONTHLY_GOAL.toLocaleString()}
                 </Typography>
               </Box>
-              <Button className={styles.viewButton} variant="contained" sx={{width:'130px',marginTop:'20px'}}>
-                      View More →
+              <Button className={styles.viewButton} variant="contained" sx={{ width: '130px', marginTop: '20px' }}>
+                View More →
               </Button>
             </Box>
 
-            {/* Chart compteur style voiture */}
             <Box sx={{ width: 200, height: 200, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <ReactApexChart
                 options={chartOptions as ApexCharts.ApexOptions}
@@ -114,10 +151,7 @@ function Stat_Card() {
           </Box>
         </Box>
 
-        {/* Bas de carte */}
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2,textAlign:'center' }}>
-    
-
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, textAlign: 'center' }}>
           <Typography variant="body2" color="text.secondary">
             We craft digital, graphic and dimensional thinking.
           </Typography>

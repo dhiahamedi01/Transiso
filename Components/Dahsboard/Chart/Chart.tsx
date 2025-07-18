@@ -1,12 +1,61 @@
 'use client';
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from './Chart.module.css';
 import ReactApexChart from "react-apexcharts";
 import type { ApexOptions } from "apexcharts";
 
+type Order = {
+  createdAt: string;
+  status: string;
+};
+
 const Chart: React.FC = () => {
   const [selectedRange, setSelectedRange] = useState<"Week" | "Month" | "Year">("Year");
+  const [series, setSeries] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch('/api/Liste_order');
+        const json = await res.json();
+        if (json.success) {
+          const orders: Order[] = json.data;
+
+          // Initialiser les mois (Jan à Jul)
+          const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"];
+          const pendingData = Array(7).fill(0);
+          const deliveredData = Array(7).fill(0);
+          const otherData = Array(7).fill(0);
+
+          orders.forEach((order) => {
+            const date = new Date(order.createdAt);
+            const month = date.getMonth(); // 0-indexed (Jan = 0)
+
+            if (month <= 6) {
+              if (order.status === "Pending") {
+                pendingData[month]++;
+              } else if (order.status === "Delivered") {
+                deliveredData[month]++;
+              } else {
+                otherData[month]++;
+              }
+            }
+          });
+
+          setSeries([
+            { name: "Pending", data: pendingData },
+            { name: "Delivered", data: deliveredData },
+            { name: "Other", data: otherData },
+          ]);
+        }
+      } catch (error) {
+        console.error("Failed to fetch orders:", error);
+      }
+    };
+
+    fetchData();
+  }, [selectedRange]); // You could filter differently by selectedRange
 
   const options: ApexOptions = {
     chart: {
@@ -23,9 +72,13 @@ const Chart: React.FC = () => {
         distributed: false,
       },
     },
-    colors: ["#556EE6", "#F1B44C", "#34C38F"],
+    colors: ["#F1B44C", "#34C38F", "#556EE6"], // Pending, Delivered, Other
     dataLabels: { enabled: false },
-    stroke: { show: true, width: 2, colors: ["transparent"] },
+    stroke: {
+      show: true,
+      width: 2,
+      colors: ["transparent"]
+    },
     xaxis: {
       categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
       labels: {
@@ -50,15 +103,12 @@ const Chart: React.FC = () => {
       y: { formatter: (val: number) => val.toString() },
     },
     legend: {
-        show: false,
+      show: true,
+      position: "bottom",
+      fontSize: "14px",
+      labels: { colors: "#6c757d" },
     },
   };
-
-  const series = [
-    { name: "Serie A", data: [44, 55, 41, 67, 22, 43, 21] },
-    { name: "Serie B", data: [13, 23, 20, 8, 13, 27, 33] },
-    { name: "Serie C", data: [11, 17, 15, 15, 21, 14, 15] },
-  ];
 
   return (
     <div className={styles.card}>

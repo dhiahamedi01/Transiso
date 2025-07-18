@@ -27,7 +27,7 @@ export default function LoginPage() {
       if (result?.success && result.user) {
         const role = result.user.role?.toLowerCase() || "";
         if (role === "user") {
-          router.push("/Client");
+          router.push("/");
         } else {
           router.push("/Dashboard");
         }

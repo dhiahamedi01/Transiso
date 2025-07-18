@@ -210,6 +210,38 @@
       padding-inline: 12px;
     }
   }
+  @media screen and (max-width: 1280px) and (min-width: 901px) {
+    .navLinks {
+      gap: 16px;          /* réduire l'écart */
+      font-size: 13px;    /* réduire un peu la taille de police */
+      flex-wrap: wrap;    /* autoriser le retour à la ligne si besoin */
+      justify-content: flex-start;
+    }
+  
+    .toolbar {
+      padding-inline: 12px;
+    }
+  
+    .navbar {
+      height: auto; /* pour éviter que la hauteur soit trop petite */
+    }
+  
+    /* S'assurer que le conteneur laisse assez d'espace */
+    .logoBox img {
+      width: 110px;
+      height: auto;
+    }
+  
+    .rightSection {
+      gap: 10px;
+    }
+  
+    /* Ajuster taille bouton et texte */
+    .trackButton {
+      padding: 6px 12px;
+      font-size: 13px;
+    }
+  }
   
   @media screen and (max-width: 900px) {
     .navLinks {

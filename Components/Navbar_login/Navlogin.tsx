@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import {
   AppBar,
@@ -26,6 +28,7 @@ import Link from 'next/link';
 import LanguageSelector from '../LanguageSelector/LanguageSelector';
 import { useTranslation } from 'react-i18next';
 
+// Import dynamiques des icônes
 const MenuIcon = dynamic(() => import('@mui/icons-material/Menu'), { ssr: false });
 const SearchIcon = dynamic(() => import('@mui/icons-material/Search'), { ssr: false });
 const PhoneIcon = dynamic(() => import('@mui/icons-material/Phone'), { ssr: false });
@@ -37,6 +40,37 @@ const FacebookIcon = dynamic(() => import('@mui/icons-material/Facebook'), { ssr
 const TwitterIcon = dynamic(() => import('@mui/icons-material/Twitter'), { ssr: false });
 const WhatsAppIcon = dynamic(() => import('@mui/icons-material/WhatsApp'), { ssr: false });
 const InstagramIcon = dynamic(() => import('@mui/icons-material/Instagram'), { ssr: false });
+const LinkedInIcon = dynamic(() => import('@mui/icons-material/LinkedIn'), { ssr: false });
+
+// Map des plateformes aux icônes MUI
+const iconMap: Record<string, React.ReactElement> = {
+  facebook: <FacebookIcon fontSize="small" />,
+  twitter: <TwitterIcon fontSize="small" />,
+  whatsapp: <WhatsAppIcon fontSize="small" />,
+  instagram: <InstagramIcon fontSize="small" />,
+  linkedin: <LinkedInIcon fontSize="small" />,
+};
+
+// Exemple de hook personnalisé pour récupérer les liens sociaux (à adapter selon ton backend)
+const useSocialLinks = () => {
+  const [socialLinks, setSocialLinks] = useState<
+    { id: string; platform: string; url: string }[]
+  >([]);
+
+  useEffect(() => {
+    // Remplace par ta vraie API
+    fetch('/api/social-links')
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          setSocialLinks(data);
+        }
+      })
+      .catch(err => console.error('Failed to load social links', err));
+  }, []);
+
+  return { socialLinks };
+};
 
 function Nav() {
   const { t, i18n } = useTranslation('common');
@@ -57,24 +91,22 @@ function Nav() {
 
   const { logo } = useLogo();
 
-  // USER INFO from localStorage
   const [userName, setUserName] = useState('');
   const [userImage, setUserImage] = useState('/img/no_img.png');
+  const [role, setRole] = useState('');
 
-  // For profile menu dropdown
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const openProfileMenu = Boolean(anchorEl);
-  const handleProfileClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleProfileClose = () => {
-    setAnchorEl(null);
-  };
+  const handleProfileClick = (event: React.MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget);
+  const handleProfileClose = () => setAnchorEl(null);
 
   const handleLogout = () => {
     localStorage.clear();
     window.location.href = '/Login';
   };
+
+  // Récupération des liens sociaux via hook
+  const { socialLinks } = useSocialLinks();
 
   useEffect(() => {
     setIsClient(true);
@@ -94,21 +126,22 @@ function Nav() {
     }
     fetchInfo();
 
-    // Load user info from localStorage
-    const storedUserName = localStorage.getItem('userName') || '';
-    const storedUserImage = localStorage.getItem('userImage') || '/img/no_img.png';
-    setUserName(storedUserName);
-    setUserImage(storedUserImage);
+    if (typeof window !== 'undefined') {
+      setUserName(localStorage.getItem('userName') || '');
+      setUserImage(localStorage.getItem('userImage') || '/img/no_img.png');
+      setRole(localStorage.getItem('role') || '');
+    }
   }, [i18n.language]);
+
+  const dashboardLink = role === 'admin' || role === 'employe' ? '/Dashboard' : '/Client';
 
   const navItems = [
     { label: t('home'), href: '/' },
     { label: t('about'), href: '/About' },
     { label: t('services'), href: '/Services' },
-    { label: t('products2'), href: '/Liste_produit' },   
-    { label: 'لوحة التحكم', href: '/Dashboard' },
+    { label: t('products2'), href: '/Liste_produit' },
+    { label: 'لوحة التحكم', href: dashboardLink },
     { label: t('contact'), href: '/Contact' },
-
   ];
 
   if (!isClient) return null;
@@ -154,22 +187,64 @@ function Nav() {
         {!isMobile && (
           <div className={styles.right}>
             <LanguageSelector />
-            <MuiLink component={Link} href="/Demande" underline="none" className={`${styles.Arabe} ${styles.link2}`}>
+            <MuiLink
+              component={Link}
+              href="/Demande"
+              underline="none"
+              className={`${styles.Arabe} ${styles.link2}`}
+            >
               {t('inquiryOnline')}
             </MuiLink>
             <Typography className={styles.Arabe}>{t('followUs')}</Typography>
-            <div className={styles.Liste_icon}>
-              <IconButton size="small" className={styles.icon}><FacebookIcon fontSize="small" /></IconButton>
-              <IconButton size="small" className={styles.icon}><TwitterIcon fontSize="small" /></IconButton>
-              <IconButton size="small" className={styles.icon}><WhatsAppIcon fontSize="small" /></IconButton>
-              <IconButton size="small" className={styles.icon}><InstagramIcon fontSize="small" /></IconButton>
-            </div>
+
+            <Box className={styles.Liste_icon}>
+              {socialLinks.length > 0 ? (
+                socialLinks.map(({ id, platform, url }) => {
+                  const icon = iconMap[platform.toLowerCase()];
+                  if (!icon || !url) return null;
+                  return (
+                    <IconButton
+                      key={id}
+                      size="small"
+                      component="a"
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.icon}
+                      aria-label={platform}
+                    >
+                      {icon}
+                    </IconButton>
+                  );
+                })
+              ) : (
+                <>
+                  <IconButton size="small" className={styles.icon} aria-label="Facebook">
+                    <FacebookIcon fontSize="small" />
+                  </IconButton>
+                  <IconButton size="small" className={styles.icon} aria-label="Twitter">
+                    <TwitterIcon fontSize="small" />
+                  </IconButton>
+                  <IconButton size="small" className={styles.icon} aria-label="WhatsApp">
+                    <WhatsAppIcon fontSize="small" />
+                  </IconButton>
+                  <IconButton size="small" className={styles.icon} aria-label="Instagram">
+                    <InstagramIcon fontSize="small" />
+                  </IconButton>
+                </>
+              )}
+            </Box>
           </div>
         )}
       </div>
 
       {/* Navbar */}
-      <AppBar position="static" color="transparent" elevation={0} className={`${styles.navbar} ${i18n.language === 'ar' ? styles.rtl : ''}`}>
+      <AppBar
+        position="static"
+        color="transparent"
+        elevation={0}
+        className={`${styles.navbar} ${i18n.language === 'ar' ? styles.rtl : ''}`}
+      >
         <Toolbar className={styles.toolbar}>
           {isMobile && (
             <IconButton edge="start" onClick={openDrawer} className={styles.hamburger}>
@@ -186,12 +261,38 @@ function Nav() {
                 aria-haspopup="true"
                 aria-expanded={openProfileMenu ? 'true' : undefined}
                 onClick={handleProfileClick}
-                sx={{ textTransform: 'none', display: 'flex', alignItems: 'center', gap: 1 }}
+                sx={{
+                  textTransform: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 1,
+                  padding: '6px 12px',
+                  borderRadius: '8px',
+                  backgroundColor: '#f5f5f5',
+                  boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
+                  '&:hover': { backgroundColor: '#eaeaea' },
+                }}
               >
-                <Avatar src={userImage} alt={userName} sx={{ width: 40, height: 40 }} />
-                <Typography variant="body1" sx={{ color: '#0a0a23', fontWeight: 500 }}>
+                <Avatar
+                  src={userImage}
+                  alt={userName}
+                  sx={{ width: 40, height: 40, boxShadow: '0 0 4px rgba(0,0,0,0.2)' }}
+                />
+                <Typography variant="body1" sx={{ color: '#0a0a23', fontWeight: 600 }}>
                   {userName}
                 </Typography>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#0a0a23"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
               </Button>
 
               <Menu
@@ -201,17 +302,23 @@ function Nav() {
                 onClose={handleProfileClose}
                 MenuListProps={{ 'aria-labelledby': 'profile-button' }}
               >
-                <MenuItem className={styles.arabica} onClick={handleProfileClose} component={Link} href="/Dashboard" sx={{ textDecoration: 'none', color: 'inherit' }}>
-                لوحة التحكم
+                <MenuItem
+                  className={styles.arabica}
+                  onClick={handleProfileClose}
+                  component={Link}
+                  href={dashboardLink}
+                  sx={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  لوحة التحكم
                 </MenuItem>
                 <MenuItem
-                className={styles.arabica}
+                  className={styles.arabica}
                   onClick={() => {
                     handleProfileClose();
                     handleLogout();
                   }}
                 >
-                    تسجيل الخروج
+                  تسجيل الخروج
                 </MenuItem>
               </Menu>
             </>
@@ -246,18 +353,20 @@ function Nav() {
                     <Box className={styles.phoneIconCircle}>
                       <PhoneIcon className={styles.phoneIcon} />
                     </Box>
-                    <Typography className={styles.phoneNumber}>
-                      {phoneNumber}
-                    </Typography>
+                    <Typography className={styles.phoneNumber}>{phoneNumber}</Typography>
                   </Box>
                 </Link>
 
                 <Link href="/Login">
-                  <Button variant="contained" className={styles.trackButton}   onClick={() => {
-                    handleProfileClose();
-                    handleLogout();
-                  }} >
-                  تسجيل الخروج&nbsp;<TrendingUpIcon />
+                  <Button
+                    variant="contained"
+                    className={styles.trackButton}
+                    onClick={() => {
+                      handleProfileClose();
+                      handleLogout();
+                    }}
+                  >
+                    تسجيل الخروج&nbsp;<TrendingUpIcon />
                   </Button>
                 </Link>
               </Box>
@@ -265,6 +374,7 @@ function Nav() {
           )}
         </Toolbar>
       </AppBar>
+
 
       {/* Drawer Mobile */}
       <Drawer anchor="right" open={drawerOpen} onClose={closeDrawer} disableScrollLock>

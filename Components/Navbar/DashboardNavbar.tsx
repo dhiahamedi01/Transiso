@@ -244,12 +244,14 @@ const DashboardNavbar: React.FC = () => {
               },
             }}
           >
-            <MenuItem onClick={handleEditProfile} sx={{display:'flex',justifyContent:'center'}}>
-              <ListItemIcon>
-                <EditIcon fontSize="small" />
-              </ListItemIcon>
-              Edit profile
-            </MenuItem>
+            {!isAdmin && (
+              <MenuItem onClick={handleEditProfile} sx={{ display: 'flex', justifyContent: 'center' }}>
+                <ListItemIcon>
+                  <EditIcon fontSize="small" />
+                </ListItemIcon>
+                Edit profile
+              </MenuItem>
+            )}
             <Divider />
             <MenuItem onClick={handleLogout}>
               <ListItemIcon>

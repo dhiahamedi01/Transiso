@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Overview.module.css';
 
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
@@ -7,39 +7,71 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 
-interface DataItem {
-  label: string;
-  number: number;
-  trend: 'up' | 'down';
-  iconClass: keyof typeof styles;
-  icon: React.ReactNode;
+interface Order {
+  id: number;
+  orderId: string;
+  customer: string;
+  date: string;
+  address: string;
+  country: string;
+  products: string;
+  status: string;
+  payment: string;
+  paymentMethod: string;
+  createdAt: string;
+  phone: string;
+  email: string;
 }
 
-const data: DataItem[] = [
-  {
-    label: 'Orders',
-    number: 22,
-    trend: 'up',
-    iconClass: 'cart',
-    icon: <ShoppingCartIcon  fontSize="large" />,
-  },
-  {
-    label: 'Revenue',
-    number: 352.342,
-    trend: 'up',
-    iconClass: 'cartTwo',
-    icon: <AttachMoneyIcon fontSize="large" />,
-  },
-  {
-    label: 'Average Price',
-    number: 112.220,
-    trend: 'down',
-    iconClass: 'cartFour',
-    icon: <TrendingUpIcon  fontSize="large" />,
-  }
-];
-
 const Overview: React.FC = () => {
+  const [orders, setOrders] = useState<Order[]>([]);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const res = await fetch('/api/Liste_order');
+        const json = await res.json();
+        if (json.success) {
+          setOrders(json.data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch orders:', err);
+      }
+    };
+
+    fetchOrders();
+  }, []);
+
+  const orderCount = orders.length;
+  const FAKE_UNIT_PRICE = 120;
+
+  const totalRevenue = orderCount * FAKE_UNIT_PRICE;
+  const averagePrice = orderCount > 0 ? totalRevenue / orderCount : 0;
+
+  const data = [
+    {
+      label: 'Orders',
+      number: orderCount,
+      trend: 'up',
+      iconClass: 'cart',
+      icon: <ShoppingCartIcon fontSize="large" />,
+    },
+    {
+      label: 'Total Revenue',
+      number: totalRevenue.toFixed(2),
+      trend: 'up',
+      iconClass: 'cartTwo',
+      icon: <AttachMoneyIcon fontSize="large" />,
+    },
+    {
+      label: 'Average Order Value',
+      number: averagePrice.toFixed(2),
+      trend: 'down',
+      iconClass: 'cartFour',
+      icon: <TrendingUpIcon fontSize="large" />,
+    },
+  ];
+
   return (
     <div className={styles['overview-boxes']}>
       {data.map((item, index) => (

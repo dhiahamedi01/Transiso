@@ -8,30 +8,25 @@ import {
   StepConnector,
   StepIconProps,
   CircularProgress,
-  TextField,
-  Button,
 } from '@mui/material';
-import Check from '@mui/icons-material/Check';
+import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import StoreIcon from '@mui/icons-material/Store';
-import HomeIcon from '@mui/icons-material/Home';
-import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
-import FlightLandIcon from '@mui/icons-material/FlightLand';
-import GavelIcon from '@mui/icons-material/Gavel';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import CancelIcon from '@mui/icons-material/Cancel';
 import { styled } from '@mui/material/styles';
 import styles from './TrackingStatus.module.css';
 
-// Étapes adaptées à l'import/export
+// Étapes et icônes associées
 const steps = [
-  { label: 'Préparation', icon: <StoreIcon /> },
-  { label: 'En transit local', icon: <LocalShippingIcon /> },
-  { label: 'Départ à l’étranger', icon: <FlightTakeoffIcon /> },
-  { label: 'Arrivée à destination', icon: <FlightLandIcon /> },
-  { label: 'Déclaration Douanes', icon: <GavelIcon /> },
-  { label: 'Livraison finale', icon: <HomeIcon /> },
+  { label: 'Pending', Icon: HourglassEmptyIcon },
+  { label: 'In Transit', Icon: LocalShippingIcon },
+  { label: 'Delivered', Icon: CheckCircleIcon },
+  { label: 'Delayed', Icon: ErrorOutlineIcon },
+  { label: 'Cancelled', Icon: CancelIcon },
 ];
 
-// Connector personnalisé (gris)
+// Connecteur personnalisé
 const CustomConnector = styled(StepConnector)(() => ({
   '& .MuiStepConnector-line': {
     height: 3,
@@ -41,95 +36,117 @@ const CustomConnector = styled(StepConnector)(() => ({
   },
 }));
 
-// Icône de chaque étape personnalisée
-interface CustomStepIconProps extends StepIconProps {
-  iconNode: React.ReactElement;
-  completed: boolean;
-}
+// Icône personnalisée
+const CustomStepIcon: React.FC<StepIconProps & { Icon: React.ElementType }> = ({
+  active,
+  completed,
+  className,
+  icon,
+  Icon,
+}) => {
+  const color = completed || active ? '#1976d2' : '#ccc';
 
-const CustomStepIcon: React.FC<CustomStepIconProps> = ({ completed, iconNode }) => {
   return (
-    <div
-      className={`${styles.stepIcon} ${
-        completed ? styles.completed : styles.pending
-      }`}
-    >
-      {completed ? <Check /> : iconNode}
+    <div className={className}>
+      <Icon style={{ color, fontSize: 28 }} />
     </div>
   );
 };
 
-const Page: React.FC = () => {
-  const [trackingId, setTrackingId] = useState('');
+const TrackingPage: React.FC = () => {
+  const [orderId, setOrderId] = useState('');
   const [loading, setLoading] = useState(false);
-  const [currentStepId, setCurrentStepId] = useState<number | null>(null);
+  const [currentStatus, setCurrentStatus] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleTrack = () => {
-    if (!trackingId) return;
+  const handleTrack = async () => {
+    if (!orderId.trim()) return;
 
     setLoading(true);
-    setCurrentStepId(null);
+    setError(null);
+    setCurrentStatus(null);
 
-    setTimeout(() => {
-      const simulatedStep = Math.floor(Math.random() * steps.length);
-      setCurrentStepId(simulatedStep);
+    try {
+      const res = await fetch(`/api/orders/${orderId.trim()}`);
+      const json = await res.json();
+
+      if (!json.success) {
+        setError(json.error || 'Order not found');
+        setLoading(false);
+        return;
+      }
+
+      const status: string = json.data.status;
+
+      if (!steps.find((s) => s.label === status)) {
+        setError(`Unknown status: ${status}`);
+        setLoading(false);
+        return;
+      }
+
+      setCurrentStatus(status);
+    } catch {
+      setError('Network error');
+    } finally {
       setLoading(false);
-    }, 1500);
+    }
   };
+
+  const activeStep = currentStatus ? steps.findIndex((s) => s.label === currentStatus) : -1;
 
   return (
     <div className={styles.container}>
       <div className={styles.card}>
-        <h2 className={styles.title}>Suivi d’expédition</h2>
+        <h2 className={styles.title}>Order Tracking</h2>
+
         <div className={styles.inputWrapper}>
-  <input
-    type="text"
-    placeholder="Entrer l'ID de suivi"
-    value={trackingId}
-    onChange={(e) => setTrackingId(e.target.value)}
-    className={styles.input}
-  />
-  <button
-    onClick={handleTrack}
-    disabled={!trackingId || loading}
-    className={styles.button}
-  >
-    search
-  </button>
-</div>
+          <input
+            type="text"
+            placeholder="Enter Order ID"
+            value={orderId}
+            onChange={(e) => setOrderId(e.target.value)}
+            className={styles.input}
+          />
+          <button
+            onClick={handleTrack}
+            disabled={!orderId.trim() || loading}
+            className={styles.button}
+          >
+            Track
+          </button>
+        </div>
 
-
-        {loading ? (
+        {loading && (
           <div className={styles.loading}>
             <CircularProgress />
-            <p>Chargement des informations...</p>
+            <p>Loading order status...</p>
           </div>
-        ) : currentStepId !== null ? (
+        )}
+
+        {error && <p className={styles.error}>{error}</p>}
+
+        {currentStatus && !loading && !error && (
           <Stepper
             alternativeLabel
-            activeStep={currentStepId}
+            activeStep={activeStep}
             connector={<CustomConnector />}
           >
-            {steps.map((step, index) => (
-              <Step key={step.label} completed={index < currentStepId}>
+            {steps.map(({ label, Icon }, index) => (
+              <Step key={label} completed={index < activeStep}>
                 <StepLabel
                   StepIconComponent={(props) => (
-                    <CustomStepIcon
-                      {...props}
-                      iconNode={step.icon}
-                      completed={index < currentStepId}
-                    />
+                    <CustomStepIcon {...props} Icon={Icon} />
                   )}
                 >
-                  {step.label}
+                  {label}
                 </StepLabel>
               </Step>
             ))}
           </Stepper>
-        ) : null}
+        )}
       </div>
     </div>
   );
 };
 
-export default Page;
+export default TrackingPage;
