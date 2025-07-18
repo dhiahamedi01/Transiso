@@ -2,17 +2,25 @@ import { NextRequest, NextResponse } from 'next/server';
 import path from 'path';
 import fs from 'fs/promises';
 import { mkdirSync, existsSync } from 'fs';
-import pool from '@/lib/db'; // Assure-toi que c'est bien mysql2/promise
+import pool from '@/lib/db';
 
-// 📦 Créer le dossier public/uploads s'il n'existe pas
 const uploadDir = path.join(process.cwd(), 'public', 'uploads');
 if (!existsSync(uploadDir)) {
   mkdirSync(uploadDir, { recursive: true });
 }
 
-// 🟢 GET - Lire un slider par ID
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
-  const id = params.id;
+function getIdFromReq(req: NextRequest) {
+  const url = req.nextUrl;
+  const idStr = url.pathname.split('/').pop();
+  if (!idStr) return null;
+  return idStr;
+}
+
+export async function GET(req: NextRequest) {
+  const id = getIdFromReq(req);
+  if (!id) {
+    return NextResponse.json({ error: 'Missing ID' }, { status: 400 });
+  }
 
   try {
     const [rows]: any = await pool.query(
@@ -31,9 +39,11 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
   }
 }
 
-// 🟠 PUT - Mettre à jour un slider
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
-  const id = params.id;
+export async function PUT(req: NextRequest) {
+  const id = getIdFromReq(req);
+  if (!id) {
+    return NextResponse.json({ error: 'Missing ID' }, { status: 400 });
+  }
 
   try {
     const formData = await req.formData();
@@ -41,7 +51,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     const title = formData.get('title') as string;
     const description = formData.get('description') as string;
 
-    // 🖼️ Gestion fichiers
+    // Gestion fichiers
     let iconPath = formData.get('iconUrl') as string;
     const iconFile = formData.get('icon') as File;
 
@@ -64,7 +74,6 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
       imagePath = `/uploads/${fileName}`;
     }
 
-    // 🛠️ Update SQL
     await pool.query(
       'UPDATE Home_Slider SET Titre = ?, Description = ?, Icon = ?, Image = ? WHERE id = ?',
       [title, description, iconPath, imagePath, id]
