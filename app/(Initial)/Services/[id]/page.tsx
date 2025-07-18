@@ -7,6 +7,7 @@ import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import OtherServices from "@/Components/Service/Side_card/OtherServices";
 import { Typography } from "@mui/material";
 
+// Interface pour le type de service
 interface Service {
   id: number;
   title: string;
@@ -15,18 +16,29 @@ interface Service {
   icon_path: string;
 }
 
+// Fonction pour récupérer le service
 async function getService(id: string): Promise<Service> {
-  const res = await fetch(`http://localhost:3000/api/services/${id}`, {
+  const baseUrl =
+    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"; // ✅ Utilisation d'une URL dynamique pour Vercel
+  const res = await fetch(`${baseUrl}/api/services/${id}`, {
     cache: "no-store",
   });
+
   if (!res.ok) {
     throw new Error("Service introuvable");
   }
+
   return res.json();
 }
 
-export default async function ServicePage({ params }: { params: { id: string } }) {
+// ✅ Fonction principale de la page – typage direct, aucun conflit avec PageProps
+export default async function ServicePage({
+  params,
+}: {
+  params: { id: string };
+}) {
   let service: Service;
+
   try {
     service = await getService(params.id);
   } catch (error) {
@@ -41,8 +53,7 @@ export default async function ServicePage({ params }: { params: { id: string } }
 
   return (
     <div className={styles.Paper}>
-      {/* Ton code JSX ici (inchangé) */}
-      {/* Partie gauche */}
+      {/* Partie Gauche - Autres services et aide */}
       <div className={styles.Paper_g}>
         <div className={styles.partie3}>
           <Typography variant="h5" fontWeight={700} className={styles.Arabic2}>
@@ -94,12 +105,16 @@ export default async function ServicePage({ params }: { params: { id: string } }
         </div>
       </div>
 
-      {/* Partie droite */}
+      {/* Partie Droite - Détails du service */}
       <div className={styles.Paper_d}>
         <div className={styles.Image}>
           <Image
             className={styles.imagec}
-            src={service.icon_path.startsWith("http") ? service.icon_path : service.icon_path}
+            src={
+              service.icon_path.startsWith("http")
+                ? service.icon_path
+                : service.icon_path
+            }
             alt={service.title}
             width={900}
             height={530}
