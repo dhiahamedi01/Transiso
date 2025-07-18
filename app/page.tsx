@@ -67,7 +67,6 @@ export default function Page() {
         <Card />
         <Section />
         <Carousel />
-        <TrendingCarousel />
         <br /><br /><br />
         <HeroSection />
         <Avis />
