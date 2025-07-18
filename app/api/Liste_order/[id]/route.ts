@@ -3,14 +3,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import db from '@/lib/db';
 
-type Params = {
-  params: {
-    id: string;
-  };
-};
-
-export async function PUT(req: NextRequest, context: Params) {
-  const { id } = context.params;
+export async function PUT(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const id = params.id;
 
   try {
     const body = await req.json();
@@ -23,8 +20,11 @@ export async function PUT(req: NextRequest, context: Params) {
       );
     }
 
+    const [existingRows] = await db.execute(
+      'SELECT id FROM orders WHERE id = ?',
+      [id]
+    );
 
-    const [existingRows] = await db.execute('SELECT id FROM orders WHERE id = ?', [id]);
     if ((existingRows as any[]).length === 0) {
       return NextResponse.json(
         { success: false, message: 'Order not found' },
@@ -32,8 +32,10 @@ export async function PUT(req: NextRequest, context: Params) {
       );
     }
 
-    // Mise à jour
-    await db.execute('UPDATE orders SET status = ? WHERE id = ?', [status, id]);
+    await db.execute('UPDATE orders SET status = ? WHERE id = ?', [
+      status,
+      id,
+    ]);
 
     return NextResponse.json({
       success: true,
