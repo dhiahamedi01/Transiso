@@ -21,7 +21,7 @@ async function getService(id: string): Promise<Service> {
   const baseUrl =
     process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
-  const res = await fetch(`https://www.transisologistic.com/api/services/${id}`, {
+  const res = await fetch(`https://transiso-git-main-dhiahamedi01s-projects.vercel.app/api/services/${id}`, {
     cache: "no-store",
   });
 
