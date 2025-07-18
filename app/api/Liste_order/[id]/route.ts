@@ -1,13 +1,8 @@
-// app/api/Liste_order/[id]/route.ts
-
 import { NextRequest, NextResponse } from 'next/server';
 import db from '@/lib/db';
 
-export async function PUT(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  const id = params.id;
+export async function PUT(req: NextRequest, context: { params: { id: string } }) {
+  const { id } = context.params;
 
   try {
     const body = await req.json();
@@ -32,15 +27,9 @@ export async function PUT(
       );
     }
 
-    await db.execute('UPDATE orders SET status = ? WHERE id = ?', [
-      status,
-      id,
-    ]);
+    await db.execute('UPDATE orders SET status = ? WHERE id = ?', [status, id]);
 
-    return NextResponse.json({
-      success: true,
-      message: 'Order status updated',
-    });
+    return NextResponse.json({ success: true, message: 'Order status updated' });
   } catch (error: any) {
     console.error('Failed to update order status:', error);
     return NextResponse.json(
