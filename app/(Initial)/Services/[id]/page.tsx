@@ -7,6 +7,7 @@ import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import OtherServices from "@/Components/Service/Side_card/OtherServices";
 import { Typography } from "@mui/material";
 
+// Interface du service
 interface Service {
   id: number;
   title: string;
@@ -15,25 +16,25 @@ interface Service {
   icon_path: string;
 }
 
-interface ServicePageProps {
-  params: {
-    id: string;
-  };
-}
-
+// Fonction pour récupérer les données d’un service spécifique
 async function getService(id: string): Promise<Service> {
-  // استعمل رابط كامل أو النسبية حسب بيئة التشغيل
   const res = await fetch(`http://localhost:3000/api/services/${id}`, {
-    cache: "no-store", // باش كل مرة يجيب البيانات حديثة
+    cache: "no-store", // Pas de cache pour des données à jour
   });
 
   if (!res.ok) {
     throw new Error("Service introuvable");
   }
+
   return res.json();
 }
 
-export default async function ServicePage({ params }: ServicePageProps) {
+// Composant principal de la page service
+export default async function ServicePage({
+  params,
+}: {
+  params: { id: string };
+}) {
   let service: Service;
 
   try {
@@ -51,7 +52,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
   return (
     <div className={styles.Paper}>
       <div className={styles.Paper_g}>
-        {/* Partie latérale gauche */}
+        {/* Partie gauche - autres services */}
         <div className={styles.partie3}>
           <Typography variant="h5" fontWeight={700} className={styles.Arabic2}>
             الخدمات الرئيسية
@@ -60,7 +61,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
           <OtherServices />
         </div>
 
-        {/* Partie centrale droite */}
+        {/* Partie centrale */}
         <div className={styles.partie1}>
           <div className={styles.contenue}>
             <div className={styles.image_demande}>
@@ -103,13 +104,16 @@ export default async function ServicePage({ params }: ServicePageProps) {
         </div>
       </div>
 
-      {/* Partie droite / Détails Service */}
+      {/* Partie droite - contenu dynamique du service */}
       <div className={styles.Paper_d}>
-        {/* Image dynamique */}
         <div className={styles.Image}>
           <Image
             className={styles.imagec}
-            src={service.icon_path.startsWith("http") ? service.icon_path : service.icon_path}
+            src={
+              service.icon_path.startsWith("http")
+                ? service.icon_path
+                : service.icon_path
+            }
             alt={service.title}
             width={900}
             height={530}
@@ -118,18 +122,14 @@ export default async function ServicePage({ params }: ServicePageProps) {
           />
         </div>
 
-        {/* Titre dynamique */}
         <h1 className={styles.sectionHeading}>{service.title}</h1>
 
-        {/* Description dynamique */}
         <div className={styles.description}>{service.description}</div>
 
-        {/* Content dynamique, gestion retour à la ligne */}
         <div className={styles.description} style={{ whiteSpace: "pre-line" }}>
           {service.content}
         </div>
 
-        {/* Tes cards fixes */}
         <div className={styles.Card}>
           <div className={styles.sous_Card1}>
             <div className={styles.texts_card}>
@@ -138,7 +138,8 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 تتبع بسيط وفعال
               </div>
               <div className={styles.desc_card}>
-                أنظمة تتبع متقدمة، تحليلات لحظية، وخبراء لوجستيين متخصصين لضمان سهولة إدارة الشحنات.
+                أنظمة تتبع متقدمة، تحليلات لحظية، وخبراء لوجستيين متخصصين لضمان
+                سهولة إدارة الشحنات.
               </div>
             </div>
           </div>
@@ -150,13 +151,13 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 دعم سريع
               </div>
               <div className={styles.desc_card}>
-                نحن متخصصون في تنسيق المستودعات، التوصيل النهائي، والتحكم في المخزون بكفاءة عالية.
+                نحن متخصصون في تنسيق المستودعات، التوصيل النهائي، والتحكم في
+                المخزون بكفاءة عالية.
               </div>
             </div>
           </div>
         </div>
 
-        {/* FAQ */}
         <FAQ />
       </div>
     </div>
