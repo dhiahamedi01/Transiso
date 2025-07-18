@@ -1,11 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import db from '@/lib/db';
 
-export async function PUT(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  const { id } = params;
+export async function PUT(req: NextRequest) {
+  // Récupérer l'id de l'URL
+  const url = req.nextUrl;
+  const id = url.pathname.split('/').pop();
+
+  if (!id) {
+    return NextResponse.json(
+      { success: false, message: 'Missing id in URL' },
+      { status: 400 }
+    );
+  }
 
   try {
     const body = await req.json();
