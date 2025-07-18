@@ -280,18 +280,43 @@
   text-align: right !important;
 }
 
-/* Responsive */
-@media (max-width: 1200px) {
-  .Paper {
-    padding-inline: 3%;
+@media screen and (max-width: 1480px) {
+  .partie1 {
+    height: auto !important;
+    padding: 0px 15px;
+    justify-content: flex-start;
   }
-  .Paper_g {
-    max-width: 45%;
+
+  .contenue {
+    margin-top: 30px;
   }
-  .Paper_d {
-    min-width: 300px;
+
+  .bottom_image_container {
+    margin-top: 30px;
+    position: relative !important;
+    bottom: 0 !important;
+    left: auto;
+    transform: none;
+    margin-top: 100px !important;
   }
+
+  .titre_demande {
+    font-size: 22px;
+  }
+
+  .Description_demande {
+    font-size: 13px;
+    padding: 0 5px;
+  }
+
+
+  .btn_arabic {
+    font-size: 14px;
+    padding: 10px 25px;
+  }
+
 }
+
 
 @media (max-width: 900px) {
   .Paper {

@@ -93,10 +93,10 @@ export default async function ServicePage({ params }: ServicePageProps) {
           </div>
           <div className={styles.bottom_image_container}>
             <Image
-              src="/img/Background/user.png"
+              src="/img/service-details-sidebar-img.png"
               alt="footer decoration"
-              width={220}
-              height={250}
+              width={260}
+              height={260}
               className={styles.bottom_image}
             />
           </div>

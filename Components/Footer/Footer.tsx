@@ -83,7 +83,7 @@ const Footer = () => {
               <ul>
                 <li><Link href="/About">من نحن</Link></li>
                 <li><Link href="/Services">خدماتنا في ترانسيسو</Link></li>
-                <li><Link href="/bloglist">بلوجر</Link></li>
+                <li><Link href="/bloglist">المدونة الالكترونية</Link></li>
               </ul>
             </div>
 
