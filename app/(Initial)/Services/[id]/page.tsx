@@ -15,30 +15,18 @@ interface Service {
   icon_path: string;
 }
 
-// ✅ Ne pas importer PageProps de Next, ni typage générique de fonction async
-// ✅ Ne PAS typer avec un type importé générique, cela cause l'erreur mentionnée
-// ✅ Faire un typage inline simple ici :
-type Props = {
-  params: {
-    id: string;
-  };
-};
-
 async function getService(id: string): Promise<Service> {
   const res = await fetch(`http://localhost:3000/api/services/${id}`, {
     cache: "no-store",
   });
-
   if (!res.ok) {
     throw new Error("Service introuvable");
   }
-
   return res.json();
 }
 
-export default async function ServicePage({ params }: Props) {
+export default async function ServicePage({ params }: { params: { id: string } }) {
   let service: Service;
-
   try {
     service = await getService(params.id);
   } catch (error) {
@@ -53,6 +41,7 @@ export default async function ServicePage({ params }: Props) {
 
   return (
     <div className={styles.Paper}>
+      {/* Ton code JSX ici (inchangé) */}
       {/* Partie gauche */}
       <div className={styles.Paper_g}>
         <div className={styles.partie3}>
@@ -63,7 +52,6 @@ export default async function ServicePage({ params }: Props) {
           <OtherServices />
         </div>
 
-        {/* Partie centrale */}
         <div className={styles.partie1}>
           <div className={styles.contenue}>
             <div className={styles.image_demande}>
@@ -111,11 +99,7 @@ export default async function ServicePage({ params }: Props) {
         <div className={styles.Image}>
           <Image
             className={styles.imagec}
-            src={
-              service.icon_path.startsWith("http")
-                ? service.icon_path
-                : service.icon_path
-            }
+            src={service.icon_path.startsWith("http") ? service.icon_path : service.icon_path}
             alt={service.title}
             width={900}
             height={530}
