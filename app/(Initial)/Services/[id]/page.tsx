@@ -7,7 +7,7 @@ import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import OtherServices from "@/Components/Service/Side_card/OtherServices";
 import { Typography } from "@mui/material";
 
-// Interface pour le type de service
+// Le type de ton service
 interface Service {
   id: number;
   title: string;
@@ -16,10 +16,11 @@ interface Service {
   icon_path: string;
 }
 
-// Fonction pour récupérer le service
+// Récupération des données du service
 async function getService(id: string): Promise<Service> {
   const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"; // ✅ Utilisation d'une URL dynamique pour Vercel
+    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+
   const res = await fetch(`${baseUrl}/api/services/${id}`, {
     cache: "no-store",
   });
@@ -31,12 +32,14 @@ async function getService(id: string): Promise<Service> {
   return res.json();
 }
 
-// ✅ Fonction principale de la page – typage direct, aucun conflit avec PageProps
-export default async function ServicePage({
-  params,
-}: {
-  params: { id: string };
-}) {
+// ✅ ✅ ✅ CORRECTION ICI — typage direct et explicite
+type Props = {
+  params: {
+    id: string;
+  };
+};
+
+export default async function ServicePage({ params }: Props) {
   let service: Service;
 
   try {
@@ -53,7 +56,6 @@ export default async function ServicePage({
 
   return (
     <div className={styles.Paper}>
-      {/* Partie Gauche - Autres services et aide */}
       <div className={styles.Paper_g}>
         <div className={styles.partie3}>
           <Typography variant="h5" fontWeight={700} className={styles.Arabic2}>
@@ -105,16 +107,11 @@ export default async function ServicePage({
         </div>
       </div>
 
-      {/* Partie Droite - Détails du service */}
       <div className={styles.Paper_d}>
         <div className={styles.Image}>
           <Image
             className={styles.imagec}
-            src={
-              service.icon_path.startsWith("http")
-                ? service.icon_path
-                : service.icon_path
-            }
+            src={service.icon_path}
             alt={service.title}
             width={900}
             height={530}
@@ -139,8 +136,7 @@ export default async function ServicePage({
                 تتبع بسيط وفعال
               </div>
               <div className={styles.desc_card}>
-                أنظمة تتبع متقدمة، تحليلات لحظية، وخبراء لوجستيين متخصصين لضمان
-                سهولة إدارة الشحنات.
+                أنظمة تتبع متقدمة، تحليلات لحظية، وخبراء لوجستيين متخصصين لضمان سهولة إدارة الشحنات.
               </div>
             </div>
           </div>
@@ -152,8 +148,7 @@ export default async function ServicePage({
                 دعم سريع
               </div>
               <div className={styles.desc_card}>
-                نحن متخصصون في تنسيق المستودعات، التوصيل النهائي، والتحكم في
-                المخزون بكفاءة عالية.
+                نحن متخصصون في تنسيق المستودعات، التوصيل النهائي، والتحكم في المخزون بكفاءة عالية.
               </div>
             </div>
           </div>
