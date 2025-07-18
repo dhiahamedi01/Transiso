@@ -1,8 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
-import  pool  from '@/lib/db'; 
+import pool from '@/lib/db';
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
-  const categoryId = Number(params.id);
+export async function DELETE(req: NextRequest) {
+  // Récupérer id depuis l'URL
+  const url = req.nextUrl;
+  const idStr = url.pathname.split('/').pop();
+
+  if (!idStr) {
+    return NextResponse.json({ error: 'Missing category ID' }, { status: 400 });
+  }
+
+  const categoryId = Number(idStr);
 
   if (isNaN(categoryId)) {
     return NextResponse.json({ error: 'Invalid category ID' }, { status: 400 });
