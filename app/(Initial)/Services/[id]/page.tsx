@@ -1,13 +1,16 @@
-import Image from "next/image";
-import Link from "next/link";
-import styles from "./Service.module.css";
-import FAQ from "@/Components/FAQ/FAQ";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import SupportAgentIcon from "@mui/icons-material/SupportAgent";
-import OtherServices from "@/Components/Service/Side_card/OtherServices";
-import { Typography } from "@mui/material";
+'use client';
 
-// Le type de ton service
+import { useEffect, useState } from 'react';
+import { useParams, useRouter } from 'next/navigation';
+import Image from 'next/image';
+import Link from 'next/link';
+import styles from './Service.module.css'; // crée ce fichier ou adapte
+import { Typography, CircularProgress, Button } from '@mui/material';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
+import FAQ from '@/Components/FAQ/FAQ';
+import OtherServices from '@/Components/Service/Side_card/OtherServices';
+
 interface Service {
   id: number;
   title: string;
@@ -16,40 +19,48 @@ interface Service {
   icon_path: string;
 }
 
-// Récupération des données du service
-async function getService(id: string): Promise<Service> {
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+export default function ServiceDetail() {
+  const { id } = useParams() as { id: string };
+  const router = useRouter();
 
-  const res = await fetch(`https://transiso-git-main-dhiahamedi01s-projects.vercel.app/api/services/${id}`, {
-    cache: "no-store",
-  });
+  const [service, setService] = useState<Service | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  if (!res.ok) {
-    throw new Error("Service introuvable");
+  useEffect(() => {
+    async function fetchService() {
+      try {
+        setLoading(true);
+        setError('');
+        const res = await fetch(`/api/services/${id}`);
+        if (!res.ok) throw new Error('Service introuvable');
+        const data = await res.json();
+        setService(data);
+      } catch (err: any) {
+        setError(err.message || 'Erreur inconnue');
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    if (id) fetchService();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className={styles.center}>
+      <CircularProgress color="error" />
+    </div>
+    );
   }
 
-  return res.json();
-}
-
-// ✅ ✅ ✅ CORRECTION ICI — typage direct et explicite
-type Props = {
-  params: {
-    id: string;
-  };
-};
-
-export default async function ServicePage({ params }: Props) {
-  let service: Service;
-
-  try {
-    service = await getService(params.id);
-  } catch (error) {
+  if (error || !service) {
     return (
-      <div style={{ padding: 40, textAlign: "center" }}>
-        <h2>Erreur lors de la récupération du service</h2>
-        <p>{(error as Error).message}</p>
-        <Link href="/Services">Retour aux services</Link>
+      <div className={styles.center}>
+        <Typography variant="h6" color="error">{error || 'Service non trouvé'}</Typography>
+        <Button variant="contained" color="error" onClick={() => router.push('/Services')}>
+          Retour aux services
+        </Button>
       </div>
     );
   }
@@ -68,41 +79,23 @@ export default async function ServicePage({ params }: Props) {
         <div className={styles.partie1}>
           <div className={styles.contenue}>
             <div className={styles.image_demande}>
-              <Image
-                className={styles.imagec}
-                src="/img/Background/quote.svg"
-                alt="msg"
-                width={50}
-                height={50}
-              />
+              <Image src="/img/Background/quote.svg" alt="msg" width={50} height={50} className={styles.imagec} />
             </div>
             <h2 className={styles.titre_demande}>طلب المساعدة</h2>
             <div className={styles.Description_demande}>
               لطلب المساعدة يرجى النقر على استفسر الآن وملء المعلومات المطلوبة
             </div>
             <div className={styles.button_demande}>
-              <Link href="/Demande" passHref>
-                <button className={styles.btn_arabic} type="button">
-                  <Image
-                    src="/img/Background/email.svg"
-                    alt="icon"
-                    className={styles.btn_icon}
-                    width={20}
-                    height={20}
-                  />
+              <Link href="/Demande">
+                <button className={styles.btn_arabic}>
+                  <Image src="/img/Background/email.svg" alt="icon" width={20} height={20} className={styles.btn_icon} />
                   استفسر الآن
                 </button>
               </Link>
             </div>
           </div>
           <div className={styles.bottom_image_container}>
-            <Image
-              src="/img/service-details-sidebar-img.png"
-              alt="footer decoration"
-              width={260}
-              height={260}
-              className={styles.bottom_image}
-            />
+            <Image src="/img/service-details-sidebar-img.png" alt="footer decoration" width={260} height={260} className={styles.bottom_image} />
           </div>
         </div>
       </div>
@@ -110,23 +103,19 @@ export default async function ServicePage({ params }: Props) {
       <div className={styles.Paper_d}>
         <div className={styles.Image}>
           <Image
-            className={styles.imagec}
             src={service.icon_path}
             alt={service.title}
             width={900}
             height={530}
             priority
             style={{ objectFit: "cover" }}
+            className={styles.imagec}
           />
         </div>
 
         <h1 className={styles.sectionHeading}>{service.title}</h1>
-
         <div className={styles.description}>{service.description}</div>
-
-        <div className={styles.description} style={{ whiteSpace: "pre-line" }}>
-          {service.content}
-        </div>
+        <div className={styles.description} style={{ whiteSpace: "pre-line" }}>{service.content}</div>
 
         <div className={styles.Card}>
           <div className={styles.sous_Card1}>

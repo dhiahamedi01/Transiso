@@ -4,19 +4,18 @@ import path from 'path';
 import pool from '@/lib/db';
 
 // GET /api/services/[id]
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(_: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const result = await pool.query('SELECT * FROM services WHERE id = ?', [params.id]);
-    const rows = result[0] as any[];
+    const [rows]: any = await pool.query('SELECT * FROM services WHERE id = ?', [params.id]);
 
-    if (rows.length === 0) {
+    if (!rows || rows.length === 0) {
       return NextResponse.json({ error: 'Service not found' }, { status: 404 });
     }
 
     return NextResponse.json(rows[0]);
   } catch (error) {
-    console.error('Erreur GET Service:', error);
-    return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 });
+    console.error(error);
+    return NextResponse.json({ error: 'Server error' }, { status: 500 });
   }
 }
 
