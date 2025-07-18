@@ -7,7 +7,6 @@ import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import OtherServices from "@/Components/Service/Side_card/OtherServices";
 import { Typography } from "@mui/material";
 
-// Interface du service
 interface Service {
   id: number;
   title: string;
@@ -16,10 +15,18 @@ interface Service {
   icon_path: string;
 }
 
-// Fonction pour récupérer les données d’un service spécifique
+// ✅ Ne pas importer PageProps de Next, ni typage générique de fonction async
+// ✅ Ne PAS typer avec un type importé générique, cela cause l'erreur mentionnée
+// ✅ Faire un typage inline simple ici :
+type Props = {
+  params: {
+    id: string;
+  };
+};
+
 async function getService(id: string): Promise<Service> {
   const res = await fetch(`http://localhost:3000/api/services/${id}`, {
-    cache: "no-store", // Pas de cache pour des données à jour
+    cache: "no-store",
   });
 
   if (!res.ok) {
@@ -29,12 +36,7 @@ async function getService(id: string): Promise<Service> {
   return res.json();
 }
 
-// Composant principal de la page service
-export default async function ServicePage({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default async function ServicePage({ params }: Props) {
   let service: Service;
 
   try {
@@ -51,8 +53,8 @@ export default async function ServicePage({
 
   return (
     <div className={styles.Paper}>
+      {/* Partie gauche */}
       <div className={styles.Paper_g}>
-        {/* Partie gauche - autres services */}
         <div className={styles.partie3}>
           <Typography variant="h5" fontWeight={700} className={styles.Arabic2}>
             الخدمات الرئيسية
@@ -104,7 +106,7 @@ export default async function ServicePage({
         </div>
       </div>
 
-      {/* Partie droite - contenu dynamique du service */}
+      {/* Partie droite */}
       <div className={styles.Paper_d}>
         <div className={styles.Image}>
           <Image
