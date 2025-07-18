@@ -1,10 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import pool from '@/lib/db';
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
-  const fieldId = Number(params.id);
+function getIdFromReq(req: NextRequest) {
+  const url = req.nextUrl;
+  const idStr = url.pathname.split('/').pop();
+  if (!idStr) return null;
+  return Number(idStr);
+}
 
-  if (isNaN(fieldId)) {
+export async function DELETE(req: NextRequest) {
+  const fieldId = getIdFromReq(req);
+  if (!fieldId || isNaN(fieldId)) {
     return NextResponse.json({ error: 'Invalid field ID' }, { status: 400 });
   }
 
@@ -17,9 +23,9 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
   }
 }
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
-  const fieldId = Number(params.id);
-  if (isNaN(fieldId)) {
+export async function PUT(req: NextRequest) {
+  const fieldId = getIdFromReq(req);
+  if (!fieldId || isNaN(fieldId)) {
     return NextResponse.json({ error: 'Invalid field ID' }, { status: 400 });
   }
 
