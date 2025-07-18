@@ -3,10 +3,18 @@ import fs from 'fs';
 import path from 'path';
 import pool from '@/lib/db';
 
+function getIdFromReq(req: NextRequest) {
+  const url = req.nextUrl;
+  const parts = url.pathname.split('/');
+  return parts[parts.length - 1]; // récupère le dernier segment (id)
+}
+
 // GET /api/services/[id]
-export async function GET(_: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest) {
+  const id = getIdFromReq(req);
+
   try {
-    const [rows]: any = await pool.query('SELECT * FROM services WHERE id = ?', [params.id]);
+    const [rows]: any = await pool.query('SELECT * FROM services WHERE id = ?', [id]);
 
     if (!rows || rows.length === 0) {
       return NextResponse.json({ error: 'Service not found' }, { status: 404 });
@@ -20,7 +28,9 @@ export async function GET(_: NextRequest, { params }: { params: { id: string } }
 }
 
 // PUT /api/services/[id]
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest) {
+  const id = getIdFromReq(req);
+
   try {
     const formData = await req.formData();
 
@@ -34,22 +44,22 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     if (iconFile) {
       const bytes = await iconFile.arrayBuffer();
       const buffer = Buffer.from(bytes);
-    
+
       const uploadDir = path.join('public', 'uploads', 'services');
       if (!fs.existsSync(uploadDir)) {
         fs.mkdirSync(uploadDir, { recursive: true });
       }
-    
+
       const fileName = `icon_${Date.now()}.jpg`;
       const filePath = path.join(uploadDir, fileName);
       fs.writeFileSync(filePath, buffer);
       iconPath = `/uploads/services/${fileName}`;
-    
+
       // Supprimer ancien fichier
-      const oldResult = await pool.query('SELECT icon_path FROM services WHERE id = ?', [params.id]);
+      const oldResult = await pool.query('SELECT icon_path FROM services WHERE id = ?', [id]);
       const oldRows = oldResult[0] as any[];
       const oldIcon = oldRows[0]?.icon_path;
-    
+
       if (oldIcon) {
         const oldFullPath = path.join('public', oldIcon);
         if (fs.existsSync(oldFullPath)) {
@@ -57,7 +67,6 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
         }
       }
     }
-    
 
     let updateQuery = `
       UPDATE services 
@@ -71,7 +80,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     }
 
     updateQuery += ' WHERE id = ?';
-    paramsArray.push(params.id);
+    paramsArray.push(id);
 
     await pool.query(updateQuery, paramsArray);
 
@@ -83,10 +92,12 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 }
 
 // DELETE /api/services/[id]
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest) {
+  const id = getIdFromReq(req);
+
   try {
     // Supprimer l'image liée si elle existe
-    const result = await pool.query('SELECT icon_path FROM services WHERE id = ?', [params.id]);
+    const result = await pool.query('SELECT icon_path FROM services WHERE id = ?', [id]);
     const rows = result[0] as any[];
     const iconPath = rows[0]?.icon_path;
 
@@ -97,7 +108,7 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
       }
     }
 
-    const deleteResult = await pool.query('DELETE FROM services WHERE id = ?', [params.id]);
+    const deleteResult = await pool.query('DELETE FROM services WHERE id = ?', [id]);
     const deleteInfo = deleteResult[0] as any;
 
     if (deleteInfo.affectedRows === 0) {
