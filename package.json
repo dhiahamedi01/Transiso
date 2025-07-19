@@ -8,7 +8,7 @@
     "start": "next start",
     "export": "next export",
     "lint": "next lint",
-     "postbuild": "next-sitemap"
+    "postbuild": "ts-node generate-sitemap.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -61,6 +61,7 @@
     "@types/react-big-calendar": "^1.16.2",
     "@types/react-dom": "^19",
     "@types/react-slick": "^0.23.13",
-    "typescript": "^5"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
   }
 }

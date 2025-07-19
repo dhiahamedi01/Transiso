@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.transisologistic.com
+
+# Sitemaps
+Sitemap: https://www.transisologistic.com/sitemap.xml
