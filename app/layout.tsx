@@ -17,6 +17,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang={params.lang}>
+      <title>Transiso Logistic</title>
+      <meta name="description" content="Bienvenue sur Transiso Logistic, votre solution logistique fiable." />
+      <meta name="robots" content="index, follow" />
+      <link rel="canonical" href="https://www.transisologistic.com" />
       <body>
         <Providers>{children}</Providers>
       </body>
