@@ -101,6 +101,16 @@ function Nav() {
 
   const { socialLinks } = useSocialLinks();
 
+  // Lecture du nombre total d'articles dans le panier (somme des quantités)
+  const readCartCount = () => {
+    if (typeof window !== 'undefined') {
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      // Somme des quantités pour affichage précis
+      const totalCount = cart.reduce((acc: number, item: any) => acc + (item.quantity || 0), 0);
+      setCartCount(totalCount);
+    }
+  };
+
   useEffect(() => {
     setIsClient(true);
     document.body.dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
@@ -118,8 +128,25 @@ function Nav() {
       setUserImage(localStorage.getItem('userImage') || '/img/no_img.png');
       setRole(localStorage.getItem('role') || '');
 
-      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-      setCartCount(cart.length || 0);
+      // Initial cart count
+      readCartCount();
+
+      // Écoute des modifications du localStorage (multi onglets)
+      const onStorageChange = (e: StorageEvent) => {
+        if (e.key === 'cart') {
+          readCartCount();
+        }
+      };
+      window.addEventListener('storage', onStorageChange);
+
+      // Écoute de l'événement personnalisé 'cartUpdated' dans le même onglet
+      const onCartUpdate = () => readCartCount();
+      window.addEventListener('cartUpdated', onCartUpdate);
+
+      return () => {
+        window.removeEventListener('storage', onStorageChange);
+        window.removeEventListener('cartUpdated', onCartUpdate);
+      };
     }
   }, [i18n.language]);
 
@@ -176,44 +203,58 @@ function Nav() {
         {!isMobile && (
           <div className={styles.right}>
             <LanguageSelector />
-            <MuiLink
-              component={Link}
-              href="/Demande"
-              underline="none"
-              className={`${styles.Arabe} ${styles.link2}`}
-            >
+            <MuiLink component={Link} href="/Demande" underline="none" className={`${styles.Arabe} ${styles.link2}`}>
               {t('inquiryOnline')}
             </MuiLink>
             <Typography className={styles.Arabe}>{t('followUs')}</Typography>
 
-            <Box className={styles.Liste_icon}>
-              {socialLinks.length > 0
-                ? socialLinks.map(({ id, platform, url }) => {
-                    const icon = iconMap[platform.toLowerCase()];
-                    if (!icon || !url) return null;
-                    return (
-                      <IconButton
-                        key={id}
-                        size="small"
-                        component="a"
-                        href={url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.icon}
-                        aria-label={platform}
-                      >
-                        {icon}
-                      </IconButton>
-                    );
-                  })
-                : null}
-            </Box>
+            {/* Social links dynamiques dans top bar */}
+            <div className={styles.Liste_icon}>
+              {socialLinks.length > 0 ? (
+                socialLinks.map(({ id, platform, url }) => {
+                  const icon = iconMap[platform.toLowerCase()];
+                  if (!icon || !url) return null;
+                  return (
+                    <IconButton
+                      key={id}
+                      size="small"
+                      component="a"
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={platform}
+                      className={styles.icon}
+                    >
+                      {icon}
+                    </IconButton>
+                  );
+                })
+              ) : (
+                <>
+                  <IconButton size="small" className={styles.icon} aria-label="Facebook">
+                    <FacebookIcon fontSize="small" />
+                  </IconButton>
+                  <IconButton size="small" className={styles.icon} aria-label="Twitter">
+                    <TwitterIcon fontSize="small" />
+                  </IconButton>
+                  <IconButton size="small" className={styles.icon} aria-label="WhatsApp">
+                    <WhatsAppIcon fontSize="small" />
+                  </IconButton>
+                  <IconButton size="small" className={styles.icon} aria-label="Instagram">
+                    <InstagramIcon fontSize="small" />
+                  </IconButton>
+                </>
+              )}
+            </div>
           </div>
         )}
       </div>
-
-      {/* Navbar */}
-      <AppBar position="static" color="transparent" elevation={0} className={`${styles.navbar} ${i18n.language === 'ar' ? styles.rtl : ''}`}>
+      <AppBar
+        position="static"
+        color="transparent"
+        elevation={0}
+        className={`${styles.navbar} ${i18n.language === 'ar' ? styles.rtl : ''}`}
+      >
         <Toolbar className={styles.toolbar}>
           {isMobile && (
             <IconButton edge="start" onClick={openDrawer} className={styles.hamburger}>
@@ -222,43 +263,55 @@ function Nav() {
           )}
 
           {userName ? (
-            <>
-              <Button
-                id="profile-button"
-                aria-controls={openProfileMenu ? 'profile-menu' : undefined}
-                aria-haspopup="true"
-                aria-expanded={openProfileMenu ? 'true' : undefined}
-                onClick={handleProfileClick}
-                sx={{
-                  textTransform: 'none',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 1,
-                  padding: '6px 12px',
-                  borderRadius: '8px',
-                  backgroundColor: '#f5f5f5',
-                  boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
-                  '&:hover': { backgroundColor: '#eaeaea' },
-                }}
-              >
-                <Avatar src={userImage} alt={userName} sx={{ width: 40, height: 40, boxShadow: '0 0 4px rgba(0,0,0,0.2)' }} />
-                <Typography variant="body1" sx={{ color: '#0a0a23', fontWeight: 600 }}>
-                  {userName}
-                </Typography>
-              </Button>
+        <>
+        <Button
+          id="profile-button"
+          aria-controls={openProfileMenu ? 'profile-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={openProfileMenu ? 'true' : undefined}
+          onClick={handleProfileClick}
+          sx={{
+            textTransform: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1,
+            padding: '6px 12px',
+            borderRadius: '8px',
+            backgroundColor: '#f5f5f5',
+            boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
+            '&:hover': { backgroundColor: '#eaeaea' },
+          }}
+        >
+          <Avatar
+            src={userImage}
+            alt={userName}
+            sx={{ width: 40, height: 40, boxShadow: '0 0 4px rgba(0,0,0,0.2)' }}
+          />
+          <Typography variant="body1" sx={{ color: '#0a0a23', fontWeight: 600 }}>
+            {userName}
+          </Typography>
+        </Button>
 
-              <Menu anchorEl={anchorEl} open={openProfileMenu} onClose={handleProfileClose}>
-                <MenuItem component={Link} href={dashboardLink} onClick={handleProfileClose}>
-                  لوحة التحكم
-                </MenuItem>
-                <MenuItem onClick={() => { handleProfileClose(); handleLogout(); }}>
-                  تسجيل الخروج
-                </MenuItem>
-              </Menu>
-            </>
+        <Menu anchorEl={anchorEl} open={openProfileMenu} onClose={handleProfileClose}>
+          <MenuItem component={Link} href={dashboardLink} onClick={handleProfileClose}>
+            لوحة التحكم
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              handleProfileClose();
+              handleLogout();
+            }}
+          >
+            تسجيل الخروج
+          </MenuItem>
+        </Menu>
+      </>
           ) : (
             <Link href="/Login" passHref>
-              <Button variant="outlined" sx={{ marginLeft: 2, color: '#DE1E27', borderColor: '#DE1E27', textTransform: 'none', fontWeight: 'bold' }}>
+              <Button
+                variant="outlined"
+                sx={{ marginLeft: 2, color: '#DE1E27', borderColor: '#DE1E27', textTransform: 'none', fontWeight: 'bold' }}
+              >
                 Login
               </Button>
             </Link>
@@ -275,12 +328,12 @@ function Nav() {
               </Box>
 
               <Box className={styles.rightSection}>
-                   {/* PANIER */}
-                   <Link href="/Cart" style={{ textDecoration: 'none', color: 'inherit' }}>
+                {/* Panier avec badge dynamique */}
+                <Link href="/Cart" style={{ textDecoration: 'none', color: 'inherit' }}>
                   <IconButton aria-label="cart">
-                  <Badge badgeContent={3} color="error">
-                    <ShoppingCartIcon />
-                  </Badge>
+                    <Badge badgeContent={cartCount} color="error" showZero>
+                      <ShoppingCartIcon />
+                    </Badge>
                   </IconButton>
                 </Link>
 
@@ -288,7 +341,6 @@ function Nav() {
                 <IconButton onClick={openSearch}>
                   <SearchIcon className={styles.searchIcon} />
                 </IconButton>
-             
 
                 <Link href="/Login">
                   <Button
@@ -307,7 +359,6 @@ function Nav() {
           )}
         </Toolbar>
       </AppBar>
-
       {/* Drawer */}
       <Drawer anchor="right" open={drawerOpen} onClose={closeDrawer} disableScrollLock>
         <Box sx={{ width: 250, p: 2 }}>
@@ -322,17 +373,36 @@ function Nav() {
           </List>
           <Divider sx={{ my: 1 }} />
           <Box sx={{ mt: 2 }}>
-            <Typography className={styles.Arabe} sx={{ mb: 1 }}>{t('workingHours')}</Typography>
+            <Typography className={styles.Arabe} sx={{ mb: 1 }}>
+              {t('workingHours')}
+            </Typography>
             <LanguageSelector />
-            <MuiLink component={Link} href="#" underline="none" className={`${styles.Arabe} ${styles.link}`} color="inherit" onClick={closeDrawer}>
+            <MuiLink
+              component={Link}
+              href="#"
+              underline="none"
+              className={`${styles.Arabe} ${styles.link}`}
+              color="inherit"
+              onClick={closeDrawer}
+            >
               {t('inquiryOnline')}
             </MuiLink>
-            <Typography className={styles.Arabe} sx={{ mt: 1 }}>{t('followUs')}</Typography>
+            <Typography className={styles.Arabe} sx={{ mt: 1 }}>
+              {t('followUs')}
+            </Typography>
             <Box sx={{ display: 'flex', gap: 1 }}>
-              <IconButton size="small"><FacebookIcon fontSize="small" /></IconButton>
-              <IconButton size="small"><TwitterIcon fontSize="small" /></IconButton>
-              <IconButton size="small"><WhatsAppIcon fontSize="small" /></IconButton>
-              <IconButton size="small"><InstagramIcon fontSize="small" /></IconButton>
+              <IconButton size="small">
+                <FacebookIcon fontSize="small" />
+              </IconButton>
+              <IconButton size="small">
+                <TwitterIcon fontSize="small" />
+              </IconButton>
+              <IconButton size="small">
+                <WhatsAppIcon fontSize="small" />
+              </IconButton>
+              <IconButton size="small">
+                <InstagramIcon fontSize="small" />
+              </IconButton>
             </Box>
           </Box>
         </Box>
