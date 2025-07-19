@@ -1,15 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import pool from '@/lib/db';
 
-interface Params {
-  id: string;
-}
+export async function GET(req: NextRequest) {
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: Params }
-) {
-  const { id } = params;
+  const url = new URL(req.url);
+  const segments = url.pathname.split('/');
+  const id = segments[segments.length - 1]; 
 
   try {
     const [rows] = await pool.query('SELECT * FROM users WHERE id = ?', [id]);
