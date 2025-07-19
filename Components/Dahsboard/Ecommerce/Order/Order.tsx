@@ -39,6 +39,7 @@ type OrderData = {
   createdAt: string;
   phone?: string | null;
   email?: string | null;
+  price: string;
 };
 
 const ORDER_STATUSES = [

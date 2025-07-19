@@ -30,6 +30,7 @@
   flex-direction: column;
   gap: 1.2rem;
   text-align: right;
+  height: 100%;
 }
 
 .title {
@@ -99,11 +100,11 @@
 }
 
 .button {
-  padding: 0.6rem 1.2rem; /* moins haut et moins large */
+  padding: 0.6rem 2rem; /* moins haut et moins large */
   background-color: #DE1E27;
   color: white;
   border: none;
-  border-radius: 10px;
+  border-radius: 6px;
   font-weight: 700;
   cursor: pointer;
   margin-top: 1rem;
@@ -115,6 +116,10 @@
   min-width: 120px; /* largeur minimale */
   align-self: flex-start; /* aligné à gauche dans la colonne */
   box-shadow: 0 4px 12px rgba(222, 30, 39, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
 }
 
 .button:hover:not(:disabled) {

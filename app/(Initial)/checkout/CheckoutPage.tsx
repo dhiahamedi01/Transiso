@@ -1,4 +1,3 @@
-// app/checkout/CheckoutPage.tsx
 'use client';
 
 import { useSearchParams, useRouter } from 'next/navigation';
@@ -6,8 +5,8 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import axios from 'axios';
 import styles from './CheckoutPage.module.css';
-import { Box, Typography, CircularProgress } from '@mui/material';
-
+import { CircularProgress } from '@mui/material';
+import SaveIcon from '@mui/icons-material/Save';
 export default function CheckoutPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -18,13 +17,14 @@ export default function CheckoutPage() {
     customer: '',
     address: '',
     products: '',
-    status: 'Pending',
+    status: 'pending', // fixed value, not shown in UI
     payment: 'unpaid',
     country: '',
-    paymentMethod: '',
+    paymentMethod: 'الدفع عند التسليم',
     phone: '',
     email: '',
     date: '',
+    price: 0,
   });
   const [orderId, setOrderId] = useState('');
   const [submitted, setSubmitted] = useState(false);
@@ -40,6 +40,7 @@ export default function CheckoutPage() {
         setFormData(prev => ({
           ...prev,
           products: res.data.name,
+          price: res.data.price,
           date: new Date().toISOString().split('T')[0],
         }));
         setOrderId('ORD-' + Math.floor(100000 + Math.random() * 900000));
@@ -58,7 +59,7 @@ export default function CheckoutPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const fullData = { ...formData, orderId, payment: 'unpaid' };
+    const fullData = { ...formData, orderId, status: 'pending', payment: 'unpaid' };
 
     try {
       await axios.post('/api/orders', fullData);
@@ -191,9 +192,9 @@ export default function CheckoutPage() {
                   required
                   className={styles.select}
                 >
-                  <option value="">اختر طريقة الدفع</option>
-                  <option value="بطاقة ائتمان">بطاقة ائتمان</option>
-                  <option value="باي بال">باي بال</option>
+                  
+                  <option value="بطاقة ائتمان" disabled>بطاقة ائتمان (قريباً)</option>
+                  <option value="باي بال" disabled>باي بال (قريباً)</option>
                   <option value="الدفع عند التسليم">الدفع عند التسليم</option>
                 </select>
               </div>
@@ -210,37 +211,21 @@ export default function CheckoutPage() {
                   className={styles.textarea}
                 />
               </div>
-
-              <div className={styles.inputGroup}>
-                <label className={styles.inputLabel}>الحالة</label>
-                <select
-                  name="status"
-                  value={formData.status}
-                  onChange={handleChange}
-                  className={styles.select}
-                >
-                  <option value="paid">مدفوع</option>
-                  <option value="unpaid">غير مدفوع</option>
-                  <option value="pending">قيد المعالجة</option>
-                  <option value="delivered">تم التوصيل</option>
-                  <option value="canceled">ملغي</option>
-                </select>
-              </div>
             </div>
 
-            <button type="submit" className={styles.button}>إرسال الطلب</button>
+            <button type="submit" className={styles.button}>إرسال الطلب<SaveIcon/></button>
           </form>
         ) : (
           <div
             style={{
               textAlign: 'center',
               paddingTop: '2rem',
-              height:'100%',
-              display:'flex',
-              alignItems:'center',
-              justifyContent:'center',
-              flexDirection:'column',
-              gap:'15px'
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              gap: '15px'
             }}
             dir="rtl"
           >
@@ -263,8 +248,8 @@ export default function CheckoutPage() {
           <Image
             src={imageUrl}
             alt={product.name}
-            width={400}
-            height={400}
+            width={370}
+            height={370}
             className={styles.productImage}
             unoptimized
             priority

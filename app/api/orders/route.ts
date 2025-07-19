@@ -17,13 +17,14 @@ export async function POST(req: NextRequest) {
       paymentMethod,
       phone,
       email,
+      price, // ✅ Ajout du champ
     } = data;
 
-    // Insertion dans orders
+    // ✅ Insertion dans la table orders avec le champ price
     const [result] = await db.execute(
       `INSERT INTO orders 
-        (orderId, customer, date, address, products, status, payment, country, paymentMethod, phone, email)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        (orderId, customer, date, address, products, status, payment, country, paymentMethod, phone, email, price)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         orderId,
         customer,
@@ -36,10 +37,11 @@ export async function POST(req: NextRequest) {
         paymentMethod,
         phone,
         email,
+        price, // ✅ Insertion du prix
       ]
     );
 
-    // Insertion dans notifications
+    // ✅ Insertion dans la table notifications
     await db.execute(
       `INSERT INTO notifications (orderId, message) VALUES (?, ?)`,
       [orderId, `Nouvelle commande de ${customer}`]

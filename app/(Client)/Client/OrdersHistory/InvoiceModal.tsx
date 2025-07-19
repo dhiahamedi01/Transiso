@@ -13,8 +13,8 @@ export interface OrderData {
   products: string;
   status: string;
   paymentStatus: string;
-  weight?: string;  // optionnel, si tu veux ajouter plus de détails
-  service?: string; // optionnel
+  weight?: string;
+  service?: string;
 }
 
 interface InvoiceModalProps {
@@ -31,47 +31,44 @@ export default function InvoiceModal({ data, onClose, onPrint, printRef }: Invoi
         {/* HEADER */}
         <header className={style.header}>
           <div className={style.logoLeft}>
-            <Image src="/img/logo2.jpg" alt="Votre Logo" width={190} height={60} />
-          </div>
+            <Image src="/img/logo2.jpg" alt="Company Logo" width={180} height={60} />
+          </div>&ensp;&ensp;
           <div className={style.companyInfo}>
-            <p>Adresse: Istanbul, Turkey</p>
-            <p>Email: info@transisologistic.com</p>
-            <p>Téléphone: (+90) 5377671027</p>
-          </div>
-          <div className={style.logoRight}>
-            <Image src="/img/Aramex_logo.png" alt="Aramex Logo" width={140} height={20} />
+            <p><strong>Address:</strong> Istanbul, Turkey</p>
+            <p><strong>Email:</strong> info@transisologistic.com</p>
+            <p><strong>Phone:</strong> (+90) 537 767 1027</p>
           </div>
         </header>
 
-        {/* TITRE */}
-        <h2 className={style.invoiceTitle}>FACTURE D'EXPÉDITION</h2>
+        {/* INVOICE TITLE */}
+        <h2 className={style.invoiceTitle}>SHIPPING INVOICE</h2>
 
-        {/* DESTINATAIRE */}
+        {/* RECIPIENT DETAILS */}
         <section className={style.section}>
-          <h3>Détails du destinataire</h3>
+          <h3>Recipient Details</h3>
           <div className={style.detailsGrid}>
-            <div><strong>Nom :</strong> {data.customer}</div>
-            <div><strong>ID Colis :</strong> {data.orderId}</div>
-            <div><strong>Date :</strong> {data.date}</div>
-            <div><strong>Adresse :</strong> {data.address}</div>
-            <div><strong>Produits :</strong> {data.products}</div>
-            <div><strong>Statut :</strong> {data.status}</div>
-            <div><strong>Statut Paiement :</strong> {data.paymentStatus}</div>
-            <div><strong>Poids :</strong> {data.weight ?? "-"}</div>
-            <div><strong>Service :</strong> {data.service ?? "-"}</div>
+            <div><strong>Name:</strong> {data.customer}</div>
+            <div><strong>Package ID:</strong> {data.orderId}</div>
+            <div><strong>Date:</strong> {data.date}</div>
+            <div><strong>Address:</strong> {data.address}</div>
+            <div><strong>Products:</strong> {data.products}</div>
+            <div><strong>Status:</strong> {data.status}</div>
+            <div><strong>Payment Status:</strong> {data.paymentStatus}</div>
+            <div><strong>Weight:</strong> {data.weight ?? "-"}</div>
+            <div><strong>Service:</strong> {data.service ?? "-"}</div>
           </div>
         </section>
 
-        {/* TABLEAU RÉCAPITULATIF */}
+        {/* SUMMARY TABLE */}
         <section className={style.section}>
-          <h3>Résumé de l'expédition</h3>
+          <h3>Shipment Summary</h3>
           <table className={style.invoiceTable}>
             <thead>
               <tr>
-                <th>ID Colis</th>
-                <th>Client</th>
-                <th>Poids</th>
-                <th>Statut</th>
+                <th>Package ID</th>
+                <th>Customer</th>
+                <th>Weight</th>
+                <th>Status</th>
                 <th>Service</th>
               </tr>
             </thead>
@@ -89,11 +86,11 @@ export default function InvoiceModal({ data, onClose, onPrint, printRef }: Invoi
 
         {/* FOOTER */}
         <footer className={style.footer}>
-          <button onClick={onPrint} className={style.printBtn}>Imprimer</button>
-          <button onClick={onClose} className={style.closeBtn}>Fermer</button>
+          <button onClick={onPrint} className={style.printBtn}>Print</button>
+          <button onClick={onClose} className={style.closeBtn}>Close</button>
         </footer>
 
-        <p className={style.legal}>© 2025 Votre Société Import-Export. Tous droits réservés.</p>
+        <p className={style.legal}>© 2025 Transiso Logistic. All rights reserved.</p>
       </div>
     </div>
   );

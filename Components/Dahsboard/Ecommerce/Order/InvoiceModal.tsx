@@ -12,12 +12,13 @@ type OrderData = {
   customer: string;
   date: string;
   address: string;
-  products: string; // Example format: "Product A x2 @50, Product B x1 @100"
+  products: string; // Example: "Product A x2 @50, Product B x1 @100"
   status: string;
   payment: string;
   paymentMethod: string;
   phone?: string | null;
   email?: string | null;
+  price?: string; // Ajouté pour récupérer prix total venant de l'API
 };
 
 interface InvoiceModalProps {
@@ -43,10 +44,11 @@ export default function InvoiceModal({ open, onClose, order }: InvoiceModalProps
     day: "numeric",
   });
 
-  // Parse products string like "Product A x2 @50, Product B x1 @100"
+  // Parse products string comme "Product A x2 @50, Product B x1 @100"
   const parseProducts = (productsStr: string): Product[] => {
     if (!productsStr) return [];
     return productsStr.split(",").map((item) => {
+      // Le regex cherche un format "nom xquantité @prix"
       const parts = item.trim().match(/^(.+?)\s*x(\d+)\s*@(\d+(\.\d+)?)$/);
       if (parts) {
         return {
@@ -55,18 +57,27 @@ export default function InvoiceModal({ open, onClose, order }: InvoiceModalProps
           unitPrice: Number(parts[3]),
         };
       }
+      // Si pas de format détecté, on considère produit simple quantité 1, prix 0 (pas fiable)
       return { name: item.trim(), quantity: 1, unitPrice: 0 };
     });
   };
 
   const products = parseProducts(order.products);
 
-  const totalHT = products.reduce(
+  // Calcul total HT à partir des produits parsés
+  const totalHTFromProducts = products.reduce(
     (sum, p) => sum + p.quantity * p.unitPrice,
     0
   );
+
+  // On récupère le prix total depuis l'API, parseFloat + fallback 0
+  const apiPrice = order.price ? parseFloat(order.price) : 0;
+
+  // Utilisation prix total venant de l'API si > 0, sinon celui calculé
+  const totalHT = apiPrice > 0 ? apiPrice : totalHTFromProducts;
+
   const vatAmount = totalHT * VAT_RATE;
-  const totalTTC = totalHT + vatAmount;
+  const totalTTC = totalHT;
 
   const handlePrint = () => {
     window.print();
@@ -121,25 +132,32 @@ export default function InvoiceModal({ open, onClose, order }: InvoiceModalProps
             </tr>
           </thead>
           <tbody>
-            {products.length === 0 && (
+            {/* Si on a des produits parsés avec prix, on les affiche */}
+            {products.length > 0 && products.some(p => p.unitPrice > 0) ? (
+              products.map((p, i) => (
+                <tr key={i} style={{ borderBottom: "1px solid #ddd" }}>
+                  <td style={tableCellStyle}>{p.name}</td>
+                  <td style={tableCellStyle}>{p.quantity}</td>
+                  <td style={tableCellStyle}>{p.unitPrice.toFixed(2)}</td>
+                  <td style={tableCellStyle}>
+                    {(p.quantity * p.unitPrice).toFixed(2)}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              // Sinon on affiche simplement le produit avec quantité 1, prix = total
               <tr>
-                <td colSpan={4} style={{ padding: 15, textAlign: "center" }}>
-                  No products
+                <td colSpan={3} style={{ padding: 15, textAlign: "center" }}>
+                  {order.products || "No detailed products"}
+                </td>
+                <td style={{ ...tableCellStyle, fontWeight: "bold" }}>
+                  {totalHT.toFixed(2)} €
                 </td>
               </tr>
             )}
-            {products.map((p, i) => (
-              <tr key={i} style={{ borderBottom: "1px solid #ddd" }}>
-                <td style={tableCellStyle}>{p.name}</td>
-                <td style={tableCellStyle}>{p.quantity}</td>
-                <td style={tableCellStyle}>{p.unitPrice.toFixed(2)}</td>
-                <td style={tableCellStyle}>
-                  {(p.quantity * p.unitPrice).toFixed(2)}
-                </td>
-              </tr>
-            ))}
           </tbody>
           <tfoot>
+            {/*
             <tr>
               <td colSpan={3} style={{ ...tableCellStyle, fontWeight: "bold", textAlign: "right" }}>
                 Total excl. VAT:
@@ -155,7 +173,7 @@ export default function InvoiceModal({ open, onClose, order }: InvoiceModalProps
               <td style={{ ...tableCellStyle, fontWeight: "bold" }}>
                 {vatAmount.toFixed(2)} €
               </td>
-            </tr>
+            </tr>*/}
             <tr>
               <td colSpan={3} style={{ ...tableCellStyle, fontWeight: "bold", textAlign: "right", fontSize: "1.2em" }}>
                 Total incl. VAT:
