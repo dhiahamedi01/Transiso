@@ -33,6 +33,7 @@
     "mysql2": "^3.14.1",
     "next": "15.3.3",
     "next-i18next": "^15.4.2",
+    "next-sitemap": "^4.2.3",
     "nodemailer": "^7.0.5",
     "react": "^19.0.0",
     "react-apexcharts": "^1.7.0",
