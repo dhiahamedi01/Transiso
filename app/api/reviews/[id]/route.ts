@@ -3,10 +3,17 @@ import { writeFile, unlink, mkdir } from 'fs/promises';
 import path from 'path';
 import pool from '@/lib/db';
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest) {
+  const { pathname } = new URL(req.url);
+  const id = pathname.split('/').pop();
+  const parsedId = parseInt(id ?? '', 10);
+
+  if (isNaN(parsedId)) {
+    return NextResponse.json({ message: 'ID invalide' }, { status: 400 });
+  }
+
   try {
-    const id = parseInt(params.id, 10);
-    const [rows] = await pool.query('SELECT * FROM reviews WHERE id = ?', [id]);
+    const [rows] = await pool.query('SELECT * FROM reviews WHERE id = ?', [parsedId]);
 
     if ((rows as any).length === 0) {
       return NextResponse.json({ message: 'Avis non trouvé' }, { status: 404 });
@@ -18,6 +25,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     return NextResponse.json({ message: 'Erreur serveur' }, { status: 500 });
   }
 }
+
 
 export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
   try {

@@ -17,6 +17,7 @@ import {
   Avatar,
   useMediaQuery,
   Link as MuiLink,
+  Badge,
 } from '@mui/material';
 
 import dynamic from 'next/dynamic';
@@ -28,10 +29,10 @@ import Link from 'next/link';
 import LanguageSelector from '../LanguageSelector/LanguageSelector';
 import { useTranslation } from 'react-i18next';
 
-// Import dynamiques des icônes
+// Icônes dynamiques
 const MenuIcon = dynamic(() => import('@mui/icons-material/Menu'), { ssr: false });
 const SearchIcon = dynamic(() => import('@mui/icons-material/Search'), { ssr: false });
-const PhoneIcon = dynamic(() => import('@mui/icons-material/Phone'), { ssr: false });
+const ShoppingCartIcon = dynamic(() => import('@mui/icons-material/ShoppingCart'), { ssr: false });
 const TrendingUpIcon = dynamic(() => import('@mui/icons-material/TrendingUp'), { ssr: false });
 const LocationOnIcon = dynamic(() => import('@mui/icons-material/LocationOn'), { ssr: false });
 const EmailIcon = dynamic(() => import('@mui/icons-material/Email'), { ssr: false });
@@ -42,7 +43,6 @@ const WhatsAppIcon = dynamic(() => import('@mui/icons-material/WhatsApp'), { ssr
 const InstagramIcon = dynamic(() => import('@mui/icons-material/Instagram'), { ssr: false });
 const LinkedInIcon = dynamic(() => import('@mui/icons-material/LinkedIn'), { ssr: false });
 
-// Map des plateformes aux icônes MUI
 const iconMap: Record<string, React.ReactElement> = {
   facebook: <FacebookIcon fontSize="small" />,
   twitter: <TwitterIcon fontSize="small" />,
@@ -51,14 +51,9 @@ const iconMap: Record<string, React.ReactElement> = {
   linkedin: <LinkedInIcon fontSize="small" />,
 };
 
-// Exemple de hook personnalisé pour récupérer les liens sociaux (à adapter selon ton backend)
 const useSocialLinks = () => {
-  const [socialLinks, setSocialLinks] = useState<
-    { id: string; platform: string; url: string }[]
-  >([]);
-
+  const [socialLinks, setSocialLinks] = useState<{ id: string; platform: string; url: string }[]>([]);
   useEffect(() => {
-    // Remplace par ta vraie API
     fetch('/api/social-links')
       .then(res => res.json())
       .then(data => {
@@ -68,7 +63,6 @@ const useSocialLinks = () => {
       })
       .catch(err => console.error('Failed to load social links', err));
   }, []);
-
   return { socialLinks };
 };
 
@@ -77,17 +71,12 @@ function Nav() {
   const [isClient, setIsClient] = useState(false);
   const isMobile = useMediaQuery('(max-width:900px)', { noSsr: true });
 
-  const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [location, setLocation] = useState('');
+  const [cartCount, setCartCount] = useState(0);
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-
-  const openDrawer = () => setDrawerOpen(true);
-  const closeDrawer = () => setDrawerOpen(false);
-  const openSearch = () => setSearchOpen(true);
-  const closeSearch = () => setSearchOpen(false);
 
   const { logo } = useLogo();
 
@@ -97,6 +86,11 @@ function Nav() {
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const openProfileMenu = Boolean(anchorEl);
+
+  const openDrawer = () => setDrawerOpen(true);
+  const closeDrawer = () => setDrawerOpen(false);
+  const openSearch = () => setSearchOpen(true);
+  const closeSearch = () => setSearchOpen(false);
   const handleProfileClick = (event: React.MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget);
   const handleProfileClose = () => setAnchorEl(null);
 
@@ -105,31 +99,27 @@ function Nav() {
     window.location.href = '/Login';
   };
 
-  // Récupération des liens sociaux via hook
   const { socialLinks } = useSocialLinks();
 
   useEffect(() => {
     setIsClient(true);
     document.body.dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
 
-    async function fetchInfo() {
-      try {
-        const res = await fetch('/api/Manage_website/PersonalInformation');
-        if (!res.ok) throw new Error('Erreur API');
-        const data = await res.json();
-        setPhoneNumber(data.phoneNumber || '');
+    fetch('/api/Manage_website/PersonalInformation')
+      .then(res => res.json())
+      .then(data => {
         setEmail(data.email || '');
         setLocation(data.location || '');
-      } catch (err) {
-        console.error('Erreur de chargement des données de contact :', err);
-      }
-    }
-    fetchInfo();
+      })
+      .catch(err => console.error('Erreur de chargement :', err));
 
     if (typeof window !== 'undefined') {
       setUserName(localStorage.getItem('userName') || '');
       setUserImage(localStorage.getItem('userImage') || '/img/no_img.png');
       setRole(localStorage.getItem('role') || '');
+
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      setCartCount(cart.length || 0);
     }
   }, [i18n.language]);
 
@@ -139,7 +129,6 @@ function Nav() {
     { label: t('home'), href: '/' },
     { label: t('about'), href: '/About' },
     { label: t('services'), href: '/Services' },
-  
     { label: 'لوحة التحكم', href: dashboardLink },
     { label: t('contact'), href: '/Contact' },
   ];
@@ -198,53 +187,33 @@ function Nav() {
             <Typography className={styles.Arabe}>{t('followUs')}</Typography>
 
             <Box className={styles.Liste_icon}>
-              {socialLinks.length > 0 ? (
-                socialLinks.map(({ id, platform, url }) => {
-                  const icon = iconMap[platform.toLowerCase()];
-                  if (!icon || !url) return null;
-                  return (
-                    <IconButton
-                      key={id}
-                      size="small"
-                      component="a"
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.icon}
-                      aria-label={platform}
-                    >
-                      {icon}
-                    </IconButton>
-                  );
-                })
-              ) : (
-                <>
-                  <IconButton size="small" className={styles.icon} aria-label="Facebook">
-                    <FacebookIcon fontSize="small" />
-                  </IconButton>
-                  <IconButton size="small" className={styles.icon} aria-label="Twitter">
-                    <TwitterIcon fontSize="small" />
-                  </IconButton>
-                  <IconButton size="small" className={styles.icon} aria-label="WhatsApp">
-                    <WhatsAppIcon fontSize="small" />
-                  </IconButton>
-                  <IconButton size="small" className={styles.icon} aria-label="Instagram">
-                    <InstagramIcon fontSize="small" />
-                  </IconButton>
-                </>
-              )}
+              {socialLinks.length > 0
+                ? socialLinks.map(({ id, platform, url }) => {
+                    const icon = iconMap[platform.toLowerCase()];
+                    if (!icon || !url) return null;
+                    return (
+                      <IconButton
+                        key={id}
+                        size="small"
+                        component="a"
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.icon}
+                        aria-label={platform}
+                      >
+                        {icon}
+                      </IconButton>
+                    );
+                  })
+                : null}
             </Box>
           </div>
         )}
       </div>
 
       {/* Navbar */}
-      <AppBar
-        position="static"
-        color="transparent"
-        elevation={0}
-        className={`${styles.navbar} ${i18n.language === 'ar' ? styles.rtl : ''}`}
-      >
+      <AppBar position="static" color="transparent" elevation={0} className={`${styles.navbar} ${i18n.language === 'ar' ? styles.rtl : ''}`}>
         <Toolbar className={styles.toolbar}>
           {isMobile && (
             <IconButton edge="start" onClick={openDrawer} className={styles.hamburger}>
@@ -252,7 +221,6 @@ function Nav() {
             </IconButton>
           )}
 
-          {/* User profile or Login button */}
           {userName ? (
             <>
               <Button
@@ -273,61 +241,24 @@ function Nav() {
                   '&:hover': { backgroundColor: '#eaeaea' },
                 }}
               >
-                <Avatar
-                  src={userImage}
-                  alt={userName}
-                  sx={{ width: 40, height: 40, boxShadow: '0 0 4px rgba(0,0,0,0.2)' }}
-                />
+                <Avatar src={userImage} alt={userName} sx={{ width: 40, height: 40, boxShadow: '0 0 4px rgba(0,0,0,0.2)' }} />
                 <Typography variant="body1" sx={{ color: '#0a0a23', fontWeight: 600 }}>
                   {userName}
                 </Typography>
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#0a0a23"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
               </Button>
 
-              <Menu
-                id="profile-menu"
-                anchorEl={anchorEl}
-                open={openProfileMenu}
-                onClose={handleProfileClose}
-                MenuListProps={{ 'aria-labelledby': 'profile-button' }}
-              >
-                <MenuItem
-                  className={styles.arabica}
-                  onClick={handleProfileClose}
-                  component={Link}
-                  href={dashboardLink}
-                  sx={{ textDecoration: 'none', color: 'inherit' }}
-                >
+              <Menu anchorEl={anchorEl} open={openProfileMenu} onClose={handleProfileClose}>
+                <MenuItem component={Link} href={dashboardLink} onClick={handleProfileClose}>
                   لوحة التحكم
                 </MenuItem>
-                <MenuItem
-                  className={styles.arabica}
-                  onClick={() => {
-                    handleProfileClose();
-                    handleLogout();
-                  }}
-                >
+                <MenuItem onClick={() => { handleProfileClose(); handleLogout(); }}>
                   تسجيل الخروج
                 </MenuItem>
               </Menu>
             </>
           ) : (
             <Link href="/Login" passHref>
-              <Button
-                variant="outlined"
-                sx={{ marginLeft: 2, color: '#DE1E27', borderColor: '#DE1E27', textTransform: 'none', fontWeight: 'bold' }}
-              >
+              <Button variant="outlined" sx={{ marginLeft: 2, color: '#DE1E27', borderColor: '#DE1E27', textTransform: 'none', fontWeight: 'bold' }}>
                 Login
               </Button>
             </Link>
@@ -344,18 +275,20 @@ function Nav() {
               </Box>
 
               <Box className={styles.rightSection}>
+                   {/* PANIER */}
+                   <Link href="/Cart" style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <IconButton aria-label="cart">
+                  <Badge badgeContent={3} color="error">
+                    <ShoppingCartIcon />
+                  </Badge>
+                  </IconButton>
+                </Link>
+
+                <Divider orientation="vertical" flexItem />
                 <IconButton onClick={openSearch}>
                   <SearchIcon className={styles.searchIcon} />
                 </IconButton>
-                <Divider orientation="vertical" flexItem />
-                <Link href={`tel:${phoneNumber}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <Box className={styles.phoneBox}>
-                    <Box className={styles.phoneIconCircle}>
-                      <PhoneIcon className={styles.phoneIcon} />
-                    </Box>
-                    <Typography className={styles.phoneNumber}>{phoneNumber}</Typography>
-                  </Box>
-                </Link>
+             
 
                 <Link href="/Login">
                   <Button
@@ -375,8 +308,7 @@ function Nav() {
         </Toolbar>
       </AppBar>
 
-
-      {/* Drawer Mobile */}
+      {/* Drawer */}
       <Drawer anchor="right" open={drawerOpen} onClose={closeDrawer} disableScrollLock>
         <Box sx={{ width: 250, p: 2 }}>
           <List>
@@ -388,23 +320,14 @@ function Nav() {
               </ListItem>
             ))}
           </List>
-
           <Divider sx={{ my: 1 }} />
           <Box sx={{ mt: 2 }}>
-            <Typography className={styles.Arabe} sx={{ mb: 1 }}>
-              {t('workingHours')}
-            </Typography>
-
+            <Typography className={styles.Arabe} sx={{ mb: 1 }}>{t('workingHours')}</Typography>
             <LanguageSelector />
-
             <MuiLink component={Link} href="#" underline="none" className={`${styles.Arabe} ${styles.link}`} color="inherit" onClick={closeDrawer}>
               {t('inquiryOnline')}
             </MuiLink>
-
-            <Typography className={styles.Arabe} sx={{ mt: 1 }}>
-              {t('followUs')}
-            </Typography>
-
+            <Typography className={styles.Arabe} sx={{ mt: 1 }}>{t('followUs')}</Typography>
             <Box sx={{ display: 'flex', gap: 1 }}>
               <IconButton size="small"><FacebookIcon fontSize="small" /></IconButton>
               <IconButton size="small"><TwitterIcon fontSize="small" /></IconButton>
