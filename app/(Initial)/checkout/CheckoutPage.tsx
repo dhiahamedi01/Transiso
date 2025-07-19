@@ -7,17 +7,23 @@ import axios from 'axios';
 import styles from './CheckoutPage.module.css';
 import { CircularProgress } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
+
 export default function CheckoutPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const productId = searchParams.get('productId');
 
   const [product, setProduct] = useState<any | null>(null);
+  const [userLoading, setUserLoading] = useState(true);
+  const [userError, setUserError] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   const [formData, setFormData] = useState({
     customer: '',
     address: '',
     products: '',
-    status: 'pending', // fixed value, not shown in UI
+    status: 'pending',
     payment: 'unpaid',
     country: '',
     paymentMethod: 'الدفع عند التسليم',
@@ -26,10 +32,10 @@ export default function CheckoutPage() {
     date: '',
     price: 0,
   });
-  const [orderId, setOrderId] = useState('');
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(true);
 
+  const [orderId, setOrderId] = useState('');
+
+  // 1. Charger produit
   useEffect(() => {
     if (!productId) return;
 
@@ -50,6 +56,34 @@ export default function CheckoutPage() {
       })
       .finally(() => setLoading(false));
   }, [productId]);
+
+  // 2. Charger utilisateur si connecté (depuis localStorage userId)
+  useEffect(() => {
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      setUserLoading(false);
+      return;
+    }
+
+    setUserLoading(true);
+    axios.get(`/api/User/${userId}`)
+      .then(res => {
+        const user = res.data;
+        setFormData(prev => ({
+          ...prev,
+          customer: user.first_name || '',
+          phone: user.phone || '',
+          email: user.email || '',
+          address: user.location || '',
+          country: user.location || '', // <-- Mettre location dans البلد ici
+        }));
+      })
+      .catch(err => {
+        console.error('Erreur récupération utilisateur', err);
+        setUserError(true);
+      })
+      .finally(() => setUserLoading(false));
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -82,7 +116,7 @@ export default function CheckoutPage() {
     return <p style={{ padding: '2rem', direction: 'rtl' }}>لم يتم اختيار منتج.</p>;
   }
 
-  if (loading) {
+  if (loading || userLoading) {
     return (
       <div
         style={{
@@ -192,7 +226,6 @@ export default function CheckoutPage() {
                   required
                   className={styles.select}
                 >
-                  
                   <option value="بطاقة ائتمان" disabled>بطاقة ائتمان (قريباً)</option>
                   <option value="باي بال" disabled>باي بال (قريباً)</option>
                   <option value="الدفع عند التسليم">الدفع عند التسليم</option>
@@ -213,7 +246,9 @@ export default function CheckoutPage() {
               </div>
             </div>
 
-            <button type="submit" className={styles.button}>إرسال الطلب<SaveIcon/></button>
+            <button type="submit" className={styles.button}>
+              إرسال الطلب <SaveIcon />
+            </button>
           </form>
         ) : (
           <div
