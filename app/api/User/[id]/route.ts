@@ -5,7 +5,10 @@ interface Params {
   id: string;
 }
 
-export async function GET(req: NextRequest, { params }: { params: Params }) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: Params }
+) {
   const { id } = params;
 
   try {
