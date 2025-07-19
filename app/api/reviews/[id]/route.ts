@@ -3,6 +3,7 @@ import { writeFile, unlink, mkdir } from 'fs/promises';
 import path from 'path';
 import pool from '@/lib/db';
 
+// GET: Get a review by ID
 export async function GET(req: NextRequest) {
   const { pathname } = new URL(req.url);
   const id = pathname.split('/').pop();
@@ -26,10 +27,17 @@ export async function GET(req: NextRequest) {
   }
 }
 
+// PUT: Update a review by ID
+export async function PUT(req: NextRequest) {
+  const { pathname } = new URL(req.url);
+  const id = pathname.split('/').pop();
+  const parsedId = parseInt(id ?? '', 10);
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+  if (isNaN(parsedId)) {
+    return NextResponse.json({ message: 'ID invalide' }, { status: 400 });
+  }
+
   try {
-    const id = parseInt(params.id, 10);
     const formData = await req.formData();
 
     const name = formData.get('name') as string;
@@ -42,8 +50,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
       return NextResponse.json({ message: 'Champs requis manquants' }, { status: 400 });
     }
 
-    // Récupération ancienne image
-    const [rows] = await pool.query('SELECT image FROM reviews WHERE id = ?', [id]);
+    const [rows] = await pool.query('SELECT image FROM reviews WHERE id = ?', [parsedId]);
     if ((rows as any).length === 0) {
       return NextResponse.json({ message: 'Avis non trouvé' }, { status: 404 });
     }
@@ -52,7 +59,6 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     let imageUrl = oldImageUrl;
 
     if (imageFile && imageFile.name) {
-      // Supprimer ancienne image
       try {
         const safePath = path.normalize(oldImageUrl).replace(/^(\.\.[/\\])+/, '');
         const oldFilePath = path.join(process.cwd(), 'public', safePath);
@@ -61,7 +67,6 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
         console.warn('Ancienne image non trouvée.');
       }
 
-      // Créer dossier si besoin
       const uploadDir = path.join(process.cwd(), 'public', 'uploads');
       await mkdir(uploadDir, { recursive: true });
 
@@ -76,7 +81,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 
     await pool.query(
       `UPDATE reviews SET name = ?, position = ?, comment = ?, rating = ?, image = ? WHERE id = ?`,
-      [name, position, comment, rating, imageUrl, id]
+      [name, position, comment, rating, imageUrl, parsedId]
     );
 
     return NextResponse.json({ message: 'Avis mis à jour avec succès' });
@@ -85,34 +90,38 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     return NextResponse.json({ message: 'Erreur serveur' }, { status: 500 });
   }
 }
+
 // DELETE: Delete a review by ID
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
-    try {
-      const id = parseInt(params.id, 10);
-  
-      // Get image path
-      const [rows] = await pool.query('SELECT image FROM reviews WHERE id = ?', [id]);
-      if ((rows as any).length === 0) {
-        return NextResponse.json({ message: 'Review not found' }, { status: 404 });
-      }
-  
-      const imageUrl = (rows as any)[0].image;
-  
-      // Delete from DB
-      await pool.query('DELETE FROM reviews WHERE id = ?', [id]);
-  
-      // Delete image file
-      try {
-        const safePath = path.normalize(imageUrl).replace(/^(\.\.[\/\\])+/, '');
-        const filePath = path.join(process.cwd(), 'public', safePath);
-        await unlink(filePath);
-      } catch (err) {
-        console.warn('Image file not found or already deleted.');
-      }
-  
-      return NextResponse.json({ message: 'Review deleted successfully' });
-    } catch (error) {
-      console.error(error);
-      return NextResponse.json({ message: 'Server error' }, { status: 500 });
-    }
+export async function DELETE(req: NextRequest) {
+  const { pathname } = new URL(req.url);
+  const id = pathname.split('/').pop();
+  const parsedId = parseInt(id ?? '', 10);
+
+  if (isNaN(parsedId)) {
+    return NextResponse.json({ message: 'ID invalide' }, { status: 400 });
   }
+
+  try {
+    const [rows] = await pool.query('SELECT image FROM reviews WHERE id = ?', [parsedId]);
+    if ((rows as any).length === 0) {
+      return NextResponse.json({ message: 'Review not found' }, { status: 404 });
+    }
+
+    const imageUrl = (rows as any)[0].image;
+
+    await pool.query('DELETE FROM reviews WHERE id = ?', [parsedId]);
+
+    try {
+      const safePath = path.normalize(imageUrl).replace(/^(\.\.[\/\\])+/, '');
+      const filePath = path.join(process.cwd(), 'public', safePath);
+      await unlink(filePath);
+    } catch (err) {
+      console.warn('Image file not found or already deleted.');
+    }
+
+    return NextResponse.json({ message: 'Review deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({ message: 'Server error' }, { status: 500 });
+  }
+}
