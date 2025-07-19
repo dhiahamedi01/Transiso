@@ -19,7 +19,12 @@ export function useAddEmployee() {
         setError(result.error || "Erreur inconnue");
       }
     } catch (err: any) {
-      setError(err.message || "Erreur serveur");
+      // ✅ Gère l'erreur 409 spécifiquement
+      if (err.response?.status === 409) {
+        setError("Un employé avec cet email existe déjà.");
+      } else {
+        setError(err?.response?.data?.error || "Erreur serveur");
+      }
     } finally {
       setLoading(false);
     }

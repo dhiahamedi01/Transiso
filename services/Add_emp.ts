@@ -1,4 +1,3 @@
-
 import axios from "axios";
 
 export interface EmployeeFormData {
@@ -18,11 +17,20 @@ export async function addEmployee(formData: FormData) {
         "Content-Type": "multipart/form-data",
       },
     });
-    return response.data;
+
+    // ✅ On enveloppe la réponse dans un objet standard
+    return {
+      success: true,
+      data: response.data,
+    };
   } catch (error: any) {
+    // ✅ Gestion propre du message d'erreur
     return {
       success: false,
-      error: error.response?.data?.message || error.message || "Erreur serveur",
+      error:
+        error.response?.status === 409
+          ? "Un employé avec cet email existe déjà."
+          : error.response?.data?.message || error.message || "Erreur serveur",
     };
   }
 }

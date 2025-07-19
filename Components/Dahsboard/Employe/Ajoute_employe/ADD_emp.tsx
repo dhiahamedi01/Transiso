@@ -31,7 +31,6 @@ function ADD_emp() {
   const { loading, error, success, submitEmployee, setError, setSuccess } = useAddEmployee();
 
   useEffect(() => {
-    // 🔁 Charger les groupes de permissions depuis l'API
     async function fetchPermissions() {
       try {
         const res = await axios.get("/api/permissions/groups");
@@ -142,7 +141,7 @@ function ADD_emp() {
             <input id="location" type="text" placeholder="Tunis" value={formData.location} onChange={handleChange} />
           </div>
 
-          {/* Dynamic Permission Select */}
+          {/* Permission */}
           <div className={style.inputWrapper}>
             <label htmlFor="permission">Permission (User Group)</label>
             <select id="permission" value={formData.permission} onChange={handleChange} required>
@@ -183,9 +182,30 @@ function ADD_emp() {
         </div>
       </form>
 
-      {/* Snackbar */}
-      <Snackbar open={error !== null || success} autoHideDuration={6000} onClose={() => { setError(null); setSuccess(false); }}>
-        <Alert onClose={() => { setError(null); setSuccess(false); }} severity={error ? "error" : "success"} sx={{ width: "100%" }}>
+      {/* ✅ Alerte rouge spécifique si employé existe déjà */}
+      {error === "Un employé avec cet email existe déjà." && (
+        <div style={{ marginTop: "1rem" }}>
+          <Alert severity="error">{error}</Alert>
+        </div>
+      )}
+
+      {/* ✅ Snackbar pour autres erreurs et succès */}
+      <Snackbar
+        open={!!(error && error !== "Un employé avec cet email existe déjà.") || success}
+        autoHideDuration={6000}
+        onClose={() => {
+          setError(null);
+          setSuccess(false);
+        }}
+      >
+        <Alert
+          onClose={() => {
+            setError(null);
+            setSuccess(false);
+          }}
+          severity={error ? "error" : "success"}
+          sx={{ width: "100%" }}
+        >
           {error ?? "Employé ajouté avec succès !"}
         </Alert>
       </Snackbar>
