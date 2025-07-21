@@ -1,13 +1,17 @@
-// app/[lang]/layout.tsx
 import './globals.css';
 
 import { languages } from '@/Components/i18n/settings';
 import Providers from '@/Components/Providers';
-
+import type { Metadata } from 'next'
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lang: lng }));
 }
 
+
+export const metadata: Metadata = {
+  title: 'Transiso Logistic',
+  description: 'Welcome to Transiso Logistic, your reliable logistics solution.',
+}
 export default function RootLayout({
   children,
   params,
@@ -17,11 +21,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang={params.lang}>
-      <title>Transiso Logistic</title>
-      <meta name="description" content="Bienvenue sur Transiso Logistic, votre solution logistique fiable." />
-      <meta name="robots" content="index, follow" />
-      <link rel="canonical" href={`https://www.transisologistic.com/${params.lang}`} />
-      <meta property="og:type" content="website" />
       <body>
         <Providers>{children}</Providers>
       </body>

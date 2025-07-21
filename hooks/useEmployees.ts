@@ -12,7 +12,6 @@ export function useEmployees(itemsPerPage = 8) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // 📦 fetch employées une seule fois
   useEffect(() => {
     (async () => {
       setLoading(true);
@@ -27,7 +26,6 @@ export function useEmployees(itemsPerPage = 8) {
     })();
   }, []);
 
-  // 🔍 filtrage selon la recherche
   const filtered = useMemo(() => {
     const q = search.toLowerCase();
     return employees.filter(
@@ -38,21 +36,18 @@ export function useEmployees(itemsPerPage = 8) {
     );
   }, [employees, search]);
 
-  // 📄 pagination
   const totalPages = Math.ceil(filtered.length / itemsPerPage);
   const current = useMemo(
     () => filtered.slice((page - 1) * itemsPerPage, page * itemsPerPage),
     [filtered, page, itemsPerPage]
   );
 
-  // 🔁 changement de rôle
   const changeRole = useCallback((id: string, role: EmployeeRole) => {
     setEmployees(prev =>
       prev.map(e => (e.id === id ? { ...e, role } : e))
     );
   }, []);
 
-  // ❌ suppression d'un employé avec rollback en cas d'erreur
   const removeEmployee = useCallback(
     async (id: string) => {
       const backup = employees;
