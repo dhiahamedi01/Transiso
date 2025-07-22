@@ -281,7 +281,9 @@
           "page": "Page",
           "of": "of",
           "return":"Back to list"
-        }
+        },
+        "commencer":"! Inquire now",
+        "Dasho":"My Dashboard"
             
     
   }

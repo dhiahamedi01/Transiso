@@ -6,7 +6,7 @@ import Image from 'next/image';
 import EditDocumentIcon from '@mui/icons-material/EditDocument';
 import DeleteIcon from '@mui/icons-material/Delete';
 import style from '@/Components/Dahsboard/Tracking/Tracking.module.css';
-
+import AddIcon from '@mui/icons-material/Add';
 interface SliderItem {
   id: number;
   icon: string;
@@ -128,6 +128,9 @@ function SliderList() {
           value={searchTerm}
           onChange={e => setSearchTerm(e.target.value)}
         />
+         <Link href="/Dashboard/Image_Slider/AddSlider" className={style.addButtonSmall}>
+          <AddIcon fontSize="small" /> New Slider
+        </Link>
       </div>
 
       <div className={style.tableWrapper}>

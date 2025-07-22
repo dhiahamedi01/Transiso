@@ -15,14 +15,48 @@ import styles from './HeroSlider.module.css';
 
 interface Slide {
   id: number;
+  lang: 'en' | 'tr' | 'ar'; // Typage strict ici
   Icon: string;
   Titre: string;
   Description: string;
   Image: string;
 }
 
+// Définition des styles typés par langue
+const textStyles: Record<'en' | 'tr' | 'ar', {
+  fontFamily: string;
+  lineHeight: number;
+  fontSizeTitle: string;
+  fontSizeDesc: string;
+}> = {
+  en: {
+    fontFamily: "'Roboto', sans-serif",
+    lineHeight: 1.4,
+    fontSizeTitle: '2.5rem',
+    fontSizeDesc: '1.2rem',
+  },
+  tr: {
+    fontFamily: "'Arial', sans-serif",
+    lineHeight: 1.5,
+    fontSizeTitle: '2.5rem',
+    fontSizeDesc: '1.2rem',
+  },
+  ar: {
+    fontFamily: "'Noto Kufi Arabic', sans-serif",
+    lineHeight: 1.7,
+    fontSizeTitle: '2.8rem',
+    fontSizeDesc: '1.3rem',
+  },
+};
+
 const HeroSlider: React.FC = () => {
-  const { t } = useTranslation('common');
+  const { t,i18n } = useTranslation();
+
+  // Typage strict du currentLang avec fallback sur 'en'
+  type Lang = 'en' | 'tr' | 'ar';
+  const currentLangRaw = i18n.language;
+  const currentLang: Lang = ['en', 'tr', 'ar'].includes(currentLangRaw) ? (currentLangRaw as Lang) : 'en';
+
   const [slides, setSlides] = useState<Slide[]>([]);
 
   useEffect(() => {
@@ -39,7 +73,13 @@ const HeroSlider: React.FC = () => {
     fetchSlides();
   }, []);
 
-  const hasMultipleSlides = slides.length > 1;
+  // Filtrer les slides selon la langue actuelle
+  const slidesFiltered = slides.filter(slide => slide.lang === currentLang);
+
+  const hasMultipleSlides = slidesFiltered.length > 1;
+
+  // Extraction des styles selon la langue
+  const { fontFamily, lineHeight, fontSizeTitle, fontSizeDesc } = textStyles[currentLang];
 
   return (
     <Box
@@ -59,7 +99,7 @@ const HeroSlider: React.FC = () => {
         },
       }}
     >
-      {slides.length > 0 && (
+      {slidesFiltered.length > 0 && (
         <Swiper
           slidesPerView={1}
           loop={hasMultipleSlides}
@@ -69,7 +109,7 @@ const HeroSlider: React.FC = () => {
           style={{ height: '100%' }}
           modules={[Navigation, Pagination, Autoplay]}
         >
-          {slides.map(({ id, Image: bgImage, Icon: icon, Titre, Description }) => (
+          {slidesFiltered.map(({ id, Image: bgImage, Icon: icon, Titre, Description }) => (
             <SwiperSlide key={id}>
               <Box
                 sx={{
@@ -102,6 +142,7 @@ const HeroSlider: React.FC = () => {
                     textAlign: 'center',
                     maxWidth: '90%',
                     mx: 'auto',
+                    fontFamily,
                   }}
                 >
                   <div className={styles.contenu_slider}>
@@ -122,8 +163,18 @@ const HeroSlider: React.FC = () => {
                       />
                     </Box>
 
-                    <h1 className={styles.title}>{Titre}</h1>
-                    <p className={styles.sous_title}>{Description}</p>
+                    <h1
+                      className={styles.title}
+                      style={{ fontSize: fontSizeTitle, lineHeight }}
+                    >
+                      {Titre}
+                    </h1>
+                    <p
+                      className={styles.sous_title}
+                      style={{ fontSize: fontSizeDesc, lineHeight }}
+                    >
+                      {Description}
+                    </p>
 
                     {/* Bouton "إستفسر الان" */}
                     <Box mt={3}>
@@ -138,7 +189,7 @@ const HeroSlider: React.FC = () => {
                             py: 1,
                             cursor: 'pointer',
                             fontWeight: 'bold',
-                            fontFamily: "'Noto Kufi Arabic', sans-serif",
+                            fontFamily: currentLang === 'ar' ? "'Noto Kufi Arabic', sans-serif" : "'Roboto', sans-serif",
                             fontSize: { xs: '0.9rem', sm: '1rem' },
                             transition: 'background-color 0.3s, color 0.3s',
                             '&:hover': {
@@ -148,7 +199,7 @@ const HeroSlider: React.FC = () => {
                           }}
                           aria-label="إستفسر الان"
                         >
-                          إستفسر الان !
+                       { t('commencer') } 
                         </Box>
                       </Link>
                     </Box>
