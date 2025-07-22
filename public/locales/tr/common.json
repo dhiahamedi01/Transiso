@@ -277,7 +277,8 @@
             "prev": "Önceki",
             "next": "Sonraki",
             "page": "Sayfa",
-            "of": "arasında"
+            "of": "arasında",
+            "return":"Listeye geri dön"
           }
         
         

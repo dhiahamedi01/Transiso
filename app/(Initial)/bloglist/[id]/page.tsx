@@ -29,7 +29,7 @@ type BlogArticle = {
 export default function BlogDetail() {
   const router = useRouter();
   const { id } = useParams() as { id: string };
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const currentLang = i18n.language || 'ar';
 
   const [blog, setBlog] = useState<BlogArticle | null>(null);
@@ -112,7 +112,7 @@ export default function BlogDetail() {
             sx={{ mb: 3, gap: 2 }}
             className={styles.aroubica}
           >
-            العودة إلى القائمة
+         {t('blog.return')}
           </Button>
 
           <Typography className={styles.blogTitle}>{blog.title}</Typography>
