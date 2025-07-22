@@ -139,7 +139,7 @@ export default function Blog() {
 
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <Link
-                    href={`/bloglist/${post.id}`}
+                    href={`/bloglist/${post.post_id}`}
                     underline="none"
                     sx={{
                       color: '#ef4444',
