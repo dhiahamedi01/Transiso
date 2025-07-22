@@ -264,7 +264,22 @@
             "address": "İstanbul, Türkiye Cadde 1582"
           },
           "direction": "ltr"
-        }
+        },
+          "blog": {
+            "id": 1,
+            "lang": "tr",
+            "title": "Lojistik Bilgileri",
+            "sous_titre": "Türkiye'den nakliye ile ilgili hizmetler ve bilgiler",
+            "search": "Blogda ara...",
+            "readMore": "Devamını oku",
+            "noBlogs": "Mevcut makale yok.",
+            "noComments": "0 yorum",
+            "prev": "Önceki",
+            "next": "Sonraki",
+            "page": "Sayfa",
+            "of": "arasında"
+          }
+        
         
         
       

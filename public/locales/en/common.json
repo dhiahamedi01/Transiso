@@ -267,8 +267,21 @@
             "address": "Istanbul, Turkey Street 1582"
           },
           "direction": "ltr"
+        },"blog": {
+          "id": 1,
+          "lang": "en",
+          "title": "Logistics Information",
+          "sous_titre": "Services and information related to shipping from Turkey",
+          "search": "Search in the blog...",
+          "readMore": "Read more",
+          "noBlogs": "No articles available.",
+          "noComments": "0 comments",
+          "prev": "Previous",
+          "next": "Next",
+          "page": "Page",
+          "of": "of"
         }
-      
+            
     
   }
   

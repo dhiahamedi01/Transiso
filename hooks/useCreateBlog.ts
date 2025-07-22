@@ -1,39 +1,38 @@
-import { createBlog,fetchBlogs, BlogArticle  } from '@/services/blogService';
-import { useEffect, useState } from 'react';
-
+import { createBlog } from '@/services/blogService';
+import { useState } from 'react';
 
 export default function useCreateBlog() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleCreateBlog = async (data: {
-    title: string;
-    author: string;
     date: string;
     status: 'Published' | 'Draft';
-    category: string;
-    content: string;
     image: File | null;
+    translations: {
+      en: { title: string; author: string; category: string; content: string };
+      tr: { title: string; author: string; category: string; content: string };
+      ar: { title: string; author: string; category: string; content: string };
+    };
   }) => {
     setLoading(true);
     setError(null);
 
     try {
       const formData = new FormData();
-      formData.append('title', data.title);
-      formData.append('author', data.author);
       formData.append('date', data.date);
       formData.append('status', data.status);
-      formData.append('category', data.category);
-      formData.append('content', data.content);
       if (data.image) {
         formData.append('image', data.image);
       }
+      // On stringify les traductions car c'est un objet
+      formData.append('translations', JSON.stringify(data.translations));
 
       const result = await createBlog(formData);
       return result;
     } catch (err: any) {
       setError(err.message || 'Erreur inconnue');
+      throw err;
     } finally {
       setLoading(false);
     }
@@ -41,27 +40,3 @@ export default function useCreateBlog() {
 
   return { handleCreateBlog, loading, error };
 }
-
-
-export function useBlogs() {
-    const [blogs, setBlogs] = useState<BlogArticle[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-  
-    useEffect(() => {
-      const loadBlogs = async () => {
-        try {
-          const data = await fetchBlogs();
-          setBlogs(data);
-        } catch (err: any) {
-          setError(err.message || 'Erreur lors du chargement');
-        } finally {
-          setLoading(false);
-        }
-      };
-  
-      loadBlogs();
-    }, []);
-  
-    return { data: blogs, isLoading: loading, isError: !!error };
-  }

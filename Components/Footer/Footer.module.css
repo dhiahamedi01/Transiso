@@ -47,7 +47,7 @@
   
   /* ───────── Branding ───────── */
   .brand {
-    flex: 1 1 250px;
+    flex: 2 1 350px;
     margin-left: 24px;         /* espace entre brand et colonnes adjacentes */
   }
   

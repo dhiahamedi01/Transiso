@@ -6,16 +6,25 @@ import path from 'path';
 export async function POST(req: NextRequest) {
   const formData = await req.formData();
 
-  const title = formData.get('title') as string;
-  const author = formData.get('author') as string;
   const date = formData.get('date') as string;
   const status = formData.get('status') as string;
-  const category = formData.get('category') as string;
-  const content = formData.get('content') as string;
-  const file = formData.get('image') as File;
+  const translationsRaw = formData.get('translations') as string | null;
+  const file = formData.get('image') as File | null;
 
+  if (!translationsRaw) {
+    return NextResponse.json({ error: 'Translations data missing' }, { status: 400 });
+  }
+
+  // Parse JSON des traductions
+  let translations: Record<string, { title: string; author: string; category: string; content: string }>;
+  try {
+    translations = JSON.parse(translationsRaw);
+  } catch (err) {
+    return NextResponse.json({ error: 'Invalid translations JSON' }, { status: 400 });
+  }
+
+  // Gérer upload image
   let imagePath = '';
-
   if (file && file.name) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
@@ -26,39 +35,45 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const [result] = await pool.query(
-      `INSERT INTO blogs (title, author, date, status, category, content, image_path)
-       VALUES (?, ?, ?, ?, ?, ?, ?)`,
-      [title, author, date, status, category, content, imagePath]
-    );
+    // Pour chaque langue on insert une ligne
+    const insertedIds = [];
+    for (const lang of ['en', 'tr', 'ar']) {
+      const t = translations[lang] || { title: '', author: '', category: '', content: '' };
+      const [result] = await pool.query(
+        `INSERT INTO blogs (lang, title, author, date, status, category, content, image_path)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+        [lang, t.title || '', t.author || '', date || null, status || 'Draft', t.category || '', t.content || '', imagePath]
+      );
+      insertedIds.push((result as any).insertId);
+    }
 
-    return NextResponse.json({ message: 'Article inséré', id: (result as any).insertId });
+    return NextResponse.json({ message: 'Articles insérés', ids: insertedIds });
   } catch (err) {
     console.error(err);
     return NextResponse.json({ error: 'Erreur lors de l\'insertion' }, { status: 500 });
   }
 }
 
-
 export async function GET() {
-    try {
-      const [rows] = await pool.query(`
-        SELECT 
-          id,                     -- auto‑increment dans votre table
-          title,
-          author,
-          DATE_FORMAT(date,'%M %e, %Y') AS date,  -- July 8, 2025
-          status,
-          category,
-          content,
-          image_path              -- ex : "/uploads/1720433600000_banner.jpg"
-        FROM blogs
-        ORDER BY id DESC
-      `);
-  
-      return NextResponse.json(rows);
-    } catch (e) {
-      console.error(e);
-      return NextResponse.json({ error: 'Erreur de lecture' }, { status: 500 });
-    }
+  try {
+    const [rows] = await pool.query(`
+      SELECT 
+        id,
+        lang,
+        title,
+        author,
+        DATE_FORMAT(date,'%Y-%m-%d') AS date,
+        status,
+        category,
+        content,
+        image_path
+      FROM blogs
+      ORDER BY id DESC
+    `);
+
+    return NextResponse.json(rows);
+  } catch (e) {
+    console.error(e);
+    return NextResponse.json({ error: 'Erreur de lecture' }, { status: 500 });
   }
+}

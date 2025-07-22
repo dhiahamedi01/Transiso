@@ -11,6 +11,7 @@ export async function createBlog(formData: FormData) {
 
 export type BlogArticle = {
     id: number;
+    lang: string; 
     title: string;
     author: string;
     date: string;
