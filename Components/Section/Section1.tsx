@@ -5,6 +5,7 @@ import Image from 'next/image';
 import styles from './Section.module.css';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import StarIcon from '@mui/icons-material/Star';
+import { useTranslation } from 'react-i18next';
 
 interface DescriptionData {
   titre: string;
@@ -16,41 +17,50 @@ interface DescriptionData {
   service4: string;
 }
 
-const avatars = ['avatar-1.jpg','avatar-2.jpg','avatar-3.jpg','avatar-4.jpg','avatar-5.jpg','avatar-6.jpg','avatar-7.jpg']; 
+const avatars = [
+  'avatar-1.jpg',
+  'avatar-2.jpg',
+  'avatar-3.jpg',
+  'avatar-4.jpg',
+  'avatar-5.jpg',
+  'avatar-6.jpg',
+  'avatar-7.jpg',
+];
 
 const Section: React.FC = () => {
+  const { t,i18n } = useTranslation();
   const [data, setData] = useState<DescriptionData | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch('/api/Manage_website/description');
+        const res = await fetch(`/api/Manage_website/description?lang=${i18n.language}`);
         const json = await res.json();
         setData(json);
       } catch (error) {
         console.error('Erreur lors du chargement de la description:', error);
       }
     };
-    fetchData();
-  }, []);
 
-  if (!data) return null; // ou loader si tu veux
+    fetchData();
+  }, [i18n.language]);
+
+  if (!data) return null;
+  const directionClass = i18n.language === 'ar' ? 'dir-rtl' : 'dir-ltr';
 
   const listItems = [data.service1, data.service2, data.service3, data.service4];
 
   return (
     <div className={`${styles.about} dir-rtl`}>
       <div className={styles.block12}>
-      <div style={{ position: 'relative', width: '500px', height: '500px' }}>
-      <Image
-        src="/img/about_img01.png"
-        alt="عن الشركة"
-        fill
-        style={{ objectFit: 'contain', borderRadius: '8px' }}
-      />
-    </div>
-
-
+        <div style={{ position: 'relative', width: '500px', height: '500px' }}>
+          <Image
+            src="/img/about_img01.png"
+            alt="عن الشركة"
+            fill
+            style={{ objectFit: 'contain', borderRadius: '8px' }}
+          />
+        </div>
       </div>
 
       <div className={`${styles.block13} dir-rtl`}>
@@ -96,14 +106,14 @@ const Section: React.FC = () => {
                   />
                 ))}
               </div>
-              <span className={styles.text_mini}>تقييم العملاء</span>
+              <span className={styles.text_mini}>{t('rate_client')}</span>
             </div>
             <div className={styles.experience}>
               <div className={styles.nbr}>
                 <span>+25</span>
               </div>
               <div className={styles.anne}>
-                <span>من الخبرة</span>
+                <span >{t('section.experienceLabel')}</span>
               </div>
             </div>
           </div>

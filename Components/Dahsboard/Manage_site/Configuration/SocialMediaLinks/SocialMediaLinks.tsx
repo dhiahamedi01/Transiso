@@ -21,15 +21,20 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InstagramIcon from '@mui/icons-material/Instagram';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import MusicNoteIcon from '@mui/icons-material/MusicNote'; // Pour TikTok
+
 import { useSocialLinks } from '@/hooks/useSocialLinks';
 
-type Platform = 'facebook' | 'twitter' | 'linkedin' | 'instagram';
+type Platform = 'facebook' | 'twitter' | 'linkedin' | 'instagram' | 'youtube' | 'tiktok';
 
 const socialIconComponents: Record<Platform, React.ReactElement> = {
   facebook: <FacebookIcon sx={{ color: '#fff', fontSize: 20 }} />,
   twitter: <TwitterIcon sx={{ color: '#fff', fontSize: 20 }} />,
   linkedin: <LinkedInIcon sx={{ color: '#fff', fontSize: 20 }} />,
   instagram: <InstagramIcon sx={{ color: '#fff', fontSize: 20 }} />,
+  youtube: <YouTubeIcon sx={{ color: '#fff', fontSize: 20 }} />,
+  tiktok: <MusicNoteIcon sx={{ color: '#fff', fontSize: 20 }} />,
 };
 
 const socialColors: Record<Platform, string> = {
@@ -37,6 +42,8 @@ const socialColors: Record<Platform, string> = {
   twitter: '#1DA1F2',
   linkedin: '#0077B5',
   instagram: '#E4405F',
+  youtube: '#FF0000',
+  tiktok: '#000000',
 };
 
 export default function SocialMediaLinks() {
@@ -70,7 +77,7 @@ export default function SocialMediaLinks() {
   const handleSubmit = () => {
     const newLinks = socialLinks.filter((link) => link.isNew && link.url.trim() !== '');
     if (newLinks.length === 0) {
-      showAlert('Please add a valid URL before submitting.', 'error');
+      showAlert('Veuillez ajouter une URL valide avant de sauvegarder.', 'error');
       return;
     }
 
@@ -78,8 +85,7 @@ export default function SocialMediaLinks() {
       addSocialLink({ platform: link.platform, url: link.url.trim() })
     );
 
-    showAlert(`${newLinks.length} link(s) added successfully 🎉`);
-
+    showAlert(`${newLinks.length} lien(s) ajouté(s) avec succès 🎉`);
     setSocialLinks((prev) => prev.filter((l) => !l.isNew));
   };
 
@@ -87,22 +93,22 @@ export default function SocialMediaLinks() {
     const target = socialLinks.find((l) => l.id === id);
     if (target?.isNew) {
       setSocialLinks((prev) => prev.filter((l) => l.id !== id));
-      showAlert('New link removed 🗑️');
+      showAlert('Nouveau lien supprimé 🗑️');
     } else {
       deleteSocialLink(id);
-      showAlert('Link deleted successfully 🗑️');
+      showAlert('Lien supprimé avec succès 🗑️');
     }
   };
 
   return (
     <>
       <Typography variant="h6" gutterBottom>
-        Manage Social Media Links
+        Gérer les liens des réseaux sociaux
       </Typography>
 
       {socialLinks.length === 0 && (
         <Typography color="text.secondary" sx={{ mb: 2 }}>
-          No social links added. Click + to add one.
+          Aucun lien ajouté. Cliquez sur + pour en ajouter un.
         </Typography>
       )}
 
@@ -119,7 +125,7 @@ export default function SocialMediaLinks() {
           <TextField
             fullWidth
             variant="outlined"
-            placeholder="Social media URL"
+            placeholder="URL du réseau social"
             value={link.url}
             onChange={(e) => handleChange(link.id, 'url', e.target.value)}
           />
@@ -133,7 +139,7 @@ export default function SocialMediaLinks() {
             sx={{
               width: 56,
               height: 55,
-              bgcolor: socialColors[link.platform as Platform],
+              bgcolor: socialColors[link.platform],
               color: 'white',
               '& .MuiSelect-icon': { display: 'none' },
               '& .MuiOutlinedInput-notchedOutline': { borderColor: 'transparent' },
@@ -164,7 +170,7 @@ export default function SocialMediaLinks() {
       {socialLinks.length > 0 && (
         <Box sx={{ textAlign: 'center', mt: 3 }}>
           <Button variant="contained" color="primary" onClick={handleSubmit}>
-            Save
+            Sauvegarder
           </Button>
         </Box>
       )}
@@ -180,7 +186,6 @@ export default function SocialMediaLinks() {
         </Fab>
       </Zoom>
 
-      {/* Snackbar for alerts */}
       <Snackbar
         open={alert.open}
         autoHideDuration={3000}

@@ -283,7 +283,8 @@
           "return":"Back to list"
         },
         "commencer":"! Inquire now",
-        "Dasho":"My Dashboard"
+        "Dasho":"My Dashboard",
+        "rate_client":"Customer Rating"
             
     
   }

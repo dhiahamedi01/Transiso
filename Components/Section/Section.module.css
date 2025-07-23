@@ -468,3 +468,7 @@
   padding-inline-start: 50px;
   padding-inline-end: 50px;
 }
+.directionClass{
+  background-color: red !important;
+  direction: ltr !important;
+}

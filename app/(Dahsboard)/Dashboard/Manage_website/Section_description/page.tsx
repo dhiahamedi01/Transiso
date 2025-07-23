@@ -9,6 +9,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 
 const DescriptionForm = () => {
+  const [lang, setLang] = useState<'ar' | 'en' | 'tr'>('en');
   const [data, setData] = useState({
     titre: '',
     sous_titre: '',
@@ -25,23 +26,25 @@ const DescriptionForm = () => {
   const [alertSeverity, setAlertSeverity] = useState<'success' | 'error'>('success');
   const [alertMessage, setAlertMessage] = useState('');
 
+  const fetchData = async () => {
+    setLoadingInitial(true);
+    try {
+      const res = await fetch(`/api/Manage_website/description?lang=${lang}`);
+      const json = await res.json();
+      setData(json);
+    } catch (err) {
+      console.error('Erreur chargement description:', err);
+      setAlertSeverity('error');
+      setAlertMessage("Erreur lors du chargement des données.");
+      setAlertOpen(true);
+    } finally {
+      setLoadingInitial(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch('/api/Manage_website/description');
-        const json = await res.json();
-        setData(json);
-      } catch (err) {
-        console.error('Error loading description:', err);
-        setAlertSeverity('error');
-        setAlertMessage("Erreur lors du chargement des données.");
-        setAlertOpen(true);
-      } finally {
-        setLoadingInitial(false);
-      }
-    };
     fetchData();
-  }, []);
+  }, [lang]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -51,12 +54,11 @@ const DescriptionForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
     try {
       const res = await fetch('/api/Manage_website/description', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, lang }),
       });
 
       if (!res.ok) throw new Error('Update failed');
@@ -77,97 +79,114 @@ const DescriptionForm = () => {
     setAlertOpen(false);
   };
 
-  if (loadingInitial) {
-    return (
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="300px">
-        <CircularProgress />
-      </Box>
-    );
-  }
-
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>Edit Description Section</h3>
-
-      <form onSubmit={handleSubmit} className={styles.form}>
-        {/* Row 1 */}
-        <input
-          type="text"
-          name="titre"
-          placeholder="Title"
-          value={data.titre}
-          onChange={handleChange}
-          className={styles.searchInputSmall}
-          required
-        />
-        <input
-          type="text"
-          name="sous_titre"
-          placeholder="Subtitle"
-          value={data.sous_titre}
-          onChange={handleChange}
-          className={styles.searchInputSmall}
-          required
-        />
-
-        {/* Row 2 */}
-        <textarea
-          name="description"
-          placeholder="Description..."
-          value={data.description}
-          onChange={handleChange}
-          className={`${styles.searchInputSmall} ${styles.span4}`}
-          rows={6}
-          required
-        />
-
-        {/* Row 3 */}
-        <input
-          type="text"
-          name="service1"
-          placeholder="Service 1"
-          value={data.service1}
-          onChange={handleChange}
-          className={styles.searchInputSmall}
-          required
-        />
-        <input
-          type="text"
-          name="service2"
-          placeholder="Service 2"
-          value={data.service2}
-          onChange={handleChange}
-          className={styles.searchInputSmall}
-          required
-        />
-
-        {/* Row 4 */}
-        <input
-          type="text"
-          name="service3"
-          placeholder="Service 3"
-          value={data.service3}
-          onChange={handleChange}
-          className={styles.searchInputSmall}
-          required
-        />
-        <input
-          type="text"
-          name="service4"
-          placeholder="Service 4"
-          value={data.service4}
-          onChange={handleChange}
-          className={styles.searchInputSmall}
-          required
-        />
-
-        <div className={styles.actions}>
-          <button type="submit" className={styles.primary} disabled={loading}>
-            <SaveIcon fontSize="small" />
-            {loading ? 'Updating...' : 'Update'}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h3 className={styles.title}>Edit Description Section</h3>
+        <div>
+        <button
+            onClick={() => setLang('ar')}
+            className={`${styles.langButton} ${lang === 'ar' ? styles.active : ''}`}
+          >
+            AR
           </button>
+          <button
+            onClick={() => setLang('en')}
+            className={`${styles.langButton} ${lang === 'en' ? styles.active : ''}`}
+          >
+            EN
+          </button>
+          <button
+            onClick={() => setLang('tr')}
+            className={`${styles.langButton} ${lang === 'tr' ? styles.active : ''}`}
+          >
+            TR
+          </button>
+
+
         </div>
-      </form>
+      </div>
+
+      {loadingInitial ? (
+        <Box display="flex" justifyContent="center" alignItems="center" minHeight="300px">
+          <CircularProgress />
+        </Box>
+      ) : (
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <input
+            type="text"
+            name="titre"
+            placeholder="Title"
+            value={data.titre}
+            onChange={handleChange}
+            className={styles.searchInputSmall}
+            required
+          />
+          <input
+            type="text"
+            name="sous_titre"
+            placeholder="Subtitle"
+            value={data.sous_titre}
+            onChange={handleChange}
+            className={styles.searchInputSmall}
+            required
+          />
+
+          <textarea
+            name="description"
+            placeholder="Description..."
+            value={data.description}
+            onChange={handleChange}
+            className={`${styles.searchInputSmall} ${styles.span4}`}
+            rows={6}
+            required
+          />
+
+          <input
+            type="text"
+            name="service1"
+            placeholder="Service 1"
+            value={data.service1}
+            onChange={handleChange}
+            className={styles.searchInputSmall}
+            required
+          />
+          <input
+            type="text"
+            name="service2"
+            placeholder="Service 2"
+            value={data.service2}
+            onChange={handleChange}
+            className={styles.searchInputSmall}
+            required
+          />
+          <input
+            type="text"
+            name="service3"
+            placeholder="Service 3"
+            value={data.service3}
+            onChange={handleChange}
+            className={styles.searchInputSmall}
+            required
+          />
+          <input
+            type="text"
+            name="service4"
+            placeholder="Service 4"
+            value={data.service4}
+            onChange={handleChange}
+            className={styles.searchInputSmall}
+            required
+          />
+
+          <div className={styles.actions}>
+            <button type="submit" className={styles.primary} disabled={loading}>
+              <SaveIcon fontSize="small" />
+              {loading ? 'Updating...' : 'Update'}
+            </button>
+          </div>
+        </form>
+      )}
 
       <Snackbar
         open={alertOpen}

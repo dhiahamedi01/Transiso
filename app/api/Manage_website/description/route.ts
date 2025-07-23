@@ -1,18 +1,34 @@
 import { NextRequest, NextResponse } from 'next/server';
 import pool from '@/lib/db';
-import fs from 'fs';
-import path from 'path';
+import { RowDataPacket } from 'mysql2';
+
+interface DescriptionRow extends RowDataPacket {
+  titre: string;
+  sous_titre: string;
+  description: string;
+  service1: string;
+  service2: string;
+  service3: string;
+  service4: string;
+  lang: string;
+}
 
 export async function GET(req: NextRequest) {
+  const lang = req.nextUrl.searchParams.get('lang') || 'en';
+
   try {
-    const result = await pool.query(`
-      SELECT * FROM Section_desc LIMIT 1
-    `);
-    const rows = result[0] as any[];
-    const banner = rows[0];
-    return NextResponse.json(banner);
+    const [rows] = await pool.query<DescriptionRow[]>(
+      'SELECT * FROM Section_desc WHERE lang = ? LIMIT 1',
+      [lang]
+    );
+
+    if (!rows || rows.length === 0) {
+      return NextResponse.json({ error: 'Aucune donnée trouvée' }, { status: 404 });
+    }
+
+    return NextResponse.json(rows[0]);
   } catch (error) {
-    console.error('Erreur GET Banner:', error);
+    console.error('Erreur GET description:', error);
     return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 });
   }
 }
@@ -20,7 +36,6 @@ export async function GET(req: NextRequest) {
 
 export async function PUT(req: NextRequest) {
   try {
-    const body = await req.json();
     const {
       titre,
       sous_titre,
@@ -29,9 +44,10 @@ export async function PUT(req: NextRequest) {
       service2,
       service3,
       service4,
-    } = body;
+      lang,
+    } = await req.json();
 
-    const updateQuery = `
+    const query = `
       UPDATE Section_desc SET 
         titre = ?, 
         sous_titre = ?, 
@@ -40,10 +56,10 @@ export async function PUT(req: NextRequest) {
         service2 = ?, 
         service3 = ?, 
         service4 = ?
-      LIMIT 1
+      WHERE lang = ?
     `;
 
-    await pool.query(updateQuery, [
+    await pool.query(query, [
       titre,
       sous_titre,
       description,
@@ -51,11 +67,13 @@ export async function PUT(req: NextRequest) {
       service2,
       service3,
       service4,
+      lang,
     ]);
 
     return NextResponse.json({ message: 'Mise à jour réussie' });
   } catch (error) {
-    console.error('Erreur PUT Section_desc:', error);
+    console.error('Erreur PUT description:', error);
     return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 });
   }
 }
+

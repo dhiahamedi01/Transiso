@@ -196,3 +196,22 @@
   object-fit: cover;
   border-radius: 2px;
 }
+.langButton {
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  margin-right: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.langButton:hover {
+  background-color: #e0e0e0;
+}
+.active {
+  background-color: #007bff; /* couleur active, par exemple bleu */
+  color: white;
+  border-color: #0056b3;
+  font-weight: bold;
+}
