@@ -164,7 +164,8 @@
     background-color: #DE1E27 !important;
     border-radius: 6px;
     padding: 8px 24px;
-    font-weight: bold;
+    font-size: 13px !important;
+    font-weight: 500;
     color: white;
     text-transform: none;
     font-family: "Noto Kufi Arabic", sans-serif !important;
@@ -337,4 +338,25 @@
     font-family: "Noto Kufi Arabic", sans-serif !important;
 
   }
+  .profileButton {
+    transition: background-color 0.2s ease;
+  }
   
+  .MuiMenu-paper {
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+  }
+  
+  .MuiMenuItem-root {
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+  }
+  .arabic{
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+  }
+  .user_profil{
+    font-weight: 500;
+  }
+  .dropdown{
+    margin-left: -10px !important;
+    padding: 10px;
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+  }

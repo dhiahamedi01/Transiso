@@ -1,13 +1,18 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
-import { Box, Button, Alert, Snackbar, Typography } from '@mui/material';
+import {
+  Box, Button, Typography, Snackbar, Alert, Stack
+} from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import SaveIcon from '@mui/icons-material/Save';
 import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
-import styles from './Description.module.css'; // Ton propre design CSS
+import styles from './Description.module.css';
+
+const LANGUAGES = ['en', 'ar', 'tr'];
 
 const SectionFormGlobalTop = () => {
+  const [lang, setLang] = useState<'en' | 'ar' | 'tr'>('en');
   const [globalInput, setGlobalInput] = useState('');
   const [sections, setSections] = useState([
     { input: '', textarea: '', image: null as File | null, existingImage: '' },
@@ -15,24 +20,22 @@ const SectionFormGlobalTop = () => {
     { input: '', textarea: '', image: null as File | null, existingImage: '' },
   ]);
 
-// Références fichiers
-const inputRefs = [
-  useRef<HTMLInputElement | null>(null),
-  useRef<HTMLInputElement | null>(null),
-  useRef<HTMLInputElement | null>(null),
-];
-
+  const inputRefs = [
+    useRef<HTMLInputElement | null>(null),
+    useRef<HTMLInputElement | null>(null),
+    useRef<HTMLInputElement | null>(null),
+  ];
 
   const [loading, setLoading] = useState(false);
   const [alertOpen, setAlertOpen] = useState(false);
-  const [alertSeverity, setAlertSeverity] = useState<'success' | 'error'>('success');
   const [alertMessage, setAlertMessage] = useState('');
+  const [alertSeverity, setAlertSeverity] = useState<'success' | 'error'>('success');
 
-  // Charger les données du backend
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get('/api/Banner_service');
+      const res = await axios.get(`/api/Banner_service?lang=${lang}`);
       const data = res.data;
+
       setGlobalInput(data.titre_globale || '');
       setSections([
         {
@@ -56,20 +59,21 @@ const inputRefs = [
       ]);
     };
     fetchData();
-  }, []);
+  }, [lang]);
 
   const handleImageChange = (index: number, file: File | null) => {
     const updated = [...sections];
     updated[index].image = file;
+    if (file) updated[index].existingImage = ''; // clear previous if new
     setSections(updated);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
     try {
       const formData = new FormData();
+      formData.append('lang', lang);
       formData.append('titre_globale', globalInput);
 
       sections.forEach((section, i) => {
@@ -84,10 +88,10 @@ const inputRefs = [
 
       await axios.put('/api/Banner_service', formData);
       setAlertSeverity('success');
-      setAlertMessage('Mise à jour réussie !');
+      setAlertMessage('Successfully updated!');
     } catch {
       setAlertSeverity('error');
-      setAlertMessage("Erreur lors de l'enregistrement.");
+      setAlertMessage('Error while saving.');
     } finally {
       setLoading(false);
       setAlertOpen(true);
@@ -96,9 +100,22 @@ const inputRefs = [
 
   return (
     <Box className={styles.container}>
-      <Typography variant="h5" className={styles.title}>
-        Modifier la Bannière de Service
-      </Typography>
+      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}>
+        <Typography variant="h5" className={styles.title}>
+          Service Banner Management
+        </Typography>
+        <Stack direction="row" spacing={1}>
+          {LANGUAGES.map((lng) => (
+            <Button
+              key={lng}
+              variant={lang === lng ? 'contained' : 'outlined'}
+              onClick={() => setLang(lng as any)}
+            >
+              {lng.toUpperCase()}
+            </Button>
+          ))}
+        </Stack>
+      </Stack>
 
       <form onSubmit={handleSubmit} className={styles.form}>
         <input
@@ -106,8 +123,7 @@ const inputRefs = [
           value={globalInput}
           onChange={(e) => setGlobalInput(e.target.value)}
           className={styles.globalInput}
-          placeholder="Titre Global"
-          required
+          placeholder="Global Title"
         />
 
         {sections.map((section, i) => (
@@ -120,7 +136,7 @@ const inputRefs = [
                 updated[i].input = e.target.value;
                 setSections(updated);
               }}
-              placeholder={`Titre ${i + 1}`}
+              placeholder={`Title ${i + 1}`}
             />
             <textarea
               value={section.textarea}
@@ -131,9 +147,10 @@ const inputRefs = [
               }}
               placeholder={`Description ${i + 1}`}
             />
+
             <Box
               className={styles.dropZone}
-              onClick={() => inputRefs[i].current?.click()}
+              onClick={() => inputRefs[i]?.current?.click()}
               onDragOver={(e) => e.preventDefault()}
               onDrop={(e) => {
                 e.preventDefault();
@@ -142,7 +159,7 @@ const inputRefs = [
               }}
             >
               <CloudUploadIcon sx={{ fontSize: 40 }} />
-              <p>{section.image ? section.image.name : 'Choisir ou glisser une image'}</p>
+              <p>{section.image ? section.image.name : 'Click or drag an image'}</p>
               <input
                 type="file"
                 hidden
@@ -167,7 +184,7 @@ const inputRefs = [
                       ? URL.createObjectURL(section.image)
                       : section.existingImage
                   }
-                  alt={`Aperçu ${i + 1}`}
+                  alt={`Preview ${i + 1}`}
                   className={styles.previewImage}
                 />
               </div>
@@ -179,11 +196,10 @@ const inputRefs = [
           <Button
             type="submit"
             variant="contained"
-            color="primary"
             startIcon={<SaveIcon />}
             disabled={loading}
           >
-            {loading ? 'Enregistrement...' : 'Enregistrer'}
+            {loading ? 'Saving...' : 'Save'}
           </Button>
         </div>
       </form>
@@ -192,7 +208,6 @@ const inputRefs = [
         open={alertOpen}
         autoHideDuration={4000}
         onClose={() => setAlertOpen(false)}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       >
         <Alert severity={alertSeverity} onClose={() => setAlertOpen(false)}>
           {alertMessage}

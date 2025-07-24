@@ -287,7 +287,9 @@
         "rate_client":"Customer Rating",
         "button_now": "Explore Now",
         "rating_client":"Customer Testimonials",
-        "vrai_review": "Real customer reviews"
+        "vrai_review": "Real customer reviews",
+        "logout":"log out",
+        "myDashboard":"Dashboard"
             
     
   }

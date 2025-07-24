@@ -285,7 +285,9 @@
           "rate_client":"Müşteri Puanı",
           "button_now": "Şimdi Keşfedin",
           "rating_client":"Müşteri Görüşleri",
-          "vrai_review": "Gerçek müşteri yorumları"
+          "vrai_review": "Gerçek müşteri yorumları",
+          "logout":"çıkış yap",
+          "myDashboard":"Gösterge Paneli" 
         
         
         

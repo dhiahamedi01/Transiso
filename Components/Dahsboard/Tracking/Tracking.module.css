@@ -1,14 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  src: url('/Font/NotoKufiArabic-VariableFont_wght.ttf') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
 .card {
   width: 100%;
   border-radius: 12px;
   background: #fff;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-  font-family: 'Poppins', sans-serif;
   margin: 20px 0 10px;
   padding: 20px;
   overflow-x: auto;
+  font-family: "Noto Kufi Arabic", sans-serif !important;
 }
 /* Header bar container with flex for search, logo and button */
 .headerBar {
@@ -42,7 +48,7 @@
   font-size: 0.85rem;
   border-radius: 6px;
   border: 1px solid #ccc;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Noto Kufi Arabic", sans-serif !important;
   transition: border-color 0.3s ease;
 }
 
@@ -119,6 +125,7 @@
   width: 100%;
   border-collapse: collapse;
   font-size: 0.75rem;
+  font-family: "Noto Kufi Arabic", sans-serif !important;
 }
 
 /* head */
@@ -128,13 +135,16 @@
   background: #EFF2F7;
   font-weight: 600;
   color: #333;
+  font-family: "Noto Kufi Arabic", sans-serif !important;
 }
 
 .tableHeader:first-child {
   border-top-left-radius: 8px;
+  font-family: "Noto Kufi Arabic", sans-serif !important;
 }
 .tableHeader:last-child {
   border-top-right-radius: 8px;
+  font-family: "Noto Kufi Arabic", sans-serif !important;
 }
 
 /* body */
@@ -143,6 +153,7 @@
   background: #fff;
   border-bottom: 1px solid #ececec;
   color: #444;
+  font-family: "Noto Kufi Arabic", sans-serif !important;
 }
 .tableRow:hover {
   background: #f5f8fc;
@@ -219,7 +230,7 @@
   justify-content: center;
   align-items: center;
   z-index: 10000;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Noto Kufi Arabic", sans-serif !important;
 }
 
 .modalContent {
@@ -407,7 +418,7 @@
     padding: 24px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
     animation: fadeIn 0.25s ease;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Noto Kufi Arabic", sans-serif !important;
     text-align: center;
   }
   
@@ -430,7 +441,7 @@
     border-radius: 6px;
     font-weight: 600;
     cursor: pointer;
-    font-family: inherit;
+    font-family: "Noto Kufi Arabic", sans-serif !important;
   }
   
   .cancelBtn {
@@ -510,7 +521,7 @@
     font-size: 1rem;
     border: 1.8px solid #ccc;
     border-radius: 8px;
-    font-family: inherit;
+    font-family: "Noto Kufi Arabic", sans-serif !important;
     transition: border-color 0.3s ease;
   }
   

@@ -3,9 +3,10 @@ import pool from '@/lib/db';
 import { writeFile } from 'fs/promises';
 import path from 'path';
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
-    const [rows] = await pool.query('SELECT * FROM Banner_service LIMIT 1');
+    const lang = req.nextUrl.searchParams.get('lang') || 'en';
+    const [rows] = await pool.query('SELECT * FROM Banner_service WHERE lang = ? LIMIT 1', [lang]);
     if (Array.isArray(rows) && rows.length > 0) {
       return NextResponse.json(rows[0]);
     }
@@ -18,6 +19,7 @@ export async function GET() {
 export async function PUT(req: NextRequest) {
   try {
     const formData = await req.formData();
+    const lang = formData.get('lang') as string;
 
     const titre_globale = formData.get('titre_globale') as string;
     const titre1 = formData.get('titre1') as string;
@@ -36,7 +38,8 @@ export async function PUT(req: NextRequest) {
         titre_globale = ?, 
         titre1 = ?, description1 = ?, icon1 = ?, 
         titre2 = ?, description2 = ?, icon2 = ?, 
-        titre3 = ?, description3 = ?, icon3 = ?`,
+        titre3 = ?, description3 = ?, icon3 = ?
+      WHERE lang = ?`,
       [
         titre_globale,
         titre1,
@@ -48,6 +51,7 @@ export async function PUT(req: NextRequest) {
         titre3,
         description3,
         icon3,
+        lang
       ]
     );
 

@@ -1,5 +1,14 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  src: url('/Font/NotoKufiArabic-VariableFont_wght.ttf') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
 .card {
   width: 100%;
   border-radius: 12px;
@@ -143,6 +152,7 @@
   background: #fff;
   border-bottom: 1px solid #ececec;
   color: #444;
+  font-family: "Noto Kufi Arabic", sans-serif !important;
   white-space: nowrap;
 }
 .tableRow:hover {

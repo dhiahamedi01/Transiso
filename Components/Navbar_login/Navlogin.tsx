@@ -33,7 +33,7 @@ import { useTranslation } from 'react-i18next';
 const MenuIcon = dynamic(() => import('@mui/icons-material/Menu'), { ssr: false });
 const SearchIcon = dynamic(() => import('@mui/icons-material/Search'), { ssr: false });
 const ShoppingCartIcon = dynamic(() => import('@mui/icons-material/ShoppingCart'), { ssr: false });
-const TrendingUpIcon = dynamic(() => import('@mui/icons-material/TrendingUp'), { ssr: false });
+const LockOpenIcon = dynamic(() => import('@mui/icons-material/LockOpen'), { ssr: false });
 const LocationOnIcon = dynamic(() => import('@mui/icons-material/LocationOn'), { ssr: false });
 const EmailIcon = dynamic(() => import('@mui/icons-material/Email'), { ssr: false });
 const AccessTimeIcon = dynamic(() => import('@mui/icons-material/AccessTime'), { ssr: false });
@@ -81,7 +81,7 @@ function Nav() {
   const { logo } = useLogo();
 
   const [userName, setUserName] = useState('');
-  const [userImage, setUserImage] = useState('/img/no_img.png');
+  const [userImage, setUserImage] = useState('/img/user5.jpg');
   const [role, setRole] = useState('');
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -125,7 +125,7 @@ function Nav() {
 
     if (typeof window !== 'undefined') {
       setUserName(localStorage.getItem('userName') || '');
-      setUserImage(localStorage.getItem('userImage') || '/img/no_img.png');
+      setUserImage(localStorage.getItem('userImage') || '/img/user5.jpg');
       setRole(localStorage.getItem('role') || '');
 
       // Initial cart count
@@ -282,28 +282,45 @@ function Nav() {
             '&:hover': { backgroundColor: '#eaeaea' },
           }}
         >
-          <Avatar
-            src={userImage}
-            alt={userName}
-            sx={{ width: 40, height: 40, boxShadow: '0 0 4px rgba(0,0,0,0.2)' }}
-          />
-          <Typography variant="body1" sx={{ color: '#0a0a23', fontWeight: 600 }}>
+                <Box
+            sx={{
+              width: 45,
+              height: 45,
+              borderRadius: '8px', // carré avec coins légèrement arrondis
+              overflow: 'hidden',
+              boxShadow: '0 0 4px rgba(0,0,0,0.2)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Image
+              src={userImage}
+              alt={userName}
+              width={45}
+              height={45}
+              style={{ objectFit: 'cover' }}
+            />
+          </Box>
+
+          <Typography className={styles.user_profil} variant="body1" sx={{ color: '#0a0a23', fontWeight: 600 }}>
             {userName}
           </Typography>
         </Button>
 
-        <Menu anchorEl={anchorEl} open={openProfileMenu} onClose={handleProfileClose}>
-          <MenuItem component={Link} href={dashboardLink} onClick={handleProfileClose}>
-            لوحة التحكم
+        <Menu className={styles.dropdown} anchorEl={anchorEl} open={openProfileMenu} onClose={handleProfileClose}>
+          <MenuItem className={styles.arabic} component={Link} href={dashboardLink} onClick={handleProfileClose}>
+          {t('myDashboard')}
           </MenuItem>
           <MenuItem
+          className={styles.arabic} 
             onClick={() => {
               handleProfileClose();
               handleLogout();
             }}
           >
-            تسجيل الخروج
-          </MenuItem>
+{t('logout')}
+            </MenuItem>
         </Menu>
       </>
           ) : (
@@ -351,8 +368,8 @@ function Nav() {
                       handleLogout();
                     }}
                   >
-                    تسجيل الخروج&nbsp;<TrendingUpIcon />
-                  </Button>
+                {t('logout')}                  
+                </Button>
                 </Link>
               </Box>
             </>

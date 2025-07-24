@@ -81,6 +81,8 @@
     line-height: 1.4;
     color: #6E556E !important;
     font-weight: 600 !important;
+    font-size: 13px !important;
+    font-family: "Noto Kufi Arabic", sans-serif !important;
   }
   
   .productPrice {
