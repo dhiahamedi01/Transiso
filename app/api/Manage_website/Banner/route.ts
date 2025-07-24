@@ -3,13 +3,20 @@ import pool from '@/lib/db';
 import fs from 'fs';
 import path from 'path';
 
+// Assure-toi que le dossier uploads existe
+const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
+
 export async function GET(req: NextRequest) {
   try {
-    const result = await pool.query(`
-      SELECT * FROM Banner LIMIT 1
-    `);
-    const rows = result[0] as any[];
-    const banner = rows[0];
+    const url = new URL(req.url);
+    const lang = url.searchParams.get('lang') || 'en';
+
+    const [rows] = await pool.query('SELECT * FROM Banner WHERE lang = ? LIMIT 1', [lang]);
+    const banner = (rows as any[])[0] || null;
+
     return NextResponse.json(banner);
   } catch (error) {
     console.error('Erreur GET Banner:', error);
@@ -21,54 +28,53 @@ export async function PUT(req: NextRequest) {
   try {
     const formData = await req.formData();
 
+    const lang = formData.get('lang')?.toString() || 'en';
     const titre1 = formData.get('titre1')?.toString() || '';
     const titre2 = formData.get('titre2')?.toString() || '';
     const description1 = formData.get('description1')?.toString() || '';
     const description2 = formData.get('description2')?.toString() || '';
+
     const image1File = formData.get('image1') as File | null;
     const image2File = formData.get('image2') as File | null;
 
     let image1Path = '';
     let image2Path = '';
 
-    if (image1File) {
-      const bytes = await image1File.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-      const filename = `image1_${Date.now()}.jpg`;
-      const filepath = path.join('public', 'uploads', filename);
+    const saveFile = async (file: File, prefix: string) => {
+      const buffer = Buffer.from(await file.arrayBuffer());
+      const ext = path.extname(file.name) || '.jpg';
+      const filename = `${prefix}_${Date.now()}${ext}`;
+      const filepath = path.join(uploadsDir, filename);
       fs.writeFileSync(filepath, buffer);
-      image1Path = `/uploads/${filename}`;
+      return `/uploads/${filename}`;
+    };
+
+    if (image1File) {
+      image1Path = await saveFile(image1File, 'image1');
     }
 
     if (image2File) {
-      const bytes = await image2File.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-      const filename = `image2_${Date.now()}.jpg`;
-      const filepath = path.join('public', 'uploads', filename);
-      fs.writeFileSync(filepath, buffer);
-      image2Path = `/uploads/${filename}`;
+      image2Path = await saveFile(image2File, 'image2');
     }
 
-    // Met à jour la première ligne seulement (sans WHERE)
-    let updateQuery = `
-      UPDATE Banner 
-      SET titre1 = ?, description1 = ?, titre2 = ?, description2 = ?
-      LIMIT 1
+    // 1. Mise à jour des textes uniquement pour la langue donnée
+    const updateTextsQuery = `
+      UPDATE Banner SET
+        titre1 = ?,
+        description1 = ?,
+        titre2 = ?,
+        description2 = ?
+      WHERE lang = ? LIMIT 1
     `;
+    await pool.query(updateTextsQuery, [titre1, description1, titre2, description2, lang]);
 
-    const params = [titre1, description1, titre2, description2];
-
+    // 2. Mise à jour des images sur toutes les lignes (toutes langues)
     if (image1Path) {
-      updateQuery = updateQuery.replace('LIMIT 1', `, image1 = ? LIMIT 1`);
-      params.push(image1Path);
+      await pool.query(`UPDATE Banner SET image1 = ?`, [image1Path]);
     }
-
     if (image2Path) {
-      updateQuery = updateQuery.replace('LIMIT 1', `, image2 = ? LIMIT 1`);
-      params.push(image2Path);
+      await pool.query(`UPDATE Banner SET image2 = ?`, [image2Path]);
     }
-
-    await pool.query(updateQuery, params);
 
     return NextResponse.json({ message: 'Mise à jour réussie.' });
   } catch (error) {
@@ -76,3 +82,4 @@ export async function PUT(req: NextRequest) {
     return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 });
   }
 }
+

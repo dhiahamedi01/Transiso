@@ -284,7 +284,10 @@
         },
         "commencer":"! Inquire now",
         "Dasho":"My Dashboard",
-        "rate_client":"Customer Rating"
+        "rate_client":"Customer Rating",
+        "button_now": "Explore Now",
+        "rating_client":"Customer Testimonials",
+        "vrai_review": "Real customer reviews"
             
     
   }

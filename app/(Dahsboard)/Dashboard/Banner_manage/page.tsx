@@ -9,6 +9,8 @@ import { Snackbar, Alert, CircularProgress, Box } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 
 const EditBannerForm = () => {
+  const [lang, setLang] = useState<'en' | 'tr' | 'ar'>('en');
+
   const [title1, setTitle1] = useState('');
   const [title2, setTitle2] = useState('');
   const [text1, setText1] = useState('');
@@ -18,7 +20,7 @@ const EditBannerForm = () => {
   const [image1Url, setImage1Url] = useState('');
   const [image2Url, setImage2Url] = useState('');
   const [loading, setLoading] = useState(false);
-  const [pageLoading, setPageLoading] = useState(true); // 👉 Nouvelle variable pour loading initial
+  const [pageLoading, setPageLoading] = useState(true);
 
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
@@ -27,26 +29,29 @@ const EditBannerForm = () => {
   const inputRef1 = useRef<HTMLInputElement | null>(null);
   const inputRef2 = useRef<HTMLInputElement | null>(null);
 
+  const fetchData = async () => {
+    setPageLoading(true);
+    try {
+      const res = await fetch(`/api/Manage_website/Banner?lang=${lang}`);
+      const data = await res.json();
+      setTitle1(data.titre1 || '');
+      setTitle2(data.titre2 || '');
+      setText1(data.description1 || '');
+      setText2(data.description2 || '');
+      setImage1Url(data.image1 || '');
+      setImage2Url(data.image2 || '');
+    } catch (err) {
+      setAlertMessage('Error loading banner data.');
+      setAlertSeverity('error');
+      setAlertOpen(true);
+    } finally {
+      setPageLoading(false);
+    }
+  };
+
   useEffect(() => {
-    fetch('/api/Manage_website/Banner')
-      .then(res => res.json())
-      .then(data => {
-        setTitle1(data.titre1 || '');
-        setTitle2(data.titre2 || '');
-        setText1(data.description1 || '');
-        setText2(data.description2 || '');
-        setImage1Url(data.image1 || '');
-        setImage2Url(data.image2 || '');
-      })
-      .catch(() => {
-        setAlertMessage('Error while loading banner data.');
-        setAlertSeverity('error');
-        setAlertOpen(true);
-      })
-      .finally(() => {
-        setPageLoading(false); // ✅ On cache le spinner quand les données sont prêtes
-      });
-  }, []);
+    fetchData();
+  }, [lang]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const file = e.target.files?.[0];
@@ -82,6 +87,7 @@ const EditBannerForm = () => {
       formData.append('titre2', title2);
       formData.append('description1', text1);
       formData.append('description2', text2);
+      formData.append('lang', lang);
       if (image1) formData.append('image1', image1);
       if (image2) formData.append('image2', image2);
 
@@ -106,17 +112,9 @@ const EditBannerForm = () => {
     }
   };
 
-  // ⏳ Affichage du loader pleine page pendant le fetch
   if (pageLoading) {
     return (
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        height="60vh"
-        width="100%"
-        flexDirection="column"
-      >
+      <Box display="flex" justifyContent="center" alignItems="center" height="60vh" width="100%" flexDirection="column">
         <CircularProgress size={48} />
         <p style={{ marginTop: '10px', color: '#666' }}>Loading banner data...</p>
       </Box>
@@ -125,7 +123,29 @@ const EditBannerForm = () => {
 
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>Edit Banner</h3>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h3 className={styles.title}>Edit Banner</h3>
+        <div style={{ display: 'flex', gap: '10px' }}>
+          {['ar', 'en', 'tr'].map((l) => (
+            <button
+              key={l}
+              onClick={() => setLang(l as 'ar' | 'en' | 'tr')}
+              className={`${styles.langButton} ${lang === l ? styles.active : ''}`}
+              style={{
+                padding: '6px 12px',
+                borderRadius: '6px',
+                backgroundColor: lang === l ? '#1976d2' : '#eee',
+                color: lang === l ? '#fff' : '#000',
+                border: 'none',
+                cursor: 'pointer',
+                fontWeight: 'bold',
+              }}
+            >
+              {l.toUpperCase()}
+            </button>
+          ))}
+        </div>
+      </div>
 
       <form className={styles.form} onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
         <div style={{ display: 'flex', gap: '20px' }}>

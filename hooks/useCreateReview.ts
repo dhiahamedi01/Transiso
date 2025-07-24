@@ -7,6 +7,7 @@ interface ReviewData {
   comment: string;
   rating: number;
   image: File;
+  lang: 'ar' | 'en' | 'tr';
 }
 
 const useCreateReview = () => {
@@ -21,9 +22,12 @@ const useCreateReview = () => {
     formData.append('comment', data.comment);
     formData.append('rating', data.rating.toString());
     formData.append('image', data.image);
+    formData.append('lang', data.lang);
 
     try {
-      await axios.post('/api/reviews', formData);
+      await axios.post('/api/reviews', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
     } finally {
       setLoading(false);
     }

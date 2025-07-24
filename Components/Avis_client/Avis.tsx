@@ -7,6 +7,7 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import styles from './Avis.module.css';
+import { useTranslation } from 'react-i18next';
 
 interface Review {
   id: number;
@@ -15,11 +16,13 @@ interface Review {
   comment: string;
   image: string;
   rating: number;
+  lang: string;
 }
 
 const VISIBLE_CARDS = 3;
 
 const Avis = () => {
+  const { t,i18n } = useTranslation();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [startIndex, setStartIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -41,6 +44,8 @@ const Avis = () => {
     fetchReviews();
   }, []);
 
+  const filteredReviews = reviews.filter(r => r.lang === i18n.language);
+
   const triggerAnimation = (callback: () => void) => {
     setIsAnimating(true);
     setTimeout(() => {
@@ -52,7 +57,7 @@ const Avis = () => {
   const handlePrev = () => {
     triggerAnimation(() => {
       setStartIndex((prev) =>
-        prev === 0 ? reviews.length - VISIBLE_CARDS : prev - 1
+        prev === 0 ? Math.max(filteredReviews.length - VISIBLE_CARDS, 0) : prev - 1
       );
     });
   };
@@ -60,28 +65,23 @@ const Avis = () => {
   const handleNext = () => {
     triggerAnimation(() => {
       setStartIndex((prev) =>
-        prev + VISIBLE_CARDS >= reviews.length ? 0 : prev + 1
+        prev + VISIBLE_CARDS >= filteredReviews.length ? 0 : prev + 1
       );
     });
   };
 
-  const visibleReviews = reviews.slice(startIndex, startIndex + VISIBLE_CARDS);
-
-  if (visibleReviews.length < VISIBLE_CARDS) {
-    visibleReviews.push(
-      ...reviews.slice(0, VISIBLE_CARDS - visibleReviews.length)
-    );
-  }
+  // Ici on ne rajoute pas d'avis du début, on affiche seulement ceux qui existent
+  const visibleReviews = filteredReviews.slice(startIndex, startIndex + VISIBLE_CARDS);
 
   if (loading) return <p style={{ textAlign: 'center' }}>جار التحميل...</p>;
-  if (!reviews.length) return <p style={{ textAlign: 'center' }}>لا توجد شهادات حالياً.</p>;
+  if (!filteredReviews.length) return <p style={{ textAlign: 'center' }}>لا توجد شهادات حالياً.</p>;
 
   return (
     <section className={styles.testimonials}>
       <div className={styles.title}>
         <div className={styles['bar-about']}>
           <div className={styles['sous-titre-testimonials']}>
-            <StarIcon className={styles.filled} />&ensp;شهادات العملاء&ensp;
+            <StarIcon className={styles.filled} />&ensp;{t('rating_client')}&ensp;
             <StarIcon className={styles.filled} />
           </div>
         </div>
@@ -96,7 +96,7 @@ const Avis = () => {
               height={40}
             />
             &ensp;&ensp;
-            تقييمات العملاء الحقيقية !
+            {t('vrai_review')}
             &ensp;&ensp;
             <Image
               className={styles.img_comment}

@@ -282,7 +282,10 @@
           },
           "commencer":"! Hemen bilgi alın",
           "Dasho":"Gösterge Panelim",
-          "rate_client":"Müşteri Puanı"
+          "rate_client":"Müşteri Puanı",
+          "button_now": "Şimdi Keşfedin",
+          "rating_client":"Müşteri Görüşleri",
+          "vrai_review": "Gerçek müşteri yorumları"
         
         
         
