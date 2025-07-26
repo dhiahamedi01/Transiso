@@ -18,6 +18,7 @@ import Footer from '@/Components/Footer/Footer';
 import WhatsappButtons from '@/Components/WhatsappButtons';
 import ScrollToTopButton from '@/Components/ScrollToTopButton';
 import Carousel from '@/Components/Carrousel/carrousel';
+import Expertise from '@/Components/Information_section/about_info';
 
 export default function Page() {
   const [isLoading, setIsLoading] = useState(true);
@@ -68,6 +69,7 @@ export default function Page() {
         <Section />
         <Carousel />
         <br /><br /><br />
+        <TrendingCarousel/>
         <HeroSection />
         <Avis />
         <Service />

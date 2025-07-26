@@ -22,7 +22,7 @@ interface Review {
 const VISIBLE_CARDS = 3;
 
 const Avis = () => {
-  const { t,i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [startIndex, setStartIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -70,14 +70,19 @@ const Avis = () => {
     });
   };
 
-  // Ici on ne rajoute pas d'avis du début, on affiche seulement ceux qui existent
   const visibleReviews = filteredReviews.slice(startIndex, startIndex + VISIBLE_CARDS);
 
-  if (loading) return <p style={{ textAlign: 'center' }}>جار التحميل...</p>;
-  if (!filteredReviews.length) return <p style={{ textAlign: 'center' }}>لا توجد شهادات حالياً.</p>;
+  const isArabic = i18n.language === 'ar';
+
+  if (loading) return <p style={{ textAlign: 'center' }}>{t('loading') || 'جار التحميل...'}</p>;
+  if (!filteredReviews.length) return <p style={{ textAlign: 'center' }}>{t('no_reviews') || 'لا توجد شهادات حالياً.'}</p>;
 
   return (
-    <section className={styles.testimonials}>
+    <section
+      className={styles.testimonials}
+      dir={isArabic ? 'rtl' : 'ltr'}
+      style={{ textAlign: isArabic ? 'right' : 'left' }}
+    >
       <div className={styles.title}>
         <div className={styles['bar-about']}>
           <div className={styles['sous-titre-testimonials']}>
@@ -113,9 +118,9 @@ const Avis = () => {
         <button
           onClick={handleNext}
           className={styles['slider-button']}
-          aria-label="التالي"
+          aria-label={t('next') || 'التالي'}
         >
-          <ArrowForwardIcon />
+          {isArabic ? <ArrowForwardIcon /> : <ArrowBackIcon />}
         </button>
 
         <div className={`${styles['Card-liste']} ${isAnimating ? styles.fade : styles['fade-in']}`}>
@@ -129,10 +134,21 @@ const Avis = () => {
                   height={90}
                   className={styles['img-user']}
                 />
-                <div className={styles['testimonials-poste']}>
-                  <h3 className={styles['testimonials-nom']}>{t.name}</h3>
-                  <p className={styles['testimonials-sous-nom']}>{t.position}</p>
-                </div>
+             <div className={styles['testimonials-poste']}
+                    style={{
+                      textAlign: isArabic ? 'right' : 'left',
+                      direction: isArabic ? 'rtl' : 'ltr',
+                    }}
+                  >
+                <h3 className={ isArabic
+                                ? styles['testimonials-nom']
+                                : styles['testimonials-nom-ltr'] }>{t.name}</h3>
+                <p className={ isArabic
+                                ? styles['testimonials-sous-nom']
+                                : styles['testimonials-sous-nom-ltr'] }>
+                  {t.position}</p>
+              </div>
+
               </div>
               <p className={styles['description']}>{t.comment}</p>
               <div className={styles.footer}>
@@ -145,6 +161,7 @@ const Avis = () => {
                     )
                   )}
                 </div>
+                <div className={styles['testimonial-footer-img']}></div>
               </div>
             </div>
           ))}
@@ -153,9 +170,9 @@ const Avis = () => {
         <button
           onClick={handlePrev}
           className={styles['slider-button']}
-          aria-label="السابق"
+          aria-label={t('prev') || 'السابق'}
         >
-          <ArrowBackIcon />
+          {isArabic ? <ArrowBackIcon /> : <ArrowForwardIcon />}
         </button>
       </div>
     </section>

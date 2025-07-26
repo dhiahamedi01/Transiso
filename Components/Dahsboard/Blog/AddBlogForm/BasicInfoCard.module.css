@@ -26,6 +26,7 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;
   }
+
   
   .searchInputSmall {
     border: 1px solid #d1d5db;
@@ -214,4 +215,14 @@
   color: white;
   border-color: #0056b3;
   font-weight: bold;
+}
+.block{
+  display: flex;
+  width: 100%;
+  gap: 10px;
+}
+.formi{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }

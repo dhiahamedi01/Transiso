@@ -6,11 +6,12 @@ import WhatsappButtons from '@/Components/WhatsappButtons'
 import Banner from '@/Components/Banner/Banner'
 import Banner2 from '@/Components/Banner/Banner2'
 import Localisation from '@/Components/Localisation/Localisation'
+import Expertise from '@/Components/Information_section/about_info'
 function index() {
   return (
     <div>
       <Hero/>
-      <Banner2/>
+      <Expertise/>
       <Banner/><br /><br />
       <Card/>
 

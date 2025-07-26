@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Button } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useTranslation } from 'react-i18next';
 import styles from './HeroSecion.module.css';
 
@@ -69,13 +70,14 @@ const HeroSection = () => {
           <h1 className={styles.title}>{data.titre1}</h1>
           <p className={styles.description}>{data.description1}</p>
           <div className={styles.buttonContainer}>
-            <Button
-              variant="contained"
-              endIcon={<ArrowBackIcon />}
-              className={styles.btn}
-            >
-               {t('button_now')}
-            </Button>
+          <Button
+            variant="contained"
+            endIcon={i18n.language === 'ar' ? <ArrowBackIcon /> : <ArrowForwardIcon />}
+            className={styles.btn}
+          >
+            {t('button_now')}
+          </Button>
+
           </div>
         </div>
       </div>
@@ -89,13 +91,13 @@ const HeroSection = () => {
           <h1 className={styles.title}>{data.titre2}</h1>
           <p className={styles.description}>{data.description2}</p>
           <div className={styles.buttonContainer}>
-            <Button
-              variant="contained"
-              endIcon={<ArrowBackIcon />}
-              className={styles.btn}
-            >
-             {t('button_now')}
-            </Button>
+          <Button
+            variant="contained"
+            endIcon={i18n.language === 'ar' ? <ArrowBackIcon /> : <ArrowForwardIcon /> }
+            className={styles.btn}
+          >
+            {t('button_now')}
+          </Button>
           </div>
         </div>
 
