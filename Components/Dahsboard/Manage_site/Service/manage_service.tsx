@@ -16,10 +16,12 @@ import {
 import style from '@/Components/Dahsboard/Tracking/Tracking.module.css';
 
 interface ServiceItem {
-  id: number;
+  id: number; // PK unique
+  service_id: string; // shared across languages
   title: string;
   description: string;
   icon_path: string;
+  lang: string;
 }
 
 function ModalConfirm({
@@ -54,19 +56,20 @@ function ModalConfirm({
 function ServiceManager() {
   const [services, setServices] = useState<ServiceItem[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [language, setLanguage] = useState<'tr' | 'en' | 'ar'>('tr');
   const [showModal, setShowModal] = useState(false);
   const [serviceToDelete, setServiceToDelete] = useState<ServiceItem | null>(null);
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
   useEffect(() => {
-    fetchServices();
-  }, []);
+    fetchServices(language);
+  }, [language]);
 
-  const fetchServices = async () => {
+  const fetchServices = async (lang: 'tr' | 'en' | 'ar') => {
     setLoading(true);
     try {
-      const response = await axios.get('/api/services');
+      const response = await axios.get(`/api/services?lang=${lang}`);
       setServices(response.data.services);
     } catch (err) {
       console.error('Error fetching services:', err);
@@ -76,10 +79,6 @@ function ServiceManager() {
     }
   };
 
-  const filteredServices = services.filter(service =>
-    service.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
   const openDeleteModal = (service: ServiceItem) => {
     setServiceToDelete(service);
     setShowModal(true);
@@ -87,9 +86,7 @@ function ServiceManager() {
 
   const confirmDelete = async () => {
     if (!serviceToDelete) return;
-
     setLoading(true);
-
     try {
       await axios.delete(`/api/services/${serviceToDelete.id}`);
       setServices(prev => prev.filter(s => s.id !== serviceToDelete.id));
@@ -107,6 +104,20 @@ function ServiceManager() {
   return (
     <div className={style.card}>
       <h4 style={{ marginBottom: '2rem' }}>Service List</h4>
+
+      <div style={{ marginBottom: '1rem' }}>
+        <label htmlFor="language-select" style={{ marginRight: 8 }}>Filter by language:</label>
+        <select
+          id="language-select"
+          value={language}
+          onChange={e => setLanguage(e.target.value as 'tr' | 'en' | 'ar')}
+          style={{ padding: '4px 8px', borderRadius: 4, border: '1px solid #ccc' }}
+        >
+          <option value="tr">Turkish (tr)</option>
+          <option value="en">English (en)</option>
+          <option value="ar">Arabic (ar)</option>
+        </select>
+      </div>
 
       <div className={style.actionRow}>
         <input
@@ -132,46 +143,48 @@ function ServiceManager() {
               <th className={style.tableHeader}>Actions</th>
             </tr>
           </thead>
-
           <tbody>
-            {filteredServices.map(service => (
-              <tr key={service.id} className={style.tableRow}>
-                <td className={style.tableData}>
-                  <Image
-                    src={service.icon_path}
-                    alt={service.title}
-                    width={40}
-                    height={40}
-                    style={{ borderRadius: '6px' }}
-                  />
-                </td>
-                <td className={style.tableData}>{service.title}</td>
-                <td className={style.tableData}>{service.description}</td>
-                <td className={style.tableData}>
-                  <div className={style.actionButtonsWrapper}>
-                    <Link
-                      href={`/Dashboard/Manage_website/Manage_service/${service.id}`}
-                      className={style.viewButton}
-                      title="Edit"
-                    >
-                      <EditDocumentIcon fontSize="small" />
-                    </Link>
-                    <button
-                      className={style.deleteButton}
-                      title="Delete"
-                      onClick={() => openDeleteModal(service)}
-                    >
-                      <DeleteIcon fontSize="small" />
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
+            {services
+              .filter(service =>
+                service.title.toLowerCase().includes(searchTerm.toLowerCase())
+              )
+              .map(service => (
+                <tr key={service.id} className={style.tableRow}>
+                  <td className={style.tableData}>
+                    <Image
+                      src={service.icon_path}
+                      alt={service.title}
+                      width={40}
+                      height={40}
+                      style={{ borderRadius: '6px' }}
+                    />
+                  </td>
+                  <td className={style.tableData}>{service.title}</td>
+                  <td className={style.tableData}>{service.description}</td>
+                  <td className={style.tableData}>
+                    <div className={style.actionButtonsWrapper}>
+                      <Link
+                        href={`/Dashboard/Manage_website/Manage_service/${service.id}`}
+                        className={style.viewButton}
+                        title="Edit"
+                      >
+                        <EditDocumentIcon fontSize="small" />
+                      </Link>
+                      <button
+                        className={style.deleteButton}
+                        title="Delete"
+                        onClick={() => openDeleteModal(service)}
+                      >
+                        <DeleteIcon fontSize="small" />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
 
-      {/* Modal de confirmation */}
       {showModal && serviceToDelete && (
         <ModalConfirm
           title="Confirm Deletion"
@@ -181,28 +194,26 @@ function ServiceManager() {
         />
       )}
 
-      {/* Loader */}
       <Backdrop open={loading} style={{ zIndex: 9999, color: '#fff' }}>
         <CircularProgress color="inherit" />
       </Backdrop>
-
-      {/* Snackbar */}
       <Snackbar
-        open={!!alert}
-        autoHideDuration={4000}
-        onClose={() => setAlert(null)}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={!!alert}
+      autoHideDuration={4000}
+      onClose={() => setAlert(null)}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+    >
+      {alert !== null ? (
+        <Alert
+          onClose={() => setAlert(null)}
+          severity={alert.type}
+          sx={{ width: '100%' }}
         >
-        {alert ? (
-            <Alert
-            onClose={() => setAlert(null)}
-            severity={alert.type}
-            sx={{ width: '100%' }}
-            >
-            {alert.message}
-            </Alert>
-        ) : undefined}
-        </Snackbar>
+          {alert.message}
+        </Alert>
+      ) : undefined}
+    </Snackbar>
+
 
     </div>
   );

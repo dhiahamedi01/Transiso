@@ -6,25 +6,17 @@ import pool from '@/lib/db';
 function getIdFromReq(req: NextRequest) {
   const url = req.nextUrl;
   const parts = url.pathname.split('/');
-  return parts[parts.length - 1]; // récupère le dernier segment (id)
+  return parts[parts.length - 1];
 }
 
-// GET /api/services/[id]
-function getServiceIdFromReq(req: NextRequest) {
-  const url = req.nextUrl;
-  const parts = url.pathname.split('/');
-  return parts[parts.length - 1]; // dernier segment = service_id
-}
-
+// GET /api/service/[id]
 export async function GET(req: NextRequest) {
-  const service_id = getServiceIdFromReq(req);
-  const lang = req.nextUrl.searchParams.get('lang') || 'en';
+  const id = getIdFromReq(req);
 
   try {
-    // Récupérer le service par service_id ET langue
     const [rows]: any = await pool.query(
-      `SELECT * FROM services WHERE service_id = ? AND lang = ? LIMIT 1`,
-      [service_id, lang]
+      `SELECT * FROM services WHERE id = ? LIMIT 1`,
+      [id]
     );
 
     if (!rows || rows.length === 0) {
@@ -33,14 +25,14 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json(rows[0]);
   } catch (error) {
-    console.error(error);
+    console.error('Erreur GET Service:', error);
     return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 });
   }
 }
 
-// PUT /api/services/[service_id]
+// PUT /api/service/[id]
 export async function PUT(req: NextRequest) {
-  const service_id = getServiceIdFromReq(req);
+  const id = getIdFromReq(req);
 
   try {
     const formData = await req.formData();
@@ -61,15 +53,16 @@ export async function PUT(req: NextRequest) {
         fs.mkdirSync(uploadDir, { recursive: true });
       }
 
-      const fileName = `icon_${Date.now()}.jpg`;
+      const ext = path.extname(iconFile.name) || '.jpg';
+      const fileName = `icon_${Date.now()}${ext}`;
       const filePath = path.join(uploadDir, fileName);
       fs.writeFileSync(filePath, buffer);
       iconPath = `/uploads/services/${fileName}`;
 
-      // Supprimer ancien fichier
+      // Supprimer ancien fichier icône si existant
       const oldResult = await pool.query(
-        'SELECT icon_path FROM services WHERE service_id = ?',
-        [service_id]
+        'SELECT icon_path FROM services WHERE id = ?',
+        [id]
       );
       const oldRows = oldResult[0] as any[];
       const oldIcon = oldRows[0]?.icon_path;
@@ -82,8 +75,9 @@ export async function PUT(req: NextRequest) {
       }
     }
 
+    // Mise à jour des données
     let updateQuery = `
-      UPDATE services 
+      UPDATE services
       SET title = ?, description = ?, content = ?
     `;
     const paramsArray = [title, description, content];
@@ -93,10 +87,10 @@ export async function PUT(req: NextRequest) {
       paramsArray.push(iconPath);
     }
 
-    updateQuery += ' WHERE service_id = ?';
-    paramsArray.push(service_id);
+    updateQuery += ' WHERE id = ?';
+    paramsArray.push(id);
 
-    await pool.query(updateQuery, paramsArray);
+    const result = await pool.query(updateQuery, paramsArray);
 
     return NextResponse.json({ message: 'Service mis à jour avec succès.' });
   } catch (error) {
@@ -105,13 +99,15 @@ export async function PUT(req: NextRequest) {
   }
 }
 
-// DELETE /api/services/[id]
+// DELETE /api/service/[id]
 export async function DELETE(req: NextRequest) {
   const id = getIdFromReq(req);
 
   try {
-    // Supprimer l'image liée si elle existe
-    const result = await pool.query('SELECT icon_path FROM services WHERE id = ?', [id]);
+    const result = await pool.query(
+      'SELECT icon_path FROM services WHERE id = ?',
+      [id]
+    );
     const rows = result[0] as any[];
     const iconPath = rows[0]?.icon_path;
 
@@ -122,7 +118,10 @@ export async function DELETE(req: NextRequest) {
       }
     }
 
-    const deleteResult = await pool.query('DELETE FROM services WHERE id = ?', [id]);
+    const deleteResult = await pool.query(
+      'DELETE FROM services WHERE id = ?',
+      [id]
+    );
     const deleteInfo = deleteResult[0] as any;
 
     if (deleteInfo.affectedRows === 0) {

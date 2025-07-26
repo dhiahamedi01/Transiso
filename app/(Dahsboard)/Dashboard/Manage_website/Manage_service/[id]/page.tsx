@@ -19,8 +19,11 @@ interface ServiceFormData {
 }
 
 const EditServiceForm = () => {
-  const { id } = useParams();
+  const params = useParams();
   const router = useRouter();
+
+  const id = params?.id || ''; // id du service
+  const lang = params?.lang || 'en'; // récupère la langue depuis l'URL (ex: 'ar', 'tr', 'en')
 
   const [formData, setFormData] = useState<ServiceFormData>({
     icon: null,
@@ -39,7 +42,8 @@ const EditServiceForm = () => {
   useEffect(() => {
     const fetchService = async () => {
       try {
-        const response = await axios.get(`/api/services/${id}`);
+        // Passer lang dans la query string
+        const response = await axios.get(`/api/service/${id}?lang=${lang}`);
         const data = response.data;
         setFormData({
           icon: null,
@@ -56,7 +60,7 @@ const EditServiceForm = () => {
     };
 
     if (id) fetchService();
-  }, [id]);
+  }, [id, lang]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -92,7 +96,8 @@ const EditServiceForm = () => {
       data.append('description', formData.description);
       data.append('content', formData.content);
 
-      const response = await axios.put(`/api/services/${id}`, data);
+      // Passer lang dans l'URL aussi pour PUT si besoin
+      const response = await axios.put(`/api/service/${id}`, data);
 
       if (response.status === 200) {
         setAlertSeverity('success');

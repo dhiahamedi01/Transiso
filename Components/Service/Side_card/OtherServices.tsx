@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Box, Typography, Stack } from '@mui/material';
 import style from './OtherServices.module.css';
+import { useTranslation } from 'react-i18next';
 
 type Service = {
   id: number;
@@ -12,14 +13,17 @@ type Service = {
   slug: string;
 };
 
-const services: Service[] = [
-  { id: 1, title: 'شحن بالطائرة', img: '/img/Service/other4.jpg', slug: 'Plane' },
-  { id: 2, title: 'شحن بالقطار', img: '/img/Service/other_2-1.jpg', slug: 'Train' },
-  { id: 3, title: 'شحن بحري', img: '/img/Service/other_3-1.jpg', slug: 'Sea' },
-  { id: 4, title: 'شحن بالشاحنة', img: '/img/Service/other_1-1.jpg', slug: 'truck' },
-];
-
 export default function OtherServices() {
+  const { t } = useTranslation();
+
+  // services créé ici, après récupération de la fonction t()
+  const services: Service[] = [
+    { id: 1, title: t('service.titles.Plane'), img: '/img/Service/other4.jpg', slug: 'Plane' },
+    { id: 2, title: t('service.titles.Train'), img: '/img/Service/other_2-1.jpg', slug: 'Train' },
+    { id: 3, title: t('service.titles.Sea'), img: '/img/Service/other_3-1.jpg', slug: 'Sea' },
+    { id: 4, title: t('service.titles.Truck'), img: '/img/Service/other_1-1.jpg', slug: 'Truck' },
+  ];
+
   return (
     <Box sx={{ maxWidth: 380, mx: 'auto', mt: 4 }}>
       <Stack spacing={1.5}>
@@ -54,7 +58,6 @@ function ServiceCard({ id, title, img, slug }: CardProps) {
         '&:hover .mask': { opacity: 1 },
       }}
     >
-      {/* Image de fond */}
       <Image
         src={img}
         alt={title}
@@ -63,8 +66,6 @@ function ServiceCard({ id, title, img, slug }: CardProps) {
         className="picture"
         style={{ objectFit: 'cover' }}
       />
-
-      {/* Masque sombre au survol */}
       <Box
         className="mask"
         sx={{
@@ -73,8 +74,6 @@ function ServiceCard({ id, title, img, slug }: CardProps) {
           bgcolor: 'rgba(12, 54, 69, 0.55)',
         }}
       />
-
-      {/* Titre et numéro du service */}
       <Box
         sx={{
           position: 'relative',

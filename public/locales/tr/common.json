@@ -287,15 +287,40 @@
           "rating_client":"Müşteri Görüşleri",
           "vrai_review": "Gerçek müşteri yorumları",
           "logout":"çıkış yap",
-          "myDashboard":"Gösterge Paneli" 
-        
-        
-        
-      
-      
-
-
-    
+          "myDashboard":"Gösterge Paneli" ,
+          "service": {
+            "not_found": "Hizmet bulunamadı",
+            "error_unknown": "Bilinmeyen hata",
+            "back_to_services": "Hizmetlere geri dön",
+            "main_services": "Ana Hizmetler",
+            "request_help_title": "Yardım Talebi",
+            "request_help_description": "Yardım talep etmek için lütfen 'Şimdi Sor' düğmesine tıklayın ve gerekli bilgileri doldurun.",
+            "ask_now": "Şimdi Sor",
+            "tracking_title": "Basit ve Etkili Takip",
+            "tracking_description": "Kolay gönderi yönetimi sağlamak için gelişmiş takip sistemleri, gerçek zamanlı analizler ve uzman lojistikçiler.",
+            "support_title": "Hızlı Destek",
+            "support_description": "Depo koordinasyonu, son teslimat ve etkili envanter kontrolünde uzmanız.",
+            "titles": {
+              "Plane": "Hava Nakliyesi",
+              "Train": "Tren Nakliyesi",
+              "Sea": "Deniz Nakliyesi",
+              "Truck": "Kamyon Nakliyesi"
+            }
+          },
+          "faq": {
+            "questions": [
+              "Transiso hangi hava kargo hizmetlerini sunuyor?",
+              "Gönderilerimi gerçek zamanlı takip edebilir miyim?",
+              "Transiso gönderi güvenliğini nasıl sağlıyor?",
+              "Hizmetleriniz hangi bölgeleri kapsıyor?"
+            ],
+            "answers": [
+              "Transiso, kaynak noktasından alım, belge hazırlığı, gümrükleme ve varış havaalanı veya müşteri adresine teslimat dahil olmak üzere hızlı ve güvenli hava kargo hizmetleri sunmaktadır. Dünya çapındaki önde gelen havayolu şirketleri ile işbirliği yapmaktadır.",
+              "Evet, Transiso gelişmiş bir takip sistemi sunar, gönderinizin durumunu anlık olarak izleyebilir, gönderimden teslimata kadar tüm süreci takip edebilir ve herhangi bir güncellemede anında bildirim alabilirsiniz.",
+              "Profesyonel ambalajlama, modern izleme teknolojileri ve kapsamlı sigorta seçenekleri ile gönderilerinizin zarar görme veya kaybolma riskine karşı maksimum koruma sağlıyoruz.",
+              "Transiso’nun hizmetleri, güçlü uluslararası partner ağı aracılığıyla dünyanın çoğu ülkesini kapsamaktadır. Doğrudan teslimat veya onaylı lojistik merkezleri üzerinden teslimat seçenekleri ile esnek ve çeşitli çözümler sunmaktadır."
+            ]
+          }
     
   }
   

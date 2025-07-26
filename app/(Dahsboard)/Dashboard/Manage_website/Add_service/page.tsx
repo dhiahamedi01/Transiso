@@ -9,50 +9,60 @@ import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 import axios from 'axios';
 
-interface ServiceFormData {
-  icon: File | null;
+type Lang = 'en' | 'ar' | 'tr';
+
+interface MultilingualData {
   title: string;
   description: string;
   content: string;
 }
 
+interface ServiceFormState {
+  en: MultilingualData;
+  ar: MultilingualData;
+  tr: MultilingualData;
+  icon: File | null;
+}
+
 const AddServiceForm = () => {
-  const [formData, setFormData] = useState<ServiceFormData>({
+  const [language, setLanguage] = useState<Lang>('en');
+  const [formData, setFormData] = useState<ServiceFormState>({
+    en: { title: '', description: '', content: '' },
+    ar: { title: '', description: '', content: '' },
+    tr: { title: '', description: '', content: '' },
     icon: null,
-    title: '',
-    description: '',
-    content: '',
   });
 
   const [loading, setLoading] = useState(false);
   const [alertOpen, setAlertOpen] = useState(false);
-  const [alertSeverity, setAlertSeverity] = useState<'success' | 'error' | 'info'>('info');
+  const [alertSeverity, setAlertSeverity] = useState<'success' | 'error'>('success');
   const [alertMessage, setAlertMessage] = useState('');
-
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({
+      ...prev,
+      [language]: { ...prev[language], [name]: value },
+    }));
   };
 
   const handleIconChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] ?? null;
-    setFormData(prev => ({ ...prev, icon: file }));
+    setFormData((prev) => ({ ...prev, icon: file }));
   };
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    const file = e.dataTransfer.files?.[0] ?? null;
-    if (file) setFormData(prev => ({ ...prev, icon: file }));
+    const file = e.dataTransfer.files?.[0];
+    if (file) setFormData((prev) => ({ ...prev, icon: file }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!formData.icon || !formData.title.trim()) {
+    if (!formData.icon || !formData.en.title.trim()) {
       setAlertSeverity('error');
-      setAlertMessage('Icon and Title are required.');
+      setAlertMessage('Icon and English title are required.');
       setAlertOpen(true);
       return;
     }
@@ -61,22 +71,33 @@ const AddServiceForm = () => {
 
     try {
       const data = new FormData();
-      data.append('icon', formData.icon);
-      data.append('title', formData.title);
-      data.append('description', formData.description);
-      data.append('content', formData.content);
+      (['en', 'ar', 'tr'] as Lang[]).forEach((lng) => {
+        data.append(`title_${lng}`, formData[lng].title);
+        data.append(`description_${lng}`, formData[lng].description);
+        data.append(`content_${lng}`, formData[lng].content);
+      });
 
-      const response = await axios.post('/api/services', data);
+      if (formData.icon) {
+        data.append('icon', formData.icon);
+      }
 
-      if (response.status === 200) {
+      const res = await axios.post('/api/services', data);
+
+      if (res.status === 200) {
         setAlertSeverity('success');
-        setAlertMessage('Service created successfully!');
-        setFormData({ icon: null, title: '', description: '', content: '' });
+        setAlertMessage('Service added in all languages!');
+        setFormData({
+          en: { title: '', description: '', content: '' },
+          ar: { title: '', description: '', content: '' },
+          tr: { title: '', description: '', content: '' },
+          icon: null,
+        });
       } else {
         setAlertSeverity('error');
-        setAlertMessage('Failed to create the service.');
+        setAlertMessage('Failed to submit service.');
       }
     } catch (err) {
+      console.error(err);
       setAlertSeverity('error');
       setAlertMessage('An error occurred while submitting the form.');
     } finally {
@@ -85,46 +106,71 @@ const AddServiceForm = () => {
     }
   };
 
+  const handleAlertClose = () => setAlertOpen(false);
+
   useEffect(() => {
     return () => {
       if (formData.icon) URL.revokeObjectURL(formData.icon as any);
     };
   }, [formData.icon]);
 
-  const handleAlertClose = (_event?: React.SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') return;
-    setAlertOpen(false);
-  };
-
   return (
-    <div className={styles.container}>
-      <h3 className={styles.title}>Add a Service</h3>
+    <div
+      className={styles.container}
+      style={{
+        direction: language === 'ar' ? 'rtl' : 'ltr',
+        textAlign: language === 'ar' ? 'right' : 'left',
+        fontFamily: language === 'ar' ? 'Noto Kufi Arabic, sans-serif' : undefined,
+      }}
+    >
+      <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem', marginBottom: '1rem' }}>
+        {(['en', 'ar', 'tr'] as Lang[]).map((lng) => (
+          <button
+            key={lng}
+            type="button"
+            onClick={() => setLanguage(lng)}
+            style={{
+              backgroundColor: language === lng ? '#0070f3' : '#e0e0e0',
+              color: language === lng ? '#fff' : '#000',
+              padding: '0.5rem 1rem',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer',
+              fontWeight: 'bold',
+            }}
+          >
+            {lng.toUpperCase()}
+          </button>
+        ))}
+      </div>
+
+      <h3 className={styles.title}>Add Service ({language.toUpperCase()})</h3>
 
       <form onSubmit={handleSubmit} className={styles.form}>
         <input
           type="text"
           name="title"
           placeholder="Service title"
-          value={formData.title}
-          onChange={handleInputChange}
+          value={formData[language].title}
+          onChange={handleChange}
           className={`${styles.searchInputSmall} ${styles.span4}`}
-          required
+          required={language === 'en'}
         />
 
         <textarea
           name="description"
           placeholder="Short description"
-          value={formData.description}
-          onChange={handleInputChange}
+          value={formData[language].description}
+          onChange={handleChange}
           className={styles.searchInputSmall}
           rows={3}
         />
 
         <textarea
           name="content"
-          placeholder="Detailed content of the service..."
-          value={formData.content}
-          onChange={handleInputChange}
+          placeholder="Detailed content..."
+          value={formData[language].content}
+          onChange={handleChange}
           className={`${styles.searchInputSmall} ${styles.span4}`}
           rows={6}
         />
@@ -156,7 +202,6 @@ const AddServiceForm = () => {
                 type="button"
                 className={styles.deleteBtn}
                 onClick={() => setFormData(prev => ({ ...prev, icon: null }))}
-                aria-label="Delete selected icon"
               >
                 <CloseIcon fontSize="small" />
               </button>
@@ -171,7 +216,7 @@ const AddServiceForm = () => {
 
         <div className={styles.actions}>
           <button type="submit" className={styles.primary} disabled={loading}>
-            <SaveIcon fontSize="small" /> {loading ? 'Creating...' : 'Create Service'}
+            <SaveIcon fontSize="small" /> {loading ? 'Saving...' : 'Save All Languages'}
           </button>
         </div>
       </form>

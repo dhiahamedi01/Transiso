@@ -5,6 +5,17 @@
   font-style: normal;
   font-display: swap;
 }
+.Paper.ltr {
+  direction: ltr;
+  text-align: left;
+  gap: 50px;
+}
+
+.Paper.rtl {
+  direction: ltr;
+  text-align: right;
+}
+
 
 .Paper {
   width: 100%;
@@ -16,7 +27,6 @@
   padding-top: 50px;
   padding-bottom: 30px;
   position: relative;
-  direction: ltr !important;
   gap: 20px;
   flex-wrap: wrap; /* pour responsive */
 }
@@ -382,4 +392,30 @@
   justify-content: center;
   align-items: center;
   height: 70vh;
+}
+.Card.ltr {
+  direction: ltr;
+  text-align: left;
+}
+
+.Card.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Optionnel, si tu veux forcer les titres à s’aligner bien */
+.Card.rtl .titre_card {
+  text-align: right;
+}
+
+.Card.ltr .titre_card {
+  text-align: left;
+}
+
+.Card.rtl .desc_card {
+  text-align: right;
+}
+
+.Card.ltr .desc_card {
+  text-align: left;
 }

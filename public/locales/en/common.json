@@ -289,7 +289,40 @@
         "rating_client":"Customer Testimonials",
         "vrai_review": "Real customer reviews",
         "logout":"log out",
-        "myDashboard":"Dashboard"
+        "myDashboard":"Dashboard",
+        "service": {
+          "not_found": "Service not found",
+          "error_unknown": "Unknown error",
+          "back_to_services": "Back to services",
+          "main_services": "Main Services",
+          "request_help_title": "Request Help",
+          "request_help_description": "To request help, please click 'Ask Now' and fill out the required information.",
+          "ask_now": "Ask Now",
+          "tracking_title": "Simple and Effective Tracking",
+          "tracking_description": "Advanced tracking systems, real-time analytics, and expert logisticians to ensure easy shipment management.",
+          "support_title": "Fast Support",
+          "support_description": "We specialize in warehouse coordination, last-mile delivery, and efficient inventory control.",
+            "titles": {
+              "Plane": "Air Freight",
+              "Train": "Train Freight",
+              "Sea": "Sea Freight",
+              "Truck": "Truck Freight"
+            }
+        },
+        "faq": {
+    "questions": [
+      "What air freight services does Transiso offer?",
+      "Can I track my shipments in real time?",
+      "How does Transiso ensure shipment safety?",
+      "What regions do your services cover?"
+    ],
+    "answers": [
+      "Transiso offers fast and secure air freight services including pickup from the source, document preparation, customs clearance, and delivery to the destination airport or client’s location, in partnership with major airlines worldwide.",
+      "Yes, Transiso provides an advanced tracking system allowing you to monitor your shipment status moment by moment, from dispatch to final delivery, with instant notifications for any updates.",
+      "We use professional packaging, modern monitoring technologies, and comprehensive insurance options to ensure maximum protection against damage or loss.",
+      "Transiso’s services cover most countries worldwide through a strong network of international partners, with options for direct delivery or via accredited logistics hubs, ensuring flexible and diverse solutions."
+    ]
+  }
             
     
   }
