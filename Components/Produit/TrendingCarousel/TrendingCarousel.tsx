@@ -1,6 +1,13 @@
 'use client';
 
-import { Box, IconButton, Typography, CircularProgress, useMediaQuery, useTheme } from '@mui/material';
+import {
+  Box,
+  IconButton,
+  Typography,
+  CircularProgress,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
@@ -13,13 +20,12 @@ import { useProducts } from '@/hooks/useProducts';
 import CarouselHeader from './CarouselHeader';
 
 export default function TrendingCarousel() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { products, loading, error } = useProducts();
-
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isRTL = i18n.language === 'ar';
 
-  // Chargement dynamique de la police - attention à ne pas écraser la police globale si ce n'est pas voulu
   useEffect(() => {
     const font = new FontFace(
       'Noto Kufi Arabic',
@@ -32,8 +38,6 @@ export default function TrendingCarousel() {
     );
     font.load().then((loadedFont) => {
       document.fonts.add(loadedFont);
-      // Si tu veux changer la police juste du composant, utilise un conteneur avec style CSS et pas document.body:
-      // Par exemple, ajouter une classe CSS sur la Box racine et appliquer fontFamily dans ce scope uniquement.
     });
   }, []);
 
@@ -55,29 +59,24 @@ export default function TrendingCarousel() {
     );
   }
 
-  // Préparer les produits à afficher (top 10)
   const topProducts = products.slice(0, 10).map((p) => ({
     id: p.id,
     title: p.name,
     price: Number(p.price),
     oldPrice: p.old_price ? Number(p.old_price) : undefined,
     image: p.image1 || '/img/no-image.png',
-    rating: 5, // Note fixe, à adapter si tu as des notes réelles
+    rating: 5,
     description: p.description || '',
     category: p.category,
   }));
 
   return (
     <Box
+      dir={isRTL ? 'rtl' : 'ltr'}
       sx={{
-        px: {
-          xs: 0,
-          sm: 4,
-          md: 8,
-        },
+        px: { xs: 0, sm: 4, md: 8 },
         py: 6,
         pb: 8,
-        // Appliquer la police seulement dans ce conteneur (évite de toucher document.body)
         fontFamily: "'Noto Kufi Arabic', sans-serif",
       }}
     >

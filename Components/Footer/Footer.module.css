@@ -10,7 +10,6 @@
   /* ───────── Bloc principal du footer ───────── */
   .footer {
     font-family: 'Noto Kufi Arabic', sans-serif;
-    direction: rtl;
     background-color: #142B45;   /* nouveau BG */
     color: #bbbbbb;
     position: relative;
@@ -48,7 +47,8 @@
   /* ───────── Branding ───────── */
   .brand {
     flex: 2 1 350px;
-    margin-left: 24px;         /* espace entre brand et colonnes adjacentes */
+    margin-left: 24px;   
+    margin-right: 40px;      /* espace entre brand et colonnes adjacentes */
   }
   
   .logo {
@@ -57,7 +57,7 @@
   }
   
   .description {
-    font-size: 15px;
+    font-size: 13px;
     line-height: 1.8;
     color: #d4d4d4;
     margin-bottom: 24px;       /* éloigne la description des socialLinks */
@@ -91,6 +91,7 @@
   .col {
     flex: 1 1 160px;
     min-width: 140px;
+    margin-top: 40px;
   }
   
   .col h4 {
@@ -99,11 +100,10 @@
     margin-bottom: 28px;
     position: relative;
   }
-  
   .col h4::after {
     content: '';
     position: absolute;
-    right: 0;
+    inset-inline-start: 0;   /* au lieu de right: 0 */
     bottom: -8px;
     width: 48px;
     height: 2px;

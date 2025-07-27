@@ -320,7 +320,125 @@
               "Profesyonel ambalajlama, modern izleme teknolojileri ve kapsamlı sigorta seçenekleri ile gönderilerinizin zarar görme veya kaybolma riskine karşı maksimum koruma sağlıyoruz.",
               "Transiso’nun hizmetleri, güçlü uluslararası partner ağı aracılığıyla dünyanın çoğu ülkesini kapsamaktadır. Doğrudan teslimat veya onaylı lojistik merkezleri üzerinden teslimat seçenekleri ile esnek ve çeşitli çözümler sunmaktadır."
             ]
-          }
+          },
+          "Plane": {
+          "main_services": "Ana Hizmetler",
+          "request_help_title": "Yardım Talebi",
+          "request_help_description": "Yardım talebinde bulunmak için şimdi sor butonuna tıklayın ve gerekli bilgileri doldurun.",
+          "ask_now": "Şimdi Sor",
+          "title": "Transisso ile Gelişmiş Hava Kargo Hizmetleri",
+          "description1": "Türkiye'deki hava kargo sistemi lojistik alanında en gelişmiş ve etkili sistemlerden biridir ve hızlı, güvenli ithalat için ideal seçenekler sunar.",
+          "description2": "Transisso, işletmelere özel esnek hava kargo hizmetleri sunar: evrak hazırlığı, gümrükleme, sigorta, teslim alma ve varış noktasına ulaştırma hizmetleri dahil.",
+          "card1_title": "Entegre Kargo Çözümleri",
+          "card1_description": "Transisso olarak esnek ve güvenilir hava kargo hizmetleri sunuyoruz: alım, paketleme, evrak ve dünya çapında teslimat.",
+          "card2_title": "Güvenli Taşıma Garantisi",
+          "card2_description": "Transisso, yüklerinizi kaynağından hedef noktaya kadar güvenle ulaştırmak için sıkı izleme sistemleri ve kapsamlı sigorta sunar."
+          },
+          "Sea": {
+            "main_services": "Ana Hizmetler",
+            "request_help_title": "Yardım Talebi",
+            "request_help_description": "Yardım istemek için lütfen Şimdi Sor’a tıklayın ve gerekli bilgileri doldurun.",
+            "ask_now": "Şimdi Sor",
+            "title": "Transiso ile Deniz Taşımacılığı Hizmetleri",
+            "description1": "Deniz taşımacılığı, geniş çaplı ve küresel ölçekte yük taşımacılığı için en verimli ve ekonomik çözümlerden biridir...",
+            "description2": "Tam Konteyner Yükü (FCL) veya Daha Az Konteyner Yükü (LCL) ihtiyacınız varsa...",
+            "description3": "Ayrıca, taşıma sırasında potansiyel risklere karşı yüklerinizi korumak için esnek sigorta seçenekleri sunuyoruz...",
+            "card1_title": "İhtiyaçlarınıza Uygun Kapsamlı Hizmetler",
+            "card1_description": "Ticari ve bireysel tüm gönderi türlerine hizmet veriyoruz, gönderi türüne, zamanlamaya ve bütçeye göre özel çözümler sunuyoruz.",
+            "card2_title": "Yüksek Güvenlik ve Güvenilirlik",
+            "card2_description": "Transiso olarak, sevkiyatlarla ilgili küresel standartları izliyoruz ve deniz taşımacılığı sırasında olası risklere karşı tam sigorta kapsamı sağlıyoruz."
+          },
     
+          "Train": {
+            "main_services": "Ana Hizmetler",
+            "request_help_title": "Yardım Talebi",
+            "request_help_description": "Yardım talebinde bulunmak için lütfen 'Şimdi Sor' butonuna tıklayın ve talebinizin hızlı ve etkili bir şekilde işlenmesi için gerekli tüm bilgileri eksiksiz ve doğru şekilde doldurun.",
+            "ask_now": "Şimdi Sor",
+            "title": "Transiso ile Tren Nakliye Hizmetleri",
+            "description1": "Tren nakliyesi, Türkiye içinde ve komşu ülkelere uzun mesafeli yük taşımacılığında en ekonomik ve hızlı yöntemlerden biridir. Hizmetlerimiz, konteynerler, ağır yükler ve hassas ürünler dahil olmak üzere büyük ve çeşitli kargoları kapsamaktadır ve zamanında ve güvenli teslimatı garanti eder.",
+            "description2": "Transiso, önemli şehirleri ve kritik limanları birbirine bağlayan gelişmiş demiryolu ağını kullanarak, planlama kolaylığı ile esnek uygulamayı birleştiren kapsamlı lojistik çözümler sunmaktadır. Hizmetlerimiz, depo tesliminden başlayarak, istasyonlarda paketleme ve yükleme, hızlı gümrükleme koordinasyonu ve belirlenen yerde nihai teslimatı kapsar.",
+            "description3": "Ekibimiz, gönderilerin her aşamasını takip etmek için en son uydu izleme ve dijital sistemleri kullanmaktadır. Bu şeffaflık müşterilerimize tam güven ve optimum iş planlaması sağlar. Ayrıca, Transiso, hasar, hırsızlık veya gecikme gibi potansiyel risklere karşı çoklu sigorta seçenekleri sunarak en yüksek güvenlik seviyelerini garanti eder.",
+            "description4": "7/24 teknik destek ve müşteri hizmeti sağlayarak, müşterilerimizin danışmanlık almasını, gönderi takibi yapmasını veya şikayet ve önerilerini iletmesini mümkün kılıyoruz. Müşterilerimizle zamanında teslimat, kişiselleştirilmiş hizmetler ve yenilikçi çözümler aracılığıyla güvene dayalı ilişkiler kurmayı hedefliyoruz.",
+            "card1_title": "Ekonomik ve Verimli Taşıma",
+            "card1_description": "Müşterilerimizin ihtiyaçlarına göre esnek programlama ve rota seçimi ile rekabetçi fiyatlı tren nakliye hizmetleri sunuyoruz. Bu sayede hız ve maliyet arasında uygun denge sağlanmaktadır.",
+            "card2_title": "Garantili Gönderi Güvenliği",
+            "card2_description": "Her gönderiyi yolculuk boyunca titizlikle izliyor ve potansiyel tüm risklere karşı tam sigorta kapsamı sağlayarak müşterilerimizin tam huzur içinde olmasını sağlıyoruz."
+          },
+          "truck": {
+            "main_services": "Ana Hizmetler",
+            "request_help_title": "Yardım Talebi",
+            "request_help_description": "Yardım talebinde bulunmak için lütfen Şimdi Sor'a tıklayın ve gerekli bilgileri doldurun.",
+            "ask_now": "Şimdi Sor",
+            "title": "Transiso ile Kamyon Nakliye Hizmetleri",
+            "description1": "Kamyon taşımacılığı, Türkiye ve çevre ülkelerdeki lojistik taşımacılığın en önemli yöntemlerinden biridir. Yüksek esnekliği ve ara istasyonlara veya ek taşıma modlarına ihtiyaç duymadan doğrudan hedeflere ulaşabilme imkanı nedeniyle tercih edilir. Karayolları üzerinden hızlı ve etkili hareket kabiliyeti, müşterilere hem kentsel hem kırsal bölgelere hızlı teslimat ve lojistik maliyetlerin azaltılması konusunda büyük avantaj sağlar.",
+            "description2": "Transiso, modern ve en son güvenlik teknolojileriyle donatılmış geniş bir kamyon filosuna sahip, profesyonel ve kapsamlı kamyon nakliye hizmetleri sunmaktadır. Kapalı, soğutuculu ve düz yataklı kamyonlar dahil olmak üzere her türlü kuru mal, bozulabilir ürün ve ağır veya hacimli yükler için uygun çözümlerimiz vardır. Taşımacılık süresince malların kalitesini ve güvenliğini korumaya önem veriyoruz; bu nedenle tüm araçlarımızın düzenli bakım ve periyodik kontrollerini en yüksek standartlarda yapıyoruz.",
+            "description3": "Hizmetlerimiz Türkiye'nin tüm illeri içinde ve Irak, Suriye, Gürcistan, Bulgaristan gibi komşu ülkelere uluslararası taşımacılığı kapsamaktadır. Her müşterimizin ihtiyaçlarına ve yük türüne uygun özelleştirilmiş çözümler sunuyoruz. İleri düzey gerçek zamanlı kargo takip sistemi ile müşterilerimize yüklerinin durumunu sürekli izleme ve zamanında teslimat garantisi sağlıyoruz.",
+            "description4": "Nakliyeye ek olarak, Transiso gerekli tüm belgelerin hazırlanması ve gümrük işlemlerinin tamamlanması konusunda kapsamlı hizmetler sunmakta, resmi makamlarla koordinasyon sağlayarak işlemlerin gecikmeden yapılmasını temin etmektedir. Ayrıca, taşımacılık sırasında olası kayıp veya hasarlara karşı kapsamlı sigorta teminatı sağlamaktayız.",
+            "description5": "Uzman sürücülerimiz ve lojistik destek personelimizle yüksek kaliteli hizmet vermeye, teslimat sürelerine ve güvenlik gereksinimlerine tam uyum sağlamaya büyük önem veriyoruz. Sürekli olarak en son teknolojiler ve modern yönetim sistemleri kullanarak operasyonlarımızı geliştiriyor ve müşterilerimize en iyi deneyimi sunmayı hedefliyoruz.",
+            "description6": "Yükleriniz büyük hacimli, özel ilgi gerektiren hassas veya acil teslimat gerektiren hızlı ve esnek çözümler gerektirse de, Transiso tüm lojistik ihtiyaçlarınızı etkili ve ekonomik şekilde karşılayan en iyi çözümleri sunar. Kamyon taşımacılığında Transiso'yu tercih edin, yüksek kaliteli hizmet, sürekli destek ve rekabetçi fiyatların keyfini çıkarın.",
+            "card1_title": "Teslimatta Esneklik ve Hız",
+            "card1_description": "Şehir içi ve dışı yükleme, boşaltma ve doğrudan teslimat hizmetlerini içeren esnek kamyon taşımacılığı çözümleri sunuyoruz ve zaman çizelgelerine tam bağlıyız.",
+            "card2_title": "Güvenlik ve Kesin Takip",
+            "card2_description": "Gelişmiş takip sistemlerine dayanıyor ve yüklerin taşımacılık süresi boyunca korunması ve konumunun hassas takibi için tam sigorta teminatı sağlıyoruz."
+          }
+          ,"footer":{
+            "company": "Şirket",
+            "about": "Hakkımızda",
+            "services": "Hizmetlerimiz",
+            "blog": "Blog",
+          
+            "help": "Yardım",
+            "inquiry": "Çevrimiçi Sorgu",
+            "shipping": "Kargo & İade",
+            "tracking": "Sipariş Takibi",
+          
+            "products": "Ürün Listemiz",
+            "packing": "Paketleme Makineleri",
+            "plastic": "Plastik Kaplar",
+            "oil": "Ham Bitkisel Yağ",
+          
+            "rights": "Tüm hakları saklıdır",
+            "privacy": "Gizlilik Politikası",
+            "terms": "Şartlar ve Koşullar"
+          },
+          "checkout": {
+            "orderDetails": "Sipariş Detayları",
+            "customer": "Müşteri",
+            "customerPlaceholder": "Müşteri adını girin",
+            "address": "Adres",
+            "addressPlaceholder": "Detaylı adresi girin",
+            "country": "Ülke",
+            "countryPlaceholder": "Ülke adı",
+            "phone": "Telefon",
+            "phonePlaceholder": "Telefon numarası",
+            "email": "E-posta",
+            "emailPlaceholder": "example@email.com",
+            "paymentMethod": "Ödeme Yöntemi",
+            "creditCard": "Kredi Kartı (Yakında)",
+            "paypal": "PayPal (Yakında)",
+            "cashOnDelivery": "Kapıda Ödeme",
+            "products": "Ürünler",
+            "submitOrder": "Siparişi Gönder",
+            "orderSuccess": "Siparişiniz için teşekkürler!",
+            "redirecting": "Kısa süre içinde ürünler sayfasına yönlendirileceksiniz...",
+            "noProductSelected": "Ürün seçilmedi.",
+            "productDetails": "🧾 Ürün Detayları",
+            "name": "İsim",
+            "price": "Fiyat",
+            "stock": "Stok",
+            "available": "Mevcut",
+            "unavailable": "Mevcut değil",
+            "loading": "Yükleniyor..."
+          },
+          "carousel": {
+            "title": "Haftanın Fırsatları",
+            "badge": "Teklif bitmeden acele et!",
+            "viewAll": "Tümünü gör"
+          }
+          
+
+
+
+
   }
   

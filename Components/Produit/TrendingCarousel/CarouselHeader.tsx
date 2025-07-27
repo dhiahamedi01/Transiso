@@ -1,8 +1,13 @@
+'use client';
+
 import { useEffect } from 'react';
 import { Box, Typography, Link, useMediaQuery } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 function CarouselHeader() {
+  const { t, i18n } = useTranslation();
   const isMobile = useMediaQuery('(max-width:768px)');
+  const isRTL = i18n.language === 'ar';
 
   useEffect(() => {
     const font = new FontFace(
@@ -16,16 +21,16 @@ function CarouselHeader() {
     );
     font.load().then((loadedFont) => {
       document.fonts.add(loadedFont);
-      document.body.style.fontFamily = "'Noto Kufi Arabic', sans-serif";
     });
   }, []);
 
   return (
     <Box
       sx={{
-        px: { xs: 2, sm: '3%' },  // mobile un peu moins de padding, desktop inchangé
+        px: { xs: 2, sm: '3%' },
         py: 3,
-        fontFamily: "'Noto Kufi Arabic', sans-serif",
+        fontFamily: i18n.language === 'ar' ? "'Noto Kufi Arabic', sans-serif" : 'inherit',
+        direction: isRTL ? 'rtl' : 'ltr',
       }}
     >
       <Box
@@ -37,7 +42,6 @@ function CarouselHeader() {
           flexWrap: 'wrap',
           gap: 1,
           position: 'relative',
-          direction: 'rtl',
         }}
       >
         <Box sx={{ position: 'relative', pb: '6px', flex: '1 1 auto', minWidth: 0 }}>
@@ -45,25 +49,25 @@ function CarouselHeader() {
             variant="h6"
             fontWeight="bold"
             sx={{
-              fontSize: { xs: '16px', sm: '22px' }, // réduit en mobile
+              fontSize: { xs: '16px', sm: '22px' },
               fontWeight: '500',
               color: '#0D3547',
               marginBottom: '10px',
-              fontFamily: "'Noto Kufi Arabic', sans-serif",
+              fontFamily: i18n.language === 'ar' ? "'Noto Kufi Arabic', sans-serif" : 'inherit',
               whiteSpace: 'nowrap',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
             }}
           >
-            عروض الأسبوع
+            {t('carousel.title')}
           </Typography>
           <Box
             sx={{
               position: 'absolute',
               bottom: 0,
-              right: 0,
+              [isRTL ? 'right' : 'left']: 0,
               height: 3,
-              width: { xs: '90px', sm: '15%' },  // barre rouge plus courte en mobile
+              width: { xs: '90px', sm: '15%' },
               bgcolor: '#E22121',
               borderRadius: 1,
             }}
@@ -86,26 +90,26 @@ function CarouselHeader() {
               px: { xs: 1.5, sm: 2 },
               py: 0.6,
               borderRadius: 20,
-              fontSize: { xs: 11, sm: 13 }, // plus petit en mobile
+              fontSize: { xs: 11, sm: 13 },
               whiteSpace: 'nowrap',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
             }}
           >
-            سارع قبل انتهاء العرض!
+            {t('carousel.badge')}
           </Box>
           <Link
             href="/Liste_produit"
             underline="none"
             sx={{
-              fontSize: { xs: 12, sm: 14 }, // plus petit en mobile
+              fontSize: { xs: 12, sm: 14 },
               color: '#333',
               whiteSpace: 'nowrap',
               '&:hover': { color: '#E22121' },
             }}
           >
-            عرض الكل &gt;
+            {t('carousel.viewAll')} &gt;
           </Link>
         </Box>
       </Box>

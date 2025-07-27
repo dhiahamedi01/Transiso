@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { createProductWithImages } from '@/services/productService'
+import { createProductWithImages } from '@/services/productService';
 
 export function useCreateProduct() {
   const [loading, setLoading] = useState(false);
@@ -12,7 +12,7 @@ export function useCreateProduct() {
       const { id } = await createProductWithImages(productData, images);
       return id;
     } catch (e: any) {
-      setError(e.message);
+      setError(e.message || 'Unknown error');
       throw e;
     } finally {
       setLoading(false);

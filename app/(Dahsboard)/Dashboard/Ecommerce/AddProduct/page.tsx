@@ -11,40 +11,64 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 
+type Lang = 'en' | 'ar' | 'tr';
+
+interface ProductData {
+  productName: string;
+  category: string;
+  oldPrice: string;
+  price: string;
+  stock: string;
+  description: string;
+}
+
 function AddProduct() {
-  const [productData, setProductData] = useState({
-    productName: '',
-    category: '',
-    oldPrice: '',
-    price: '',
-    stock: '',
-    description: '',
+  const [lang, setLang] = useState<Lang>('en');
+
+  const [productsData, setProductsData] = useState<Record<Lang, ProductData>>({
+    en: { productName: '', category: '', oldPrice: '', price: '', stock: '', description: '' },
+    ar: { productName: '', category: '', oldPrice: '', price: '', stock: '', description: '' },
+    tr: { productName: '', category: '', oldPrice: '', price: '', stock: '', description: '' },
   });
 
   const [images, setImages] = useState<File[]>([]);
 
   const { save, loading, error } = useCreateProduct();
 
-  // Snackbar state
   const [successOpen, setSuccessOpen] = useState(false);
   const [errorOpen, setErrorOpen] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
 
+  const handleLangChange = (newLang: Lang) => {
+    setLang(newLang);
+  };
+
+  // Fonction pour mettre à jour le produit de la langue active
+  const setProductDataForLang = (data: ProductData) => {
+    setProductsData((prev) => ({
+      ...prev,
+      [lang]: data,
+    }));
+  };
+
   const handleSave = async () => {
     try {
-      const id = await save(productData, images);
-      setSuccessMessage(`Produit créé avec l'id ${id}`);
+      // Sauvegarde dans chaque langue
+      for (const language of ['en', 'ar', 'tr'] as Lang[]) {
+        await save({ ...productsData[language], lang: language }, images);
+      }
+
+      setSuccessMessage(`Produit créé dans les 3 langues`);
       setSuccessOpen(true);
+
       // Reset form
-      setProductData({
-        productName: '',
-        category: '',
-        oldPrice: '',
-        price: '',
-        stock: '',
-        description: '',
+      setProductsData({
+        en: { productName: '', category: '', oldPrice: '', price: '', stock: '', description: '' },
+        ar: { productName: '', category: '', oldPrice: '', price: '', stock: '', description: '' },
+        tr: { productName: '', category: '', oldPrice: '', price: '', stock: '', description: '' },
       });
       setImages([]);
+      setLang('en');
     } catch {
       setErrorOpen(true);
     }
@@ -68,9 +92,32 @@ function AddProduct() {
 
   return (
     <div>
-      <BasicInfoCard form={productData} setForm={setProductData} />
+      {/* Boutons langue */}
+      <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8, marginBottom: 16 }}>
+        {(['ar', 'tr', 'en'] as Lang[]).map((l) => (
+          <button
+            key={l}
+            style={{
+              padding: '6px 12px',
+              backgroundColor: lang === l ? '#4f46e5' : '#e0e0e0',
+              color: lang === l ? 'white' : 'black',
+              border: 'none',
+              borderRadius: 4,
+              cursor: 'pointer',
+              fontWeight: lang === l ? 'bold' : 'normal',
+            }}
+            onClick={() => handleLangChange(l)}
+          >
+            {l.toUpperCase()}
+          </button>
+        ))}
+      </div>
+
+      {/* Formulaire */}
+      <BasicInfoCard form={productsData[lang]} setForm={setProductDataForLang} />
       <Form_Product images={images} setImages={setImages} />
 
+      {/* Actions */}
       <div className={style.actions}>
         <button type="button" className={style.secondary}>
           Cancel
@@ -82,13 +129,13 @@ function AddProduct() {
           variant="contained"
           className={style.primary}
           disabled={loading}
-          sx={{backgroundColor:'#4f46e5'}}
+          sx={{ backgroundColor: '#4f46e5' }}
         >
           Save Changes
         </LoadingButton>
       </div>
 
-      {/* Snackbars pour succès et erreur */}
+      {/* Success Snackbar */}
       <Snackbar
         open={successOpen}
         autoHideDuration={4000}
@@ -100,6 +147,7 @@ function AddProduct() {
         </Alert>
       </Snackbar>
 
+      {/* Error Snackbar */}
       <Snackbar
         open={errorOpen}
         autoHideDuration={4000}

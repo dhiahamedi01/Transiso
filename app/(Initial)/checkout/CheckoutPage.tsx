@@ -7,8 +7,10 @@ import axios from 'axios';
 import styles from './CheckoutPage.module.css';
 import { CircularProgress } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
+import { useTranslation } from 'react-i18next';
 
 export default function CheckoutPage() {
+  const { t, i18n } = useTranslation();
   const searchParams = useSearchParams();
   const router = useRouter();
   const productId = searchParams.get('productId');
@@ -26,7 +28,7 @@ export default function CheckoutPage() {
     status: 'pending',
     payment: 'unpaid',
     country: '',
-    paymentMethod: 'الدفع عند التسليم',
+    paymentMethod: t('checkout.cashOnDelivery'),
     phone: '',
     email: '',
     date: '',
@@ -35,7 +37,9 @@ export default function CheckoutPage() {
 
   const [orderId, setOrderId] = useState('');
 
-  // 1. Charger produit
+  // Direction dynamique selon langue
+  const direction = i18n.language === 'ar' ? 'rtl' : 'ltr';
+
   useEffect(() => {
     if (!productId) return;
 
@@ -52,12 +56,11 @@ export default function CheckoutPage() {
         setOrderId('ORD-' + Math.floor(100000 + Math.random() * 900000));
       })
       .catch(err => {
-        console.error('Erreur récupération produit', err);
+        console.error('Error loading product', err);
       })
       .finally(() => setLoading(false));
   }, [productId]);
 
-  // 2. Charger utilisateur si connecté (depuis localStorage userId)
   useEffect(() => {
     const userId = localStorage.getItem('userId');
     if (!userId) {
@@ -75,11 +78,11 @@ export default function CheckoutPage() {
           phone: user.phone || '',
           email: user.email || '',
           address: user.location || '',
-          country: user.location || '', // <-- Mettre location dans البلد ici
+          country: user.location || '',
         }));
       })
       .catch(err => {
-        console.error('Erreur récupération utilisateur', err);
+        console.error('Error loading user', err);
         setUserError(true);
       })
       .finally(() => setUserLoading(false));
@@ -100,7 +103,7 @@ export default function CheckoutPage() {
       setSubmitted(true);
       setTimeout(() => router.push('/Liste_produit'), 3000);
     } catch (error) {
-      alert('حدث خطأ أثناء إرسال الطلب');
+      alert(t('checkout.orderError') || 'An error occurred while sending the order.');
       console.error(error);
     }
   };
@@ -113,7 +116,11 @@ export default function CheckoutPage() {
   };
 
   if (!productId) {
-    return <p style={{ padding: '2rem', direction: 'rtl' }}>لم يتم اختيار منتج.</p>;
+    return (
+      <p style={{ padding: '2rem', direction }}>
+        {t('checkout.noProductSelected')}
+      </p>
+    );
   }
 
   if (loading || userLoading) {
@@ -124,11 +131,12 @@ export default function CheckoutPage() {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          direction: 'rtl',
+          direction,
           fontSize: '1.5rem',
         }}
       >
         <CircularProgress />
+        <span style={{ marginLeft: '1rem' }}>{t('checkout.loading')}</span>
       </div>
     );
   }
@@ -145,18 +153,18 @@ export default function CheckoutPage() {
   const imageUrl = getImageUrl(firstValidImage);
 
   return (
-    <div className={styles.container} dir="rtl" style={{ display: 'flex', gap: '2rem' }}>
+    <div className={`${styles.container} ${direction === 'rtl' ? styles.rtl : styles.ltr}`} style={{ display: 'flex', gap: '2rem' }}>
       <div style={{ flex: 1 }}>
         {!submitted ? (
           <form onSubmit={handleSubmit} className={styles.formContainer}>
-            <h2 className={styles.title}>تفاصيل الطلب</h2>
+            <h2 className={styles.title}>{t('checkout.orderDetails')}</h2>
 
             <div className={styles.formRow}>
               <div className={styles.inputGroup}>
-                <label className={styles.inputLabel}>العميل</label>
+                <label className={styles.inputLabel}>{t('checkout.customer')}</label>
                 <input
                   name="customer"
-                  placeholder="اكتب اسم العميل"
+                  placeholder={t('checkout.customerPlaceholder')}
                   value={formData.customer}
                   onChange={handleChange}
                   required
@@ -165,10 +173,10 @@ export default function CheckoutPage() {
               </div>
 
               <div className={styles.inputGroup}>
-                <label className={styles.inputLabel}>العنوان</label>
+                <label className={styles.inputLabel}>{t('checkout.address')}</label>
                 <input
                   name="address"
-                  placeholder="اكتب العنوان بالتفصيل"
+                  placeholder={t('checkout.addressPlaceholder')}
                   value={formData.address}
                   onChange={handleChange}
                   required
@@ -179,10 +187,10 @@ export default function CheckoutPage() {
 
             <div className={styles.formRow}>
               <div className={styles.inputGroup}>
-                <label className={styles.inputLabel}>البلد</label>
+                <label className={styles.inputLabel}>{t('checkout.country')}</label>
                 <input
                   name="country"
-                  placeholder="اسم البلد"
+                  placeholder={t('checkout.countryPlaceholder')}
                   value={formData.country}
                   onChange={handleChange}
                   required
@@ -191,10 +199,10 @@ export default function CheckoutPage() {
               </div>
 
               <div className={styles.inputGroup}>
-                <label className={styles.inputLabel}>الهاتف</label>
+                <label className={styles.inputLabel}>{t('checkout.phone')}</label>
                 <input
                   name="phone"
-                  placeholder="رقم الهاتف"
+                  placeholder={t('checkout.phonePlaceholder')}
                   value={formData.phone}
                   onChange={handleChange}
                   required
@@ -205,11 +213,11 @@ export default function CheckoutPage() {
 
             <div className={styles.formRow}>
               <div className={styles.inputGroup}>
-                <label className={styles.inputLabel}>البريد الإلكتروني</label>
+                <label className={styles.inputLabel}>{t('checkout.email')}</label>
                 <input
                   type="email"
                   name="email"
-                  placeholder="example@email.com"
+                  placeholder={t('checkout.emailPlaceholder')}
                   value={formData.email}
                   onChange={handleChange}
                   required
@@ -218,7 +226,7 @@ export default function CheckoutPage() {
               </div>
 
               <div className={styles.inputGroup}>
-                <label className={styles.inputLabel}>طريقة الدفع</label>
+                <label className={styles.inputLabel}>{t('checkout.paymentMethod')}</label>
                 <select
                   name="paymentMethod"
                   value={formData.paymentMethod}
@@ -226,16 +234,16 @@ export default function CheckoutPage() {
                   required
                   className={styles.select}
                 >
-                  <option value="بطاقة ائتمان" disabled>بطاقة ائتمان (قريباً)</option>
-                  <option value="باي بال" disabled>باي بال (قريباً)</option>
-                  <option value="الدفع عند التسليم">الدفع عند التسليم</option>
+                  <option value={t('checkout.creditCard')} disabled>{t('checkout.creditCard')}</option>
+                  <option value={t('checkout.paypal')} disabled>{t('checkout.paypal')}</option>
+                  <option value={t('checkout.cashOnDelivery')}>{t('checkout.cashOnDelivery')}</option>
                 </select>
               </div>
             </div>
 
             <div className={styles.formRow}>
               <div className={styles.inputGroup}>
-                <label className={styles.inputLabel}>المنتجات</label>
+                <label className={styles.inputLabel}>{t('checkout.products')}</label>
                 <textarea
                   name="products"
                   value={formData.products}
@@ -246,9 +254,12 @@ export default function CheckoutPage() {
               </div>
             </div>
 
-            <button type="submit" className={styles.button}>
-              إرسال الطلب <SaveIcon />
-            </button>
+            {/* Ajout d'une classe dynamique pour gérer l'alignement du bouton selon la direction */}
+            <div className={direction === 'rtl' ? styles.buttonContainerRTL : styles.buttonContainerLTR}>
+              <button type="submit" className={styles.button}>
+                {t('checkout.submitOrder')} <SaveIcon />
+              </button>
+            </div>
           </form>
         ) : (
           <div
@@ -260,26 +271,26 @@ export default function CheckoutPage() {
               alignItems: 'center',
               justifyContent: 'center',
               flexDirection: 'column',
-              gap: '15px'
+              gap: '15px',
             }}
-            dir="rtl"
+            dir={direction}
           >
             <img
               src="/img/checked.gif"
-              alt="Commande réussie"
+              alt={t('checkout.orderSuccess')}
               width={150}
               height={150}
               style={{ marginBottom: '1rem' }}
             />
-            <h2>شكراً لطلبك!</h2>
-            <p>سيتم تحويلك إلى صفحة المنتجات خلال لحظات...</p>
+            <h2>{t('checkout.orderSuccess')}</h2>
+            <p>{t('checkout.redirecting')}</p>
           </div>
         )}
       </div>
 
       {!submitted && (
         <div className={styles.productContainer} style={{ flexBasis: '400px' }}>
-          <h2 className={styles.productTitle}>🧾 تفاصيل المنتج</h2>
+          <h2 className={styles.productTitle}>{t('checkout.productDetails')}</h2>
           <Image
             src={imageUrl}
             alt={product.name}
@@ -289,9 +300,9 @@ export default function CheckoutPage() {
             unoptimized
             priority
           />
-          <p><strong>الاسم:</strong> {product.name}</p>
-          <p><strong>السعر:</strong> ${product.price}</p>
-          <p><strong>المخزون:</strong> {product.stock > 0 ? 'متوفر' : 'غير متوفر'}</p>
+          <p><strong>{t('checkout.name')}:</strong> {product.name}</p>
+          <p><strong>{t('checkout.price')}:</strong> ${product.price}</p>
+          <p><strong>{t('checkout.stock')}:</strong> {product.stock > 0 ? t('checkout.available') : t('checkout.unavailable')}</p>
         </div>
       )}
     </div>

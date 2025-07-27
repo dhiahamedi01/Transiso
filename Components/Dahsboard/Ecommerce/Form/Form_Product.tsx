@@ -6,28 +6,26 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import CloseIcon from '@mui/icons-material/Close';
 
 interface Props {
-  images: File[];                                            // nouveaux fichiers
+  images: File[];
   setImages: React.Dispatch<React.SetStateAction<File[]>>;
-  existingImageUrls?: string[];                              // images déjà en DB (relative path)
+  existingImageUrls?: string[];
 }
 
 const Form_Product: React.FC<Props> = ({
   images,
   setImages,
-  existingImageUrls = [],                                     // par défaut []
+  existingImageUrls = [],
 }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  /* ---------- helpers ---------- */
   const openPicker = () => inputRef.current?.click();
 
   const addFiles = (files: FileList | null) => {
     if (!files) return;
     const list = Array.from(files);
-    setImages(prev => [...prev, ...list].slice(0, 5));       // max 5
+    setImages(prev => [...prev, ...list].slice(0, 5)); // max 5
   };
 
-  /* ---------- events ---------- */
   const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     addFiles(e.dataTransfer.files);
@@ -39,18 +37,15 @@ const Form_Product: React.FC<Props> = ({
   const removeNewFile = (idx: number) =>
     setImages(prev => prev.filter((_, i) => i !== idx));
 
-  /* ---------- cleanup des URL temporaires ---------- */
   useEffect(
     () => () => images.forEach(f => URL.revokeObjectURL(f as any)),
     [images]
   );
 
-  /* ---------- UI ---------- */
   return (
     <div className={styles.container}>
       <h3 className={styles.title}>Product Images</h3>
 
-      {/* zone drag & drop / click */}
       <div
         className={styles.dropZone}
         onClick={openPicker}
@@ -70,7 +65,6 @@ const Form_Product: React.FC<Props> = ({
         />
       </div>
 
-      {/* preview des images existantes */}
       {existingImageUrls.length > 0 && (
         <>
           <h4 className={styles.subtitle}>Existing images</h4>
@@ -78,7 +72,7 @@ const Form_Product: React.FC<Props> = ({
             {existingImageUrls.map((url, i) => (
               <div key={i} className={styles.imageWrapper}>
                 <img
-                  src={`/${url}`}                             
+                  src={`/${url}`}
                   alt={`existing-${i}`}
                   className={styles.image}
                 />
@@ -88,7 +82,6 @@ const Form_Product: React.FC<Props> = ({
         </>
       )}
 
-      {/* preview des fichiers ajoutés */}
       {images.length > 0 && (
         <>
           <h4 className={styles.subtitle}>New images</h4>

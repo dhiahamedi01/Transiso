@@ -3,25 +3,18 @@
 import React, { useEffect, useState } from 'react';
 import styles from './BasicInfoCard.module.css';
 
+interface ProductData {
+  productName: string;
+  category: string;
+  oldPrice: string;
+  price: string;
+  stock: string;
+  description: string;
+}
+
 interface Props {
-  form: {
-    productName: string;
-    category: string;
-    oldPrice: string;
-    price: string;
-    stock: string;
-    description: string;
-  };
-  setForm: React.Dispatch<
-    React.SetStateAction<{
-      productName: string;
-      category: string;
-      oldPrice: string;
-      price: string;
-      stock: string;
-      description: string;
-    }>
-  >;
+  form: ProductData;
+  setForm: (data: ProductData) => void;  // Changement ici
 }
 
 interface Category {
@@ -50,18 +43,8 @@ const BasicInfoCard: React.FC<Props> = ({ form, setForm }) => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+    setForm({ ...form, [name]: value }); // Ici on remplace complètement l’objet
   };
-
-  const handleReset = () =>
-    setForm({
-      productName: '',
-      category: '',
-      oldPrice: '',
-      price: '',
-      stock: '',
-      description: '',
-    });
 
   return (
     <form
@@ -93,12 +76,11 @@ const BasicInfoCard: React.FC<Props> = ({ form, setForm }) => {
           >
             <option value="">Select a category…</option>
             {categories.map((cat) => (
-              <option key={cat.id} value={cat.name}>  {/* <-- ici value=cat.name */}
+              <option key={cat.id} value={cat.name}>
                 {cat.name}
               </option>
             ))}
           </select>
-
         </div>
 
         <div className={styles.field}>

@@ -322,8 +322,128 @@
       "We use professional packaging, modern monitoring technologies, and comprehensive insurance options to ensure maximum protection against damage or loss.",
       "Transiso’s services cover most countries worldwide through a strong network of international partners, with options for direct delivery or via accredited logistics hubs, ensuring flexible and diverse solutions."
     ]
-  }
-            
-    
+  },
+"Plane": {
+  "main_services": "Main Services",
+  "request_help_title": "Request Help",
+  "request_help_description": "To request help, click on Ask Now and fill in the required information.",
+  "ask_now": "Ask Now",
+  "title": "Advanced Air Freight Services with Transisso",
+  "description1": "Air freight is the gold standard for speed, precision, and global reach in logistics. Transisso provides industry-leading air cargo services that connect Turkey with the world through a network of international airports and trusted airline partners. Whether for urgent commercial shipments, high-value merchandise, or delicate equipment requiring special handling, our air freight solutions are designed for excellence in performance and reliability.",
+  "description2": "At Transisso, we understand that in the modern business world, time is money. Our air freight services are built to meet the most demanding delivery schedules with options ranging from same-day dispatch to next-flight-out solutions. From Istanbul to international hubs across Europe, Asia, and the Middle East, we ensure fast and safe transit with minimal delays. Our strategic alliances with major carriers guarantee space availability and competitive rates year-round.",
+  "description3": "We offer complete door-to-door solutions including cargo collection from your facility, professional packing, precise documentation, and customs clearance. Our team handles all the complex procedures required for export and import, including certifications, air waybills, tax declarations, and coordination with airport authorities. Each shipment is treated as a priority, with meticulous attention to compliance, security, and customer satisfaction.",
+  "description4": "What sets Transisso apart is not just our infrastructure or technology, but our people. Our air logistics team includes certified freight agents, customs experts, and bilingual support staff available 24/7 to guide you at every step. We tailor each shipment to the client's unique requirements—be it pharmaceuticals needing temperature control, fashion samples for trade shows, or electronics requiring anti-static packaging.",
+  "description5": "Safety is our top priority. All cargo is subject to real-time GPS tracking and barcode verification systems. We also offer customizable insurance plans for full coverage against loss, damage, or delays. Our proactive alert system keeps you informed about every movement of your shipment. If something unexpected occurs, our operations team acts immediately to resolve issues and minimize disruption.",
+  "description6": "Sustainability is also a cornerstone of our operations. Transisso is committed to reducing the carbon footprint of our air freight services by optimizing load consolidation, partnering with eco-conscious carriers, and offsetting emissions through certified programs. We believe in creating value for our clients without compromising environmental responsibility.",
+  "description7": "By choosing Transisso, you gain access to a logistics partner that values transparency, precision, and growth. Whether you're a small startup expanding globally or a multinational managing complex supply chains, our air freight services empower you to reach new markets faster and more securely. We don't just move goods—we move your business forward.",
+  "card1_title": "Integrated Air Freight Solutions",
+  "card1_description": "We offer end-to-end services including cargo pickup, smart packing, detailed documentation, customs handling, and fast international delivery tailored to your business model.",
+  "card2_title": "Ultimate Shipment Security",
+  "card2_description": "Transisso ensures your cargo is protected from origin to destination with state-of-the-art tracking systems, full insurance coverage, and strict compliance with global aviation security standards."
+}
+,
+  "Sea": {
+  "main_services": "Main Services",
+  "request_help_title": "Request Help",
+  "request_help_description": "To request assistance, please click Ask Now and fill out the required information.",
+  "ask_now": "Ask Now",
+  "title": "Sea Freight Services with Transiso",
+  "description1": "Sea freight is one of the most efficient and economical solutions for transporting goods on a global scale. With a wide network of Turkish and international ports, Transiso provides reliable, precise, and safe sea shipping services tailored to businesses and individuals.",
+  "description2": "Whether you need Full Container Load (FCL) or Less than Container Load (LCL), our professional team handles all logistics phases: pickup, documentation, customs clearance, ship booking, and final delivery—ensuring full transparency and peace of mind.",
+  "description3": "We also offer flexible insurance options to protect shipments and a 24/7 support team. Transiso aims to provide a seamless and secure shipping experience with strict adherence to deadlines and service quality.",
+  "card1_title": "Comprehensive Services for Your Needs",
+  "card1_description": "We handle all types of commercial and personal shipments, offering tailored shipping solutions based on the type of goods, timing, and budget.",
+  "card2_title": "High Level of Reliability and Security",
+  "card2_description": "We follow global standards, with full insurance coverage to protect goods from potential risks during sea transport."
+}
+,
+"Train": {
+  "main_services": "Main Services",
+  "request_help_title": "Request Help",
+  "request_help_description": "To request assistance, please click the 'Ask Now' button and fill out all required information accurately and clearly to ensure your request is received and processed promptly by our dedicated support team.",
+  "ask_now": "Ask Now",
+  "title": "Train Shipping Services with Transiso",
+  "description1": "Train shipping is recognized as one of the most cost-effective and fastest methods of transporting goods over long distances within Turkey and to neighboring countries. Our train shipping services cater to large and diverse cargo, including containers, heavy goods, and sensitive products, ensuring timely and safe delivery.",
+  "description2": "Transiso leverages an advanced network of railway lines connecting key cities and vital ports, enabling us to offer comprehensive logistics solutions that combine ease of planning with flexible execution. We manage all stages of the logistics process starting from cargo pickup at warehouses, packing and loading at stations, coordination with authorities for swift customs clearance, and final delivery at the designated location.",
+  "description3": "Our team utilizes the latest satellite tracking and digital systems to monitor shipment status at every stage of transit. This transparency provides our clients with full peace of mind and optimal business planning. Additionally, Transiso offers multiple insurance options to protect shipments against potential risks such as damage, theft, or delays, guaranteeing the highest levels of security.",
+  "description4": "We are committed to providing 24/7 technical support and customer service, allowing clients to contact us for consultations, shipment tracking, or to submit complaints or suggestions. We believe in building trust with our clients through timely delivery, personalized services, and innovative solutions that meet their expectations and help them expand in both local and global markets.",
+  "card1_title": "Cost-Effective and Efficient Transport",
+  "card1_description": "We provide competitively priced train shipping services with high flexibility in scheduling trips and selecting transport routes, enabling a balance between speed and cost tailored to each client’s requirements.",
+  "card2_title": "Guaranteed Shipment Safety",
+  "card2_description": "We rely on rigorous and comprehensive monitoring of every shipment throughout its journey, coupled with full insurance coverage that protects against all potential risks to ensure our clients’ complete peace of mind."
+}
+,"truck":{
+  "main_services": "Main Services",
+  "request_help_title": "Request Assistance",
+  "request_help_description": "To request assistance, please click on Ask Now and fill in the required information.",
+  "ask_now": "Ask Now",
+  "title": "Truck Freight Services with Transiso",
+  "description1": "Truck freight is one of the most important logistic transportation methods inside Turkey and neighboring countries, due to its high flexibility and direct access to destinations without the need for intermediary stations or additional transport modes. The ability to move quickly and efficiently through roads gives customers a great advantage in delivering goods to both urban and rural areas, reducing delivery times and logistical costs.",
+  "description2": "Transiso offers professional and comprehensive truck freight services, supported by a large fleet of modern trucks equipped with the latest safety and security technologies, including closed, refrigerated, and flatbed trucks to suit all types of goods such as dry goods, perishable materials, and heavy or bulky cargo. We believe in maintaining the quality and safety of goods throughout the transport journey, therefore we diligently apply the highest standards of maintenance and regular inspection for all our vehicles.",
+  "description3": "Our services include domestic freight within all Turkish provinces as well as international transport to neighboring countries such as Iraq, Syria, Georgia, Bulgaria, and others, with customized solutions to meet each customer's needs and shipment types. We rely on an advanced real-time shipment tracking system, allowing our clients continuous access to the status of their goods and ensuring timely delivery.",
+  "description4": "In addition to transport, Transiso provides comprehensive services including preparing all necessary documents and customs clearance procedures, coordinating with official authorities to facilitate clearance without delay. We also offer comprehensive insurance coverage for goods, ensuring full protection against any potential loss or damage during transportation.",
+  "description5": "We pride ourselves on our specialized team of skilled drivers and logistics support staff who have extensive experience in truck freight and are keen to deliver high-quality services with full adherence to delivery schedules and safety requirements. We continually work on improving and developing our operations using the latest technologies and modern management systems to ensure the best experience for our clients.",
+  "description6": "Whether your shipments are large-sized, sensitive requiring special care, or urgent requiring speed and flexibility, Transiso provides optimal solutions that effectively and economically meet all your logistic needs. Choose Transiso for your truck freight and enjoy trusted high-quality services, continuous support, and competitive prices.",
+  "card1_title": "Flexibility and Speed in Delivery",
+  "card1_description": "We offer flexible truck freight solutions including loading, unloading, and direct delivery services inside and outside cities, with full commitment to schedules.",
+  "card2_title": "Safety and Precise Tracking",
+  "card2_description": "We rely on advanced tracking systems and provide full insurance coverage to ensure shipment protection and precise location tracking throughout the truck journey."
+},
+"footer":{
+  "company": "Company",
+  "about": "About Us",
+  "services": "Our Services",
+  "blog": "Blog",
+
+  "help": "Help",
+  "inquiry": "Online Inquiry",
+  "shipping": "Shipping & Returns",
+  "tracking": "Order Tracking",
+
+  "products": "Our Products",
+  "packing": "Packing Machines",
+  "plastic": "Plastic Containers",
+  "oil": "Raw Vegetable Oil",
+
+  "rights": "All rights reserved",
+  "privacy": "Privacy Policy",
+  "terms": "Terms & Conditions"
+}
+, "checkout": {
+  "orderDetails": "Order Details",
+  "customer": "Customer",
+  "customerPlaceholder": "Enter customer name",
+  "address": "Address",
+  "addressPlaceholder": "Enter detailed address",
+  "country": "Country",
+  "countryPlaceholder": "Country name",
+  "phone": "Phone",
+  "phonePlaceholder": "Phone number",
+  "email": "Email",
+  "emailPlaceholder": "example@email.com",
+  "paymentMethod": "Payment Method",
+  "creditCard": "Credit Card (Coming Soon)",
+  "paypal": "PayPal (Coming Soon)",
+  "cashOnDelivery": "Cash on Delivery",
+  "products": "Products",
+  "submitOrder": "Submit Order",
+  "orderSuccess": "Thank you for your order!",
+  "redirecting": "You will be redirected to the products page shortly...",
+  "noProductSelected": "No product selected.",
+  "productDetails": "🧾 Product Details",
+  "name": "Name",
+  "price": "Price",
+  "stock": "Stock",
+  "available": "Available",
+  "unavailable": "Unavailable",
+  "loading": "Loading..."
+},
+"carousel": {
+  "title": "This Week's Deals",
+  "badge": "Hurry before the offer ends!",
+  "viewAll": "View all"
+}
+
+
   }
   

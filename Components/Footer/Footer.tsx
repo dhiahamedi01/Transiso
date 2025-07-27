@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './Footer.module.css';
+import { useTranslation } from 'react-i18next';
 
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
@@ -21,12 +22,15 @@ const iconMap: Record<string, React.ReactElement> = {
 };
 
 const Footer = () => {
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language || 'en';
+  const dir = lang === 'ar' ? 'rtl' : 'ltr';
+
   const { socialLinks } = useSocialLinks();
-  const [footerDesc, setFooterDesc] = useState(
-  );
+  const [footerDesc, setFooterDesc] = useState('');
 
   useEffect(() => {
-    axios.get('/api/footer')
+    axios.get(`/api/footer?lang=${lang}`)
       .then((res) => {
         if (res.data.footer_desc) {
           setFooterDesc(res.data.footer_desc);
@@ -35,10 +39,10 @@ const Footer = () => {
       .catch((err) => {
         console.error('Failed to load footer description', err);
       });
-  }, []);
+  }, [lang]);
 
   return (
-    <>
+    <div dir={dir}>
       {/* -------- FOOTER PRINCIPAL -------- */}
       <footer className={styles.footer}>
         <div className={styles.container}>
@@ -68,10 +72,10 @@ const Footer = () => {
                   })
                 ) : (
                   <>
-                    <Link href="#" aria-label="Facebook"><FacebookIcon fontSize="small" /></Link>
-                    <Link href="#" aria-label="Twitter"><TwitterIcon fontSize="small" /></Link>
-                    <Link href="#" aria-label="Instagram"><InstagramIcon fontSize="small" /></Link>
-                    <Link href="#" aria-label="LinkedIn"><LinkedInIcon fontSize="small" /></Link>
+                    <Link href="#"><FacebookIcon fontSize="small" /></Link>
+                    <Link href="#"><TwitterIcon fontSize="small" /></Link>
+                    <Link href="#"><InstagramIcon fontSize="small" /></Link>
+                    <Link href="#"><LinkedInIcon fontSize="small" /></Link>
                   </>
                 )}
               </div>
@@ -79,29 +83,29 @@ const Footer = () => {
 
             {/* ----- COLUMNS ----- */}
             <div className={styles.col}>
-              <h4>الشركة</h4>
+              <h4>{t('footer.company')}</h4>
               <ul>
-                <li><Link href="/About">من نحن</Link></li>
-                <li><Link href="/Services">خدماتنا في ترانسيسو</Link></li>
-                <li><Link href="/bloglist">المدونة الالكترونية</Link></li>
+                <li><Link href="/About">{t('footer.about')}</Link></li>
+                <li><Link href="/Services">{t('footer.services')}</Link></li>
+                <li><Link href="/bloglist">{t('footer.blog')}</Link></li>
               </ul>
             </div>
 
             <div className={styles.col}>
-              <h4>المساعدة</h4>
+              <h4>{t('footer.help')}</h4>
               <ul>
-                <li><Link href="/Demande">الاستفسار اون لاين</Link></li>
-                <li><Link href="/Inscription">الشحن والإرجاع</Link></li>
-                <li><Link href="/Client/TrackingStatus">تتبع الطلب</Link></li>
+                <li><Link href="/Demande">{t('footer.inquiry')}</Link></li>
+                <li><Link href="/Inscription">{t('footer.shipping')}</Link></li>
+                <li><Link href="/Client/TrackingStatus">{t('footer.tracking')}</Link></li>
               </ul>
             </div>
 
             <div className={styles.col}>
-              <h4>قائمة منتجاتنا</h4>
+              <h4>{t('footer.products')}</h4>
               <ul>
-                <li><Link href="/Liste_produit">آلات تعبئة وتغليف</Link></li>
-                <li><Link href="/Liste_produit">حاويات بلاستيكية</Link></li>
-                <li><Link href="/Liste_produit">زيت نباتي خام</Link></li>
+                <li><Link href="/Liste_produit">{t('footer.packing')}</Link></li>
+                <li><Link href="/Liste_produit">{t('footer.plastic')}</Link></li>
+                <li><Link href="/Liste_produit">{t('footer.oil')}</Link></li>
               </ul>
             </div>
           </div>
@@ -110,11 +114,11 @@ const Footer = () => {
 
       {/* -------- SUB-FOOTER -------- */}
       <div className={styles.subFooter}>
-        © {new Date().getFullYear()} جميع الحقوق محفوظة •
-        <Link href="/politique"> Privacy&nbsp;Policy </Link>•
-        <Link href="/Terms"> Terms&nbsp;&amp;&nbsp;Conditions </Link>
+        © {new Date().getFullYear()} {t('footer.rights')} •
+        <Link href="/politique"> {t('footer.privacy')} </Link> •
+        <Link href="/Terms"> {t('footer.terms')} </Link>
       </div>
-    </>
+    </div>
   );
 };
 

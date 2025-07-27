@@ -2,28 +2,29 @@
 
 import * as React from 'react';
 import axios from 'axios';
-import { Typography, TextField, Box, Button, Alert } from '@mui/material';
+import { Typography, TextField, Box, Button, Alert, Stack } from '@mui/material';
 
 export default function FooterSettings() {
   const [footerDesc, setFooterDesc] = React.useState('');
-  const [openingTime, setOpeningTime] = React.useState('');
-  const [closingTime, setClosingTime] = React.useState('');
+  const [lang, setLang] = React.useState<'ar' | 'tr' | 'en'>('en');
   const [message, setMessage] = React.useState('');
   const [error, setError] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
 
-  React.useEffect(() => {
-    axios.get('/api/footer')
+  const fetchData = (selectedLang: 'ar' | 'tr' | 'en') => {
+    axios.get(`/api/footer?lang=${selectedLang}`)
       .then(({ data }) => {
-        setFooterDesc(data.footer_desc);
-        setOpeningTime(data.opening_time?.slice(0, 5));
-        setClosingTime(data.closing_time?.slice(0, 5));
+        setFooterDesc(data.footer_desc || '');
       })
       .catch(() => {
         setMessage('Error loading data.');
         setError(true);
       });
-  }, []);
+  };
+
+  React.useEffect(() => {
+    fetchData(lang);
+  }, [lang]);
 
   const handleSave = () => {
     setMessage('');
@@ -32,8 +33,7 @@ export default function FooterSettings() {
 
     axios.put('/api/footer', {
       footer_desc: footerDesc,
-      opening_time: openingTime + ':00',
-      closing_time: closingTime + ':00',
+      lang,
     })
       .then(() => {
         setMessage('Settings saved successfully!');
@@ -46,10 +46,17 @@ export default function FooterSettings() {
   };
 
   return (
-    <>
+    <Box>
       <Typography variant="h6" gutterBottom>
-        Footer Description
+        Footer Description ({lang.toUpperCase()})
       </Typography>
+
+      <Stack direction="row" spacing={2} sx={{ mb: 2 }}>
+        <Button variant={lang === 'ar' ? 'contained' : 'outlined'} onClick={() => setLang('ar')}>AR</Button>
+        <Button variant={lang === 'tr' ? 'contained' : 'outlined'} onClick={() => setLang('tr')}>TR</Button>
+        <Button variant={lang === 'en' ? 'contained' : 'outlined'} onClick={() => setLang('en')}>EN</Button>
+      </Stack>
+
       <TextField
         fullWidth
         multiline
@@ -58,30 +65,8 @@ export default function FooterSettings() {
         value={footerDesc}
         onChange={(e) => setFooterDesc(e.target.value)}
         variant="outlined"
-        sx={{ mb: 3 }}
+        sx={{ mb: 2 }}
       />
-
-      <Typography variant="subtitle1" gutterBottom>
-        Opening and Closing Hours
-      </Typography>
-      <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
-        <TextField
-          label="Opening Time"
-          type="time"
-          value={openingTime}
-          onChange={(e) => setOpeningTime(e.target.value)}
-          InputLabelProps={{ shrink: true }}
-          inputProps={{ step: 300 }}
-        />
-        <TextField
-          label="Closing Time"
-          type="time"
-          value={closingTime}
-          onChange={(e) => setClosingTime(e.target.value)}
-          InputLabelProps={{ shrink: true }}
-          inputProps={{ step: 300 }}
-        />
-      </Box>
 
       <Button variant="contained" onClick={handleSave}>
         Save Settings
@@ -95,6 +80,6 @@ export default function FooterSettings() {
           {message}
         </Alert>
       )}
-    </>
+    </Box>
   );
 }
