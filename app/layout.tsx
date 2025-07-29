@@ -3,7 +3,7 @@ import './globals.css';
 import { languages } from '@/Components/i18n/settings';
 import Providers from '@/Components/Providers';
 import type { Metadata } from 'next'
-export async function generateStaticParams() {
+export async function generarateStaticParams() {
   return languages.map((lng) => ({ lang: lng }));
 }
 
@@ -14,13 +14,11 @@ export const metadata: Metadata = {
 }
 export default function RootLayout({
   children,
-  params,
 }: {
   children: React.ReactNode;
-  params: { lang: string };
 }) {
   return (
-    <html lang={params.lang}>
+    <html lang="ar">
       <body>
         <Providers>{children}</Providers>
       </body>
