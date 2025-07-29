@@ -440,6 +440,19 @@
               "title": "عروض الأسبوع",
               "badge": "سارع قبل انتهاء العرض!",
               "viewAll": "عرض الكل"
+            },
+            "cart": {
+              "couponPlaceholder": "كود الخصم",
+              "applyCoupon": "تطبيق الكوبون",
+              "total": "الإجمالي:",
+              "completeOrder": "إتمام الطلب",
+              "backToShop": "الرجوع إلى التسوق",
+              "productName": "اسم المنتج",
+              "productPrice": "سعر المنتج",
+              "quantity": "الكمية",
+              "itemTotal": "الإجمالي",
+              "clearCart": "تفريغ السلة",
+              "emptyCart": "سلة التسوق فارغة"
             }
             
             

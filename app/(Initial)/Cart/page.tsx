@@ -3,13 +3,15 @@
 import React from "react";
 import CartTable from "./CartTable";
 import Style from "./Panier.module.css";
-import Link from 'next/link'
+import Link from 'next/link';
 import { Box, Typography, Button, TextField } from "@mui/material";
-
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useTranslation } from "react-i18next";
 
 export default function Panier() {
+  const { t } = useTranslation();
+
   return (
     <div className={Style.globale}>
       <div className={Style.Partie1}>
@@ -28,7 +30,7 @@ export default function Panier() {
           sx={{ marginTop: "40px", display: "flex", alignItems: "center" }}
         >
           <Box display="flex" gap={1}>
-            <TextField size="small" placeholder="كود الخصم" />
+            <TextField size="small" placeholder={t("cart.couponPlaceholder")} />
             <Button
               variant="contained"
               sx={{
@@ -37,25 +39,25 @@ export default function Panier() {
                 textTransform: "none",
               }}
             >
-              تطبيق الكوبون
+              {t("cart.applyCoupon")}
             </Button>
           </Box>
           <Typography
-  variant="h6"
-  sx={{
-    ml: "auto",
-    fontFamily: "'Noto Kufi Arabic', sans-serif",
-    fontWeight: 500,
-    marginRight:'20px',
-    fontSize: '20px',          // plus grand
-    color: '#DE1E27',          // couleur orange foncé
-  }}
->
-  <span style={{ fontWeight: 400, color: '#555' }}>الإجمالي:</span>&ensp;
-  1&nbsp;245.00 د.ت
-</Typography>
-
-
+            variant="h6"
+            sx={{
+              ml: "auto",
+              fontFamily: "'Noto Kufi Arabic', sans-serif",
+              fontWeight: 500,
+              marginRight: "20px",
+              fontSize: "20px",
+              color: "#DE1E27",
+            }}
+          >
+            <span style={{ fontWeight: 400, color: "#555" }}>
+              {t("cart.total")}
+            </span>
+            &ensp;1&nbsp;245.00 د.ت
+          </Typography>
         </Box>
 
         {/* أزرار الإجراءات */}
@@ -83,28 +85,27 @@ export default function Panier() {
             }}
           >
             <ArrowForwardIcon />
-            &ensp;إتمام الطلب
+            &ensp;{t("cart.completeOrder")}
           </Button>
-          <Link href='/Liste_produit'>
-          <Button
-            variant="outlined"
-            sx={{
-              borderColor: "#ccc",
-              color: "#fff",
-              textTransform: "none",
-              fontFamily: "'Noto Kufi Arabic', sans-serif",
-
-              backgroundColor: "#DE1E27",
-              "&:hover": {
-                backgroundColor: "#f2f2f2",
-                color: "#000",
-            
-              },
-            }}
-          >
-            الرجوع إلى التسوق&ensp;
-            <ArrowBackIcon />
-          </Button></Link>
+          <Link href="/Liste_produit">
+            <Button
+              variant="outlined"
+              sx={{
+                borderColor: "#ccc",
+                color: "#fff",
+                textTransform: "none",
+                fontFamily: "'Noto Kufi Arabic', sans-serif",
+                backgroundColor: "#DE1E27",
+                "&:hover": {
+                  backgroundColor: "#f2f2f2",
+                  color: "#000",
+                },
+              }}
+            >
+              {t("cart.backToShop")}&ensp;
+              <ArrowBackIcon />
+            </Button>
+          </Link>
         </Box>
       </div>
     </div>

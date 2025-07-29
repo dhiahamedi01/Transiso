@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { Add, Remove } from "@mui/icons-material";
+import { useTranslation } from "react-i18next";
 
 interface CartItem {
   id: number;
@@ -31,7 +32,9 @@ export default function CartTable() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Charger le panier depuis localStorage au chargement du composant
+  const { t, i18n } = useTranslation();
+  const isRtl = i18n.language === "ar";
+
   useEffect(() => {
     const storedCart = localStorage.getItem("cart");
     if (storedCart) {
@@ -50,7 +53,6 @@ export default function CartTable() {
     setIsLoaded(true);
   }, []);
 
-  // Sauvegarder dans localStorage uniquement après le chargement initial
   useEffect(() => {
     if (isLoaded) {
       localStorage.setItem("cart", JSON.stringify(cartItems));
@@ -81,8 +83,8 @@ export default function CartTable() {
     <Box
       p={2}
       sx={{
-        direction: "rtl",
-        fontFamily: "'Noto Kufi Arabic', sans-serif",
+        direction: isRtl ? "rtl" : "ltr",
+        fontFamily: isRtl ? "'Noto Kufi Arabic', sans-serif" : "inherit",
         overflowX: "auto",
       }}
     >
@@ -100,22 +102,24 @@ export default function CartTable() {
                   fontFamily: "'Noto Kufi Arabic', sans-serif",
                 }}
               >
-                <Typography sx={{fontFamily: "'Noto Kufi Arabic', sans-serif"}} fontWeight={600}>اسم المنتج</Typography>
+                <Typography fontWeight={600}sx={{fontFamily: "'Noto Kufi Arabic', sans-serif"}}>
+                  {t("cart.productName")}
+                </Typography>
               </TableCell>
-              <TableCell
-                sx={{ border: "1px solid #ddd", textAlign: "right" }}
-              >
-                <Typography sx={{fontFamily: "'Noto Kufi Arabic', sans-serif"}} fontWeight={600}>سعر المنتج</Typography>
+              <TableCell sx={{ border: "1px solid #ddd", textAlign: "right" }}>
+                <Typography fontWeight={600} sx={{fontFamily: "'Noto Kufi Arabic', sans-serif"}}>
+                  {t("cart.productPrice")}
+                </Typography>
               </TableCell>
-              <TableCell
-                sx={{ border: "1px solid #ddd", textAlign: "center" }}
-              >
-                <Typography sx={{fontFamily: "'Noto Kufi Arabic', sans-serif"}} fontWeight={600}>الكمية</Typography>
+              <TableCell sx={{ border: "1px solid #ddd", textAlign: "center" }}>
+                <Typography fontWeight={600}sx={{fontFamily: "'Noto Kufi Arabic', sans-serif"}}>
+                  {t("cart.quantity")}
+                </Typography>
               </TableCell>
-              <TableCell
-                sx={{ border: "1px solid #ddd", textAlign: "right" }}
-              >
-                <Typography sx={{fontFamily: "'Noto Kufi Arabic', sans-serif"}} fontWeight={600}>الإجمالي</Typography>
+              <TableCell sx={{ border: "1px solid #ddd", textAlign: "right" }}>
+                <Typography fontWeight={600}sx={{fontFamily: "'Noto Kufi Arabic', sans-serif"}}>
+                  {t("cart.itemTotal")}
+                </Typography>
               </TableCell>
               <TableCell sx={{ border: "1px solid #ddd" }} align="center">
                 <Button
@@ -128,7 +132,7 @@ export default function CartTable() {
                     fontFamily: "'Noto Kufi Arabic', sans-serif",
                   }}
                 >
-                  تفريغ السلة
+                  {t("cart.clearCart")}
                 </Button>
               </TableCell>
             </TableRow>
@@ -137,17 +141,13 @@ export default function CartTable() {
           <TableBody>
             {cartItems.length === 0 && (
               <TableRow>
-                <TableCell
-                  colSpan={5}
-                  align="center"
-                  sx={{ py: 4 }}
-                >
+                <TableCell colSpan={5} align="center" sx={{ py: 4 }}>
                   <Typography
                     fontWeight={500}
                     color="text.secondary"
                     fontFamily="'Noto Kufi Arabic', sans-serif"
                   >
-                    سلة التسوق فارغة
+                    {t("cart.emptyCart")}
                   </Typography>
                 </TableCell>
               </TableRow>

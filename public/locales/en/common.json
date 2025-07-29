@@ -442,7 +442,20 @@
   "title": "This Week's Deals",
   "badge": "Hurry before the offer ends!",
   "viewAll": "View all"
-}
+},
+"cart": {
+    "couponPlaceholder": "Discount code",
+    "applyCoupon": "Apply coupon",
+    "total": "Total:",
+    "completeOrder": "Complete Order",
+    "backToShop": "Back to Shopping",
+    "productName": "Product Name",
+    "productPrice": "Price",
+    "quantity": "Quantity",
+    "itemTotal": "Total",
+    "clearCart": "Clear Cart",
+    "emptyCart": "Your cart is empty"
+  }
 
 
   }

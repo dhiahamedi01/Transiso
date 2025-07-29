@@ -434,6 +434,19 @@
             "title": "Haftanın Fırsatları",
             "badge": "Teklif bitmeden acele et!",
             "viewAll": "Tümünü gör"
+          },
+          "cart": {
+            "couponPlaceholder": "İndirim kodu",
+            "applyCoupon": "Kuponu uygula",
+            "total": "Toplam:",
+            "completeOrder": "Siparişi Tamamla",
+            "backToShop": "Alışverişe Geri Dön",
+            "productName": "Ürün Adı",
+              "productPrice": "Fiyat",
+              "quantity": "Adet",
+              "itemTotal": "Toplam",
+              "clearCart": "Sepeti Temizle",
+              "emptyCart": "Sepetiniz boş"
           }
           
 
