@@ -20,9 +20,15 @@ import {
   Popper,
   Pagination,
   CircularProgress,
+  Select,
+  FormControl,
+  InputLabel,
+  SelectChangeEvent,
 } from '@mui/material';
+
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { useProducts } from '@/hooks/useProducts';
+import { useTranslation } from 'react-i18next';
 
 interface MenuAction {
   label: string;
@@ -43,7 +49,7 @@ const SplitButton: React.FC<SplitButtonProps> = ({
   menu,
   width = 120,
 }) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
 
   const handleToggle = () => setOpen((prev) => !prev);
@@ -127,38 +133,39 @@ const SplitButton: React.FC<SplitButtonProps> = ({
 
 const Liste_produit: React.FC = () => {
   const router = useRouter();
+  const { i18n } = useTranslation();
   const { products, loading, error, refetch } = useProducts();
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
-  // Modal states
   const [openConfirm, setOpenConfirm] = useState(false);
   const [productToDelete, setProductToDelete] = useState<number | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
+
+  const handleLanguageChange = (event: SelectChangeEvent<string>) => {
+    i18n.changeLanguage(event.target.value);
+  };
 
   const handleUpdate = (id: number) => {
     router.push(`/Dashboard/Ecommerce/${id}`);
   };
 
-  // Ouvre modal confirmation
   const openDeleteConfirm = (id: number) => {
     setProductToDelete(id);
     setOpenConfirm(true);
   };
 
-  // Gestion fermeture modal avec blocage clic hors et touche ESC si suppression en cours
   const handleCloseConfirm = (
     event: React.SyntheticEvent<any, Event>,
     reason?: 'backdropClick' | 'escapeKeyDown'
   ) => {
-    if (isDeleting) return; // bloque fermeture si suppression en cours
-    if (reason === 'backdropClick') return; // bloque clic hors modal
+    if (isDeleting) return;
+    if (reason === 'backdropClick') return;
     setOpenConfirm(false);
     setProductToDelete(null);
   };
 
-  // Suppression produit avec appel API
   const handleDelete = async () => {
     if (productToDelete === null) return;
     setIsDeleting(true);
@@ -172,7 +179,6 @@ const Liste_produit: React.FC = () => {
       setProductToDelete(null);
     } catch (err) {
       console.error(err);
-      // Ici tu peux ajouter une notification d'erreur si besoin
     } finally {
       setIsDeleting(false);
     }
@@ -213,11 +219,27 @@ const Liste_produit: React.FC = () => {
 
   return (
     <div className={styles.card}>
-      <h3 className={styles.titre_header}>All Products</h3>
+              <h3 className={styles.titre_header}>All Products</h3>
+    <div className={styles.header_prod}>        
+      <div className={styles.topBar}>
+        <FormControl size="small" sx={{ minWidth: 120, ml: 2 ,marginTop:'15px'}}>
+          <InputLabel>Langue</InputLabel>
+          <Select
+            value={i18n.language}
+            onChange={handleLanguageChange}
+            label="Langue"
+          >
+            <MenuItem value="en">English</MenuItem>
+            <MenuItem value="ar">العربية</MenuItem>
+            <MenuItem value="tr">Türkçe</MenuItem>
+          </Select>
+        </FormControl>
+      </div>
+
       <header className={styles.header}>
         <SearchInput value={search} onChange={setSearch} />
       </header>
-
+    </div>
       {loading ? (
         <div className={styles.loaderWrapper}>
           <CircularProgress />
@@ -233,9 +255,7 @@ const Liste_produit: React.FC = () => {
             >
               <thead>
                 <tr>
-                  <th style={cellStyle}>
-                    <input type="checkbox" />
-                  </th>
+                  <th style={cellStyle}><input type="checkbox" /></th>
                   <th style={cellStyle}>Image</th>
                   <th style={cellStyle}>Nom</th>
                   <th style={cellStyle}>Prix</th>
@@ -247,18 +267,12 @@ const Liste_produit: React.FC = () => {
               <tbody>
                 {currentProducts.map((prod) => (
                   <tr key={prod.id} style={{ borderBottom: '1px solid #dedede' }}>
-                    <td style={cellStyle}>
-                      <input type="checkbox" />
-                    </td>
+                    <td style={cellStyle}><input type="checkbox" /></td>
                     <td style={cellStyle}>
                       <img src={prod.image} alt={prod.nom} className={styles.productImage} />
                     </td>
-                    <td className={styles.productName} style={cellStyle}>
-                      {prod.nom}
-                    </td>
-                    <td className={styles.productPrice} style={cellStyle}>
-                      ${prod.prix.toFixed(2)}
-                    </td>
+                    <td className={styles.productName} style={cellStyle}>{prod.nom}</td>
+                    <td className={styles.productPrice} style={cellStyle}>${prod.prix.toFixed(2)}</td>
                     <td style={cellStyle}>
                       <button className={styles.productStatus}>{prod.statut}</button>
                     </td>
@@ -314,49 +328,47 @@ const Liste_produit: React.FC = () => {
         </>
       )}
 
-      {/* Modal confirmation suppression */}
       <Dialog
-  open={openConfirm}
-  onClose={handleCloseConfirm}
-  aria-labelledby="alert-dialog-title"
-  aria-describedby="alert-dialog-description"
-  disableEscapeKeyDown={isDeleting}
->
-  <DialogTitle id="alert-dialog-title" dir="rtl" style={{ textAlign: 'right' }} className={styles.arabica}>
-    {"تأكيد الحذف"}
-  </DialogTitle>
-  <DialogContent>
-    <DialogContentText id="alert-dialog-description" dir="rtl" style={{ textAlign: 'right' }} className={styles.arabica2}>
-      هل أنت متأكد من رغبتك في حذف هذا المنتج؟ هذا الإجراء لا رجعة فيه.
-    </DialogContentText>
-  </DialogContent>
-  <DialogActions style={{ justifyContent: 'flex-start' }}>
-    <Button
-    className={styles.arabica2}
-      onClick={() => {
-        if (!isDeleting) {
-          setOpenConfirm(false);
-          setProductToDelete(null);
-        }
-      }}
-      disabled={isDeleting}
-      dir="rtl"
-    >
-      إلغاء
-    </Button>
-    <Button
-    className={styles.arabica2}
-      onClick={handleDelete}
-      color="error"
-      variant="contained"
-      disabled={isDeleting}
-      dir="rtl"
-    >
-      {isDeleting ? 'جاري الحذف...' : 'حذف'}
-    </Button>
-  </DialogActions>
-</Dialog>
-
+        open={openConfirm}
+        onClose={handleCloseConfirm}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        disableEscapeKeyDown={isDeleting}
+      >
+        <DialogTitle id="alert-dialog-title" dir="rtl" style={{ textAlign: 'right' }} className={styles.arabica}>
+          {"تأكيد الحذف"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description" dir="rtl" style={{ textAlign: 'right' }} className={styles.arabica2}>
+            هل أنت متأكد من رغبتك في حذف هذا المنتج؟ هذا الإجراء لا رجعة فيه.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions style={{ justifyContent: 'flex-start' }}>
+          <Button
+            className={styles.arabica2}
+            onClick={() => {
+              if (!isDeleting) {
+                setOpenConfirm(false);
+                setProductToDelete(null);
+              }
+            }}
+            disabled={isDeleting}
+            dir="rtl"
+          >
+            إلغاء
+          </Button>
+          <Button
+            className={styles.arabica2}
+            onClick={handleDelete}
+            color="error"
+            variant="contained"
+            disabled={isDeleting}
+            dir="rtl"
+          >
+            {isDeleting ? 'جاري الحذف...' : 'حذف'}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

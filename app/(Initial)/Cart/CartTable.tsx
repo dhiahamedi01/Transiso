@@ -102,22 +102,38 @@ export default function CartTable() {
                   fontFamily: "'Noto Kufi Arabic', sans-serif",
                 }}
               >
-                <Typography fontWeight={600}sx={{fontFamily: "'Noto Kufi Arabic', sans-serif"}}>
+                <Typography fontWeight={600}       sx={{
+                      direction: isRtl ? "ltr" : "rtl",
+                      textAlign: isRtl ? "" : "left",
+                      fontFamily: isRtl ? "'Noto Kufi Arabic', sans-serif" : "inherit",
+                    }}>
                   {t("cart.productName")}
                 </Typography>
               </TableCell>
               <TableCell sx={{ border: "1px solid #ddd", textAlign: "right" }}>
-                <Typography fontWeight={600} sx={{fontFamily: "'Noto Kufi Arabic', sans-serif"}}>
+                <Typography fontWeight={600}   sx={{
+                      direction: isRtl ? "ltr" : "rtl",
+                      textAlign: isRtl ? "" : "center",
+                      fontFamily: isRtl ? "'Noto Kufi Arabic', sans-serif" : "inherit",
+                    }}>
                   {t("cart.productPrice")}
                 </Typography>
               </TableCell>
               <TableCell sx={{ border: "1px solid #ddd", textAlign: "center" }}>
-                <Typography fontWeight={600}sx={{fontFamily: "'Noto Kufi Arabic', sans-serif"}}>
+                <Typography fontWeight={600}    sx={{
+                      direction: isRtl ? "ltr" : "rtl",
+                      textAlign: isRtl ? "" : "center",
+                      fontFamily: isRtl ? "'Noto Kufi Arabic', sans-serif" : "inherit",
+                    }}>
                   {t("cart.quantity")}
                 </Typography>
               </TableCell>
               <TableCell sx={{ border: "1px solid #ddd", textAlign: "right" }}>
-                <Typography fontWeight={600}sx={{fontFamily: "'Noto Kufi Arabic', sans-serif"}}>
+                <Typography fontWeight={600}  sx={{
+                      direction: isRtl ? "ltr" : "rtl",
+                      textAlign: isRtl ? "" : "center",
+                      fontFamily: isRtl ? "'Noto Kufi Arabic', sans-serif" : "inherit",
+                    }}>
                   {t("cart.itemTotal")}
                 </Typography>
               </TableCell>
@@ -166,6 +182,10 @@ export default function CartTable() {
                     display="flex"
                     alignItems="center"
                     justifyContent="flex-end"
+                    sx={{
+                      direction: isRtl ? "ltr" : "rtl",
+                      fontFamily: isRtl ? "'Noto Kufi Arabic', sans-serif" : "inherit",
+                    }}
                     gap={2}
                   >
                     <Box>
@@ -193,7 +213,7 @@ export default function CartTable() {
                     fontFamily: "'Noto Kufi Arabic', sans-serif",
                   }}
                 >
-                  {item.price.toFixed(2)} د.ت
+                  {item.price.toFixed(2)} $
                 </TableCell>
 
                 <TableCell sx={{ border: "1px solid #ddd", textAlign: "center" }}>
@@ -244,7 +264,7 @@ export default function CartTable() {
                     fontFamily: "'Noto Kufi Arabic', sans-serif",
                   }}
                 >
-                  {getTotal(item).toFixed(2)} د.ت
+                  {getTotal(item).toFixed(2)} $
                 </TableCell>
 
                 <TableCell align="center">

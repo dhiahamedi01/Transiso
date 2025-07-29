@@ -56,7 +56,7 @@ export default function Panier() {
             <span style={{ fontWeight: 400, color: "#555" }}>
               {t("cart.total")}
             </span>
-            &ensp;1&nbsp;245.00 د.ت
+            &ensp;&nbsp;$ 245.00
           </Typography>
         </Box>
 
