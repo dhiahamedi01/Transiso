@@ -565,4 +565,7 @@
     font-size: 0.95rem;
     user-select: none;
   }
-  
+  .groupe{
+    display: flex;
+    gap: 15px;
+  }

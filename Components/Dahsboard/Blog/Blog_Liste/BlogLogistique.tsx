@@ -8,6 +8,7 @@ import EditDocumentIcon from '@mui/icons-material/EditDocument';
 import AddIcon from '@mui/icons-material/Add';
 import Image from 'next/image';
 import style from '@/Components/Dahsboard/Tracking/Tracking.module.css';
+import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 
 import { fetchBlogs, BlogArticle } from '@/services/blogService';
 import { deleteBlog } from '@/services/deleteBlog';
@@ -46,12 +47,11 @@ function Transaction() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedLang, setSelectedLang] = useState<string>('en');
 
-  // Modal state
   const [showModal, setShowModal] = useState(false);
   const [blogToDelete, setBlogToDelete] = useState<BlogArticle | null>(null);
 
-  // Charger les blogs au montage
   useEffect(() => {
     const loadBlogs = async () => {
       setLoading(true);
@@ -60,7 +60,7 @@ function Transaction() {
         const data = await fetchBlogs();
         setBlogs(data);
       } catch (err: any) {
-        setError('Impossible de charger les articles.');
+        setError("Impossible de charger les articles.");
       } finally {
         setLoading(false);
       }
@@ -68,25 +68,27 @@ function Transaction() {
     loadBlogs();
   }, []);
 
-  // Filtrage selon recherche
-  const filteredBlogs = blogs.filter(blog =>
-    [blog.title, blog.author, blog.category]
-      .some(field => field.toLowerCase().includes(searchTerm.toLowerCase()))
-  );
+  const handleLangChange = (event: SelectChangeEvent<string>) => {
+    setSelectedLang(event.target.value);
+  };
+
+  const filteredBlogs = blogs
+    .filter(blog => blog.lang === selectedLang)
+    .filter(blog =>
+      [blog.title, blog.author, blog.category]
+        .some(field => field.toLowerCase().includes(searchTerm.toLowerCase()))
+    );
 
   const getStatusClass = (status: string) =>
     status === 'Published' ? style.statusDelivered : style.statusDelayed;
 
-  // Ouvre le modal de confirmation de suppression
   const openDeleteModal = (blog: BlogArticle) => {
     setBlogToDelete(blog);
     setShowModal(true);
   };
 
-  // Confirme la suppression
   const confirmDelete = async () => {
     if (!blogToDelete) return;
-
     try {
       await deleteBlog(blogToDelete.id);
       setBlogs(prev => prev.filter(b => b.id !== blogToDelete.id));
@@ -102,9 +104,13 @@ function Transaction() {
 
   return (
     <div className={style.card}>
-      <h4 style={{ marginBottom: '2rem' }}>Blog List</h4>
+      <div className={style.actionRow}>
+        <h4>Blog List</h4>
+
+      </div>
 
       <div className={style.actionRow}>
+      <div className={style.groupe}>
         <input
           type="text"
           placeholder="Search for an article..."
@@ -112,7 +118,21 @@ function Transaction() {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-
+        <FormControl size="small" className={style.langSelect}>
+          <InputLabel id="lang-select-label">Langue</InputLabel>
+          <Select
+            labelId="lang-select-label"
+            id="lang-select"
+            value={selectedLang}
+            label="Langue"
+            onChange={handleLangChange}
+          >
+            <MenuItem value="en">EN</MenuItem>
+            <MenuItem value="tr">TR</MenuItem>
+            <MenuItem value="ar">AR</MenuItem>
+          </Select>
+        </FormControl>
+      </div>
         <Link href="/Dashboard/AddBlog" className={style.addButtonSmall}>
           <AddIcon fontSize="small" /> New Article
         </Link>
@@ -155,10 +175,9 @@ function Transaction() {
                 <td className={style.tableData}>{blog.category}</td>
                 <td className={style.tableData}>
                   <div className={style.actionButtonsWrapper}>
-                  <Link href={`/Dashboard/blog/${blog.id}`} className={style.viewButton} title="Edit">
-                    <EditDocumentIcon fontSize="small" />
-                  </Link>
-
+                    <Link href={`/Dashboard/blog/${blog.id}`} className={style.viewButton} title="Edit">
+                      <EditDocumentIcon fontSize="small" />
+                    </Link>
 
                     <button
                       className={style.deleteButton}
@@ -175,11 +194,10 @@ function Transaction() {
         </table>
       </div>
 
-      {/* Modal de confirmation */}
       {showModal && blogToDelete && (
         <ModalConfirm
           title="Confirmer la suppression"
-          message={`Voulez-vous vraiment supprimer l'article "${blogToDelete.title}" ?`}
+          message={`Voulez-vous vraiment supprimer l'article \"${blogToDelete.title}\" ?`}
           onCancel={() => setShowModal(false)}
           onConfirm={confirmDelete}
         />

@@ -1,18 +1,21 @@
-'use client';
+"use client";
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import EditDocumentIcon from '@mui/icons-material/EditDocument';
 import DeleteIcon from '@mui/icons-material/Delete';
-import style from '@/Components/Dahsboard/Tracking/Tracking.module.css';
 import AddIcon from '@mui/icons-material/Add';
+import style from '@/Components/Dahsboard/Tracking/Tracking.module.css';
+import { Select, MenuItem, FormControl, InputLabel, SelectChangeEvent } from '@mui/material';
+
 interface SliderItem {
   id: number;
   icon: string;
   title: string;
   description: string;
   image: string;
+  lang?: string;
 }
 
 async function fetchSliders(): Promise<SliderItem[]> {
@@ -22,21 +25,22 @@ async function fetchSliders(): Promise<SliderItem[]> {
   const data: {
     id: number;
     Icon: string | null;
-    Titre: string | null;      // corrigé ici : Titre au lieu de Title
+    Titre: string | null;
     Description: string | null;
     Image: string | null;
+    lang: string;
   }[] = await res.json();
 
   return data.map(item => ({
     id: item.id,
     icon: item.Icon ?? '',
-    title: item.Titre ?? '',        // corrigé ici
+    title: item.Titre ?? '',
     description: item.Description ?? '',
     image: item.Image ?? '',
+    lang: item.lang,
   }));
 }
 
-// Fonction pour supprimer un slider
 async function deleteSlider(id: number) {
   const res = await fetch(`/api/home-slider/${id}`, { method: 'DELETE' });
   if (!res.ok) throw new Error('Error during deletion');
@@ -70,10 +74,10 @@ function ModalConfirm({
 function SliderList() {
   const [sliders, setSliders] = useState<SliderItem[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedLang, setSelectedLang] = useState<string>('en');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Modal state
   const [showModal, setShowModal] = useState(false);
   const [sliderToDelete, setSliderToDelete] = useState<SliderItem | null>(null);
 
@@ -91,9 +95,11 @@ function SliderList() {
     load();
   }, []);
 
-  const filteredSliders = sliders.filter(slider =>
-    (slider.title ?? '').toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredSliders = sliders
+    .filter(slider => slider.lang === selectedLang)
+    .filter(slider =>
+      (slider.title ?? '').toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
   const openDeleteModal = (slider: SliderItem) => {
     setSliderToDelete(slider);
@@ -128,7 +134,21 @@ function SliderList() {
           value={searchTerm}
           onChange={e => setSearchTerm(e.target.value)}
         />
-         <Link href="/Dashboard/Image_Slider/AddSlider" className={style.addButtonSmall}>
+
+        <FormControl size="small" sx={{ minWidth: 120 }}>
+          <InputLabel>Lang</InputLabel>
+          <Select
+            value={selectedLang}
+            label="Lang"
+            onChange={(e: SelectChangeEvent<string>) => setSelectedLang(e.target.value)}
+          >
+            <MenuItem value="en">EN</MenuItem>
+            <MenuItem value="ar">AR</MenuItem>
+            <MenuItem value="tr">TR</MenuItem>
+          </Select>
+        </FormControl>
+
+        <Link href="/Dashboard/Image_Slider/AddSlider" className={style.addButtonSmall}>
           <AddIcon fontSize="small" /> New Slider
         </Link>
       </div>
@@ -173,7 +193,6 @@ function SliderList() {
                     <Link href={`/Dashboard/Image_Slider/${slider.id}`} className={style.viewButton} title="Edit">
                       <EditDocumentIcon fontSize="small" />
                     </Link>
-
                     <button
                       className={style.deleteButton}
                       title="Delete"
