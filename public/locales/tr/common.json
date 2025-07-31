@@ -64,11 +64,16 @@
         "description": "Transiso, Türkiye’den güvenilir hava ve deniz nakliye hizmetleri sunar, profesyonel bir ekip ve dünya çapında şube ağı ile hızlı uygulama ve hassas teslimat sağlar."
       },
       "card2": {
-        "partial_shipping": "Parsiyel Taşımacılık",
-        "air_shipping": "Hava Kargosu",
-        "sea_shipping": "Deniz Taşımacılığı",
-        "land_shipping": "Kara Taşımacılığı",
-        "description": "Fareyle üzerine gelindiğinde görünen kısa bir açıklama"
+        "air_shipping": "Hava Nakliyesi",
+        "sea_shipping": "Deniz Nakliyesi",
+        "land_shipping": "Kara Nakliyesi",
+        "partial_shipping": "Gümrük İşlemleri",
+        "description": {
+          "air_shipping": "Orta Doğu, Avrupa, Afrika ve Körfez’e güvenilir hava yolu ağı ile hızlı nakliye.",
+          "sea_shipping": "Türkiye’den Arap ülkelerindeki tüm limanlara tam konteyner (FCL) veya parçalı (LCL) nakliye. MSC, Maersk, CMA CGM gibi büyük denizcilik hatları ile işbirliği. Depolama, yükleme, takip ve hızlı gümrük işlemleri.",
+          "land_shipping": "Türkiye içinde kara nakliye hizmetleri.",
+          "partial_shipping": "Türk ve Arap gümrük yasalarında uzmanız. Gerekli tüm belgeleri hazırlıyor ve resmi işlemleri yürütüyoruz."
+        }
       },
       "sub_services": {
         "subheading": "Türkiye içinde profesyonel ve özel nakliye hizmetleri sunuyoruz",
@@ -485,7 +490,19 @@
               }
             ]
           },
-          "FAQ":"Sıkça Sorulan Sorular"
+          "FAQ":"Sıkça Sorulan Sorular",
+          "howItWorks": {
+            "title": "Nasıl Çalışıyoruz? İşte detaylı adımlarımız",
+            "steps": [
+              "Siparişinizi veya fiyat teklifinizi alın",
+              "Detayları ve belgeleri onaylayın",
+              "Gönderiyi hazırlayın ve yükleyin",
+              "Gümrük işlemleri ve nakliye",
+              "Varışa kadar canlı takip",
+              "Teslimatı onaylayın"
+            ],
+            "direction": "ltr"
+          }
           
           
 

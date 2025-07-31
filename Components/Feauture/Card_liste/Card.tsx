@@ -28,7 +28,7 @@ const cardsData = [
     icon: '/img/icon/exhibitor.svg',
     className: styles.card3,
     delay: 300,
-  },
+  }
 ];
 
 const Card = () => {
@@ -54,7 +54,7 @@ const Card = () => {
             <span className={styles.span}>{t(`card2.${key}`)}</span>
           </div>
           <div className={styles.description}>
-            {t('card2.description')}
+            {t(`card2.description.${key}`)}
           </div>
         </div>
       ))}

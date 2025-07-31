@@ -66,11 +66,16 @@
           "description": "Transiso provides reliable air and sea shipping services from Turkey, supported by a professional team and a global branch network, ensuring fast execution and accurate delivery."
         },
         "card2": {
-          "partial_shipping": "Partial Shipping",
-          "air_shipping": "Air Freight",
-          "sea_shipping": "Sea Freight",
-          "land_shipping": "Land Freight",
-          "description": "This is a short description that appears on hover"
+          "air_shipping": "Air Shipping",
+          "sea_shipping": "Sea Shipping",
+          "land_shipping": "Land Shipping",
+          "partial_shipping": "Customs Clearance",
+          "description": {
+            "air_shipping": "Fast cargo transport via reliable air routes to the Middle East, Europe, Africa, and the Gulf.",
+            "sea_shipping": "Full container (FCL) or partial (LCL) shipping from Turkey to all ports in Arab countries. Cooperation with major shipping lines like MSC, Maersk, CMA CGM, and others. Storage, loading, tracking, and fast clearance.",
+            "land_shipping": "Land shipping services within Turkey.",
+            "partial_shipping": "Experts in Turkish and Arab customs laws. We prepare all necessary documents and handle official procedures."
+          }
         },
         "sub_services": {
           "subheading": "We provide professional and customized shipping services within Turkey",
@@ -493,7 +498,21 @@
       }
     ]
   },
-    "FAQ":"Frequently Asked Questions"
+    "FAQ":"Frequently Asked Questions",
+    
+      "howItWorks": {
+        "title": "How It Works? Here are our detailed steps",
+        "steps": [
+          "Receive your order or quotation",
+          "Confirm details and documents",
+          "Prepare and load the shipment",
+          "Customs clearance and shipping",
+          "Live tracking until arrival",
+          "Confirm delivery"
+        ],
+        "direction": "ltr"
+      }
+  
   
 
 

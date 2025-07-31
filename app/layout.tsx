@@ -2,7 +2,6 @@ import './globals.css';
 
 import { languages } from '@/Components/i18n/settings';
 import Providers from '@/Components/Providers';
-import 'leaflet/dist/leaflet.css';
 
 import type { Metadata } from 'next'
 export async function generarateStaticParams() {

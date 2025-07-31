@@ -22,6 +22,7 @@ import Expertise from '@/Components/Information_section/about_info';
 import QuestionCardList from '@/Components/Question/question';
 import ShippingMap from '@/Components/ShippingMap/ShippingMap';
 import ShippingCoverage from '@/Components/ShippingCoverage/ShippingCoverage';
+import HowItWorks from '@/Components/HowItWorks/HowItWorks';
 
 export default function Page() {
   const [isLoading, setIsLoading] = useState(true);
@@ -77,6 +78,7 @@ export default function Page() {
         <Service />
         <br /><br />
         <QuestionCardList/>
+        <HowItWorks/>
         <Blog />
         <WhatsappButtons />
         <ScrollToTopButton />
