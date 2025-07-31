@@ -7,7 +7,7 @@
     "trackOrder": "Log in",
     "inquiryOnline": "Online Inquiry",
     "followUs": "Follow us:",
-    "workingHours": "Mon - Sun: 9:00 AM - 8:00 PM",
+    "workingHours": "Monday to Friday: 8:00 - 19:00  Saturday: 10:00 - 19:00",
     "phoneNumber": "(+90) 5377671027 ",
     "istanbulTurkey": "Istanbul, Turkey",
     "email": "info@transisologistic.com",
@@ -60,11 +60,11 @@
         },
         "titre_map": "Our location in Istanbul",
         "sous_titre_map": "You can visit us at our Istanbul office at any time",
-        "card_service": {
-          "subheading": "Global expertise at the service of your shipments",
-          "heading": "Worldwide shipping solutions from Transiso",
-          "description": "Transiso provides reliable air and sea shipping services from Turkey, supported by a professional team and a global branch network, ensuring fast execution and accurate delivery."
-        },
+          "card_service": {
+              "subheading": "Global expertise in handling your shipments",
+              "heading": "Integrated logistics services tailored to all your business needs",
+              "description": "Transiso offers reliable air, sea, and land freight services from Turkey, supported by a professional team and a global branch network to ensure fast execution and accurate delivery."
+            },
         "card2": {
           "air_shipping": "Air Shipping",
           "sea_shipping": "Sea Shipping",

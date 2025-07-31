@@ -7,7 +7,7 @@
     "trackOrder": "Giriş yapmak",
     "inquiryOnline": "Online Sorgu",
     "followUs": "Bizi takip edin:",
-    "workingHours": "Pzt - Paz: 9:00 - 20:00",
+    "workingHours": "Pazartesi - Cuma: 8:00 - 19:00  Cumartesi: 10:00 - 19:00",
     "phoneNumber": "(+90) 5377671027",
     "istanbulTurkey": "İstanbul, Türkiye",
     "email": "info@transisologistic.com",
@@ -59,10 +59,10 @@
       "titre_map": "İstanbul'daki konumumuz",
       "sous_titre_map": "Dilediğiniz zaman İstanbul ofisimizi ziyaret edebilirsiniz",
       "card_service": {
-        "subheading": "Gönderileriniz için küresel deneyim",
-        "heading": "Transiso’dan dünya çapında nakliye çözümleri",
-        "description": "Transiso, Türkiye’den güvenilir hava ve deniz nakliye hizmetleri sunar, profesyonel bir ekip ve dünya çapında şube ağı ile hızlı uygulama ve hassas teslimat sağlar."
-      },
+          "subheading": "Gönderileriniz için küresel uzmanlık",
+          "heading": "Tüm iş ihtiyaçlarınıza uygun entegre lojistik hizmetleri",
+          "description": "Transiso, profesyonel bir ekip ve küresel şube ağı desteğiyle, Türkiye'den güvenilir hava, deniz ve kara taşımacılığı hizmetleri sunarak hızlı uygulama ve doğru teslimat sağlar."
+        },
       "card2": {
         "air_shipping": "Hava Nakliyesi",
         "sea_shipping": "Deniz Nakliyesi",
