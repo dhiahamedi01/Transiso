@@ -111,18 +111,23 @@ export default function Blog() {
                 </Box>
 
                 <Typography
-                  variant="h6"
-                  sx={{
-                    fontWeight: 700,
-                    color: '#111827',
-                    marginBottom: '0.5rem',
-                    lineHeight: 1.5,
-                    fontSize: '18px'
-                  }}
-                  className={styles.arabe}
-                >
-                  {post.title}
-                </Typography>
+  variant="h6"
+  sx={{
+    fontWeight: 700,
+    color: '#111827',
+    marginBottom: '0.5rem',
+    lineHeight: 1.5,
+    fontSize: '18px',
+    display: '-webkit-box',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  }}
+  className={styles.arabe}
+>
+  {post.title}
+</Typography>
 
                 <Typography
                   className={`${styles.arabe} ${styles.description}`}

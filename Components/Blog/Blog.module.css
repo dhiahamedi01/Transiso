@@ -52,7 +52,7 @@
   
   .dateOverlay {
     position: absolute;
-    top: 13rem; 
+    top: 11rem; 
     left: 1rem;
     display: flex;
     flex-direction: row; /* s'assurer que c'est bien en ligne */
