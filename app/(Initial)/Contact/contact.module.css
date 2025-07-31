@@ -141,9 +141,23 @@
   
   .infoBox {
     display: flex;
-    align-items: center;
     gap: 12px;
   }
+  .locationList {
+    list-style: none;
+    padding: 0;
+    margin-top: 0.5rem;
+    line-height: 1.8;
+  }
+  .locationList li {
+    margin-bottom: 4px;
+  }
+  .locationTitleBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* verticalement centré avec l’icône */
+  }
+  
   /* Responsive pour écrans ≤ 768px (tablettes et mobiles) */
 @media (max-width: 768px) {
     .root {

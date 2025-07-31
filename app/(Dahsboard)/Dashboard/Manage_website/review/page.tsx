@@ -17,6 +17,7 @@ type Review = {
   comment: string;
   rating: number;
   image: string;
+  lang?: string;
 };
 
 function ModalConfirm({
@@ -52,6 +53,7 @@ function ManageReviews() {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedLang, setSelectedLang] = useState<string>('all');
   const [showModal, setShowModal] = useState(false);
   const [reviewToDelete, setReviewToDelete] = useState<Review | null>(null);
 
@@ -79,6 +81,11 @@ function ManageReviews() {
   const filteredReviews = reviews.filter((review) =>
     [review.name, review.position, review.comment]
       .some((field) => field.toLowerCase().includes(searchTerm.toLowerCase()))
+  );
+
+  // Filtrer selon la langue sélectionnée
+  const displayedReviews = filteredReviews.filter(
+    (review) => selectedLang === 'all' || review.lang === selectedLang
   );
 
   const openDeleteModal = (review: Review) => {
@@ -119,7 +126,7 @@ function ManageReviews() {
     <div className={style.card}>
       <h4 style={{ marginBottom: '2rem' }}>Manage Testimonials</h4>
 
-      <div className={style.actionRow}>
+      <div className={style.actionRow} style={{ alignItems: 'center', gap: '1rem' }}>
         <input
           type="text"
           placeholder="Search a review..."
@@ -127,6 +134,20 @@ function ManageReviews() {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
+
+        {/* Selecteur de langue */}
+        <select
+          id="lang-select"
+          value={selectedLang}
+          onChange={(e) => setSelectedLang(e.target.value)}
+          style={{ padding: '4px 8px', borderRadius: '4px', border: '1px solid #ccc' }}
+          aria-label="Filter by language"
+        >
+          <option value="all">All</option>
+          <option value="tr">Turkish (tr)</option>
+          <option value="en">English (en)</option>
+          <option value="ar">Arabic (ar)</option>
+        </select>
 
         <Link href="/Dashboard/Manage_website/AddReview" className={style.addButtonSmall}>
           <AddIcon fontSize="small" /> New Testimonial
@@ -147,7 +168,7 @@ function ManageReviews() {
           </thead>
 
           <tbody>
-            {filteredReviews.map((review) => (
+            {displayedReviews.map((review) => (
               <tr key={review.id} className={style.tableRow}>
                 <td className={style.tableData}>
                   <Image
@@ -183,6 +204,14 @@ function ManageReviews() {
                 </td>
               </tr>
             ))}
+
+            {displayedReviews.length === 0 && (
+              <tr>
+                <td colSpan={6} style={{ textAlign: 'center', padding: '1rem' }}>
+                  No testimonials found for the selected filters.
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

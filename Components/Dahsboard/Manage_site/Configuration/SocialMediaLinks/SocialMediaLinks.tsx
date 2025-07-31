@@ -22,7 +22,7 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import YouTubeIcon from '@mui/icons-material/YouTube';
-import MusicNoteIcon from '@mui/icons-material/MusicNote'; // Pour TikTok
+import MusicNoteIcon from '@mui/icons-material/MusicNote'; // For TikTok
 
 import { useSocialLinks } from '@/hooks/useSocialLinks';
 
@@ -77,7 +77,7 @@ export default function SocialMediaLinks() {
   const handleSubmit = () => {
     const newLinks = socialLinks.filter((link) => link.isNew && link.url.trim() !== '');
     if (newLinks.length === 0) {
-      showAlert('Veuillez ajouter une URL valide avant de sauvegarder.', 'error');
+      showAlert('Please add a valid URL before saving.', 'error');
       return;
     }
 
@@ -85,7 +85,7 @@ export default function SocialMediaLinks() {
       addSocialLink({ platform: link.platform, url: link.url.trim() })
     );
 
-    showAlert(`${newLinks.length} lien(s) ajouté(s) avec succès 🎉`);
+    showAlert(`${newLinks.length} link(s) successfully added 🎉`);
     setSocialLinks((prev) => prev.filter((l) => !l.isNew));
   };
 
@@ -93,22 +93,22 @@ export default function SocialMediaLinks() {
     const target = socialLinks.find((l) => l.id === id);
     if (target?.isNew) {
       setSocialLinks((prev) => prev.filter((l) => l.id !== id));
-      showAlert('Nouveau lien supprimé 🗑️');
+      showAlert('New link removed 🗑️');
     } else {
       deleteSocialLink(id);
-      showAlert('Lien supprimé avec succès 🗑️');
+      showAlert('Link deleted successfully 🗑️');
     }
   };
 
   return (
     <>
       <Typography variant="h6" gutterBottom>
-        Gérer les liens des réseaux sociaux
+        Manage Social Media Links
       </Typography>
 
       {socialLinks.length === 0 && (
         <Typography color="text.secondary" sx={{ mb: 2 }}>
-          Aucun lien ajouté. Cliquez sur + pour en ajouter un.
+          No links added yet. Click + to add one.
         </Typography>
       )}
 
@@ -125,7 +125,7 @@ export default function SocialMediaLinks() {
           <TextField
             fullWidth
             variant="outlined"
-            placeholder="URL du réseau social"
+            placeholder="Social media URL"
             value={link.url}
             onChange={(e) => handleChange(link.id, 'url', e.target.value)}
           />
@@ -170,7 +170,7 @@ export default function SocialMediaLinks() {
       {socialLinks.length > 0 && (
         <Box sx={{ textAlign: 'center', mt: 3 }}>
           <Button variant="contained" color="primary" onClick={handleSubmit}>
-            Sauvegarder
+            Save
           </Button>
         </Box>
       )}

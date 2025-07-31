@@ -261,7 +261,13 @@
             "headquarters": "Merkez",
             "phoneNumber": "5377671027 (90+)",
             "emailAddress": "info@transisologistic.com",
-            "address": "İstanbul, Türkiye Cadde 1582"
+            "address": "İstanbul, Türkiye Cadde 1582",
+            "omanOffice": "Oman Office",
+            "omanAddress": "Muscat, Oman",
+            "yemenOffice": "Yemen Office",
+            "yemenAddress": "Sana'a, Yemen",
+            "locationsTitle": "Konumlarımız"
+
           },
           "direction": "ltr"
         },
@@ -447,7 +453,40 @@
               "itemTotal": "Toplam",
               "clearCart": "Sepeti Temizle",
               "emptyCart": "Sepetiniz boş"
-          }
+          },
+          "map":{
+            "headerTitle": "Küresel Kapsama",
+            "headerText": "Türkiye'den Yemen, Suudi Arabistan, Birleşik Arap Emirlikleri, Katar ve Umman Sultanlığı'na güvenilir ve profesyonel kargo hizmetleri sunuyoruz.",
+            "regions": [
+              {
+                "title": "Yemen",
+                "description": "Türkiye’den Yemen’e kolay ve güvenli nakliye hizmetleri sunuyoruz.",
+                "icon": "/img/europe.svg"
+              },
+              {
+                "title": "Suudi Arabistan",
+                "description": "Suudi Arabistan’a hızlı ve güvenilir nakliye hizmetleri sağlıyoruz.",
+                "icon": "/img/gulfregion.svg"
+              },
+              {
+                "title": "Birleşik Arap Emirlikleri",
+                "description": "Türkiye’den BAE’ye kapsamlı nakliye hizmetleri ve sürekli takip.",
+                "icon": "/img/middle-east.svg"
+              },
+              {
+                "title": "Katar",
+                "description": "Deniz ve hava yoluyla Katar’a profesyonel ve hızlı nakliye sağlıyoruz.",
+                "icon": "/img/america.svg"
+              },
+              {
+                "title": "Umman Sultanlığı",
+                "description": "Umman’a tüm mevcut yöntemlerle güvenli ve hızlı nakliye.",
+                "icon": "/img/america.svg"
+              }
+            ]
+          },
+          "FAQ":"Sıkça Sorulan Sorular"
+          
           
 
 

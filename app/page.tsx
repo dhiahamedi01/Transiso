@@ -19,6 +19,9 @@ import WhatsappButtons from '@/Components/WhatsappButtons';
 import ScrollToTopButton from '@/Components/ScrollToTopButton';
 import Carousel from '@/Components/Carrousel/carrousel';
 import Expertise from '@/Components/Information_section/about_info';
+import QuestionCardList from '@/Components/Question/question';
+import ShippingMap from '@/Components/ShippingMap/ShippingMap';
+import ShippingCoverage from '@/Components/ShippingCoverage/ShippingCoverage';
 
 export default function Page() {
   const [isLoading, setIsLoading] = useState(true);
@@ -67,15 +70,18 @@ export default function Page() {
         <HeroSlider />
         <Card />
         <Section />
-        <Carousel />
         <br /><br /><br />
-        <TrendingCarousel/>
+
         <HeroSection />
         <Avis />
         <Service />
+        <br /><br />
+        <QuestionCardList/>
         <Blog />
         <WhatsappButtons />
         <ScrollToTopButton />
+        <ShippingCoverage/>
+        <Carousel />
         <Footer />
       </div>
     </>

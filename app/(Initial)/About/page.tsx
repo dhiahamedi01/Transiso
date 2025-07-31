@@ -14,7 +14,6 @@ function index() {
       <Expertise/>
       <Banner/><br /><br />
       <Card/>
-
       <Localisation/>
     </div>
   )

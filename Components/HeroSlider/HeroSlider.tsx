@@ -44,8 +44,8 @@ const textStyles: Record<'en' | 'tr' | 'ar', {
   ar: {
     fontFamily: "'Noto Kufi Arabic', sans-serif",
     lineHeight: 1.7,
-    fontSizeTitle: '2.8rem',
-    fontSizeDesc: '1.3rem',
+    fontSizeTitle: '2rem',
+    fontSizeDesc: '1.2rem',
   },
 };
 
@@ -86,7 +86,7 @@ const HeroSlider: React.FC = () => {
       sx={{
         position: 'relative',
         width: '100%',
-        height: { xs: '500px', sm: '600px', md: '80vh' },
+        height: { xs: '500px', sm: '600px', md: '83vh' },
         overflow: 'hidden',
         '.swiper-pagination-bullet': {
           backgroundColor: '#DE1E27',

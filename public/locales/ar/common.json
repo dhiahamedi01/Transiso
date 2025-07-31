@@ -269,7 +269,13 @@
             "headquarters": "المقر الرئيسي",
             "phoneNumber": "5377671027 (90+)",
             "emailAddress": "info@transisologistic.com",
-            "address": "اسطنبول، تركيا شارع ١٥٨٢"
+            "address": "اسطنبول، تركيا",
+            "omanOffice": "مكتب عمان",
+            "omanAddress": "مسقط، عمان",
+            "yemenOffice": "مكتب اليمن",
+            "yemenAddress": "صنعاء، اليمن"
+            ,"locationsTitle": "مواقعنا"
+
           },
           "direction": "rtl"
         },"blog": {
@@ -453,7 +459,40 @@
               "itemTotal": "الإجمالي",
               "clearCart": "تفريغ السلة",
               "emptyCart": "سلة التسوق فارغة"
-            }
+            },
+            "map":{
+              "headerTitle": "التغطية العالمية",
+              "headerText": "نوفر خدمات شحن موثوقة من تركيا إلى اليمن، السعودية، الإمارات، قطر، وسلطنة عُمان.",
+              "regions": [
+                {
+                  "title": "اليمن",
+                  "description": "نقدم خدمات شحن مميزة من تركيا إلى اليمن بكل سهولة وأمان.",
+                  "icon": "/img/europe.svg"
+                },
+                {
+                  "title": "السعودية",
+                  "description": "نغطي عمليات الشحن السريعة والموثوقة إلى المملكة العربية السعودية.",
+                  "icon": "/img/gulfregion.svg"
+                },
+                {
+                  "title": "الإمارات",
+                  "description": "خدمات شحن متكاملة من تركيا إلى الإمارات مع متابعة مستمرة.",
+                  "icon": "/img/middle-east.svg"
+                },
+                {
+                  "title": "قطر",
+                  "description": "نؤمن شحناتك عبر البحر والجو إلى قطر بكل احترافية وسرعة، مع ضمان متابعة مستمرة.",
+                  "icon": "/img/america.svg"
+                },
+                {
+                  "title": "سلطنة ُعمان",
+                  "description": "شحن آمن وسريع إلى سلطنة عمان عبر جميع الوسائل المتاحة.",
+                  "icon": "/img/america.svg"
+                }
+              ]
+            },
+            "FAQ":"الأسئلة الشائعة"
+            
             
             
 

@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Style from './Hero.module.css'
 import { usePathname } from 'next/navigation'
 import { useTranslation } from 'react-i18next';
-
+import Link from 'next/link' 
 function Hero() {
   const pathname = usePathname();
   const { t, i18n } = useTranslation('common');
@@ -29,6 +29,11 @@ function Hero() {
         return {
           title: t('services'),
           breadcrumbs: [t('home'), t('services')],
+        };
+      case '/FAQ':
+        return {
+          title: t('FAQ'),
+          breadcrumbs: [t('home'), t('FAQ')],
         };
       case '/Contact':
         return {
@@ -73,9 +78,13 @@ function Hero() {
           <h1>{title}</h1>
           <div className={Style.breadcrumb}>
             {breadcrumbs.map((item, index) => (
-              <a key={index} href="#">
-                {item}
-              </a>
+              index === 0 ? (
+                <Link key={index} href="/">
+                  {item}
+                </Link>
+              ) : (
+                <span key={index}>{item}</span>
+              )
             ))}
           </div>
         </div>

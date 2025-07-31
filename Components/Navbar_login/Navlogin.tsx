@@ -42,6 +42,8 @@ const TwitterIcon = dynamic(() => import('@mui/icons-material/Twitter'), { ssr: 
 const WhatsAppIcon = dynamic(() => import('@mui/icons-material/WhatsApp'), { ssr: false });
 const InstagramIcon = dynamic(() => import('@mui/icons-material/Instagram'), { ssr: false });
 const LinkedInIcon = dynamic(() => import('@mui/icons-material/LinkedIn'), { ssr: false });
+const MusicNoteIcon = dynamic(() => import('@mui/icons-material/MusicNote'), { ssr: false }); // TikTok
+
 
 const iconMap: Record<string, React.ReactElement> = {
   facebook: <FacebookIcon fontSize="small" />,
@@ -49,6 +51,7 @@ const iconMap: Record<string, React.ReactElement> = {
   whatsapp: <WhatsAppIcon fontSize="small" />,
   instagram: <InstagramIcon fontSize="small" />,
   linkedin: <LinkedInIcon fontSize="small" />,
+  tiktok: <MusicNoteIcon fontSize="small" />,
 };
 
 const useSocialLinks = () => {
@@ -156,6 +159,7 @@ function Nav() {
     { label: t('home'), href: '/' },
     { label: t('about'), href: '/About' },
     { label: t('services'), href: '/Services' },
+    { label: t('FAQ'), href: '/FAQ' },
     { label: t('Dasho'), href: dashboardLink },
     { label: t('contact'), href: '/Contact' },
   ];
@@ -243,6 +247,10 @@ function Nav() {
                   <IconButton size="small" className={styles.icon} aria-label="Instagram">
                     <InstagramIcon fontSize="small" />
                   </IconButton>
+                  <IconButton size="small" className={styles.icon} aria-label="TikTok">
+                  <MusicNoteIcon fontSize="small" /> 
+                </IconButton>
+
                 </>
               )}
             </div>

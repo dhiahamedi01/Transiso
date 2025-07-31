@@ -264,7 +264,13 @@
             "headquarters": "Headquarters",
             "phoneNumber": "5377671027 (90+)",
             "emailAddress": "info@transisologistic.com",
-            "address": "Istanbul, Turkey Street 1582"
+            "address": "Istanbul, Turkey Street 1582",
+            "omanOffice": "Bureau Oman",
+            "omanAddress": "Mascate, Oman",
+            "yemenOffice": "Bureau Yémen",
+            "yemenAddress": "Sanaa, Yémen",
+            "locationsTitle": "Our Locations"
+
           },
           "direction": "ltr"
         },"blog": {
@@ -455,7 +461,40 @@
     "itemTotal": "Total",
     "clearCart": "Clear Cart",
     "emptyCart": "Your cart is empty"
-  }
+  },
+  "map":{
+    "headerTitle": "Global Coverage",
+   "headerText": "We provide reliable shipping services from Turkey to Yemen, Saudi Arabia, the UAE, Qatar, and the Sultanate of Oman with efficiency and professionalism.",
+    "regions": [
+      {
+        "title": "Yemen",
+        "description": "Providing easy and secure shipping services from Turkey to Yemen.",
+        "icon": "/img/europe.svg"
+      },
+      {
+        "title": "Saudi Arabia",
+        "description": "Covering fast and reliable shipping operations to Saudi Arabia.",
+        "icon": "/img/gulfregion.svg"
+      },
+      {
+        "title": "United Arab Emirates",
+        "description": "Comprehensive shipping services from Turkey to UAE with continuous tracking.",
+        "icon": "/img/middle-east.svg"
+      },
+      {
+        "title": "Qatar",
+        "description": "We ensure professional and fast shipping via sea and air to Qatar with guaranteed follow-up.",
+        "icon": "/img/america.svg"
+      },
+      {
+        "title": "Sultanate of Oman",
+        "description": "Safe and fast shipping to Oman via all available methods.",
+        "icon": "/img/america.svg"
+      }
+    ]
+  },
+    "FAQ":"Frequently Asked Questions"
+  
 
 
   }

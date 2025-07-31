@@ -10,6 +10,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import MusicNoteIcon from '@mui/icons-material/MusicNote'; 
 
 import { useSocialLinks } from '@/hooks/useSocialLinks';
 import axios from 'axios';
@@ -19,6 +20,7 @@ const iconMap: Record<string, React.ReactElement> = {
   twitter: <TwitterIcon fontSize="small" />,
   instagram: <InstagramIcon fontSize="small" />,
   linkedin: <LinkedInIcon fontSize="small" />,
+  tiktok: <MusicNoteIcon fontSize="small" />,
 };
 
 const Footer = () => {
@@ -76,6 +78,7 @@ const Footer = () => {
                     <Link href="#"><TwitterIcon fontSize="small" /></Link>
                     <Link href="#"><InstagramIcon fontSize="small" /></Link>
                     <Link href="#"><LinkedInIcon fontSize="small" /></Link>
+                    <Link href="#"><MusicNoteIcon fontSize="small" /></Link>
                   </>
                 )}
               </div>

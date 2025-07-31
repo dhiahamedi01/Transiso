@@ -1,0 +1,142 @@
+@font-face {
+    font-family: 'Noto Kufi Arabic';
+    src: url('/Font/NotoKufiArabic-VariableFont_wght.ttf') format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 4rem;
+    padding-inline: 100px;
+    flex-wrap: wrap;
+    margin-bottom: 80px;
+  }
+  
+  .header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-top: 50px;
+    flex-direction: column;
+  }
+  
+  .mapContainer {
+    flex: 2;
+    min-width: 300px;
+  }
+  
+  .mapImage {
+    border-radius: 12px;
+    object-fit: contain;
+    max-width: 100%;
+  }
+  
+  .textContainer {
+    flex: 1;
+    min-width: 300px;
+    direction: rtl;
+  }
+  
+  /* REGION BOX - suppression des directives fixes de direction et flex */
+  .regionBox {
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: right;
+  }
+  
+  .regionIcon {
+    width: 60px !important;
+    height: 60px !important;
+    flex-shrink: 0;
+  }
+  
+  .regionBoxContent {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+    /* text-align: right;  -- gérer en React si besoin */
+  }
+  
+  .title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ED1C24;
+    font-family: 'Cairo', 'Noto Kufi Arabic', sans-serif;
+    margin: 0 0 0.25rem 0;
+  }
+  
+  .description {
+    font-size: 0.85rem;
+    color: #0D3548;
+    font-family: 'Cairo', 'Noto Kufi Arabic', sans-serif;
+    line-height: 1.5;
+    margin-top: 0.25rem;
+  }
+  
+  .arabica {
+    font-family: 'Cairo', 'Noto Kufi Arabic', sans-serif !important;
+  }
+  
+  .header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem 1rem;
+    direction: rtl;
+  }
+  
+  .headerTitle {
+    font-size: 2rem;
+    color: #0D3548;
+    margin-bottom: 1rem;
+    font-weight: 700 !important;
+    font-family: 'Cairo', 'Noto Kufi Arabic', sans-serif !important;
+  }
+  
+  .headerText {
+    font-size: 1rem;
+    color: #4a4a4a;
+    margin: 1rem 0 !important;
+    font-family: 'Cairo', 'Noto Kufi Arabic', sans-serif !important;
+    line-height: 1.8;
+    max-width: 600px;
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+      padding-inline: 1rem;
+      gap: 1.5rem;
+    }
+  
+    .title {
+      font-size: 0.95rem;
+    }
+  
+    .description {
+      font-size: 0.8rem;
+    }
+  
+    .headerTitle {
+      font-size: 1.5rem;
+    }
+  
+    .headerText {
+      font-size: 0.95rem;
+      max-width: 100%;
+    }
+  }
+  

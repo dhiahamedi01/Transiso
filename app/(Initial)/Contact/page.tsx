@@ -169,14 +169,27 @@ const Contact = () => {
                 </Box>
 
                 <Box className={styles.infoBox}>
-                  <div className={styles.iconBox}>
-                    <LocationOn sx={{ color: 'white', fontSize: '27px' }} />
-                  </div>
-                  <div>
-                    <Typography fontWeight="bold" className={styles.arabicah}>{t('contacter.contactInfo.headquarters')}</Typography>
-                    <Typography className={styles.arabicah2}>{t('contacter.contactInfo.address')}</Typography>
-                  </div>
-                </Box>
+  <div className={styles.iconBox}>
+    <LocationOn sx={{ color: 'white', fontSize: '27px' }} />
+  </div>
+  <div>
+    <Typography fontWeight="bold" className={styles.arabicah}>
+      {t('contacter.contactInfo.locationsTitle')}
+    </Typography>
+    <ul className={styles.locationList}>
+      <li>
+        {t('contacter.contactInfo.address')}
+      </li>
+      <li>
+        {t('contacter.contactInfo.omanAddress')}
+      </li>
+      <li>
+        {t('contacter.contactInfo.yemenAddress')}
+      </li>
+    </ul>
+  </div>
+</Box>
+
               </Box>
             </div>
           </div>
