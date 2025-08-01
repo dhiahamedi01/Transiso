@@ -30,10 +30,6 @@ const Localisation = () => {
         paddingTop: '30px',
       }}
     >
-      {/* Icône localisation */}
-      <Box sx={{ textAlign: 'center', mb: 1 }}>
-        <LocationOnIcon sx={{ fontSize: 40, color: 'red' }} />
-      </Box>
 
       {/* Titre */}
       <Typography
