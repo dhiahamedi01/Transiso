@@ -40,7 +40,7 @@ const ContactCards = () => {
 
       <Card className={styles.card}>
         <CardContent>
-          <Box className={styles.iconBox}>
+          <Box className={styles.iconBox} sx={{paddingTop:'10px'}}>
             <EmailIcon className={styles.icon} />
             <Typography variant="h6" className={styles.title}>
               {t('emailTitle')}
