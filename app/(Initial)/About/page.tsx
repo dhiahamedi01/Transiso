@@ -7,6 +7,8 @@ import Banner from '@/Components/Banner/Banner'
 import Banner2 from '@/Components/Banner/Banner2'
 import Localisation from '@/Components/Localisation/Localisation'
 import Expertise from '@/Components/Information_section/about_info'
+import AboutSection from '@/Components/About/AboutSection'
+import ContactCards from '@/Components/Card/ContactCards'
 function index() {
   return (
     <div>
@@ -14,6 +16,8 @@ function index() {
       <Expertise/>
       <Banner/><br /><br />
       <Card/>
+      <AboutSection/>
+      <ContactCards/>
       <Localisation/>
     </div>
   )

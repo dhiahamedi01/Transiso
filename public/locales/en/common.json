@@ -511,7 +511,54 @@
           "Confirm delivery"
         ],
         "direction": "ltr"
-      }
+      },
+      "meta": {
+    "title": "About Transiso Logistic - Shipping & Logistics Services",
+    "description": "We offer sea, air, and land shipping with high quality and competitive prices. Our vision is to be the first choice in international shipping and logistics."
+  },
+  "mission": {
+    "title": "Our Mission",
+    "text": "To provide smart and fast logistics services that meet market demands and support the growth of our clients’ businesses."
+  },
+  "vision": {
+    "title": "Our Vision",
+    "text": "To be the top choice in international shipping and logistics in Turkey and the Arab region through quality, professionalism, and continuous development."
+  },
+  "values": {
+    "title": "Our Values",
+    "items": [
+      "Reliability: We deliver your shipments on time and to the right place.",
+      "Transparency: We explain all details from start to finish.",
+      "Professionalism: A specialized team closely monitors every process.",
+      "Continuous Support: We accompany you every step of the way, even after delivery."
+    ]
+  },
+  "why": {
+    "title": "Why Choose Transiso Logistic?",
+    "items": [
+      "A wide network of partners inside and outside Turkey",
+      "Deep expertise in customs and trade regulations",
+      "Customized services based on shipment type and destination",
+      "Live shipment tracking",
+      "Professional packing and shipment insurance on demand",
+      "Traveler service (coming soon)"
+    ]
+  },
+  "keywords": [
+    "Shipping company in Turkey",
+    "Logistics services from Turkey",
+    "Export company",
+    "International shipping",
+    "Import from Turkey",
+    "Customs clearance",
+    "Shipping from Turkey to Yemen",
+    "Best shipping company in Istanbul"
+  ],
+  "addressTitle": "Address",
+  "address": "Istanbul, Turkey - Muscat, Oman - Sanaa, Yemen",
+  "phoneTitle": "Phone",
+  "phone": "+90 537 767 1027",
+  "emailTitle": "Email"
   
   
 

@@ -502,11 +502,55 @@
               "Teslimatı onaylayın"
             ],
             "direction": "ltr"
-          }
+          },
+          "meta": {
+    "title": "Transiso Logistic Hakkında - Nakliye ve Lojistik Hizmetleri",
+    "description": "Deniz, hava ve kara taşımacılığı hizmetlerini yüksek kalite ve rekabetçi fiyatlarla sunuyoruz. Vizyonumuz, uluslararası taşımacılıkta ilk tercih olmaktır."
+  },
+  "mission": {
+    "title": "Misyonumuz",
+    "text": "Pazar ihtiyaçlarına uygun, akıllı ve hızlı lojistik hizmetler sunarak müşterilerimizin işlerini desteklemek."
+  },
+  "vision": {
+    "title": "Vizyonumuz",
+    "text": "Kalite, profesyonellik ve sürekli gelişim ile Türkiye ve Arap bölgesinde uluslararası taşımacılıkta lider olmak."
+  },
+  "values": {
+    "title": "Değerlerimiz",
+    "items": [
+      "Güvenilirlik: Gönderilerinizi zamanında ve doğru yere teslim ederiz.",
+      "Şeffaflık: Başlangıçtan teslimata kadar tüm detayları açıklarız.",
+      "Profesyonellik: Uzman ekibimiz süreci titizlikle takip eder.",
+      "Sürekli Destek: Teslimattan sonra bile yanınızdayız."
+    ]
+  },
+  "why": {
+    "title": "Neden Transiso Logistic?",
+    "items": [
+      "Türkiye içinde ve dışında geniş iş ortağı ağı",
+      "Gümrük ve dış ticaret mevzuatında derin uzmanlık",
+      "Kargoya ve hedefe göre özelleştirilmiş hizmetler",
+      "Canlı gönderi takibi",
+      "Profesyonel ambalajlama ve isteğe bağlı sigorta",
+      "Yolcu hizmeti (yakında)"
+    ]
+  },
+  "keywords": [
+    "Türkiye'de nakliye şirketi",
+    "Türkiye'den lojistik hizmetleri",
+    "İhracat şirketi",
+    "Uluslararası nakliyat",
+    "Türkiye'den ithalat",
+    "Gümrükleme",
+    "Türkiye'den Yemen'e kargo",
+    "İstanbul'daki en iyi nakliye firması"
+  ],
+  "addressTitle": "Adres",
+  "address": "İstanbul, Türkiye - Maskat, Umman - Sana, Yemen",
+  "phoneTitle": "Telefon",
+  "phone": "+90 537 767 1027",
+  "emailTitle": "E-posta"
           
-          
-
-
 
 
   }
