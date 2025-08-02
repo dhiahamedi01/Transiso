@@ -3,11 +3,11 @@ import pool from '@/lib/db';
 
 export async function GET(
   req: NextRequest,
-  context: { params: { id: string } }
+  context: any // 🟢 temporairement
 ) {
+  const postId = context.params.id;
   const url = new URL(req.url);
-  const postId = url.pathname.split('/').pop();
-  const lang = url.searchParams.get('lang') || 'ar'; 
+  const lang = url.searchParams.get('lang') || 'ar';
 
   const allowedLangs = ['ar', 'en', 'tr'];
 
