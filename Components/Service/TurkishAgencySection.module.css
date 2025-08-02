@@ -1,0 +1,203 @@
+@font-face {
+    font-family: 'Noto Kufi Arabic';
+    src: url('/Font/NotoKufiArabic-VariableFont_wght.ttf') format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  .sectionWrapper {
+    position: relative;
+  }
+  .sectionContainer.rtl {
+    flex-direction: row-reverse;
+  }
+  .topLeftImageWrapper {
+    position: absolute;
+    top: -25px;
+    left: 30px;
+    z-index: 1;
+    animation: bounceUpDown 2s infinite ease-in-out;
+  }
+  
+  .topLeftImage {
+    width: 210px;
+    height: auto;
+  }
+  
+  @keyframes bounceUpDown {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(20px);
+    }
+  }
+  
+  .sectionContainer {
+    display: flex;
+    padding: 40px 20px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    font-family: "Noto Kufi Arabic", sans-serif;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    gap: 30px;
+    max-width: 1400px;
+    margin: auto;
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+  
+  .textContainer {
+    flex: 1;
+    max-width: 700px;
+  }
+  
+  .mainTitle {
+    font-size: 26px;
+    font-weight: 800;
+    color: #0C3645;
+    margin-bottom: 20px;
+  }
+  
+  .highlightLine {
+    display: flex;
+    color: #d60000;
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    gap: 8px;
+  }
+  
+  .icon {
+    color: #d60000;
+    font-size: 22px;
+    vertical-align: middle;
+  }
+  
+  .questionTitle {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0C3645;
+    margin-bottom: 16px;
+
+  }
+  
+  .description {
+    font-size: 16px;
+    color: #444;
+    line-height: 1.7;
+  }
+  
+  .imageContainer {
+    flex: 1;
+    max-width: 610px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .image {
+    width: 100%;
+    max-width: 900px;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+  .bulletList {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+    font-size: 15.5px;
+    line-height: 1.8;
+    color: #333;
+    font-family: "Noto Kufi Arabic", sans-serif;
+  }
+  
+  /* Pour RTL (arabe) */
+  .rtl {
+    direction: rtl;
+  }
+  
+  .rtl li {
+    position: relative;
+    padding-right: 22px;
+    margin-bottom: 10px;
+  }
+  
+  .rtl li::before {
+    content: "•";
+    position: absolute;
+    right: 0;
+    color: #d60000;
+    font-size: 22px;
+    top: 2;
+    line-height: 1;
+  }
+  
+  /* Pour LTR (anglais, turc) */
+  .ltr {
+    direction: ltr;
+  }
+  
+  .ltr li {
+    position: relative;
+    padding-left: 22px;
+    margin-bottom: 10px;
+  }
+  
+  .ltr li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #d60000;
+    font-size: 22px;
+    top: 2;
+    line-height: 1;
+  }
+  
+  /* Responsive */
+  @media (max-width: 992px) {
+    .sectionContainer {
+      flex-direction: column-reverse;
+      text-align: center;
+      gap: 20px;
+    }
+    .icon{
+        display: none !important;
+    }
+    .textContainer {
+      text-align: center;
+      margin-top: 30px !important;
+    }
+    .mainTitle,.questionTitle{
+        font-size: 18px !important;
+    }
+    .topLeftImageWrapper{
+        display: none;
+    }
+    .highlightLine {
+      justify-content: center;
+      flex-direction: row;
+      gap: 6px;
+    }
+  
+    
+    .bulletList {
+        font-size: 14px; 
+      }
+    
+      .rtl li,
+      .ltr li {
+        padding-left: 18px;
+        padding-right: 18px;
+        margin-bottom: 8px;
+      }
+    
+      .rtl li::before,
+      .ltr li::before {
+        font-size: 18px; 
+        top: 3px; 
+      }
+  }
+  
+  
+  

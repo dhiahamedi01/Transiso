@@ -11,7 +11,6 @@ const AboutSection = () => {
   const { t, i18n } = useTranslation();
   const dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
 
-  // 🔧 Typage explicite pour éviter les erreurs TS
   const keywords = t('keywords', { returnObjects: true }) as string[];
   const values = t('values.items', { returnObjects: true }) as string[];
   const whyItems = t('why.items', { returnObjects: true }) as string[];

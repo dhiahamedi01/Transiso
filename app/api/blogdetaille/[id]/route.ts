@@ -1,19 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
 import pool from '@/lib/db';
 
-interface Params {
-  params: { id: string };
-}
-
-export async function GET(req: NextRequest, { params }: Params) {
-  const postId = params.id;  // récupéré depuis /blog_liste/[id]
+export async function GET(
+  req: NextRequest,
+  context: { params: { id: string } }
+) {
+  const postId = context.params.id;
   const url = new URL(req.url);
-  const lang = url.searchParams.get('lang') || 'ar'; // langue par défaut 'ar'
+  const lang = url.searchParams.get('lang') || 'ar'; // langue par défaut : 'ar'
 
   const allowedLangs = ['ar', 'en', 'tr'];
+
   if (!postId) {
     return NextResponse.json({ error: 'post_id est requis' }, { status: 400 });
   }
+
   if (!allowedLangs.includes(lang)) {
     return NextResponse.json({ error: 'langue non supportée' }, { status: 400 });
   }

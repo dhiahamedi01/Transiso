@@ -5,6 +5,34 @@
   font-style: normal;
   font-display: swap;
 }
+.cardServiceContainer {
+  position: relative; 
+  padding-top: 40px; 
+}
+
+.topLeftImageWrapper {
+  position: absolute;
+  top: -25;
+  left: 30;
+  z-index: 2;
+  animation: bounceUpDown 2s infinite ease-in-out;
+  z-index:  1 !important;
+}
+
+.topLeftImage {
+  width: 210px;
+  height: auto;
+}
+
+
+@keyframes bounceUpDown {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(20px);
+  }
+}
 
 .sectionHeader {
   text-align: center;
@@ -195,7 +223,9 @@
   .card {
     flex: 0 0 100%;
   }
-
+  .topLeftImageWrapper{
+    display: none;
+  }
   .Liste_card {
     padding-inline: 20px;
     gap: 20px;

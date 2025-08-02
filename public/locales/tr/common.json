@@ -549,7 +549,20 @@
   "address": "İstanbul, Türkiye - Maskat, Umman - Sana, Yemen",
   "phoneTitle": "Telefon",
   "phone": "+90 537 767 1027",
-  "emailTitle": "E-posta"
+  "emailTitle": "E-posta",
+  "detaille_service": {
+    "mainTitle": "Türk Ürünleri İçin Acentelik Hizmeti",
+    "subTitle": "Sizin gibi biz de mükemmelliği arıyoruz – Güvenilir Türk ürünleri için özel distribütörlük almanızı kolaylaştırıyoruz.",
+    "question": "Ülkenizde bir Türk markasını temsil etmek ister misiniz?",
+    "description": "Transisso Lojistik olarak, çeşitli sektörlerde (sanayi – gıda – tüketici – kozmetik vb.) yüksek kaliteli Türk ürünleri için özel acentelik veya yetkili distribütörlük almanızı kolaylaştıran profesyonel bir hizmet sunuyoruz.",
+    "introList": "Sizi Türk üreticileriyle buluşturuyor ve şu konularda yardımcı oluyoruz:",
+    "list": [
+      "Güvenilir fabrikalar ve markaların önerilmesi.",
+      "Ticari şartların ve özel hakların müzakere edilmesi.",
+      "Sözleşme çevirileri ve taraflar arası iletişim kolaylığı.",
+      "Yasal belgelendirme süreci ve gerekirse kayıt işlemlerinin takibi."
+    ]
+  }
           
 
 

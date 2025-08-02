@@ -558,7 +558,20 @@
   "address": "Istanbul, Turkey - Muscat, Oman - Sanaa, Yemen",
   "phoneTitle": "Phone",
   "phone": "+90 537 767 1027",
-  "emailTitle": "Email"
+  "emailTitle": "Email",
+  "detaille_service": {
+    "mainTitle": "Agency Services for Turkish Products",
+    "subTitle": "Like you, we seek excellence – and make it easier for you to obtain exclusive distribution for trusted Turkish products.",
+    "question": "Do you want to represent a Turkish brand in your country?",
+    "description": "At Transisso Logistic, we provide a professional service to help you acquire exclusive agency or authorized distribution for high-quality Turkish products across various sectors (industrial – food – consumer – cosmetic, and more).",
+    "introList": "We act as a bridge between you and the Turkish manufacturer, assisting with:",
+    "list": [
+      "Recommending trusted factories and brands.",
+      "Negotiating commercial terms and exclusivity rights.",
+      "Translating contracts and facilitating mutual understanding.",
+      "Supervising legal documentation and follow-up for registration if needed."
+    ]
+  }
   
   
 
