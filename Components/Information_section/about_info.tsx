@@ -5,6 +5,7 @@ import axios from 'axios';
 import styles from './about.module.css';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
+
 interface ExpertiseData {
   title: string;
   title_highlight: string;
@@ -29,10 +30,14 @@ interface ExpertiseData {
   image_main: string;
 }
 
-export default function Expertise() {
+interface ExpertiseProps {
+  aboutRef: React.RefObject<HTMLDivElement | null>;
+}
+
+export default function Expertise({ aboutRef }: ExpertiseProps) {
   const { i18n } = useTranslation();
   const [data, setData] = useState<ExpertiseData | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -48,9 +53,14 @@ export default function Expertise() {
         setLoading(false);
       }
     };
-
     fetchData();
   }, [i18n.language]);
+
+  const handleScrollToAbout = () => {
+    if (aboutRef.current) {
+      aboutRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   if (loading) return <div className={styles.expertiseContainer}>Chargement...</div>;
   if (error || !data) return <div className={styles.expertiseContainer}>{error}</div>;
@@ -123,18 +133,18 @@ export default function Expertise() {
         </ul>
 
         <div className={styles.cta}>
-
-            <a
-              href="#"
-              className={classNames(styles.readMore, {
-                [styles.readMoreRtl]: i18n.language === 'ar',
+          <button
+            onClick={handleScrollToAbout}
+            className={classNames(styles.readMore, {
+              [styles.readMoreRtl]: i18n.language === 'ar',
+            })}
+          >
+            <span className={styles.readMoreText}>{data.cta_text}</span>
+            <span
+              className={classNames(styles.arrowCircle, {
+                [styles.arrowCircleRtl]: i18n.language === 'ar',
               })}
             >
-
-            <span className={styles.readMoreText}>{data.cta_text}</span>
-            <span    className={classNames(styles.arrowCircle, {
-                [styles.arrowCircleRtl]: i18n.language === 'ar',
-              })} >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -152,9 +162,9 @@ export default function Expertise() {
                 />
               </svg>
             </span>
-          </a>
+          </button>
 
-          <div className={styles.founder}>
+         {/* <div className={styles.founder}>
             <img
               src={data.founder_image}
               alt={data.founder_name}
@@ -169,7 +179,7 @@ export default function Expertise() {
               alt="Signature"
               className={styles.signature}
             />
-          </div>
+          </div>*/}
         </div>
       </div>
     </section>

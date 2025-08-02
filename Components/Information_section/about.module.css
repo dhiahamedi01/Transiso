@@ -1,4 +1,11 @@
-/* Container */
+
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  src: url('/Font/NotoKufiArabic-VariableFont_wght.ttf') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
 .expertiseContainer {
     display: flex;
     flex-direction: row; /* obligatoire pour ordre normal */
@@ -163,8 +170,10 @@
     padding: 0.3rem 0.5rem 0.3rem 2.4rem;
     border-radius: 999px;
     font-weight: bold;
+    border: none !important;
     text-decoration: none;
     gap: 0.8rem;
+    font-family: "Noto Kufi Arabic", sans-serif !important;
     transition: background-color 0.3s ease;
   }
   

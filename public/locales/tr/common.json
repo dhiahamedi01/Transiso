@@ -565,7 +565,12 @@
       "Yasal belgelendirme süreci ve gerekirse kayıt işlemlerinin takibi."
     ]
   },
-  "tracking_d":"takibi"
+  "tracking_d":"takibi",
+  "contactCard": {
+    "supportImageAlt": "Destek",
+    "helpText": "Herhangi bir yardıma ihtiyacınız varsa,\nbizimle iletişime geçin",
+    "callNow": "Hemen ara"
+  }
           
 
 

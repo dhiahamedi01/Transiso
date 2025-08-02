@@ -8,6 +8,7 @@ import {
   Link,
   Button,
 } from '@mui/material';
+import NextLink from 'next/link';
 import {
   Person as PersonIcon,
   LocalOffer as LocalOfferIcon,
@@ -119,7 +120,7 @@ export default function Blog() {
     lineHeight: 1.5,
     fontSize: '18px',
     display: '-webkit-box',
-    WebkitLineClamp: 2,
+    WebkitLineClamp: 2,           
     WebkitBoxOrient: 'vertical',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -128,6 +129,7 @@ export default function Blog() {
 >
   {post.title}
 </Typography>
+
 
                 <Typography
                   className={`${styles.arabe} ${styles.description}`}
@@ -143,9 +145,8 @@ export default function Blog() {
                 <Divider sx={{ borderColor: '#e5e7eb', marginBottom: '1rem' }} />
 
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <Link
-                    href={`/bloglist/${post.post_id}`}
-                    underline="none"
+                <NextLink href={`/bloglist/${post.post_id}`} >
+                  <Box
                     sx={{
                       color: '#ef4444',
                       fontWeight: 500,
@@ -156,8 +157,8 @@ export default function Blog() {
                     }}
                   >
                     {t('blog.readMore')} →
-                  </Link>
-
+                  </Box>
+                  </NextLink>
                   <Box sx={{ display: 'flex', alignItems: 'center', color: '#6b7280', fontSize: '0.875rem' }}>
                     <Typography variant="body2" className={styles.arabe}>
                       {t('blog.noComments')}

@@ -30,9 +30,7 @@ function Banner() {
           : `${styles.subtitle} ${styles.ltr}`}>
           
           {t('banner.subtitle')}</p>
-        <div className={styles.footerWrapper}>
-           <button className={styles.button}>{t('banner.buttonText')}</button>
-        </div>
+    
       </div>
     </div>
   );

@@ -1,18 +1,33 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './ContactCard.module.css';
 import Image from 'next/image';
 import PhoneIcon from '@mui/icons-material/Phone';
+import { useTranslation } from 'react-i18next';
 
 const ContactCard = () => {
+  const { t, i18n } = useTranslation();
+  const [lang, setLang] = useState(i18n.language);
+
+  useEffect(() => {
+    const handleLangChange = (lng: string) => {
+      setLang(lng); // force re-render
+    };
+
+    i18n.on('languageChanged', handleLangChange);
+    return () => {
+      i18n.off('languageChanged', handleLangChange);
+    };
+  }, [i18n]);
+
   return (
     <div className={styles.container}>
       <div className={styles.contactCard}>
         <div className={styles.topSection}>
           <Image
             src="/img/service-details-sidebar-img.png"
-            alt="Support"
+            alt={t('contactCard.supportImageAlt')}
             width={200}
             height={150}
             className={styles.contactImage}
@@ -28,9 +43,11 @@ const ContactCard = () => {
         <div className={styles.bottomSection}>
           <h3 className={styles.phoneNumber}>5377671027 (90 +)</h3>
           <p className={styles.helpText}>
-            إذا كنت بحاجة إلى أي مساعدة<br />تواصل معنا
+            {t('contactCard.helpText')}
           </p>
-          <button className={styles.callButton}>اتصل الآن !</button>
+          <button className={styles.callButton}>
+            {t('contactCard.callNow')}
+          </button>
         </div>
       </div>
     </div>

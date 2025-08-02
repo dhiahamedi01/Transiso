@@ -575,7 +575,12 @@
       "Supervising legal documentation and follow-up for registration if needed."
     ]
   },
-  "tracking_d":"Track"
+  "tracking_d":"Track",
+  "contactCard": {
+    "supportImageAlt": "Support",
+    "helpText": "If you need any help,\ncontact us",
+    "callNow": "Call now"
+  }
   
   
 
