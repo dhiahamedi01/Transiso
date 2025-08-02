@@ -297,7 +297,7 @@ function Nav() {
                   underline="none"
                   className={`${styles.Arabe} ${styles.link}`}
                   onClick={closeDrawer}
-                  sx={{ display: 'block', width: '100%', py: 1, fontWeight: 'bold' }}
+                  sx={{ display: 'block', width: '100%', py: 1, fontWeight: 'bold'}}
                 >
                   {t('trackOrder')}
                 </MuiLink>

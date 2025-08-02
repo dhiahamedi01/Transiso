@@ -32,6 +32,7 @@
    direction: ltr;
   }
   .link2{
+    
     text-decoration: none !important;
     color: #fff  !important;
   }
@@ -182,6 +183,7 @@
     font-family: "Noto Kufi Arabic", sans-serif !important;
     font-optical-sizing: auto;
     font-style: normal;
+    text-transform: none !important;
   }
   
   .trackButton:hover {
