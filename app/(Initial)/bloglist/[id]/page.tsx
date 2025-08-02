@@ -23,7 +23,7 @@ type BlogArticle = {
   category?: string;
   content: string;
   image_path: string;
-  lang: string; // Ajout de la langue dans l'objet blog
+  lang: string;
 };
 
 export default function BlogDetail() {
@@ -32,12 +32,14 @@ export default function BlogDetail() {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language || 'ar';
 
+  // 🔁 Direction RTL ou LTR
+  const direction = currentLang === 'ar' ? 'rtl' : 'ltr';
+
   const [blog, setBlog] = useState<BlogArticle | null>(null);
   const [blogs, setBlogs] = useState<BlogArticle[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  // Fetch article selon id + langue active
   useEffect(() => {
     async function fetchBlog() {
       try {
@@ -56,13 +58,11 @@ export default function BlogDetail() {
     if (id) fetchBlog();
   }, [id, currentLang]);
 
-  // Fetch tous les articles (filtré par langue active)
   useEffect(() => {
     async function fetchAllBlogs() {
       try {
         const res = await fetch('/api/blog');
         const data: BlogArticle[] = await res.json();
-        // Filtrer par langue active
         const filteredByLang = data.filter((b) => b.lang === currentLang);
         setBlogs(filteredByLang);
       } catch (err) {
@@ -100,10 +100,9 @@ export default function BlogDetail() {
   );
 
   return (
-    <div className={styles.globale}>
+    <div className={styles.globale} dir={direction}> 
       <Box className={styles.blogContainer}>
         <Box className={styles.mainContent}>
-          {/* Bouton retour */}
           <Button
             variant="outlined"
             color="error"
@@ -112,7 +111,7 @@ export default function BlogDetail() {
             sx={{ mb: 3, gap: 2 }}
             className={styles.aroubica}
           >
-         {t('blog.return')}
+            {t('blog.return')}
           </Button>
 
           <Typography className={styles.blogTitle}>{blog.title}</Typography>
@@ -129,14 +128,15 @@ export default function BlogDetail() {
           <Typography className={styles.blogContent}>{blog.content}</Typography>
         </Box>
 
-        {/* Sidebar */}
         <Box className={styles.sidebar}>
           <ContactCard />
-          <Typography className={styles.sidebarTitle}>مقالات أخرى</Typography>
+          <Typography className={styles.sidebarTitle}>
+            {currentLang === 'ar' ? 'مقالات أخرى' : currentLang === 'tr' ? 'Diğer Yazılar' : 'Other Articles'}
+          </Typography>
           <Divider sx={{ mb: 2 }} />
 
           {blogs
-            .filter((b) => b.id !== blog.id) // exclure l'article affiché
+            .filter((b) => b.id !== blog.id)
             .slice(0, 4)
             .map((item) => {
               const date = new Date(item.date).toLocaleDateString(

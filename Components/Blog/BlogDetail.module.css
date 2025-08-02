@@ -17,7 +17,6 @@
     margin: auto;
     display: flex;
     gap: 2rem;
-    direction: rtl;
     font-family: 'Noto Kufi Arabic', sans-serif !important;
     flex-wrap: wrap;
   }
