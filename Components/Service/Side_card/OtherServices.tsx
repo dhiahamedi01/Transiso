@@ -19,9 +19,8 @@ export default function OtherServices() {
   // services créé ici, après récupération de la fonction t()
   const services: Service[] = [
     { id: 1, title: t('service.titles.Plane'), img: '/img/Service/other4.jpg', slug: 'Plane' },
-    { id: 2, title: t('service.titles.Train'), img: '/img/Service/other_2-1.jpg', slug: 'Train' },
-    { id: 3, title: t('service.titles.Sea'), img: '/img/Service/other_3-1.jpg', slug: 'Sea' },
-    { id: 4, title: t('service.titles.Truck'), img: '/img/Service/other_1-1.jpg', slug: 'truck' },
+    { id: 2, title: t('service.titles.Sea'), img: '/img/Service/other_3-1.jpg', slug: 'Sea' },
+    { id: 3, title: t('service.titles.Truck'), img: '/img/Service/other_1-1.jpg', slug: 'truck' },
   ];
 
   return (
