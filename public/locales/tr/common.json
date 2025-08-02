@@ -4,7 +4,7 @@
     "services": "Hizmetlerimiz",
     "products2": "Ürün Listesi",
     "contact": "İletişim",
-    "trackOrder": "Giriş yapmak",
+    "trackOrder": "bağlantı",
     "inquiryOnline": "Online Sorgu",
     "followUs": "Bizi takip edin:",
     "workingHours": "Pazartesi - Cuma: 8:00 - 19:00  Cumartesi: 10:00 - 19:00",
@@ -404,9 +404,11 @@
             "tracking": "Sipariş Takibi",
           
             "products": "Ürün Listemiz",
-            "packing": "Paketleme Makineleri",
-            "plastic": "Plastik Kaplar",
-            "oil": "Ham Bitkisel Yağ",
+            "cosmetics": "Kozmetik Ürünler",
+            "kitchenware": "Mutfak Gereçleri",
+            "raw_materials": "Hammadde",
+            "building_materials": "Yapı Malzemeleri",
+            "furniture": "Mobilya ve Dekorasyon",
           
             "rights": "Tüm hakları saklıdır",
             "privacy": "Gizlilik Politikası",
@@ -562,7 +564,8 @@
       "Sözleşme çevirileri ve taraflar arası iletişim kolaylığı.",
       "Yasal belgelendirme süreci ve gerekirse kayıt işlemlerinin takibi."
     ]
-  }
+  },
+  "tracking_d":"takibi"
           
 
 

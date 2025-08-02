@@ -412,9 +412,12 @@
   "tracking": "Order Tracking",
 
   "products": "Our Products",
-  "packing": "Packing Machines",
-  "plastic": "Plastic Containers",
-  "oil": "Raw Vegetable Oil",
+  "cosmetics": "Cosmetics",
+  "kitchenware": "Kitchenware",
+  "raw_materials": "Raw Materials",
+  "building_materials": "Building Materials",
+  "furniture": "Furniture & Decorations",
+
 
   "rights": "All rights reserved",
   "privacy": "Privacy Policy",
@@ -571,7 +574,8 @@
       "Translating contracts and facilitating mutual understanding.",
       "Supervising legal documentation and follow-up for registration if needed."
     ]
-  }
+  },
+  "tracking_d":"Track"
   
   
 

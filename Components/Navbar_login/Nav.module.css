@@ -172,7 +172,18 @@
     font-optical-sizing: auto;
     font-style: normal;
   }
-  
+  .trackButton2{
+    background-color: #007DB0 !important;
+    border-radius: 6px;
+    padding: 8px 24px;
+    font-size: 13px !important;
+    font-weight: 500;
+    color: white;
+    text-transform: none;
+    font-family: "Noto Kufi Arabic", sans-serif !important;
+    font-optical-sizing: auto;
+    font-style: normal;
+  }
   .trackButton:hover {
     background-color: #b31921 !important;
   }

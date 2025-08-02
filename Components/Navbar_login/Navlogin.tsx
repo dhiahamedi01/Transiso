@@ -19,6 +19,7 @@ import {
   Link as MuiLink,
   Badge,
 } from '@mui/material';
+import BarChartIcon   from '@mui/icons-material/LocalShipping';
 
 import dynamic from 'next/dynamic';
 import SearchModal from '../SearchModal/SearchModal';
@@ -321,6 +322,17 @@ function Nav() {
           {t('myDashboard')}
           </MenuItem>
           <MenuItem
+            className={styles.arabic}
+            component="a"
+            href="https://www.track-trace.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={handleProfileClose}
+          >
+            {t('tracking_d')}
+          </MenuItem>
+
+          <MenuItem
           className={styles.arabic} 
             onClick={() => {
               handleProfileClose();
@@ -329,6 +341,7 @@ function Nav() {
           >
 {t('logout')}
             </MenuItem>
+            
         </Menu>
       </>
           ) : (
@@ -366,6 +379,21 @@ function Nav() {
                 <IconButton onClick={openSearch}>
                   <SearchIcon className={styles.searchIcon} />
                 </IconButton>
+
+                <Link href="https://www.track-trace.com/" passHref>
+                    <Button
+                      variant="contained"
+                      className={styles.trackButton2}
+                      onClick={() => {
+                        handleProfileClose();
+                      }}
+             
+                      sx={{ textTransform: 'none' }}
+                    >
+                      {t('tracking_d')}&ensp;<BarChartIcon   />
+                    </Button>
+                  </Link>
+
 
                 <Link href="/Login">
                   <Button

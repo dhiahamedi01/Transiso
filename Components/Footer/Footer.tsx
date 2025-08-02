@@ -106,9 +106,12 @@ const Footer = () => {
             <div className={styles.col}>
               <h4>{t('footer.products')}</h4>
               <ul>
-                <li><Link href="/Liste_produit">{t('footer.packing')}</Link></li>
-                <li><Link href="/Liste_produit">{t('footer.plastic')}</Link></li>
-                <li><Link href="/Liste_produit">{t('footer.oil')}</Link></li>
+              <li><Link href="/Liste_produit">{t('footer.cosmetics')}</Link></li>
+              <li><Link href="/Liste_produit">{t('footer.kitchenware')}</Link></li>
+              <li><Link href="/Liste_produit">{t('footer.raw_materials')}</Link></li>
+              <li><Link href="/Liste_produit">{t('footer.building_materials')}</Link></li>
+              <li><Link href="/Liste_produit">{t('footer.furniture')}</Link></li>
+
               </ul>
             </div>
           </div>

@@ -71,7 +71,7 @@ const HeroSection = () => {
           <h1 className={styles.title}>{data.titre1}</h1>
           <p className={styles.description}>{data.description1}</p>
           <div className={styles.buttonContainer}>
-          <Link href='/Services'>
+          <Link href='https://wa.me/+905377671027'>
           <Button
             variant="contained"
             endIcon={i18n.language === 'ar' ? <ArrowBackIcon /> : <ArrowForwardIcon />}
@@ -93,7 +93,7 @@ const HeroSection = () => {
           <h1 className={styles.title}>{data.titre2}</h1>
           <p className={styles.description}>{data.description2}</p>
           <div className={styles.buttonContainer}>
-          <Link href='/Services'>
+          <Link href='https://wa.me/+905377671027'>
           <Button
             variant="contained"
             endIcon={i18n.language === 'ar' ? <ArrowBackIcon /> : <ArrowForwardIcon /> }

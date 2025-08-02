@@ -10,12 +10,13 @@ function page() {
   return (
     <>
     <Hero/>
-    <TurkishAgencySection/>
     <Card_service/>
     <Card/>
     <br /><br />
     <Card_service2/>
     <br /><br />
+    <TurkishAgencySection/>
+
     </>
   )
 }

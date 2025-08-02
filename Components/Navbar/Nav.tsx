@@ -15,7 +15,7 @@ import {
   useMediaQuery,
   Link as MuiLink,
 } from '@mui/material';
-
+import BarChartIcon   from '@mui/icons-material/LocalShipping';
 import dynamic from 'next/dynamic';
 import SearchModal from '../SearchModal/SearchModal';
 import styles from './Nav.module.css';
@@ -234,9 +234,19 @@ function Nav() {
                   </Box>
                 </Link>
 
+                <Link href="https://www.track-trace.com/" passHref>
+                    <Button
+                      variant="contained"
+                      className={styles.trackButton2}
+             
+                      sx={{ textTransform: 'none' }}
+                    >
+                      {t('tracking_d')}&ensp;<BarChartIcon   />
+                    </Button>
+                  </Link>
                 <Link href="/Login">
                   <Button variant="contained" className={styles.trackButton}>
-                    {t('trackOrder')}&nbsp;<TrendingUpIcon />
+                    {t('trackOrder')}
                   </Button>
                 </Link>
               </Box>
