@@ -5,9 +5,9 @@ export async function GET(
   req: NextRequest,
   context: { params: { id: string } }
 ) {
-  const postId = context.params.id;
   const url = new URL(req.url);
-  const lang = url.searchParams.get('lang') || 'ar'; // langue par défaut : 'ar'
+  const postId = url.pathname.split('/').pop();
+  const lang = url.searchParams.get('lang') || 'ar'; 
 
   const allowedLangs = ['ar', 'en', 'tr'];
 
