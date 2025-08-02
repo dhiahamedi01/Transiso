@@ -229,7 +229,7 @@ function Nav() {
                       <PhoneIcon className={styles.phoneIcon} />
                     </Box>
                     <Typography className={styles.phoneNumber}>
-                      {phoneNumber}
+                      {t("phoneNumber")}
                     </Typography>
                   </Box>
                 </Link>

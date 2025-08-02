@@ -6,12 +6,13 @@ import styles from './Card.module.css';
 import { useTranslation } from 'react-i18next';
 
 const cardsData = [
+
   {
-    key: 'partial_shipping',
-    icon: '/img/icon/cargo.svg',
-    className: styles.card,
+    key: 'sea_shipping',
+    icon: '/img/icon/cargo-ship.svg',
+    className: styles.card2,
     delay: 0,
-    href: '/Services/customs',
+    href: '/Services/Sea',
   },
   {
     key: 'air_shipping',
@@ -21,18 +22,17 @@ const cardsData = [
     href: '/Services/Plane',
   },
   {
-    key: 'sea_shipping',
-    icon: '/img/icon/cargo-ship.svg',
-    className: styles.card2,
-    delay: 200,
-    href: '/Services/Sea',
-  },
-  {
     key: 'land_shipping',
     icon: '/img/icon/exhibitor.svg',
     className: styles.card3,
-    delay: 300,
+    delay: 200,
     href: '/Services/truck',
+  } , {
+    key: 'partial_shipping',
+    icon: '/img/icon/cargo.svg',
+    className: styles.card,
+    delay: 300,
+    href: '/Services/customs',
   }
 ];
 
