@@ -273,7 +273,21 @@ function Nav() {
                 </MuiLink>
               </ListItem>
             ))}
-
+   
+             {isMobile && (
+              <ListItem disablePadding>
+                <MuiLink
+                  component={Link}
+                  href="https://www.track-trace.com/"
+                  underline="none"
+                  className={`${styles.Arabe} ${styles.link}`}
+                  onClick={closeDrawer}
+                  sx={{ display: 'block', width: '100%', py: 1, fontWeight: 'bold' }}
+                >
+                  {t('tracking_d')}
+                </MuiLink>
+              </ListItem>
+            )}
             {/* Ajout du trackOrder en mode mobile dans drawer avec lien */}
             {isMobile && (
               <ListItem disablePadding>
@@ -289,6 +303,7 @@ function Nav() {
                 </MuiLink>
               </ListItem>
             )}
+          
           </List>
 
           <Divider sx={{ my: 1 }} />
