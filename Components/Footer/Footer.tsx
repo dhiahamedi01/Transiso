@@ -106,11 +106,11 @@ const Footer = () => {
             <div className={styles.col}>
               <h4>{t('footer.products')}</h4>
               <ul>
-              <li><Link href="/Liste_produit">{t('footer.cosmetics')}</Link></li>
-              <li><Link href="/Liste_produit">{t('footer.kitchenware')}</Link></li>
-              <li><Link href="/Liste_produit">{t('footer.raw_materials')}</Link></li>
-              <li><Link href="/Liste_produit">{t('footer.building_materials')}</Link></li>
-              <li><Link href="/Liste_produit">{t('footer.furniture')}</Link></li>
+              <li><Link href="https://wa.me/+905377671027">{t('footer.cosmetics')}</Link></li>
+              <li><Link href="https://wa.me/+905377671027">{t('footer.kitchenware')}</Link></li>
+              <li><Link href="https://wa.me/+905377671027">{t('footer.raw_materials')}</Link></li>
+              <li><Link href="https://wa.me/+905377671027">{t('footer.building_materials')}</Link></li>
+              <li><Link href="https://wa.me/+905377671027">{t('footer.furniture')}</Link></li>
 
               </ul>
             </div>
