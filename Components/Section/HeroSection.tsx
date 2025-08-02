@@ -7,6 +7,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useTranslation } from 'react-i18next';
 import styles from './HeroSecion.module.css';
+import Link from 'next/link'
 
 interface BannerData {
   titre1: string;
@@ -70,6 +71,7 @@ const HeroSection = () => {
           <h1 className={styles.title}>{data.titre1}</h1>
           <p className={styles.description}>{data.description1}</p>
           <div className={styles.buttonContainer}>
+          <Link href='/Services'>
           <Button
             variant="contained"
             endIcon={i18n.language === 'ar' ? <ArrowBackIcon /> : <ArrowForwardIcon />}
@@ -77,7 +79,7 @@ const HeroSection = () => {
           >
             {t('button_now')}
           </Button>
-
+          </Link>
           </div>
         </div>
       </div>
@@ -91,6 +93,7 @@ const HeroSection = () => {
           <h1 className={styles.title}>{data.titre2}</h1>
           <p className={styles.description}>{data.description2}</p>
           <div className={styles.buttonContainer}>
+          <Link href='/Services'>
           <Button
             variant="contained"
             endIcon={i18n.language === 'ar' ? <ArrowBackIcon /> : <ArrowForwardIcon /> }
@@ -98,6 +101,7 @@ const HeroSection = () => {
           >
             {t('button_now')}
           </Button>
+          </Link>
           </div>
         </div>
 
