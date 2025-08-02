@@ -8,7 +8,7 @@ import Style from './Hero.module.css'
 
 const imagesBySlug = {
   Plane: '/img/Hero/page_bg_2.png',
-  Train: '/img/Hero/train.jpg',
+  customs: '/img/import.jpg',
   truck: '/img/Hero/about_img01.png',
   Sea: '/img/Hero/page_bg_1.png',
 } as const

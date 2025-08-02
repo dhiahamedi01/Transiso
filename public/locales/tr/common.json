@@ -319,19 +319,22 @@
             }
           },
           "faq": {
-            "questions": [
-              "Transiso hangi hava kargo hizmetlerini sunuyor?",
-              "Gönderilerimi gerçek zamanlı takip edebilir miyim?",
-              "Transiso gönderi güvenliğini nasıl sağlıyor?",
-              "Hizmetleriniz hangi bölgeleri kapsıyor?"
-            ],
-            "answers": [
-              "Transiso, kaynak noktasından alım, belge hazırlığı, gümrükleme ve varış havaalanı veya müşteri adresine teslimat dahil olmak üzere hızlı ve güvenli hava kargo hizmetleri sunmaktadır. Dünya çapındaki önde gelen havayolu şirketleri ile işbirliği yapmaktadır.",
-              "Evet, Transiso gelişmiş bir takip sistemi sunar, gönderinizin durumunu anlık olarak izleyebilir, gönderimden teslimata kadar tüm süreci takip edebilir ve herhangi bir güncellemede anında bildirim alabilirsiniz.",
-              "Profesyonel ambalajlama, modern izleme teknolojileri ve kapsamlı sigorta seçenekleri ile gönderilerinizin zarar görme veya kaybolma riskine karşı maksimum koruma sağlıyoruz.",
-              "Transiso’nun hizmetleri, güçlü uluslararası partner ağı aracılığıyla dünyanın çoğu ülkesini kapsamaktadır. Doğrudan teslimat veya onaylı lojistik merkezleri üzerinden teslimat seçenekleri ile esnek ve çeşitli çözümler sunmaktadır."
-            ]
-          },
+  "questions": [
+    "Transisso hangi nakliye hizmetlerini sunuyor?",
+    "Gönderilerimi gerçek zamanlı olarak takip edebilir miyim?",
+    "Transisso, gönderilerin güvenliğini nasıl garanti ediyor?",
+    "Hizmetleriniz hangi bölgeleri kapsıyor?",
+    "Bir sorun veya sorum olduğunda destek ekibiyle nasıl iletişim kurabilirim?"
+  ],
+  "answers": [
+    "Transisso, teslim alma, belge hazırlama, gümrükleme ve son teslimat dahil olmak üzere entegre nakliye hizmetleri sunar. Hızlı ve güvenli gönderimler için çeşitli taşıma firmalarıyla koordinasyon sağlıyoruz.",
+    "Evet, Transisso gelişmiş bir takip sistemi sunar; gönderinizin durumunu gönderimden teslimata kadar anlık olarak takip edebilir ve herhangi bir güncelleme için anında bildirim alabilirsiniz.",
+    "Profesyonel ambalajlama, modern izleme teknolojileri ve kapsamlı sigorta seçenekleri kullanarak gönderilerinizi her türlü hasar veya kayıptan koruyoruz.",
+    "Transisso hizmetleri, güçlü uluslararası ortak ağımız sayesinde dünyanın çoğu ülkesini kapsar. Doğrudan teslimat veya onaylı lojistik merkezleri aracılığıyla esnek ve çeşitli çözümler sunarız.",
+    "Destek ekibimizle telefon, e-posta veya web sitemizdeki canlı sohbet üzerinden iletişime geçebilirsiniz. Sorunlarınıza hızlı ve etkili çözümler sunmak için sürekli teknik destek ve danışmanlık sağlıyoruz."
+  ]
+}
+,
           "Plane": {
           "main_services": "Ana Hizmetler",
           "request_help_title": "Yardım Talebi",
@@ -361,20 +364,27 @@
           },
     
           "Train": {
-            "main_services": "Ana Hizmetler",
-            "request_help_title": "Yardım Talebi",
-            "request_help_description": "Yardım talebinde bulunmak için lütfen 'Şimdi Sor' butonuna tıklayın ve talebinizin hızlı ve etkili bir şekilde işlenmesi için gerekli tüm bilgileri eksiksiz ve doğru şekilde doldurun.",
-            "ask_now": "Şimdi Sor",
-            "title": "Transiso ile Tren Nakliye Hizmetleri",
-            "description1": "Tren nakliyesi, Türkiye içinde ve komşu ülkelere uzun mesafeli yük taşımacılığında en ekonomik ve hızlı yöntemlerden biridir. Hizmetlerimiz, konteynerler, ağır yükler ve hassas ürünler dahil olmak üzere büyük ve çeşitli kargoları kapsamaktadır ve zamanında ve güvenli teslimatı garanti eder.",
-            "description2": "Transiso, önemli şehirleri ve kritik limanları birbirine bağlayan gelişmiş demiryolu ağını kullanarak, planlama kolaylığı ile esnek uygulamayı birleştiren kapsamlı lojistik çözümler sunmaktadır. Hizmetlerimiz, depo tesliminden başlayarak, istasyonlarda paketleme ve yükleme, hızlı gümrükleme koordinasyonu ve belirlenen yerde nihai teslimatı kapsar.",
-            "description3": "Ekibimiz, gönderilerin her aşamasını takip etmek için en son uydu izleme ve dijital sistemleri kullanmaktadır. Bu şeffaflık müşterilerimize tam güven ve optimum iş planlaması sağlar. Ayrıca, Transiso, hasar, hırsızlık veya gecikme gibi potansiyel risklere karşı çoklu sigorta seçenekleri sunarak en yüksek güvenlik seviyelerini garanti eder.",
-            "description4": "7/24 teknik destek ve müşteri hizmeti sağlayarak, müşterilerimizin danışmanlık almasını, gönderi takibi yapmasını veya şikayet ve önerilerini iletmesini mümkün kılıyoruz. Müşterilerimizle zamanında teslimat, kişiselleştirilmiş hizmetler ve yenilikçi çözümler aracılığıyla güvene dayalı ilişkiler kurmayı hedefliyoruz.",
-            "card1_title": "Ekonomik ve Verimli Taşıma",
-            "card1_description": "Müşterilerimizin ihtiyaçlarına göre esnek programlama ve rota seçimi ile rekabetçi fiyatlı tren nakliye hizmetleri sunuyoruz. Bu sayede hız ve maliyet arasında uygun denge sağlanmaktadır.",
-            "card2_title": "Garantili Gönderi Güvenliği",
-            "card2_description": "Her gönderiyi yolculuk boyunca titizlikle izliyor ve potansiyel tüm risklere karşı tam sigorta kapsamı sağlayarak müşterilerimizin tam huzur içinde olmasını sağlıyoruz."
-          },
+  "main_services": "Gümrükleme",
+  "request_help_title": "Yardım Talebi",
+  "request_help_description": "Yardım talebinde bulunmak için şimdi sor butonuna tıklayın ve gerekli bilgileri doldurun.",
+  "ask_now": "Şimdi Sor",
+  "title": "Transisso ile Gümrükleme Uzmanları",
+  "description1": "Uluslararası ticaret ve nakliyatta, gümrükleme işlemleri malların gümrük kapılarından sorunsuz ve gecikmesiz geçmesi için en kritik adımlardan biridir. Transisso olarak, Türkiye ve Arap ülkeleri gümrük mevzuatında derin ve uzman bir bilgiye sahibiz ve en yüksek profesyonellik ve titizlikle kapsamlı gümrükleme hizmetleri sunuyoruz.",
+  "description2": "Menşe belgeleri, ticari faturalar, paketleme listeleri, ithalat ve ihracat izinleri, ürün tipine bağlı olarak sağlık veya teknik sertifikalar dahil olmak üzere gerekli tüm belgeleri hazırlıyoruz. Uzman ekibimiz, ilgili resmi kurumlarla hızlı ve şeffaf şekilde iletişim kurarak müşterilerimizin zaman ve emek tasarrufu yapmasını sağlıyor ve gönderilerinin sorunsuz geçişini garanti ediyor.",
+  "description3": "Gümrükleme hizmetlerimiz; deniz, hava, kara ve tren taşımacılığında her boyutta ve türde yüklerle esnek bir şekilde çalışabilme yeteneğine sahiptir. Gümrük işlemlerindeki karmaşıklıkların farkındayız ve yasal danışmanlık, belge kontrolü ve gönderinin her aşamasının takibi gibi entegre çözümler sunuyoruz.",
+  "description4": "Transisso, yerel ve uluslararası mevzuat değişikliklerini sürekli takip eden uzman gümrük danışmanlarından oluşan bir ekibe sahiptir. Müşterilerimize en iyi rehberliği ve yönlendirmeyi sunarken, şeffaf raporlamalarla güven inşa ediyor ve işlerini büyütmek için önceden plan yapmalarına yardımcı oluyoruz.",
+  "description5": "Ayrıca, Türkiye ile Arap ülkeleri ve diğer ülkeler arasındaki ticaret anlaşmaları ve gümrük avantajları kullanılarak gümrük vergilerini ve harçlarını azaltmak için en iyi uygulamalar konusunda danışmanlık veriyoruz. Karmaşık prosedürleri basitleştirip müşterilerimizin işlerine odaklanmalarını sağlıyoruz.",
+  "description6": "Acil durumlarda ve gümrükleme ile ilgili her türlü soruda 7/24 destek sağlıyoruz. Müşterilerimiz doğrudan bizimle iletişime geçerek anında danışmanlık alabilir, gönderi durumlarını takip edebilir veya geri bildirimde bulunabilirler.",
+  "card1_title": "Kapsamlı Belge Hazırlığı",
+  "card1_description": "Faturalar, menşe belgeleri ve paketleme listeleri dahil tüm resmi belgeleri titizlikle ve gümrük gereksinimlerine tam uyumlu olarak hazırlıyoruz, böylece hızlı ve etkin gümrük işlemleri sağlanıyor.",
+  "card2_title": "Geniş Gümrük Mevzuatı Bilgisi",
+  "card2_description": "Ekibimiz, Türk ve Arap gümrük mevzuatında uzman hukukçulardan oluşmaktadır, tüm gümrük durumlarında müşterilerimizin çıkarlarını koruyan en iyi yasal çözümleri sunar.",
+  "card3_title": "Resmi Kurumlarla Doğrudan İletişim",
+  "card3_description": "Gümrük daireleri ve ilgili devlet kurumlarıyla doğrudan koordinasyon sağlayarak işlemlerin hızlanmasını ve tüm standartlara uygunluğun garanti edilmesini sağlıyoruz.",
+  "card4_title": "Sürekli Teknik ve Danışmanlık Desteği",
+  "card4_description": "Gümrükleme süreçlerine ilişkin tüm ihtiyaçları karşılamak ve olası acil durumlara hızlı müdahale etmek için 7/24 destek ve danışmanlık hizmeti sunuyoruz."
+}
+,
           "truck": {
             "main_services": "Ana Hizmetler",
             "request_help_title": "Yardım Talebi",

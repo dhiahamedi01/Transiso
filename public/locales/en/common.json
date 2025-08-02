@@ -320,20 +320,23 @@
               "Truck": "Truck Freight"
             }
         },
-        "faq": {
-    "questions": [
-      "What air freight services does Transiso offer?",
-      "Can I track my shipments in real time?",
-      "How does Transiso ensure shipment safety?",
-      "What regions do your services cover?"
-    ],
-    "answers": [
-      "Transiso offers fast and secure air freight services including pickup from the source, document preparation, customs clearance, and delivery to the destination airport or client’s location, in partnership with major airlines worldwide.",
-      "Yes, Transiso provides an advanced tracking system allowing you to monitor your shipment status moment by moment, from dispatch to final delivery, with instant notifications for any updates.",
-      "We use professional packaging, modern monitoring technologies, and comprehensive insurance options to ensure maximum protection against damage or loss.",
-      "Transiso’s services cover most countries worldwide through a strong network of international partners, with options for direct delivery or via accredited logistics hubs, ensuring flexible and diverse solutions."
-    ]
-  },
+     "faq": {
+  "questions": [
+    "What shipping services does Transisso offer?",
+    "Can I track my shipments in real-time?",
+    "How does Transisso ensure the safety of shipments?",
+    "Which regions do your services cover?",
+    "How can I contact the support team if I have a problem or inquiry?"
+  ],
+  "answers": [
+    "Transisso offers comprehensive shipping services including pickup, document preparation, customs clearance, and final delivery, coordinating with various transportation companies to ensure fast and secure shipments.",
+    "Yes, Transisso provides an advanced tracking system that allows you to monitor your shipment status in real-time from dispatch to delivery, with instant notifications for any updates.",
+    "We use professional packaging, modern monitoring technologies, and comprehensive insurance options to protect your shipments against any damage or loss.",
+    "Transisso's services cover most countries worldwide through a strong network of international partners, offering flexible and diverse solutions via direct delivery or approved logistics centers.",
+    "You can contact our support team via phone, email, or live chat available on our website. We provide continuous technical support and consultancy to quickly and effectively resolve any issues."
+  ]
+}
+,
 "Plane": {
   "main_services": "Main Services",
   "request_help_title": "Request Help",
@@ -369,20 +372,27 @@
 }
 ,
 "Train": {
-  "main_services": "Main Services",
+  "main_services": "Customs Clearance",
   "request_help_title": "Request Help",
-  "request_help_description": "To request assistance, please click the 'Ask Now' button and fill out all required information accurately and clearly to ensure your request is received and processed promptly by our dedicated support team.",
+  "request_help_description": "To request help, click on Ask Now and fill in the required information.",
   "ask_now": "Ask Now",
-  "title": "Train Shipping Services with Transiso",
-  "description1": "Train shipping is recognized as one of the most cost-effective and fastest methods of transporting goods over long distances within Turkey and to neighboring countries. Our train shipping services cater to large and diverse cargo, including containers, heavy goods, and sensitive products, ensuring timely and safe delivery.",
-  "description2": "Transiso leverages an advanced network of railway lines connecting key cities and vital ports, enabling us to offer comprehensive logistics solutions that combine ease of planning with flexible execution. We manage all stages of the logistics process starting from cargo pickup at warehouses, packing and loading at stations, coordination with authorities for swift customs clearance, and final delivery at the designated location.",
-  "description3": "Our team utilizes the latest satellite tracking and digital systems to monitor shipment status at every stage of transit. This transparency provides our clients with full peace of mind and optimal business planning. Additionally, Transiso offers multiple insurance options to protect shipments against potential risks such as damage, theft, or delays, guaranteeing the highest levels of security.",
-  "description4": "We are committed to providing 24/7 technical support and customer service, allowing clients to contact us for consultations, shipment tracking, or to submit complaints or suggestions. We believe in building trust with our clients through timely delivery, personalized services, and innovative solutions that meet their expectations and help them expand in both local and global markets.",
-  "card1_title": "Cost-Effective and Efficient Transport",
-  "card1_description": "We provide competitively priced train shipping services with high flexibility in scheduling trips and selecting transport routes, enabling a balance between speed and cost tailored to each client’s requirements.",
-  "card2_title": "Guaranteed Shipment Safety",
-  "card2_description": "We rely on rigorous and comprehensive monitoring of every shipment throughout its journey, coupled with full insurance coverage that protects against all potential risks to ensure our clients’ complete peace of mind."
+  "title": "Customs Clearance Experts with Transisso",
+  "description1": "In international trade and shipping, customs clearance is a critical step to ensure goods pass through customs checkpoints smoothly and without delay. At Transisso, we possess deep and specialized knowledge of Turkish and Arab customs laws and regulations, enabling us to provide comprehensive customs clearance services with the highest level of professionalism and accuracy.",
+  "description2": "We prepare and organize all necessary documents including certificates of origin, commercial invoices, packing lists, import and export permits, and health or technical certificates depending on the type of goods. Our expert team handles all official authorities swiftly and transparently, saving our clients time and effort while ensuring their shipments pass smoothly without obstacles or delays.",
+  "description3": "Our customs clearance services are flexible and capable of handling shipments of various sizes and types, whether sea, air, rail, or road transport. We understand the complexities that companies may face during clearance procedures, therefore we provide integrated solutions including legal guidance, document control, and step-by-step shipment tracking to ensure full compliance with all regulations.",
+  "description4": "Transisso relies on a team of customs experts who continuously monitor updates and changes in local and international legislation to provide the best advice and guidance to our clients. We commit to complete transparency by providing detailed periodic reports on clearance status and required documentation, which builds trust and helps our partners plan ahead to expand their commercial activities.",
+  "description5": "Additionally, we offer consultancy on best practices to minimize customs duties and taxes by utilizing trade agreements and customs exemptions available between Turkey, Arab countries, and other nations. We simplify complex procedures into clear and smooth steps, allowing our clients to focus on growing their business without worrying about customs intricacies.",
+  "description6": "Furthermore, we provide continuous 24/7 support to handle any urgent issues or inquiries related to customs clearance. Clients can directly contact us for immediate consultations, shipment status updates, or to provide feedback, ensuring an excellent and comprehensive service experience.",
+  "card1_title": "Comprehensive Document Preparation",
+  "card1_description": "We meticulously prepare all official documents, including invoices, certificates of origin, and packing lists, fully compliant with customs requirements to ensure fast and efficient clearance processes.",
+  "card2_title": "Extensive Customs Law Expertise",
+  "card2_description": "Our team includes legal experts specialized in Turkish and Arab customs laws to provide the best legal solutions that protect our clients' interests in all customs matters.",
+  "card3_title": "Direct Coordination with Official Authorities",
+  "card3_description": "We coordinate directly with customs offices and relevant government bodies to expedite procedures and guarantee full compliance with all applicable standards and regulations.",
+  "card4_title": "Continuous Technical and Advisory Support",
+  "card4_description": "We provide 24/7 support and consultancy services to meet all customer needs related to customs clearance and to respond promptly to any emergencies."
 }
+
 ,"truck":{
   "main_services": "Main Services",
   "request_help_title": "Request Assistance",
