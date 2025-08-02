@@ -99,7 +99,7 @@ const Footer = () => {
               <ul>
                 <li><Link href="/Demande">{t('footer.inquiry')}</Link></li>
                 <li><Link href="/Inscription">{t('footer.shipping')}</Link></li>
-                <li><Link href="/Client/TrackingStatus">{t('footer.tracking')}</Link></li>
+                <li><Link href="https://www.track-trace.com/">{t('footer.tracking')}</Link></li>
               </ul>
             </div>
 
