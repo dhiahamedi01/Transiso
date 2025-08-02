@@ -3,7 +3,7 @@ import pool from '@/lib/db';
 
 export async function GET(
   req: NextRequest,
-  context: any // 🟢 temporairement
+  context: any 
 ) {
   const postId = context.params.id;
   const url = new URL(req.url);

@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import pool from '@/lib/db';
 
-export async function GET(_: NextRequest, { params }: { params: { id: string } }) {
+// --- GET handler ---
+export async function GET(_: NextRequest, context: any) {
   try {
-    const faqId = parseInt(params.id);
+    const faqId = parseInt(context.params.id);
 
     if (!faqId) {
       return NextResponse.json({ error: 'Invalid ID' }, { status: 400 });
@@ -21,9 +22,10 @@ export async function GET(_: NextRequest, { params }: { params: { id: string } }
   }
 }
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+// --- PUT handler ---
+export async function PUT(req: NextRequest, context: any) {
   try {
-    const faqId = parseInt(params.id);
+    const faqId = parseInt(context.params.id);
     const body = await req.json();
     const translations = body.translations;
 
@@ -49,19 +51,20 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
   }
 }
 
-export async function DELETE(_: NextRequest, { params }: { params: { id: string } }) {
-    try {
-      const faqId = parseInt(params.id);
-  
-      if (!faqId) {
-        return NextResponse.json({ error: 'Invalid ID' }, { status: 400 });
-      }
-  
-      await pool.query(`DELETE FROM faq WHERE faq_id = ?`, [faqId]);
-  
-      return NextResponse.json({ message: 'FAQ deleted', faqId });
-    } catch (e) {
-      console.error(e);
-      return NextResponse.json({ error: 'Delete error' }, { status: 500 });
+// --- DELETE handler ---
+export async function DELETE(_: NextRequest, context: any) {
+  try {
+    const faqId = parseInt(context.params.id);
+
+    if (!faqId) {
+      return NextResponse.json({ error: 'Invalid ID' }, { status: 400 });
     }
+
+    await pool.query(`DELETE FROM faq WHERE faq_id = ?`, [faqId]);
+
+    return NextResponse.json({ message: 'FAQ deleted', faqId });
+  } catch (e) {
+    console.error(e);
+    return NextResponse.json({ error: 'Delete error' }, { status: 500 });
   }
+}
