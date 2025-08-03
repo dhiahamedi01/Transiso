@@ -1,10 +1,15 @@
-// app/api/demande/[id]/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import pool from '@/lib/db';
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+interface Params {
+  params: {
+    id: string;
+  };
+}
+
+export async function DELETE(req: NextRequest, context: Params) {
   try {
-    const id = params.id;
+    const id = context.params.id;
     const [result] = await pool.query('DELETE FROM demandes WHERE id = ?', [id]);
     return NextResponse.json({ success: true });
   } catch (error) {
