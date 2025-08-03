@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import type { ElementType } from "react";
 import Link from "next/link";
 import Image from "next/image";
-
+import RequestQuoteIcon from '@mui/icons-material/RequestQuote';
 import CardMembershipIcon from '@mui/icons-material/CardMembership';
 import {
   HomeRounded,
@@ -116,6 +116,7 @@ const MENU_SECTIONS: MenuSection[] = [
       { title: "Contact", href: "/Dashboard/contact", Icon: GroupOutlined, permission: "contact" },
       { title: "Inquiry", href: "/Dashboard/Demandes", Icon: WorkOutlineOutlined, permission: "inquiry" },
       { title: "Calendar", href: "/Dashboard/calendar", Icon: CalendarMonthOutlined, permission: "calendar" },
+      { title: "Request a quote", href: "/Dashboard/Demande_prix", Icon: RequestQuoteIcon, permission: "Request a quote" },
     ],
   },
 ];
