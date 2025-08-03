@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
 
     const servicesString = Array.isArray(services) ? services.join(', ') : '';
 
-    // ✅ Insérer dans la base de données
+    // ✅ Insertion en base de données
     const [result] = await pool.query(
       `INSERT INTO demandes (
         full_name,
@@ -44,34 +44,40 @@ export async function POST(req: NextRequest) {
       ]
     ) as [OkPacket, any];
 
-    // ✅ Envoi d'e-mail de confirmation
+    // ✅ Envoi de l'email en arabe
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,
       secure: true,
       auth: {
-        user: process.env.EMAIL_USER, // Assure-toi que c’est bien défini
+        user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
     });
 
     const mailText = `
-Nouvelle demande d'expédition:
+شكرًا لاختيارك Transiso!
 
-Nom complet: ${fullName}
-Email: ${email}
-Téléphone: ${phone}
-Destination: ${destination}
-Type d'expédition: ${shippingType}
-Poids: ${weight}
-Services supplémentaires: ${servicesString}
-Description: ${description}
+لقد تلقينا طلبك وسنرسل لك عرض السعر خلال أقل من ٢٤ ساعة.
+
+📝 تفاصيل الطلب:
+
+الاسم الكامل: ${fullName}
+البريد الإلكتروني: ${email}
+رقم الهاتف: ${phone}
+الوجهة: ${destination}
+نوع الشحن: ${shippingType}
+الوزن: ${weight}
+الخدمات الإضافية: ${servicesString || 'لا يوجد'}
+الوصف: ${description}
+
+📦 فريق Transiso يتمنى لك يومًا سعيدًا.
     `.trim();
 
     await transporter.sendMail({
       from: `"Transiso" <${process.env.EMAIL_USER}>`,
-      to: process.env.EMAIL_TO || email, // Par défaut, envoie à l’utilisateur sauf si un admin est défini
-      subject: 'Nouvelle demande d’expédition',
+      to: process.env.EMAIL_TO || email,
+      subject: 'تم استلام طلب الأسعار الخاص بك',
       text: mailText,
     });
 
