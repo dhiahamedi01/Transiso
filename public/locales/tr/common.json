@@ -580,8 +580,46 @@
     "supportImageAlt": "Destek",
     "helpText": "Herhangi bir yardıma ihtiyacınız varsa,\nbizimle iletişime geçin",
     "callNow": "Hemen ara"
-  }
-          
+  },
+  "demandeprice":"Teklif isteyin",
+  "form": {
+    "description": "Gönderinizin ayrıntılarını bize bildirin, 24 saat içinde size özel bir teklif gönderelim.",
+    "fullName": "Tam Adı",
+    "email": "E-posta",
+    "phone": "Telefon Numarası",
+    "countryCode": "-- Ülke Seçin --",
+    "destination": "Varış Noktası",
+    "destinationPlaceholder": "-- Varış Noktası Seçin --",
+    "shippingType": "Kargo Türü",
+    "descriptionLabel": "Gönderi Açıklaması",
+    "weight": "Tahmini Ağırlık/Hacim",
+    "extraServices": "Ek hizmetlere ihtiyacınız var mı?",
+    "submit": "Gönder",
+    "success": "Form başarıyla gönderildi!"
+  },
+  "shipping": {
+    "air": "Havayolu",
+    "ocean": "Denizyolu",
+    "land": "Karayolu",
+    "partial": "Parça Yük"
+  },
+  "services12": {
+    "packaging": "Paketleme",
+    "clearance": "Gümrükleme",
+    "tracking": "Takip",
+    "storage": "Depolama"
+  },
+  "dest": {
+    "saudi": "Suudi Arabistan",
+    "uae": "BAE",
+    "qatar": "Katar",
+    "bahrain": "Bahreyn",
+    "kuwait": "Kuveyt",
+    "oman": "Umman",
+    "yemen": "Yemen",
+    "lebanon": "Lübnan",
+    "jordan": "Ürdün"
+  }        
 
 
   }

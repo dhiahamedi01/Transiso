@@ -45,6 +45,11 @@ function Hero() {
           title: t('inquiryOnline'),
           breadcrumbs: [t('home'), t('inquiryOnline')],
         };
+      case '/Price':
+        return {
+          title: t('demandeprice'),
+          breadcrumbs: [t('home'), t('demandeprice')],
+        };
       default:
         return {
           title: t('notCreatedYet'),

@@ -589,7 +589,46 @@
               "helpText": "إذا كنت بحاجة إلى أي مساعدة\nتواصل معنا",
               "callNow": "اتصل الآن !"
             }
-            
+            ,
+            "demandeprice":"طلب عرض السعر",
+            "form": {
+              "description": "أخبرنا بتفاصيل شحنتك وسنرسل لك عرض سعر مخصص خلال أقل من 24 ساعة.",
+              "fullName": "الاسم الكامل",
+              "email": "البريد الإلكتروني",
+              "phone": "رقم الجوال",
+              "countryCode": "-- اختر الدولة --",
+              "destination": "الوجهة",
+              "destinationPlaceholder": "-- اختر الوجهة --",
+              "shippingType": "نوع الشحن",
+              "descriptionLabel": "وصف مختصر للشحنة",
+              "weight": "الوزن/الحجم التقريبي",
+              "extraServices": "هل تحتاج إلى خدمات إضافية؟",
+              "submit": "إرسال",
+              "success": "تم إرسال النموذج بنجاح!"
+            },
+            "shipping": {
+              "air": "جوي",
+              "ocean": "بحري",
+              "land": "بري",
+              "partial": "جزئي"
+            },
+            "services12": {
+              "packaging": "تغليف",
+              "clearance": "تخليص",
+              "tracking": "تتبع",
+              "storage": "تخزين"
+            },
+            "dest": {
+              "saudi": "السعودية",
+              "uae": "الإمارات",
+              "qatar": "قطر",
+              "bahrain": "البحرين",
+              "kuwait": "الكويت",
+              "oman": "عُمان",
+              "yemen": "اليمن",
+              "lebanon": "لبنان",
+              "jordan": "الأردن"
+            }
 
 
             }

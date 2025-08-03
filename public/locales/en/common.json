@@ -590,10 +590,46 @@
     "supportImageAlt": "Support",
     "helpText": "If you need any help,\ncontact us",
     "callNow": "Call now"
+  },
+  "demandeprice":"Request a quote",
+  "form": {
+    "description": "Tell us your shipment details and we will send you a quote in less than 24 hours.",
+    "fullName": "Full Name",
+    "email": "Email",
+    "phone": "Phone Number",
+    "countryCode": "-- Select Country --",
+    "destination": "Destination",
+    "destinationPlaceholder": "-- Select Destination --",
+    "shippingType": "Shipping Type",
+    "descriptionLabel": "Short Shipment Description",
+    "weight": "Estimated Weight/Volume",
+    "extraServices": "Do you need extra services?",
+    "submit": "Submit",
+    "success": "Form submitted successfully!"
+  },
+  "shipping": {
+    "air": "Air",
+    "ocean": "Ocean",
+    "land": "Land",
+    "partial": "Partial"
+  },
+  "services12": {
+    "packaging": "Packaging",
+    "clearance": "Clearance",
+    "tracking": "Tracking",
+    "storage": "Storage"
+  },
+  "dest": {
+    "saudi": "Saudi Arabia",
+    "uae": "UAE",
+    "qatar": "Qatar",
+    "bahrain": "Bahrain",
+    "kuwait": "Kuwait",
+    "oman": "Oman",
+    "yemen": "Yemen",
+    "lebanon": "Lebanon",
+    "jordan": "Jordan"
   }
-  
-  
-
 
   }
   

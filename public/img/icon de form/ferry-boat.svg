@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48.277" height="24.502" viewBox="0 0 48.277 24.502">
+  <g id="ferry-boat" transform="translate(0 0)">
+    <path id="Path_38862" data-name="Path 38862" d="M48.277,352.5c-2.484,0-3.767,2.423-6.035,2.423-2.035,0-3.278-1.952-5.307-2.352m-1.455,0c-2.03.4-3.272,2.352-5.307,2.352-2.267,0-3.55-2.423-6.035-2.423s-3.767,2.423-6.035,2.423-3.55-2.423-6.035-2.423-3.767,2.423-6.035,2.423S2.484,352.5,0,352.5" transform="translate(0 -331.171)" fill="none" stroke="#0d3548" stroke-miterlimit="22.926" stroke-width="1.5" fill-rule="evenodd"/>
+    <path id="Path_38863" data-name="Path 38863" d="M67.431,244.547c2.194-1.267,4.089-3.19,5.189-7.587l1.414-5.658H60.6l-1.414,2.829H30v2.829l5.572,7.355" transform="translate(-27.171 -221.402)" fill="none" stroke="#0d3548" stroke-miterlimit="22.926" stroke-width="1.5" fill-rule="evenodd"/>
+    <path id="Path_38864" data-name="Path 38864" d="M392,136.2l1.414-4.243h4.95m0-5.657v9.9" transform="translate(-355.038 -126.304)" fill="none" stroke="#0d3548" stroke-miterlimit="22.926" stroke-width="1.5" fill-rule="evenodd"/>
+    <line id="Line_1" data-name="Line 1" y2="4.243" transform="translate(40.499 1.414)" fill="none" stroke="#0d3548" stroke-miterlimit="22.926" stroke-width="1.5"/>
+    <line id="Line_2" data-name="Line 2" x2="42.733" transform="translate(2.849 15.51)" fill="none" stroke="#0d3548" stroke-miterlimit="22.926" stroke-width="1.5"/>
+    <path id="Path_38865" data-name="Path 38865" d="M422.31,261.3h1.414m-4.243,0H420.9" transform="translate(-379.927 -248.573)" fill="none" stroke="#0d3548" stroke-miterlimit="22.926" stroke-width="1.5" fill-rule="evenodd"/>
+    <path id="Path_38866" data-name="Path 38866" d="M104.143,216.3a2.122,2.122,0,1,1-2.122,2.122,2.122,2.122,0,0,1,2.122-2.122Zm-12.022,0A2.122,2.122,0,1,1,90,218.424,2.122,2.122,0,0,1,92.121,216.3Z" transform="translate(-81.512 -207.816)" fill="none" stroke="#0d3548" stroke-miterlimit="22.926" stroke-width="1.5" fill-rule="evenodd"/>
+    <path id="Path_38867" data-name="Path 38867" d="M64.11,190.545H61.281v-2.829A1.419,1.419,0,0,1,62.7,186.3H80.841a2.128,2.128,0,0,1,2.122,2.122v2.122H80.133m-4,0H68.111" transform="translate(-55.502 -180.645)" fill="none" stroke="#0d3548" stroke-miterlimit="22.926" stroke-width="1.5" fill-rule="evenodd"/>
+    <path id="Path_38868" data-name="Path 38868" d="M102.531,152.338l2.122-3.536h3.061m1.414,0h3.061l2.829,3.536" transform="translate(-92.863 -146.681)" fill="none" stroke="#0d3548" stroke-miterlimit="22.926" stroke-width="1.5" fill-rule="evenodd"/>
+  </g>
+</svg>

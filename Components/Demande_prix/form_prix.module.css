@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+@font-face {
+    font-family: 'Noto Kufi Arabic';
+    src: url('/Font/NotoKufiArabic-VariableFont_wght.ttf') format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+.container {
+  display: flex;
+  min-height: 100vh;
+  font-family: "Noto Kufi Arabic", sans-serif !important;
+  background-color: #f0f2f5;
+  padding-inline: 15%;
+}
+.arabic{
+  font-family: "Noto Kufi Arabic", sans-serif !important;
+}
+.partie_droite{
+    flex: 1;
+    display: flex ;
+    flex-direction: column;
+}
+.imageSide {
+
+    position: relative;  /* <-- ajouté */
+    height: 100vh;       /* <-- à ajuster selon ce que tu veux */
+    background-color: #eee; /* optionnel, pour voir la zone */
+
+  }
+  .blueBlock {
+    height: 35vh !important; /* reste de la hauteur */
+    width: 100%;
+    background-color: #0D3548 !important; /* bleu */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    padding: 0 20px;
+     font-family: "Noto Kufi Arabic", sans-serif !important;
+    font-size: 1.1rem;
+  }
+  .redButton {
+    background-color: #D32F2F; /* أحمر */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    margin-top: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+     font-family: "Noto Kufi Arabic", sans-serif !important;
+  }
+  
+  .redButton:hover {
+    background-color: #bf2323;
+  }
+  .description {
+    text-align: center;
+    margin-top: -1rem;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+  }
+  
+  .iconInBlock {
+    width: 108px;
+    height: 108px;
+    object-fit: contain;
+  }
+.formSide {
+  flex: 2.5;
+  padding: 3rem 2rem;
+  background-color: white;
+  box-shadow: -4px 0 15px rgba(0, 0, 0, 0.05);
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0C3548;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.input, .select {
+  width: 100%;
+  padding: 0.7rem;
+  margin-top: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: #fff;
+}
+
+.fieldset {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 12px;
+  background-color: #fafafa;
+}
+
+.legend {
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.checkboxLabel {
+  display: block;
+  margin-top: 0.5rem;
+}
+.footer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+.submitBtn {
+  height: 45px;
+  width: 240px;
+  background-color: #D32F2F;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+   font-family: "Noto Kufi Arabic", sans-serif !important;
+  transition: background-color 0.3s ease;
+}
+
+.submitBtn:hover {
+  background-color: #bf2323;
+}
+
+.phoneContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.phoneGroup {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.3rem;
+}
+
+.phoneGroup select {
+  width: 30%;
+}
+
+.phoneGroup input {
+  width: 70%;
+}
+
+.optionGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.iconOption {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.iconOption:hover {
+  background-color: #f0f0f0;
+}
+
+.iconOption input {
+  margin-left: 4px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+  .container {
+    padding-inline: 0%;
+  }
+  .imageSide {
+    display: none;
+  }
+
+  .formSide {
+    border-radius: 0;
+    padding: 2rem 1.2rem;
+  }
+}
+.iconImage {
+    width: 24px;
+    height: 24px;
+  }
+
+
+.input:focus,
+.select:focus {
+  outline: none;
+  box-shadow: none;
+}
+.select option {
+    font-family: 'Cairo', sans-serif !important;
+    font-size: 1rem;
+    color: #333;
+    background-color: #fff;
+  }
+  .select {
+     font-family: "Noto Kufi Arabic", sans-serif !important; /* ✅ Appliqué au <select> */
+    font-size: 1rem;
+    color: #333;
+  }
+  
