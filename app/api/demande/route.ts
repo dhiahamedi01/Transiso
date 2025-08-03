@@ -71,7 +71,7 @@ export async function POST(req: NextRequest) {
 الخدمات الإضافية: ${servicesString || 'لا يوجد'}
 الوصف: ${description}
 
-📦 فريق Transiso يتمنى لك يومًا سعيدًا.
+📦Transiso فريق  يتمنى لك يومًا سعيدًا.
     `.trim();
 
     await transporter.sendMail({
