@@ -208,8 +208,8 @@ function Nav() {
         {!isMobile && (
           <div className={styles.right}>
             <LanguageSelector />
-            <MuiLink component={Link} href="/Demande" underline="none" className={`${styles.Arabe} ${styles.link2}`}>
-              {t('inquiryOnline')}
+            <MuiLink component={Link} href="/Price" underline="none" className={`${styles.Arabe} ${styles.link2}`}>
+            {t('demande_prix')}
             </MuiLink>
             <Typography className={styles.Arabe}>{t('followUs')}</Typography>
 
