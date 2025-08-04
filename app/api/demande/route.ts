@@ -46,12 +46,12 @@ export async function POST(req: NextRequest) {
 
     // ✅ Envoi de l'email en arabe
     const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 465,
+      host: 'smtp.gmail.com',     
+      port: 465,                  
       secure: true,
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: 'dhiahamedi01@gmail.com',   
+        pass: 'ybpczdvdzaalhobu',          
       },
     });
 
@@ -75,8 +75,8 @@ export async function POST(req: NextRequest) {
     `.trim();
 
     await transporter.sendMail({
-      from: `"Transiso" <${process.env.EMAIL_USER}>`,
-      to: process.env.EMAIL_TO || email,
+      from: `"Transiso" <dhiahamedi01@gmail.com>`, 
+      to: email,  
       subject: 'تم استلام طلب الأسعار الخاص بك',
       text: mailText,
     });
