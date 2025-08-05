@@ -1,3 +1,4 @@
+// /app/api/mail/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
@@ -9,19 +10,19 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Champs manquants' }, { status: 400 });
     }
 
-    // Configurer nodemailer
     const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 465,
-      secure: true,
+      host: 'smtp.hostinger.com',
+      port: 587,
+      secure: false, // TLS
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: 'Info@transisologistic.com',
+        pass: 'Transiso@2025',
       },
     });
 
+ 
     await transporter.sendMail({
-      from: `"Transiso" <${process.env.EMAIL_USER}>`,
+      from: `"Transiso" <Info@transisologistic.com>`,
       to,
       subject,
       text,
