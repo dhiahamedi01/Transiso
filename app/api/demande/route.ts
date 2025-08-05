@@ -44,14 +44,14 @@ export async function POST(req: NextRequest) {
       ]
     ) as [OkPacket, any];
 
-    // ✅ Envoi de l'email en arabe
+    // ✅ Envoi de l'email via Hostinger
     const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',     
-      port: 465,                  
-      secure: true,
+      host: 'smtp.hostinger.com',
+      port: 587,
+      secure: false, // Pour TLS sur port 587
       auth: {
-        user: 'dhiahamedi01@gmail.com',   
-        pass: 'ybpczdvdzaalhobu',          
+        user: 'Info@transisologistic.com',
+        pass: 'Transiso@2025',
       },
     });
 
@@ -71,12 +71,12 @@ export async function POST(req: NextRequest) {
 الخدمات الإضافية: ${servicesString || 'لا يوجد'}
 الوصف: ${description}
 
-📦Transiso فريق  يتمنى لك يومًا سعيدًا.
+📦 فريق Transiso يتمنى لك يومًا سعيدًا.
     `.trim();
 
     await transporter.sendMail({
-      from: `"Transiso" <dhiahamedi01@gmail.com>`, 
-      to: email,  
+      from: `"Transiso" <Info@transisologistic.com>`, // adresse mise à jour
+      to: email,
       subject: 'تم استلام طلب الأسعار الخاص بك',
       text: mailText,
     });

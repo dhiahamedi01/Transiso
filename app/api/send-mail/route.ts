@@ -9,19 +9,18 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Champs manquants' }, { status: 400 });
     }
 
-
     const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 465,
-      secure: true,
+      host: 'smtp.hostinger.com',
+      port: 587,
+      secure: false, 
       auth: {
-        user: 'dhiahamedi01@gmail.com',
-        pass: 'ybpczdvdzaalhobu',
+        user: 'Info@transisologistic.com',
+        pass: 'Transiso@2025',
       },
     });
 
     await transporter.sendMail({
-      from: `"Transiso" <dhiahamedi01@gmail.com>`,
+      from: `"Transiso" <Info@transisologistic.com>`,
       to,
       subject,
       text,
