@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import pool from '@/lib/db';
+import nodemailer from 'nodemailer';
 
 export async function POST(request: NextRequest) {
   try {
@@ -8,7 +9,7 @@ export async function POST(request: NextRequest) {
 
     if (!name || !email || !message) {
       return NextResponse.json(
-        { message: 'Name, email and message are required.' },
+        { message: 'Name, email, and message are required.' },
         { status: 400 }
       );
     }
@@ -18,17 +19,52 @@ export async function POST(request: NextRequest) {
         'INSERT INTO contact (name, email, phone, subject, message) VALUES (?, ?, ?, ?, ?)',
         [name, email, phone || null, subject || null, message]
       );
-      return NextResponse.json({ message: 'Message received.' }, { status: 201 });
     } catch (error) {
       console.error('Database error:', error);
-      return NextResponse.json({ message: 'Database error.' }, { status: 500 });
+      return NextResponse.json({ message: 'Error saving to database.' }, { status: 500 });
     }
+
+
+    try {
+      const transporter = nodemailer.createTransport({
+        host: 'smtp.hostinger.com',
+        port: 587,
+        secure: false,
+        auth: {
+          user: 'Info@transisologistic.com',
+          pass: 'Transiso@2025',
+        },
+      });
+
+      const mailText = `
+📩 New message received via the contact form:
+
+👤 Full Name: ${name}
+📧 Email Address: ${email}
+📞 Phone Number: ${phone || 'Not provided'}
+📝 Subject: ${subject || 'Not specified'}
+
+💬 Message:
+${message}
+      `.trim();
+
+      await transporter.sendMail({
+        from: `"Transiso Contact" <Info@transisologistic.com>`,
+        to: 'Info@transisologistic.com', 
+        subject: `📬 New contact message from ${name}`,
+        text: mailText,
+      });
+
+    } catch (mailError) {
+      console.error('Error sending contact email:', mailError);
+    }
+
+    return NextResponse.json({ message: 'Message received and email sent successfully.' }, { status: 201 });
   } catch (error) {
-    console.error('Invalid JSON or other error:', error);
+    console.error('Invalid request body or other error:', error);
     return NextResponse.json({ message: 'Invalid request body.' }, { status: 400 });
   }
 }
-
 
 export async function GET() {
   try {
@@ -36,7 +72,6 @@ export async function GET() {
     return NextResponse.json(rows, { status: 200 });
   } catch (error) {
     console.error('Database error:', error);
-    return NextResponse.json({ message: 'Database error.' }, { status: 500 });
+    return NextResponse.json({ message: 'Error retrieving contact messages.' }, { status: 500 });
   }
 }
-
