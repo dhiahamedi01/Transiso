@@ -4,20 +4,25 @@
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  height: 25vh;
+  justify-content: center;
+  height: 30vh;
+  padding: 2rem 0; 
 }
 
 .carousel_container {
-  width: 90%;
-  max-width: 1000px;
+  width: 95%;
+  max-width: 1200px;
   margin: 0 auto;
+  position: relative; /* ⬅️ nécessaire pour le positionnement de la pagination */
+  padding-bottom: 50px; /* optionnel mais aide à espacer */
 }
+
 
 .image_wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80px;
+  height: 60px; /* augmenté */
 }
 
 .brand_image {
@@ -26,18 +31,19 @@
   object-fit: contain;
 }
 
+/* Cache les boutons sur mobile */
 @media (max-width: 767px) {
   .swiper-button-next,
   .swiper-button-prev {
     display: none !important;
   }
 }
-/* Exemple dans Carrousel.module.css */
-.swiper-pagination {
-  margin-top: 20px; /* ajuste la valeur comme tu veux */
-}
-/* Carrousel.module.css */
 
 .carousel_container :global(.swiper-pagination) {
-  margin-top: 20px;
+  position: absolute;
+  bottom: -30px; /* pousse vers le bas en dehors des images */
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }

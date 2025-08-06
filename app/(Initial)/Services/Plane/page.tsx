@@ -12,6 +12,7 @@ import { Typography } from "@mui/material";
 import ContactInfoCard from "@/Components/Service/Side_card/ContactInfoCard";
 import OtherServices from "@/Components/Service/Side_card/OtherServices";
 import { useTranslation } from "react-i18next";
+import Link from "next/link";
 
 function Page() {
   const { t, i18n } = useTranslation();
@@ -50,6 +51,7 @@ function Page() {
               </div>
 
               <div className={styles.button_demande}>
+                <Link href='/Demande'>
                 <button className={styles.btn_arabic}>
                   <Image
                     src="/img/Background/email.svg"
@@ -60,6 +62,7 @@ function Page() {
                   />
                   {t("Plane.ask_now")}
                 </button>
+                </Link>
               </div>
             </div>
 

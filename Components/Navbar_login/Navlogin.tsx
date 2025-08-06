@@ -437,6 +437,20 @@ function Nav() {
                 </MuiLink>
               </ListItem>
             )}
+   {isMobile && (
+              <ListItem disablePadding>
+                <MuiLink
+                  component={Link}
+                  href="/Demande"
+                  underline="none"
+                  className={`${styles.Arabe} ${styles.link}`}
+                  onClick={closeDrawer}
+                  sx={{ display: 'block', width: '100%', py: 1, fontWeight: 'bold' ,textAlign:'right',paddingRight:'10px'}}
+                >
+                  {t('inquiryOnline')}
+                </MuiLink>
+              </ListItem>
+            )}
           </List>
           <Divider sx={{ my: 1 }} />
           <Box sx={{ mt: 2 }}>
@@ -444,16 +458,7 @@ function Nav() {
               {t('workingHours')}
             </Typography>
             <LanguageSelector />
-            <MuiLink
-              component={Link}
-              href="#"
-              underline="none"
-              className={`${styles.Arabe} ${styles.link}`}
-              color="inherit"
-              onClick={closeDrawer}
-            >
-              {t('inquiryOnline')}
-            </MuiLink>
+  
             <Typography className={styles.Arabe} sx={{ mt: 1 }}>
               {t('followUs')}
             </Typography>

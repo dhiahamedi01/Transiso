@@ -11,7 +11,7 @@ import ContactInfoCard from '@/Components/Service/Side_card/ContactInfoCard';
 import { Typography } from '@mui/material';
 import OtherServices from '@/Components/Service/Side_card/OtherServices';
 import { useTranslation } from 'react-i18next';
-
+import Link from 'next/link'
 function Page() {
   const { t, i18n } = useTranslation();
   const isRtl = i18n.language === 'ar';
@@ -37,10 +37,12 @@ function Page() {
               <h2 className={styles.titre_demande}>{t('Train.request_help_title')}</h2>
               <div className={styles.Description_demande}>{t('Train.request_help_description')}</div>
               <div className={styles.button_demande}>
+              <Link href='/Demande'>
                 <button className={styles.btn_arabic}>
                   <Image src="/img/Background/email.svg" alt="icon" className={styles.btn_icon} width={20} height={20} />
                   {t('Train.ask_now')}
                 </button>
+              </Link>
               </div>
             </div>
             <div className={styles.bottom_image_container}>

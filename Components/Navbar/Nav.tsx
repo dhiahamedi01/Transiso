@@ -282,7 +282,7 @@ function Nav() {
                   underline="none"
                   className={`${styles.Arabe} ${styles.link}`}
                   onClick={closeDrawer}
-                  sx={{ display: 'block', width: '100%', py: 1, fontWeight: 'bold' }}
+                  sx={{ display: 'block', width: '100%', py: 1}}
                 >
                   {t('tracking_d')}
                 </MuiLink>
@@ -297,14 +297,28 @@ function Nav() {
                   underline="none"
                   className={`${styles.Arabe} ${styles.link}`}
                   onClick={closeDrawer}
-                  sx={{ display: 'block', width: '100%', py: 1, fontWeight: 'bold'}}
+                  sx={{ display: 'block', width: '100%', py: 1}}
                 >
                   {t('trackOrder')}
                 </MuiLink>
               </ListItem>
             )}
-          
+                 {isMobile && (
+              <ListItem disablePadding>
+                <MuiLink
+                  component={Link}
+                   href="/Demande"
+                  underline="none"
+                  className={`${styles.Arabe} ${styles.link}`}
+                  onClick={closeDrawer}
+                  sx={{ display: 'block', width: '100%', py: 1}}
+                >
+                  {t('inquiryOnline')}
+                </MuiLink>
+              </ListItem>
+            )}
           </List>
+ 
 
           <Divider sx={{ my: 1 }} />
           <Box sx={{ mt: 2 }}>
@@ -314,17 +328,7 @@ function Nav() {
 
             <LanguageSelector />
 
-            <MuiLink
-              component={Link}
-              href="#"
-              underline="none"
-              className={`${styles.Arabe} ${styles.link}`}
-              color="inherit"
-              onClick={closeDrawer}
-            >
-              {t('inquiryOnline')}
-            </MuiLink>
-
+    
             <Typography className={styles.Arabe} sx={{ mt: 1 }}>
               {t('followUs')}
             </Typography>

@@ -13,9 +13,11 @@ import Style from "./Carrousel.module.css";
 const images = [
   "/img/parth/Aramex.png",
   "/img/parth/CMA.png",
+  "/img/parth/hapag.png",
   "/img/parth/DHL-Emblem.png",
+  "/img/parth/maersk.png",
   "/img/parth/fedex.png",
-  
+  "/img/parth/msc.png",
 ];
 
 export default function CarouselSwiper() {
@@ -23,10 +25,9 @@ export default function CarouselSwiper() {
 
   useEffect(() => {
     if (swiperRef.current) {
-      // ici on précise que c’est un HTMLElement pour accéder à style
       const paginationEl = swiperRef.current.el.querySelector(".swiper-pagination") as HTMLElement | null;
       if (paginationEl) {
-        paginationEl.style.marginTop = "70px";
+        paginationEl.style.marginTop = "70px"; // plus éloigné
       }
     }
   }, []);
@@ -40,14 +41,14 @@ export default function CarouselSwiper() {
           }}
           modules={[Navigation, Pagination, Autoplay]}
           slidesPerView={4}
-          spaceBetween={20}
+          spaceBetween={30} // augmenté ici
           loop={true}
           autoplay={{ delay: 2500, disableOnInteraction: false }}
           navigation={false}
-          pagination={{ clickable: false }}
+          pagination={{ clickable: true }}
           breakpoints={{
-            0: { slidesPerView: 2, spaceBetween: 10 },
-            768: { slidesPerView: 4, spaceBetween: 20 },
+            0: { slidesPerView: 2, spaceBetween: 15 },
+            768: { slidesPerView: 4, spaceBetween: 30 },
           }}
         >
           {images.map((src, index) => (

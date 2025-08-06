@@ -5,6 +5,7 @@ import Image from 'next/image';
 import styles from './Service.module.css';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
+import Link from 'next/link'
 
 interface ServiceData {
   titre_globale?: string;
@@ -73,6 +74,7 @@ const Service = () => {
               ))}
             </div>
             <div className={styles['footer-servcie']}>
+              <Link href='/Contact'>
               <button className={styles['service-btn']}>
                 <Image
                   src="/img/icon/customer-service.svg"
@@ -83,6 +85,7 @@ const Service = () => {
                 />
                 &ensp; {isRTL ? 'تواصل معنا' : 'Contact us'}
               </button>
+              </Link>
             </div>
           </div>
           <div className={styles.part2}>
