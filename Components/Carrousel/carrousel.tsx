@@ -12,12 +12,12 @@ import Style from "./Carrousel.module.css";
 
 const images = [
   "/img/parth/Aramex.png",
-  "/img/parth/CMA.png",
   "/img/parth/hapag.png",
   "/img/parth/DHL.svg",
   "/img/parth/maersk.png",
   "/img/parth/fedex.png",
   "/img/parth/msc.png",
+  "/img/parth/CMA.png",
 ];
 
 export default function CarouselSwiper() {
