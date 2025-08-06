@@ -620,7 +620,56 @@
     "lebanon": "Lübnan",
     "jordan": "Ürdün"
   } ,
-  "demande_prix":"Fiyat teklifi iste"
+  "demande_prix":"Fiyat teklifi iste",
+  "step1": "Birinci Adım",
+  "step2": "İkinci Adım",
+  "step3": "Üçüncü Adım",
+  "step4": "Dördüncü Adım",
+  "previous": "Önceki",
+  "next": "Sonraki",
+  "submit": "Gönder",
+  "sending": "Gönderiliyor...",
+  "form2": {
+    "success": "Talebiniz başarıyla gönderildi!",
+    "mail_error": "E-posta gönderme hatası",
+    "shipping_from": "Nereden gönderiyorsunuz?",
+    "shipping_placeholder": "Gönderim yerini girin",
+    "shipping_to": "Nereye gönderiyorsunuz?"
+  },
+  "email2": {
+    "subject": "Talebiniz için teşekkür ederiz",
+    "body": "Merhaba {{name}},\n\nGönderi talebinizi bize ilettiğiniz için teşekkür ederiz. Talebinizi inceleyip en kısa sürede sizinle iletişime geçeceğiz.\n\nSaygılarımızla,\nDestek Ekibi."
+  },
+  "form4": {
+    "name": "İsim *",
+    "name_placeholder": "İsminizi girin",
+    "email": "E-posta *",
+    "email_placeholder": "E-postanızı girin",
+    "phone": "Telefon *",
+    "phone_placeholder": "Telefon numaranızı girin",
+    "shipping_date": "Gönderi Tarihi *",
+    "weight": "Ağırlık (kg)",
+    "weight_placeholder": "örn., 10",
+    "volume": "Hacim (m³)",
+    "volume_placeholder": "örn., 2.5",
+    "cargo_details": "Kargo Detayları",
+    "cargo_placeholder": "Kargo hakkında detayları girin",
+    "notes": "Ek Notlar",
+    "notes_placeholder": "Herhangi ek notları girin",
+    "file_upload": "Dosya Yükle (isteğe bağlı)"
+  },
+  "main_services": "Ana Hizmetler",
+  "list_icon_alt": "Liste simgesi",
+  "shipping_instructions": "Bir dakika ayırın ve nakliye fiyatlarını kolayca almak için adımları izleyin, en kısa sürede size geri dönüş yapılacaktır.",
+  "step11": [
+    { "id": 1, "name": "Özelleştirilmiş Tedarik Zinciri Çözümleri" },
+    { "id": 2, "name": "Gönderilerin Paketlenmesi ve Güvenliği" },
+    { "id": 3, "name": "İthalat ve İhracat Yönetimi" },
+    { "id": 4, "name": "Gümrükleme" },
+    { "id": 5, "name": "Hızlı Hava Kargo" },
+    { "id": 6, "name": "Uluslararası ve Yurtiçi Karayolu Nakliyesi" },
+    { "id": 7, "name": "Deniz Nakliyesi (Parçalı ve Tam – LCL / FCL)" }
+  ]
 
 
   }

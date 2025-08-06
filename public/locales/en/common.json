@@ -630,7 +630,56 @@
     "lebanon": "Lebanon",
     "jordan": "Jordan"
   },
-  "demande_prix":"Request a quote"
+  "demande_prix":"Request a quote",
+  "step1": "Step One",
+  "step2": "Step Two",
+  "step3": "Step Three",
+  "step4": "Step Four",
+  "previous": "Previous",
+  "next": "Next",
+  "submit": "Submit",
+  "sending": "Sending...",
+  "form2": {
+    "success": "The request has been successfully submitted!",
+    "mail_error": "Error sending email",
+    "shipping_from": "Where are you shipping from?",
+    "shipping_placeholder": "Enter shipping location",
+    "shipping_to": "Where are you shipping to?"
+  },
+  "email2": {
+    "subject": "Thank you for your request",
+    "body": "Hello {{name}},\n\nThank you for submitting your shipping request. We will review your request and get back to you soon.\n\nBest regards,\nSupport Team."
+  },
+  "form4": {
+    "name": "Name *",
+    "name_placeholder": "Enter your name",
+    "email": "Email *",
+    "email_placeholder": "Enter your email",
+    "phone": "Phone *",
+    "phone_placeholder": "Enter your phone number",
+    "shipping_date": "Shipping Date *",
+    "weight": "Weight (kg)",
+    "weight_placeholder": "e.g., 10",
+    "volume": "Volume (m³)",
+    "volume_placeholder": "e.g., 2.5",
+    "cargo_details": "Cargo Details",
+    "cargo_placeholder": "Enter details about the cargo",
+    "notes": "Additional Notes",
+    "notes_placeholder": "Enter any additional notes",
+    "file_upload": "Upload File (optional)"
+  },
+  "main_services": "Main Services",
+  "list_icon_alt": "List icon",
+  "shipping_instructions": "Take a moment and follow the steps to get shipping rates easily, you will be responded to as soon as possible.",
+  "step11": [
+    { "id": 1, "name": "Customized Supply Chain Solutions" },
+    { "id": 2, "name": "Packaging and Securing Shipments" },
+    { "id": 3, "name": "Import and Export Management" },
+    { "id": 4, "name": "Customs Clearance" },
+    { "id": 5, "name": "Express Air Freight" },
+    { "id": 6, "name": "International and Domestic Land Freight" },
+    { "id": 7, "name": "Sea Freight (Partial and Full – LCL / FCL)" }
+  ]
 
   }
   

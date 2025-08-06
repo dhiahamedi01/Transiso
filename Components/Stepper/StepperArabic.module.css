@@ -80,7 +80,6 @@
   font-family: "Noto Kufi Arabic", sans-serif;
   border: 1px solid #ccc;
   border-radius: 8px;
-  direction: rtl;
   color: #0c3547;
   outline: none;
   background: #fff;
@@ -89,7 +88,6 @@
 }
 .Arabic2 {
   font-family: "Noto Kufi Arabic", sans-serif !important;
-  direction: rtl;
   font-size: 18px !important;
   font-weight: 500;
   color: #0c3645 !important;
@@ -135,7 +133,6 @@
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  direction: rtl;
   font-family: "Noto Kufi Arabic", sans-serif;
   font-size: 15px;
   color: #0c3547;

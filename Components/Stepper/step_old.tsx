@@ -102,7 +102,6 @@ export default function StepperArabic() {
       dayjs.locale("en"); // ou la locale par défaut
     }
   }, [direction]);
-  const step1 = t("step11", { returnObjects: true }) as ServiceType[];
 
   const steps = [
     { label: t("step1"), icon: "/img/icon/step1.svg" },
@@ -271,12 +270,12 @@ export default function StepperArabic() {
 
           {activeStep === 0 && (
             <Step1
-            services={step1}
-            selected={selected}
-            loadingServices={loadingServices}
-            fetchError={fetchError}
-            handleRadioChange={handleRadioChange}
-            setSelected={setSelected}
+              services={services}
+              selected={selected}
+              loadingServices={loadingServices}
+              fetchError={fetchError}
+              handleRadioChange={handleRadioChange}
+              setSelected={setSelected}
             />
           )}
 
