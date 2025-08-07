@@ -38,7 +38,9 @@ const LanguageSelector = () => {
     setSelectedLang(lang);
     setIsOpen(false);
     i18n.changeLanguage(lang.code);
+    localStorage.setItem('i18nextLng', lang.code); // <-- sauvegarder dans localStorage
   };
+  
   
 
   return (

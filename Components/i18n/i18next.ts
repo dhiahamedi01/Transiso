@@ -9,11 +9,15 @@ export const languages = ['en', 'tr', 'ar'] as const;
 export const fallbackLng = 'ar';
 export const defaultNS = 'common';
 
+// Récupérer la langue stockée dans localStorage si elle existe
+const storedLng = typeof window !== 'undefined' ? localStorage.getItem('i18nextLng') : null;
+const initialLng = storedLng && languages.includes(storedLng as any) ? storedLng : fallbackLng;
+
 if (!i18next.isInitialized) {
   i18next
     .use(initReactI18next)
     .init({
-      lng: fallbackLng,
+      lng: initialLng,
       fallbackLng,
       supportedLngs: languages,
       defaultNS,
