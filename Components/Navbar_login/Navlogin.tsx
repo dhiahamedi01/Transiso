@@ -437,6 +437,20 @@ function Nav() {
                 </MuiLink>
               </ListItem>
             )}
+            {isMobile && (
+              <ListItem disablePadding>
+                <MuiLink
+                  component={Link}
+                  href="/Price"
+                  underline="none"
+                  className={`${styles.Arabe} ${styles.link}`}
+                  onClick={closeDrawer}
+                  sx={{ display: 'block', width: '100%', py: 1, fontWeight: 'bold' ,textAlign:'right',paddingRight:'10px'}}
+                >
+                  {t('demandeprice')}
+                </MuiLink>
+              </ListItem>
+            )}
    {isMobile && (
               <ListItem disablePadding>
                 <MuiLink
