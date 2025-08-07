@@ -431,7 +431,7 @@ function Nav() {
                   underline="none"
                   className={`${styles.Arabe} ${styles.link}`}
                   onClick={closeDrawer}
-                  sx={{ display: 'block', width: '100%', py: 1, fontWeight: 'bold' ,textAlign:'right',paddingRight:'10px'}}
+                  sx={{ display: 'block', width: '100%', py: 1 ,textAlign:'right',paddingRight:'10px'}}
                 >
                   {t('tracking_d')}
                 </MuiLink>
@@ -445,7 +445,7 @@ function Nav() {
                   underline="none"
                   className={`${styles.Arabe} ${styles.link}`}
                   onClick={closeDrawer}
-                  sx={{ display: 'block', width: '100%', py: 1, fontWeight: 'bold' ,textAlign:'right',paddingRight:'10px'}}
+                  sx={{ display: 'block', width: '100%', py: 1 ,textAlign:'right',paddingRight:'10px'}}
                 >
                   {t('demandeprice')}
                 </MuiLink>
@@ -459,7 +459,7 @@ function Nav() {
                   underline="none"
                   className={`${styles.Arabe} ${styles.link}`}
                   onClick={closeDrawer}
-                  sx={{ display: 'block', width: '100%', py: 1, fontWeight: 'bold' ,textAlign:'right',paddingRight:'10px'}}
+                  sx={{ display: 'block', width: '100%', py: 1 ,textAlign:'right',paddingRight:'10px'}}
                 >
                   {t('inquiryOnline')}
                 </MuiLink>
