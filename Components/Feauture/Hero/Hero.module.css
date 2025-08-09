@@ -107,7 +107,9 @@
   .hero {
     height: 50vh;
   }
-
+  .photoTopLeft{
+    display: none !important;
+  }
   .hero-content h1 {
     font-size: 2rem;
   }
@@ -121,4 +123,24 @@
   .hero {
     height: 250px; /* hauteur réduite sur mobile */
   }
+}
+@keyframes floatUp {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-15px);
+  }
+}
+
+.photoTopLeft {
+  position: absolute;
+  top: 0px;
+  left: 120px;
+  z-index: 3;
+  animation: floatUp 0.9s ease-in-out infinite alternate; 
+}
+
+.photoTopLeft img {
+  border-radius: 10px;
 }
